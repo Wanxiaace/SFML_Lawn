@@ -1,0 +1,397 @@
+#include "../include/Particle.h"
+#include "../pugixml/pugixml.hpp"
+#include <map>
+
+sgf::Particle* sgf::Emitter::Emitt()
+{
+	Particle* particle = new Particle();
+
+	particle->mImageType = mImageType;
+	particle->mLifeTimeMax = mLifeTimeMax;
+	particle->mImages = mImages.data();
+	particle->mImageOffsetX = mImageOffsetX;
+	particle->mImageOffsetY = mImageOffsetY;
+	particle->mX = mX;
+	particle->mY = mY;
+	particle->mZ = mZ;
+	particle->mScaleF = mScaleF;
+	float scRange = RandF(-mImageScaleRangeF, mImageScaleRangeF);
+	particle->mScaleF += scRange;
+	
+	particle->mTransScaleF = mTransScaleF;
+	particle->mGravity = mGravity;
+	particle->mImageNumber = mImageNumber;
+	particle->mUseFade = mUseFade;
+
+	switch (mMotionType)
+	{
+	case sgf::EMITTER_NORMAL:
+	{
+		particle->mMotionType = PARTICLE_MOTION_NORMAL;
+		particle->Init();
+		particle->mHasShadowed = true;
+		particle->mCostingLifeTime = true;
+		particle->mMoving = false;
+		break;
+	}
+	case sgf::EMITTER_THROW_FAST:
+	{
+		particle->mMotionType = PARTICLE_MOTION_THROW;
+		particle->Init();
+		particle->mHasShadowed = true;
+		particle->mCostingLifeTime = true;
+		particle->mMoving = true;
+		float angle = RandF(mAngleMin, mAngleMax);
+
+		float power = RandF(mPowerMin, mPowerMax);
+		particle->mSpeedX = cosf(angle) * 30.0f * power;
+		particle->mSpeedZ = sinf(angle) * -50.0f * power;
+		particle->mShadowImage = mShadowImage;
+		break;
+	}
+	case sgf::EMITTER_THROW: 
+	{
+		particle->mMotionType = PARTICLE_MOTION_THROW;
+		particle->Init();
+		particle->mHasShadowed = true;
+		particle->mCostingLifeTime = false;
+		particle->mMoving = true;
+		float angle = RandF(mAngleMin, mAngleMax);
+
+		float power = RandF(mPowerMin, mPowerMax);
+		particle->mSpeedX = cosf(angle) * 30.0f * power;
+		particle->mSpeedZ = sinf(angle) * -50.0f * power;
+		particle->mShadowImage = mShadowImage;
+		break;
+	}
+	default:
+		break;
+	}
+
+	return particle;
+}
+
+std::map<sgf::String, sgf::ParticleImageType> gImageTypeMap = { 
+	{"IMAGE_SINGLE",sgf::PARTICLE_IMAGE_SINGLE},
+	{"IMAGE_GROUP",sgf::PARTICLE_IMAGE_GROUP_ANIMARION},
+	{"IMAGE_GROUP_RANDOM",sgf::PARTICLE_IMAGE_GROUP_RANDOM},
+};
+
+std::map<sgf::String, sgf::EmitterMotionType> gEmitterMotionTypeMap = {
+	{"EMITTER_THROW",sgf::EMITTER_THROW},
+	{"EMITTER_NORMAL",sgf::EMITTER_NORMAL},
+	{"EMITTER_THROW_FAST",sgf::EMITTER_THROW_FAST},
+};
+
+void sgf::Emitter::LoadFromFile(const char* paxmlPath)
+{
+	pugi::xml_document doc;
+	doc.load_file(paxmlPath);
+	const auto& particle = doc.root().child("Particle");
+	int imageIndex = 0;
+	for (const auto & x : particle)
+	{
+		sgf::String tag = x.name();
+		if (tag == "ImageType") {
+			mImageType = gImageTypeMap[x.text().as_string()];
+			if (mImageType == sgf::PARTICLE_IMAGE_GROUP_ANIMARION || mImageType == sgf::PARTICLE_IMAGE_GROUP_RANDOM) {
+				mImageNumber = x.attribute("size").as_int();
+				mImageIDs = new sgf::String[mImageNumber];
+			}
+			else {
+				mImageNumber = 1;
+				mImageIDs = new sgf::String();
+			}
+		}
+		if (tag == "Image") {
+			mImageIDs[imageIndex] = x.text().as_string();
+			imageIndex++;
+		}
+		if (tag == "LifeTime") {
+			mLifeTimeMax = x.text().as_int();
+		}
+		if (tag == "LossRate") {
+			mLossRate = x.text().as_float();
+		}
+		if (tag == "AngleMax") {
+			mAngleMax = x.text().as_float() / 180 * 3.1415f;
+		}
+		if (tag == "AngleMin") {
+			mAngleMin = x.text().as_float() / 180 * 3.1415f;
+		}
+		if (tag == "PowerMax") {
+			mPowerMax = x.text().as_float();
+		}
+		if (tag == "PowerMin") {
+			mPowerMin = x.text().as_float();
+		}
+		if (tag == "ImageOffsetX") {
+			mImageOffsetX = x.text().as_float();
+		}
+		if (tag == "ImageOffsetY") {
+			mImageOffsetY = x.text().as_float();
+		}
+		if (tag == "ImageScaleF") {
+			mScaleF = x.text().as_float();
+		}
+		if (tag == "EmitterMotionType") {
+			mMotionType = gEmitterMotionTypeMap[x.text().as_string()];
+		}
+		if (tag == "ImageTransScaleF") {
+			mTransScaleF = x.text().as_float();
+		}
+		if (tag == "Gravity") {
+			mGravity = x.text().as_float();
+		}
+		if (tag == "UseFade") {
+			mUseFade = x.text().as_bool();
+		}
+		if (tag == "ImageRangeF") {
+			mImageScaleRangeF = x.text().as_float();
+		}
+		//printf("%s\n",x.name());
+	}
+}
+
+void sgf::Emitter::Init(EmitterMotionType motionType)
+{
+	mMotionType = motionType;
+	
+}
+
+void sgf::Emitter::InitDefault()
+{
+
+}
+
+sgf::Particle::Particle()
+{
+	mX = 0; mY = 0; mZ = 0;
+	mEnergyLossRate = 0;
+	mMotionType = PARTICLE_MOTION_NORMAL;
+	mImageType = PARTICLE_IMAGE_NONE;
+	mImages = nullptr;
+	mGravity = 0;
+	mHasShadowed = false;
+	mLifeTimeMax = 0;
+	mLifeTime = 0;
+	mSpeedX = 0; mSpeedY = 0; mSpeedZ = 0;
+	mCostingLifeTime = true;
+	mMoving = true;
+	mVisible = true;
+	mTickCache = 0;
+}
+
+void sgf::Particle::Init()
+{
+	mTickCache = TryGetTicks();
+	mLifeTime = mLifeTimeMax;
+	switch (mMotionType)
+	{
+	case sgf::PARTICLE_MOTION_NORMAL:
+		break;
+	case sgf::PARTICLE_MOTION_THROW:
+		//mGravity = 0.1f;
+		//mLifeTimeMax = 3000;
+		mEnergyLossRate = 0.3f;
+		mRotateSpeed = 0.05f;
+		break;
+	default:
+		break;
+	}
+
+	switch (mImageType)
+	{
+	case PARTICLE_IMAGE_GROUP_RANDOM:
+		mImages = &mImages[Rand(0, mImageNumber)];
+		//mImageType = PARTICLE_IMAGE_SINGLE;
+		break;
+	default:
+		break;
+	}
+
+}
+
+void sgf::Particle::Update()
+{
+	if (!mVisible)
+		return;
+	unsigned int tickNow = TryGetTicks();
+	float tickDelta = float(tickNow - mTickCache);
+	mTickCache = tickNow;
+
+	mScaleF += mTransScaleF * tickDelta / 1000.0f;
+
+	switch (mImageType)
+	{
+	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION://PARTICLE_IMAGE_GROUP_ANIMARION
+		mLifeTimeTick += tickDelta;
+		if (mLifeTime == 0) {
+			mLifeTimeTick = 0;
+		}
+		mLifeTime = mLifeTimeMax - mLifeTimeTick / mEachFrameStride;
+		break;
+	case sgf::PARTICLE_IMAGE_GROUP_RANDOM:
+		if (mCostingLifeTime) {
+			if (mLifeTime > tickDelta)
+				mLifeTime -= tickDelta;
+			else
+				mLifeTime = 0;
+		}
+
+		if (mLifeTime <= 0) {
+			mVisible = false;
+		}
+	}
+
+	switch (mMotionType)
+	{
+	case sgf::PARTICLE_MOTION_THROW:
+		mSpeedZ += mGravity * tickDelta;
+		if (mZ > 0) {
+			mZ = 0;
+			mSpeedZ *= -1.0f*mEnergyLossRate;
+			if (int(mSpeedZ / 5.0f) == 0)
+				mSpeedZ = 0;
+			mSpeedX *= mEnergyLossRate;
+			mRotateSpeed *= mEnergyLossRate;
+			mCostingLifeTime = true;
+		}
+
+		if (mCostingLifeTime) {
+			if (mLifeTime > tickDelta)
+				mLifeTime -= tickDelta;
+			else
+				mLifeTime = 0;
+		}
+
+		if (mLifeTime <= 0) {
+			mVisible = false;
+		}
+
+		break;
+	default:
+		break;
+	}
+
+	mZ += mSpeedZ * tickDelta / 100.0f;
+	mX += mSpeedX * tickDelta / 100.0f;
+	mY += mSpeedY * tickDelta / 100.0f;
+	mAngle += mRotateSpeed * tickDelta / 100.0f;
+}
+
+void sgf::Particle::Draw(Graphics* g) const
+{
+	if (!mVisible)
+		return;
+
+	switch (mMotionType)
+	{
+	case sgf::PARTICLE_MOTION_NORMAL:
+		TryToRenderImage(g);
+		break;
+	case sgf::PARTICLE_MOTION_THROW:
+		TryToRenderImage(g);
+		break;
+	default:
+		break;
+	}
+}
+
+void sgf::Particle::TryToRenderImage(Graphics* g) const
+{
+	if (mUseFade) {
+		g->SetCubeColor({ 1,1,1,1.0f * float(mLifeTime) / float(mLifeTimeMax) });
+	}else
+		g->SetCubeColor({ 1,1,1,1});
+
+	switch (mImageType)
+	{
+	case PARTICLE_IMAGE_GROUP_RANDOM:
+	{
+		g->MoveTo(mX + mImageOffsetX* mScaleF, mY + mZ + mImageOffsetY* mScaleF);
+		g->DrawImageScaleF(mImages[0], mScaleF, mScaleF);
+
+		if (mHasShadowed && mShadowImage) {
+			g->MoveTo(mX, mY + mImages[0]->mSurface->h - mShadowImage->mSurface->h);
+			g->DrawImage(mShadowImage);
+		}
+		break;
+	}
+	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION:
+		g->SetCubeColor({ 1,1,1,1}); 
+		g->MoveTo(mX + mImageOffsetX* mScaleF, mY + mZ + mImageOffsetY* mScaleF);
+		g->DrawImageScaleF(mImages[mLifeTimeMax - mLifeTime], mScaleF, mScaleF);
+		
+		if (mHasShadowed && mShadowImage) {
+			g->MoveTo(mX, mY + mImages[mLifeTimeMax - mLifeTime]->mSurface->h - mShadowImage->mSurface->h);
+			g->DrawImage(mShadowImage);
+		}
+		break;
+	case sgf::PARTICLE_IMAGE_SINGLE:
+		g->MoveTo(mX + mImageOffsetX, mY + mZ + mImageOffsetY);
+		//g->DrawImage(mImages);
+		g->DrawImageMatrix(mImages[0], glm::rotate(glm::scale(glm::mat4x4(1.0f),glm::vec3(mScaleF, mScaleF,1.0f)), mAngle, glm::vec3(0.0f, 0.0f, 1.0f)), mImages[0]->mSurface->w / 2.0f, -mImages[0]->mSurface->h / 2.0f);
+		if (mHasShadowed && mShadowImage) {
+			g->MoveTo(mX, mY + mImages[0]->mSurface->h - mShadowImage->mSurface->h);
+			g->DrawImage(mShadowImage);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+
+sgf::ParticleManager::ParticleManager()
+{
+
+}
+
+sgf::ParticleManager::~ParticleManager()
+{
+
+}
+
+void sgf::ParticleManager::Update()
+{
+	int length = mParticles.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		if (!mParticles[i]->mVisible) {
+			mParticles.erase(mParticles.begin() + i);
+			i--;
+			length--;
+		}
+	}
+
+	for (auto& x : mParticles)
+	{
+		x->Update();
+	}
+}
+
+void sgf::ParticleManager::Draw(sgf::Graphics* g)
+{
+	for (auto& x :mParticles)
+	{
+		g->MoveTo(0,0);
+		x->Draw(g);
+	}
+}
+
+sgf::Particle* sgf::ParticleManager::EmittParticle(Emitter* srcEmitter)
+{
+	srcEmitter->MoveTo(mX, mY, mZ);
+	Particle* dstParticle = srcEmitter->Emitt();
+	mParticles.push_back(dstParticle);
+	return dstParticle;
+}
+
+void sgf::ParticleManager::EmittParticles(Emitter* srcEmitter, int number)
+{
+	for (size_t i = 0; i < number; i++)
+	{
+		EmittParticle(srcEmitter);
+	}
+}

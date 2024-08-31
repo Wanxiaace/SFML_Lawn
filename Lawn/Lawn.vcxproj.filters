@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Dialog">
+      <UniqueIdentifier>{73dde442-5d39-4c1d-af3d-8b4a1992b7e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\include">
+      <UniqueIdentifier>{d638d426-6077-418a-8eea-ea2d21fabcb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialog\src">
+      <UniqueIdentifier>{3d172f81-5b13-491f-b7cd-79caf210f85e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board">
+      <UniqueIdentifier>{779fac0c-3e3f-48da-b031-b415efef4914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board\include">
+      <UniqueIdentifier>{30cb0777-49fb-4a90-9d8f-3e8d506c87ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board\src">
+      <UniqueIdentifier>{45935214-f808-4cb4-9898-7093e92a01be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Lawn.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LawnApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LoadingPage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameSelector.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicWidgets.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogs\src\SettingDialog.cpp">
+      <Filter>Dialog\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Board.cpp">
+      <Filter>Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\src\Plant.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\src\BoardAnimator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\src\Zombie.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\src\Projectile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\LawnApp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Constant.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LoadingPage.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameSelector.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BasicWidgets.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogs\include\SettingDialog.h">
+      <Filter>Dialog\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\GameObject.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Board.h">
+      <Filter>Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\Plant.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\Zombie.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\Projectile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\Coin.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\SceneObejct.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\BoardEnums.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\BoardAnimator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\ObjectArray.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

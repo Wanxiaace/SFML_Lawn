@@ -1,0 +1,12 @@
+﻿#include "include/LawnApp.h"
+#include "include/Constant.h"
+
+#undef main
+
+int main(int argc,char** argv) {
+	gLawnApp = new Lawn::LawnApp(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT, LAWN_GAME_WINDOW_CAPTAIN, true, false);
+	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
+		gLawnApp->mShowDebugWindow = true;
+	gLawnApp->EnterLoadingPage();
+	gLawnApp->LawnStart();
+}
