@@ -17,6 +17,7 @@ void Lawn::Zombie::Init()
 	mBodyReanim.SetFrameRangeByTrackName("anim_walk");
 	mBodyReanim.Play();
 	mHealth = 270;
+	mHealthMax = 270;
 	mBox.mWidth = 60;
 	mBox.mHeight = 90;
 	mReanimOffsetX = def.mReanimOffsetX;
@@ -78,6 +79,82 @@ void Lawn::Zombie::DieNoLoot()
 	mAvailable = false;
 }
 
+void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
+{
+	//mHealth -= damage;
+
+	switch (damageType)
+	{
+	case Lawn::ZOMBIE_DAMAGE_NORMAL: 
+	{
+		mFlashCounter = 300.0f;
+		mHealth -= damage;
+		break;
+	}
+	}
+
+	CheckIsDie();
+}
+
+void Lawn::Zombie::CheckIsDie()
+{
+	if (mHasArm) {
+		if (mHealth <= mHealthMax * 0.7 * 0.8) {
+			DropArm();
+		}
+	}
+
+	if (mHasHead) {
+		if (mHealth <= mHealthMax * 0.3) {
+			DropHead();
+		}
+	}
+}
+
+void Lawn::Zombie::DropArm()
+{
+	mHasArm = false;
+	switch (mZombieType)
+	{
+	case Lawn::ZOMBIE_TRAFFIC_CONE:
+	case Lawn::ZOMBIE_PAIL:
+	case Lawn::ZOMBIE_NORMAL: {
+		mBodyReanim.SetTrackVisible("Zombie_outerarm_hand", false);
+		mBodyReanim.SetTrackVisible("Zombie_outerarm_lower", false);
+		mBodyReanim.TrackAttachImage("Zombie_outerarm_upper", gLawnApp->mResourceManager.GetResource<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_OUTERARM_UPPER2"));
+		sgf::Point dropPoint = mBodyReanim.GetTrackPos("Zombie_outerarm_upper");
+		mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMARMDROP"), dropPoint.x + mBox.mX - 80, dropPoint.y + mBox.mY + 40, -40);
+		break;
+	}
+	}
+}
+
+void Lawn::Zombie::DropHead()
+{
+	mHasHead = false;
+	switch (mZombieType)
+	{
+	case Lawn::ZOMBIE_TRAFFIC_CONE:
+	case Lawn::ZOMBIE_PAIL:
+	case Lawn::ZOMBIE_NORMAL: {
+		mBodyReanim.SetTrackVisible("anim_head1", false);
+		mBodyReanim.SetTrackVisible("anim_head2", false);
+		mBodyReanim.SetTrackVisible("anim_hair", false);
+		sgf::Point dropPoint = mBodyReanim.GetTrackPos("Zombie_neck");
+		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX - 85, dropPoint.y + mBox.mY + 40, -80);
+		break;
+	}
+	}
+}
+
+void Lawn::Zombie::DoDeathReanim()
+{
+	mBodyReanim.SetFrameRangeByTrackName("anim_death2");
+	if(!sgf::Rand(0,2))
+		mBodyReanim.SetFrameRangeByTrackName("anim_death");
+	mBodyReanim.Play(sgf::Animator::PlayState::PLAY_ONCE);
+}
+
 void Lawn::Zombie::InitZombiesDefinitions()
 {
 	gZombiesDefinitions[ZOMBIE_NORMAL] = { ZOMBIE_NORMAL,"RAXML_ZOMBIE","NormalZombie","NormalZombie",1.0f,1.4f,1,-20,-40 };
@@ -94,13 +171,40 @@ void Lawn::Zombie::Update()
 		float speedX = mBodyReanim.GetTrackVelocity("_ground");
 		mBox.mX -= speedX * 0.5f * float(tickDelta) / mBodyReanim.mDeltaRate * mBodyReanim.mSpeed;
 	}
+
+	if (mFlashCounter > tickDelta) {
+		mFlashCounter -= tickDelta;
+	}
+	else {
+		mFlashCounter = 0;
+	}
+
+	if (!mHasHead && mAvailable) {
+		if (!mDoDeathReanim) {
+			if (mHealth > 0) {
+				mHealth -= 0.3;
+			}
+			else {
+				if ((mBodyReanim.mFrameIndexEnd -= mBodyReanim.mFrameIndexNow) <= 1) {
+					mDoDeathReanim = true;
+					DoDeathReanim();
+					mIsLive = false;
+				}
+			}
+		}
+		else {
+			if ((mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexNow) < 1.0f) {
+				DieNoLoot();
+			}
+		}
+	}
 	
 }
 
 void Lawn::Zombie::Draw(sgf::Graphics* g)
 {
 	if (gShowWidgetHitBoxAllowed) {
-		g->SetCubeColor({ 0,0,1,1 });
+		g->SetCubeColor({ 1,1,1,1 });
 		g->FillRect(mBox.mWidth, mBox.mHeight);
 	}
 	g->SetCubeColor({ 1,1,1,1 });
@@ -111,6 +215,7 @@ void Lawn::Zombie::Draw(sgf::Graphics* g)
 		g->DrawImage(mShadowImage);
 	}
 
+	g->SetCubeColor({ 1,1,1,1.0f + mFlashCounter / 300.0f });
 	g->MoveTo(0,0);
 	g->Translate(mReanimOffsetX, mReanimOffsetY);
 	if (mBodyReanim.mReanim)

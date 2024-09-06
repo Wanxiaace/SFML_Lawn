@@ -280,3 +280,16 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 		}
 	}
 }
+
+sgf::Point sgf::Animator::GetTrackPos(const sgf::String& trackname)
+{
+	return sgf::Point{
+		mReanim->mTracks->at(mTrackIndicesMap[trackname]).mFrames[mFrameIndexNow].x,
+		mReanim->mTracks->at(mTrackIndicesMap[trackname]).mFrames[mFrameIndexNow].y
+	};
+}
+
+float sgf::Animator::GetTrackRotate(const sgf::String& trackname)
+{
+	return mReanim->mTracks->at(mTrackIndicesMap[trackname]).mFrames[mFrameIndexNow].kx;
+}

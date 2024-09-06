@@ -65,6 +65,8 @@ namespace sgf {
 		void Update();
 		void Present(Graphics* g);
 		void PresentMatrix(Graphics* g, const glm::mat4x4& mat);
+		sgf::Point GetTrackPos(const sgf::String& trackname);
+		float GetTrackRotate(const sgf::String& trackname);
 
 	};
 

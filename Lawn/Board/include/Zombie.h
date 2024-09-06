@@ -125,14 +125,19 @@ namespace Lawn {
 
         float mSpeedMin = 0;
         float mSpeedMax = 0;
+        float mFlashCounter = 0;
 
-        int mHealth = 270;
+        float mHealth = 270;
+        float mHealthMax = 270;
+
         bool mHasHead = true;
         bool mHasArm = true;
+        bool mDoDeathReanim = false;
         int mReanimOffsetX = 0;
         int mReanimOffsetY = 0;
         unsigned int mTickCache = 0;
         bool mAvailable = true;
+        bool mIsLive = true;
 
     public:
         Zombie();
@@ -141,6 +146,11 @@ namespace Lawn {
         //根据速度的范围得到新的速度
         void ResetZomSpeed();
         void DieNoLoot();
+        void TakeDamage(ZombieDamageType damageType, int damage);
+        void CheckIsDie();
+        void DropArm();
+        void DropHead();
+        void DoDeathReanim();
 
         static void InitZombiesDefinitions();
 

@@ -96,12 +96,6 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	mIsLoaded = true;
 }
 
-void* sgf::ResourceManager::GetResource(const sgf::String& key)
-{
-	if (mResourcePool.find(key) == mResourcePool.end())
-		return nullptr;
-	return mResourcePool[key];
-}
 
 void sgf::ResourceList::Load(const char* path)
 {

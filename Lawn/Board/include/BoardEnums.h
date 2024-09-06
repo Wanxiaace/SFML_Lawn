@@ -155,6 +155,10 @@ namespace Lawn {
         NUM_PROJECTILES = 18
     };
 
+    enum ZombieDamageType {
+       ZOMBIE_DAMAGE_NORMAL,
+    };
+
     struct PlantDefinition {
         SeedType mSeedType;
         sgf::String mReanimationName;

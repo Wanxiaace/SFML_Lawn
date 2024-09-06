@@ -45,7 +45,20 @@ namespace sgf{
 		void LoadParticleWithID(const sgf::String& aPath, sgf::String id);
 
 		void LoadFromResouceList(ResourceList* src,MusicManager* mus);
-		void* GetResource(const sgf::String& key);
+		template <typename T>
+		T* GetResource(const sgf::String& key)
+		{
+			if (mResourcePool.find(key) == mResourcePool.end())
+				return nullptr;
+			return (T*)mResourcePool[key];
+		}
+
+		//更加的快速，不起用资源检查
+		template <typename T>
+		T* GetResourceFast(const sgf::String& key)
+		{
+			return (T*)mResourcePool[key];
+		}
 	};
 }
 

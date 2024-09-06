@@ -51,8 +51,9 @@ void Lawn::Plant::Fire()
 	switch (mSeedType)
 	{
 	case Lawn::SEED_PEASHOOTER:
-		auto pea = mBoard->SpawnProjectileAt(mBox.mX + 80, mBox.mY + 15, PROJECTILE_PEA);
-		pea->mSpeedX = 25;
+		auto pea = mBoard->SpawnProjectileAt(mBox.mX + 50, mBox.mY + 15, PROJECTILE_PEA);
+		pea->mSpeedX = 35;
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_THROW2");
 		//std::cout << "shit" << std::endl;
 		break;
 	}

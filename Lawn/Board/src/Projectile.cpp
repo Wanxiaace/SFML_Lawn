@@ -40,6 +40,8 @@ void Lawn::Projectile::DoEffect(Zombie* zom)
 	{
 		mBoard->SpawnParticlesAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEAPARTICLETHROW"], 10,mBox.mX + 10, mBox.mY+80, -80);
 		mBoard->SpawnParticleAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEASPLATS"], mBox.mX + 10, mBox.mY + 80, -80);
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_SPLAT");
+		zom->TakeDamage(ZOMBIE_DAMAGE_NORMAL, mDamage);
 		break;
 	}
 	}
@@ -67,7 +69,7 @@ Lawn::Zombie* Lawn::Projectile::TryToFindTarget()
 	Zombie* result = nullptr;
 	for (auto& x : mBoard->mZombieVector)
 	{
-		if (mBox.IsOverlap(x->mBox)) {
+		if (x->mIsLive && mBox.IsOverlap(x->mBox)) {
 			result = x;
 			break;
 		}
