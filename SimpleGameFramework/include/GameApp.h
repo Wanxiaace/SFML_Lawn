@@ -22,6 +22,7 @@ namespace sgf {
 		bool mDragAllowed = false;
 		bool mRotateAllowed = false;
 		bool mShowWidgetHitBoxAllowed = false;
+		
 		float mMovingSpeed = 1.0f;
 
 		ResourceList mResourceList;
@@ -45,9 +46,8 @@ namespace sgf {
 		void SetWindowIconFromImage(sgf::SimpleImage* image);
 		void SetWindowCaptain(const sgf::String& title);
 
-		void UpdateMusicVolume() { mMusicManager.SetMusicVolume(mMusicVolume / 100.0f); };
+		void UpdateMusicVolume();
 		Graphics* LoadGraphics();
-		
 
 
 	public:

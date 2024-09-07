@@ -14,7 +14,7 @@ void Lawn::Zombie::Init()
 	mTickCache = sgf::TryGetTicks();
 	auto& def = gZombiesDefinitions[mZombieType];
 	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
-	mBodyReanim.SetFrameRangeByTrackName("anim_walk");
+	PlayTrack("anim_walk");
 	mBodyReanim.Play();
 	mHealth = 270;
 	mHealthMax = 270;
@@ -64,7 +64,7 @@ void Lawn::Zombie::InitNormalZombieReanim()
 
 	randomInteger = sgf::Rand(0, 2);
 	if (randomInteger) {
-		mBodyReanim.SetFrameRangeByTrackName("anim_walk2");
+		PlayTrack("anim_walk2");
 	}
 }
 
@@ -149,10 +149,50 @@ void Lawn::Zombie::DropHead()
 
 void Lawn::Zombie::DoDeathReanim()
 {
-	mBodyReanim.SetFrameRangeByTrackName("anim_death2");
+	PlayTrack("anim_death2");
 	if(!sgf::Rand(0,2))
-		mBodyReanim.SetFrameRangeByTrackName("anim_death");
+		PlayTrack("anim_death");
 	mBodyReanim.Play(sgf::Animator::PlayState::PLAY_ONCE);
+}
+
+void Lawn::Zombie::PlayTrack(const sgf::String& trackName)
+{
+	mBodyReanim.SetFrameRangeByTrackName(trackName);
+}
+
+void Lawn::Zombie::UpdateEating(Plant* target)
+{
+	if (!mIsEating) {
+		PlayTrack("anim_eat");
+		mBodyReanim.mSpeed = 2.5f;
+	}
+	target->TakeDamage(100.0f * float(mTickDelta) / 1000.0f);
+	if (mEatingChunkCounter < 0) {
+		mEatingChunkCounter = 800;
+		if (sgf::Rand(0, 2)) {
+			gLawnApp->mMusicManager.PlayChunk("CHUNK_CHOMP");
+		}
+		else {
+			gLawnApp->mMusicManager.PlayChunk("CHUNK_CHOMP2");
+		}
+	}
+	else {
+		mEatingChunkCounter -= mTickDelta;
+	}
+}
+
+Lawn::Plant* Lawn::Zombie::FindPlant()
+{
+	Lawn::Plant* plant = nullptr;
+	for (auto& x : mBoard->mPlantVector)
+	{
+		if (mBox.IsOverlap(x->mBox))
+		{
+			plant = x;
+			break;
+		}
+	}
+	return plant;
 }
 
 void Lawn::Zombie::InitZombiesDefinitions()
@@ -163,17 +203,17 @@ void Lawn::Zombie::InitZombiesDefinitions()
 void Lawn::Zombie::Update()
 {
 	unsigned int tickNow = sgf::TryGetTicks();
-	unsigned int tickDelta = tickNow - mTickCache;
+	mTickDelta = tickNow - mTickCache;
 	mTickCache = tickNow;
 
 	mBodyReanim.Update();
 	if (mBodyReanim.GetTrackVisible("_ground")) {
 		float speedX = mBodyReanim.GetTrackVelocity("_ground");
-		mBox.mX -= speedX * 0.5f * float(tickDelta) / mBodyReanim.mDeltaRate * mBodyReanim.mSpeed;
+		mBox.mX -= speedX * 0.5f * float(mTickDelta) / mBodyReanim.mDeltaRate * mBodyReanim.mSpeed;
 	}
 
-	if (mFlashCounter > tickDelta) {
-		mFlashCounter -= tickDelta;
+	if (mFlashCounter > mTickDelta) {
+		mFlashCounter -= mTickDelta;
 	}
 	else {
 		mFlashCounter = 0;
@@ -196,6 +236,20 @@ void Lawn::Zombie::Update()
 			if ((mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexNow) < 1.0f) {
 				DieNoLoot();
 			}
+		}
+	}
+	else {
+		Plant* plant = FindPlant();
+		if (plant) {
+			UpdateEating(plant);
+			mIsEating = true;
+		}
+		else {
+			if (mIsEating) {
+				ResetZomSpeed();
+				PlayTrack("anim_walk");
+			}
+			mIsEating = false;
 		}
 	}
 	

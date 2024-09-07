@@ -84,6 +84,11 @@ void Lawn::Plant::Die()
 	mAvailable = false;
 }
 
+void Lawn::Plant::TakeDamage(float damage)
+{
+	mHealth -= damage;
+}
+
 void Lawn::Plant::InitPlantsDefinitions()
 {
 	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20 };
@@ -134,6 +139,9 @@ void Lawn::Plant::Update()
 	default:
 		break;
 	}
+
+	if (mHealth < 0)
+		mAvailable = false;
 }
 
 void Lawn::Plant::Draw(sgf::Graphics* g)

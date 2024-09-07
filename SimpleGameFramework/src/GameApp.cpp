@@ -4,6 +4,7 @@ sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, b
 {
 	mWidgetManager = new WidgetManager();
 	UpdateMusicVolume();
+	
 }
 
 sgf::GameApp::~GameApp()
@@ -12,6 +13,11 @@ sgf::GameApp::~GameApp()
 	delete mWidgetManager;
 
 	GameAppBase::~GameAppBase();
+}
+
+void sgf::GameApp::UpdateMusicVolume()
+{
+	mMusicManager.SetMusicVolume(mMusicVolume / 100.0f);
 }
 
 sgf::Graphics* sgf::GameApp::LoadGraphics()

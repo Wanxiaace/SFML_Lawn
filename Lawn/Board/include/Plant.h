@@ -84,7 +84,7 @@ namespace Lawn {
 
 		int mFireCountDown = 0;
 		int mProduceCountDown = 0;
-		int mHealth = 0;
+		float mHealth = 0;
 		int mDamage = 0;
         bool mCanShoot = true;
         //int mFireCD = 0;
@@ -96,13 +96,13 @@ namespace Lawn {
         Plant();
         ~Plant();
 
-
 		void PlantInit();
 		void Fire();
         void AttachToBoard(Board* board) { mBoard = board; };
         bool IsOnBoard() const;
         Zombie* TryToFindTarget();
         void Die();
+        void TakeDamage(float damage);
 
 		static void InitPlantsDefinitions();
 

@@ -6,9 +6,11 @@
 #include "BoardEnums.h"
 #include "BoardAnimator.h"
 #include "../Board.h"
+#include "Plant.h"
 
 namespace Lawn {
     class Board;
+    class Plant;
 
     enum ZombiePhase
     {
@@ -136,8 +138,11 @@ namespace Lawn {
         int mReanimOffsetX = 0;
         int mReanimOffsetY = 0;
         unsigned int mTickCache = 0;
+        unsigned int mTickDelta = 0;
         bool mAvailable = true;
         bool mIsLive = true;
+        bool mIsEating = false;
+        int mEatingChunkCounter = 0;
 
     public:
         Zombie();
@@ -151,6 +156,10 @@ namespace Lawn {
         void DropArm();
         void DropHead();
         void DoDeathReanim();
+        void PlayTrack(const sgf::String& trackName);
+        void UpdateEating(Plant* target);
+
+        Plant* FindPlant();
 
         static void InitZombiesDefinitions();
 
