@@ -145,6 +145,7 @@ namespace sgf {
     }
 
     static unsigned int TryGetTicks() {
+        //可调多倍速
         return SDL_GetTicks();
     }
 

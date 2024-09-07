@@ -132,26 +132,31 @@ void sgf::Animator::Update()
 		float num = ((float)delta) / mDeltaRate;
 
 		mTickBuffer = sgf::TryGetTicks();
-		float final = (mFrameIndexNow + num * mSpeed);
-		if (final >= mFrameIndexEnd) {
-			switch (mPlayingState)
-			{
-			case PLAY_REPEAT:
-				mFrameIndexNow = mFrameIndexBegin;
-				break;
-			case PLAY_ONCE_TO:
-				SetFrameRangeByTrackName(mTargetTrack);
-				mPlayingState = PLAY_REPEAT;
-				break;
-			case PLAY_ONCE:
-				Pause();
-				break;
-			}
+		
+		if (mReanimBlendCounter > 0) {
+			mReanimBlendCounter -= delta;
 		}
 		else {
-			mFrameIndexNow = final;
+			float final = (mFrameIndexNow + num * mSpeed);
+			if (final >= mFrameIndexEnd) {
+				switch (mPlayingState)
+				{
+				case PLAY_REPEAT:
+					mFrameIndexNow = mFrameIndexBegin;
+					break;
+				case PLAY_ONCE_TO:
+					SetFrameRangeByTrackName(mTargetTrack);
+					mPlayingState = PLAY_REPEAT;
+					break;
+				case PLAY_ONCE:
+					Pause();
+					break;
+				}
+			}
+			else {
+				mFrameIndexNow = final;
+			}
 		}
-
 	}
 }
 
@@ -165,6 +170,15 @@ static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf:
 	tOutput.ky = (tDst.ky - tSrc.ky) * tDelta + tSrc.ky;
 	tOutput.f = tSrc.f;
 	tOutput.i = tSrc.i;
+
+	if (tDst.kx > tSrc.kx + 180.0f)
+		tOutput.kx = tSrc.kx;
+	if (tDst.kx < tSrc.kx - 180.0f)
+		tOutput.kx = tSrc.kx;
+	if (tDst.ky > tSrc.ky + 180.0f)
+		tOutput.ky = tSrc.ky;
+	if (tDst.ky < tSrc.ky - 180.0f)
+		tOutput.ky = tSrc.ky;
 }
 
 void sgf::Animator::Present(Graphics* g)
@@ -183,8 +197,16 @@ void sgf::Animator::Present(Graphics* g)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
-		if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-			GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow+1],transformDelta,aSource);
+
+		if (mReanimBlendCounter > 0) {
+			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / 100.0f, aSource);
+		}
+		else {
+			if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
+				GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+		}
+		
 		if (!aSource.f) {
 			if (!mExtraInfos[i].mAttachedReanim) {
 				SimpleImage* targetImage;

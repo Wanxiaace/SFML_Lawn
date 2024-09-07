@@ -157,7 +157,11 @@ void Lawn::Zombie::DoDeathReanim()
 
 void Lawn::Zombie::PlayTrack(const sgf::String& trackName)
 {
+	mBodyReanim.mFrameIndexBlendBuffer = mBodyReanim.mFrameIndexNow;
+
 	mBodyReanim.SetFrameRangeByTrackName(trackName);
+	
+	mBodyReanim.mReanimBlendCounter = 100;
 }
 
 void Lawn::Zombie::UpdateEating(Plant* target)

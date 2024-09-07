@@ -35,6 +35,12 @@ namespace sgf {
 		float mSpeed = 1.0f;
 		float mDeltaRate = 0.0f;
 		unsigned int mTickBuffer = 0;
+
+		//过渡动画倒计时
+		float mReanimBlendCounter = -1.0f;
+		//过渡动画缓存
+		int mFrameIndexBlendBuffer = 0;
+
 		bool mIsPlaying = 0;
 		PlayState mPlayingState = PLAY_NONE;
 		std::vector<TrackExtraInfo> mExtraInfos;

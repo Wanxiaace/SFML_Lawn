@@ -1,0 +1,8 @@
+1.实现更为智能的reanim（优化原先reanim的机制），让动画切换更丝滑
+2.完善原版的机制cutscene和seedbank等
+3.完善植物和僵尸
+4.添加CursorObject
+5.实现用户存档
+
+可有可无的功能：
+1.移植原版的particle
