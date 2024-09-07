@@ -40,16 +40,11 @@ void sgf::Dictionary::Parse(const sgf::String& src)
 	mJson = nlohmann::json::parse(src);
 }
 
-
-sgf::String sgf::Dictionary::At(const sgf::String& key)
+sgf::String sgf::Dictionary::GetString(const sgf::String& key)
 {
-	return mJson.at(key);
+	return mJson.value<sgf::String>(key, "<Missing \"" + key + "\" >");
 }
 
-void sgf::Dictionary::Set(const sgf::String& key, const sgf::String& value)
-{
-	mJson[key] = value;
-}
 
 sgf::String sgf::Dictionary::operator[](const sgf::String& key)
 {

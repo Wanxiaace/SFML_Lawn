@@ -10,8 +10,10 @@
 #include "../glm/gtc/matrix_transform.hpp"
 #include "../glm/gtc/type_ptr.hpp"
 #include <vector>
+#include "GameApp.h"
 
 namespace sgf {
+	class GameApp;
 	class Graphics;
 
 	class Graphics {
@@ -32,7 +34,7 @@ namespace sgf {
 		};
 
 	public:
-		SimpleApp* mGameApp = nullptr;
+		sgf::GameApp* mGameApp = nullptr;
 		sgf::Color mCubeColor = { 255,255,255 };
 		SimpleProgram mTextureProgram;
 		glm::mat4x4 mProjectMatrix;
@@ -50,7 +52,7 @@ namespace sgf {
 		int mMatrixsNumber = 0;
 
 	public:
-		Graphics(SimpleApp* gameApp);
+		Graphics(GameApp* gameApp);
 		~Graphics() {};
 
 		void Clear();
@@ -81,7 +83,7 @@ namespace sgf {
 		void ProjectionResize(float width, float height);
 		void Present();
 
-		int GetMaxTextureUnitCount() const { return mGameApp->mTextureNumberMax; };
+		int GetMaxTextureUnitCount() const;
 
 		//提交所有顶点
 		void Submit();
@@ -91,7 +93,7 @@ namespace sgf {
 
 	};
 
-	static Graphics* CreateFromApp(SimpleApp* gameApp) { return new Graphics(gameApp); };
+	static Graphics* CreateFromApp(GameApp* gameApp) { return new Graphics(gameApp); };
 
 }
 

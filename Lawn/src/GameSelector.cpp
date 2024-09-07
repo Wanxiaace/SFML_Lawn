@@ -15,15 +15,15 @@ Lawn::GameSelector::GameSelector(int theId, sgf::GameApp* app, bool useEntryAnim
 
 	mStartButton = new TextButton(LAWN_WIDGET_START_BUTTON,50,mApp);//LAWN_WIDGET_START_BUTTON
 	mStartButton->MoveTo(50,400);
-	mStartButton->LoadLabel("Start");
+	mStartButton->LoadLabel(_LS("Start"));
 
 	mConfigButton = new TextButton(LAWN_WIDGET_CONFIG_BUTTON,50,mApp);
 	mConfigButton->MoveTo(50, 450);
-	mConfigButton->LoadLabel("Config");
+	mConfigButton->LoadLabel(_LS("Config"));
 
 	mExitButton = new TextButton(LAWN_WIDGET_EXIT_BUTTON,50,mApp);
 	mExitButton->MoveTo(50, 500);
-	mExitButton->LoadLabel("Exit");
+	mExitButton->LoadLabel(_LS("Exit"));
 
 
 	mStartButton->AttachToListener(this);

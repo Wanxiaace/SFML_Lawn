@@ -163,7 +163,7 @@ void Lawn::LawnApp::CopeEvent(SDL_Event& _event)
 void Lawn::GameUpdateThread(LawnApp* app)
 {
     app->Update();
-    app->LoadResources("assets/ResourceList.xml");
+    app->LoadResources((app->mResourceManager.mBasePath + "ResourceList.xml").c_str());
     app->KillLoadingPage();
     app->EnterGameSelector();
 

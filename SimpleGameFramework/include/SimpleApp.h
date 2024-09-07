@@ -6,10 +6,10 @@
 #include "GameMessage.h"
 
 namespace sgf {
-	class SimpleApp {
+	class GameAppBase {
 	public:
-		void (*mDisplay)(SimpleApp*,int) = nullptr;
-		void (*mCallback)(SimpleApp*, SDL_Event&) = nullptr;
+		void (*mDisplay)(GameAppBase*,int) = nullptr;
+		void (*mCallback)(GameAppBase*, SDL_Event&) = nullptr;
 
 	public:
 		int mWidth = 0;
@@ -38,12 +38,12 @@ namespace sgf {
 		bool mEnabledASync = false;
 
 	public:
-		SimpleApp(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);
-		~SimpleApp();
+		GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);
+		~GameAppBase();
 
 		void EnterMainLoop();
-		void SetDisplayFunction(void (*display)(SimpleApp*, int));
-		void SetCallBackFunction(void (*callback)(SimpleApp*, SDL_Event&));
+		void SetDisplayFunction(void (*display)(GameAppBase*, int));
+		void SetCallBackFunction(void (*callback)(GameAppBase*, SDL_Event&));
 		virtual void CopeEvent(SDL_Event& theEvent);
 
 		virtual void Update();

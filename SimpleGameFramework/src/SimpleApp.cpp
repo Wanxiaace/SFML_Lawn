@@ -4,7 +4,7 @@
 
 Uint32 m_deltaTimeTick = 0;
 
-sgf::SimpleApp::SimpleApp(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
+sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
 {
     mWidth = width;
     mHeight = height;
@@ -50,7 +50,7 @@ sgf::SimpleApp::SimpleApp(int width, int height, const sgf::String& windowCaptai
     glViewport(0,0,width,height);
 }
 
-sgf::SimpleApp::~SimpleApp()
+sgf::GameAppBase::~GameAppBase()
 {
 	if (mGameWindow)
 		SDL_DestroyWindow(mGameWindow);
@@ -64,7 +64,7 @@ sgf::SimpleApp::~SimpleApp()
     SDL_Quit();
 }
 
-void sgf::SimpleApp::EnterMainLoop()
+void sgf::GameAppBase::EnterMainLoop()
 {
     m_deltaTimeTick = SDL_GetTicks();
     mIsOpen = true;
@@ -114,17 +114,17 @@ void sgf::SimpleApp::EnterMainLoop()
     }
 }
 
-void sgf::SimpleApp::SetDisplayFunction(void(*display)(SimpleApp*, int))
+void sgf::GameAppBase::SetDisplayFunction(void(*display)(GameAppBase*, int))
 {
     mDisplay = display;
 }
 
-void sgf::SimpleApp::SetCallBackFunction(void(*callback)(SimpleApp*, SDL_Event&))
+void sgf::GameAppBase::SetCallBackFunction(void(*callback)(GameAppBase*, SDL_Event&))
 {
     mCallback = callback;
 }
 
-void sgf::SimpleApp::CopeEvent(SDL_Event& theEvent)
+void sgf::GameAppBase::CopeEvent(SDL_Event& theEvent)
 {
     switch (theEvent.type) {
     case SDL_EventType::SDL_QUIT:
@@ -141,7 +141,7 @@ void sgf::SimpleApp::CopeEvent(SDL_Event& theEvent)
 }
 
 
-void sgf::SimpleApp::Update()
+void sgf::GameAppBase::Update()
 {
     mMessageManager.CopeAllMessage();
     auto state = SDL_GetMouseState(&mMouseX,&mMouseY);
@@ -154,7 +154,7 @@ void sgf::SimpleApp::Update()
 }
 
 
-void sgf::SimpleApp::Draw()
+void sgf::GameAppBase::Draw()
 {
 
 }

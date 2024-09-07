@@ -1,9 +1,10 @@
 #include "../include/Graphics.h"
 #include <string>
 
-sgf::Graphics::Graphics(SimpleApp* gameApp)
+sgf::Graphics::Graphics(GameApp* gameApp)
 {
-	mTextureProgram.LoadFromFile("assets/shaders/TextureVertexShader.glsl", "assets/shaders/TextureFragmentShader.glsl");
+
+	mTextureProgram.LoadFromFile((gameApp->mResourceManager.mBasePath + "shaders/TextureVertexShader.glsl").c_str(), (gameApp->mResourceManager.mBasePath + "shaders/TextureFragmentShader.glsl").c_str());
 	
 	glGenVertexArrays(1, &mCubeVAO);
 
@@ -108,9 +109,11 @@ int sgf::Graphics::TryToBindNewTexture(sgf::SimpleImage* src)
 	GLenum textureUnit = GL_TEXTURE0 + mTexturesNumber;
 	if (mTexturesNumber < unitMaxCount) {
 		unsigned int texureHandle = src->GenerateTexture();
+
+		//glBindTexture(GL_TEXTURE_2D, texureHandle);
 		glActiveTexture(textureUnit);
-		
 		glBindTexture(GL_TEXTURE_2D, texureHandle);
+
 		GLint textureArrayIndex = glGetUniformLocation(mNowProgram->mProgram, ("textures[" + std::to_string(mTexturesNumber) + "]").c_str());
 
 		glUniform1i(textureArrayIndex, mTexturesNumber);
@@ -265,6 +268,11 @@ void sgf::Graphics::Present()
 	mVerticesBuffer.clear();
 	mTexturesBuffer.clear();
 	mMatrixsBuffer.clear();
+}
+
+int sgf::Graphics::GetMaxTextureUnitCount() const
+{
+	return mGameApp->mTextureNumberMax;
 }
 
 void sgf::Graphics::Submit()

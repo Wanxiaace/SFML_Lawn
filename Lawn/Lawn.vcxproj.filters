@@ -116,5 +116,21 @@
     <ClInclude Include="Board\include\ObjectArray.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Lawn.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\main_ico.ico">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="main_ico.ico">
+      <Filter>res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

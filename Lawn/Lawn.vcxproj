@@ -161,6 +161,14 @@
     <ClInclude Include="include\GameSelector.h" />
     <ClInclude Include="include\LawnApp.h" />
     <ClInclude Include="include\LoadingPage.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Lawn.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\main_ico.ico" />
+    <Image Include="main_ico.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,6 +30,7 @@ namespace sgf{
 	public:
 		std::unordered_map<sgf::String, void*> mResourcePool;
 		ResouceInfo* mNowInfo = nullptr;
+		sgf::String mBasePath = "";
 		bool mIsLoaded = false;
 		float mProcess = 0;
 		int mTotalFile = 0;
@@ -45,6 +46,8 @@ namespace sgf{
 		void LoadParticleWithID(const sgf::String& aPath, sgf::String id);
 
 		void LoadFromResouceList(ResourceList* src,MusicManager* mus);
+		void AttachBasePath(const sgf::String& tar) { mBasePath = tar; }
+
 		template <typename T>
 		T* GetResource(const sgf::String& key)
 		{

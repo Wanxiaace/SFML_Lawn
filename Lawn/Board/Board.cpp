@@ -11,7 +11,8 @@ Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 
 	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_MENU,mApp);
-	mMenuButton->LoadLabel("Menu");
+	std::cout << _LS("Menu") << std::endl;
+	mMenuButton->LoadLabel(_LS("Menu"));
 	mMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
 	mMenuButton->AttachToListener(this);
 	AppendChild(mMenuButton);

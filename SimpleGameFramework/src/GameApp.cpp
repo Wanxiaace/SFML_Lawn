@@ -1,8 +1,7 @@
 #include "../include/GameApp.h"
 
-sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable): SimpleApp::SimpleApp(width, height, windowCaptain, enabledASync, resiziable)
+sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable): GameAppBase::GameAppBase(width, height, windowCaptain, enabledASync, resiziable)
 {
-	mGraphics = new Graphics(this);
 	mWidgetManager = new WidgetManager();
 	UpdateMusicVolume();
 }
@@ -12,7 +11,14 @@ sgf::GameApp::~GameApp()
 	delete mGraphics;
 	delete mWidgetManager;
 
-	SimpleApp::~SimpleApp();
+	GameAppBase::~GameAppBase();
+}
+
+sgf::Graphics* sgf::GameApp::LoadGraphics()
+{
+	if(!mGraphics)
+		mGraphics = new Graphics(this);
+	return mGraphics;
 }
 
 void sgf::GameApp::SafeDeleteWidget(Widget* target)
@@ -55,12 +61,30 @@ void sgf::GameApp::LoadResources(const char* resourcesListPath)
 
 void sgf::GameApp::LoadDict(const char* dictPath)
 {
-	mDictionary.LoadFromFile(dictPath);
+	mDictionary.LoadFromFile((mResourceManager.mBasePath + dictPath).c_str());
 }
+
+void sgf::GameApp::SetWindowIcon(const char* path)
+{
+	sgf::SimpleImage icon;
+	icon.LoadFromFile(path);
+	SetWindowIconFromImage(&icon);
+}
+
+void sgf::GameApp::SetWindowIconFromImage(sgf::SimpleImage* image)
+{
+	SDL_SetWindowIcon(mGameWindow, image->mSurface);
+}
+
+void sgf::GameApp::SetWindowCaptain(const sgf::String& title)
+{
+	SDL_SetWindowTitle(mGameWindow, title.c_str());
+}
+
 
 void sgf::GameApp::Update()
 {
-	SimpleApp::Update();
+	GameAppBase::Update();
 	mWidgetManager->Update(this);
 
 	if (mDragAllowed) {
@@ -92,7 +116,7 @@ void sgf::GameApp::Draw()
 
 void sgf::GameApp::CopeEvent(SDL_Event& theEvent)
 {
-	SimpleApp::CopeEvent(theEvent);
+	GameAppBase::CopeEvent(theEvent);
 
 	switch (theEvent.type) {
 	case SDL_EventType::SDL_WINDOWEVENT:

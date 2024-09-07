@@ -67,26 +67,26 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 		mNowFile += 1;
 		mNowInfo = &x;
 		if (x.folder == "image" || x.folder == "image_reanim" || x.folder == "particle") {
-			LoadImageWithID(("assets/" + x.path), x.id);
+			LoadImageWithID((mBasePath + x.path), x.id);
 		}
 		else if (x.folder == "raxml") {
-			LoadReanimWithID(("assets/" + x.path), x.id);
+			LoadReanimWithID((mBasePath + x.path), x.id);
 		}
 
 		if (x.folder == "font") {
-			LoadFontWithID(("assets/" + x.path), x.id);
+			LoadFontWithID((mBasePath + x.path), x.id);
 		}
 
 		if (x.folder == "chunk") {
-			mus->LoadChunkFormFile(("assets/" + x.path).c_str(), x.id);
+			mus->LoadChunkFormFile((mBasePath + x.path).c_str(), x.id);
 		}
 
 		if (x.folder == "music") {
-			mus->LoadMusicFormFile(("assets/" + x.path).c_str(), x.id);
+			mus->LoadMusicFormFile((mBasePath + x.path).c_str(), x.id);
 		}
 
 		if (x.folder == "paxml") {
-			LoadParticleWithID(("assets/" + x.path).c_str(), x.id);
+			LoadParticleWithID((mBasePath + x.path).c_str(), x.id);
 		}
 
 		std::cout << x.path << std::endl;

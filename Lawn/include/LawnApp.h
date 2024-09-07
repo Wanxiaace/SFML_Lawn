@@ -9,6 +9,7 @@
 #include "../Dialogs/include/SettingDialog.h"
 #include "../Board/Board.h"
 
+
 namespace Lawn {
 	class LawnApp : public sgf::GameApp {
 	public:
@@ -33,6 +34,7 @@ namespace Lawn {
 		void EnterGameBoard();
 		void MakeNewBoard();
 		void KillBoard();
+		
 
 	public:
 		virtual void CopeEvent(SDL_Event& _event) override;
@@ -43,5 +45,6 @@ namespace Lawn {
 
 extern Lawn::LawnApp* gLawnApp;//全局App
 extern std::thread* gUpdateThread;//全局App
+
 
 #endif

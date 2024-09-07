@@ -2,6 +2,8 @@
 #ifndef __LAWN_CONSTANT__
 #define __LAWN_CONSTANT__
 
+#define _LS(x) gLawnApp->mDictionary.GetString(x)
+
 constexpr int LAWN_GAME_WINDOW_WIDTH = 1077;
 constexpr int LAWN_GAME_WINDOW_HEIGHT = 600;
 

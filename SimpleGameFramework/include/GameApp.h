@@ -10,7 +10,12 @@
 #include "Dictionary.h"
 
 namespace sgf {
-	class GameApp : public SimpleApp {
+
+	class Graphics;
+	class WidgetManager;
+	class Widget;
+
+	class GameApp : public GameAppBase {
 	public:
 		Graphics* mGraphics = nullptr;
 		WidgetManager* mWidgetManager = nullptr;
@@ -34,8 +39,16 @@ namespace sgf {
 		void SafeDeleteWidget(Widget* target);
 		void SafeAppendWidget(Widget* target);
 		void LoadResources(const char* resourcesListPath);
+		//提供一些多语言支持
 		void LoadDict(const char* dictPath);
+		void SetWindowIcon(const char* path);
+		void SetWindowIconFromImage(sgf::SimpleImage* image);
+		void SetWindowCaptain(const sgf::String& title);
+
 		void UpdateMusicVolume() { mMusicManager.SetMusicVolume(mMusicVolume / 100.0f); };
+		Graphics* LoadGraphics();
+		
+
 
 	public:
 		virtual void DrawImgui();

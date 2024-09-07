@@ -11,6 +11,7 @@
 extern bool gShowWidgetHitBoxAllowed;
 
 namespace sgf {
+	class Graphics;
 	class WidgetListener;
 	class Widget;
 	class WidgetManager;
@@ -34,7 +35,7 @@ namespace sgf {
 		Widget* GetWidgetByID(int srcId);
 		void ClearWidget();
 
-		void Update(SimpleApp* app);
+		void Update(GameAppBase* app);
 		void Draw(Graphics* graphics);
 	};
 

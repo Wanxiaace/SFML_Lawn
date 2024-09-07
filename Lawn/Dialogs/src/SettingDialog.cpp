@@ -9,7 +9,7 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 	mOKButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_OK,mApp);
 	mOKButton->Resize(500,500,170,50);
 	mOKButton->AttachToListener(this);
-	mOKButton->LoadLabel("OK");
+	mOKButton->LoadLabel(_LS("OK"));
 	AppendChild(mOKButton);
 
 	mVolumeSlider = new LawnSlider(SLIDER_VOLUME, mApp);
@@ -23,11 +23,11 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 
 
 	font->SetFontSize(35);
-	mCaptainImage = font->GenTextImage("Settings");
+	mCaptainImage = font->GenTextImage(_LS("Settings"));
 
 	mMusicVolumeLabel = new LawnLabel(mApp);
 	mMusicVolumeLabel->MoveTo(100, 150);
-	mMusicVolumeLabel->LoadLabel("Music Volmne");
+	mMusicVolumeLabel->LoadLabel(_LS("MusicVolmne"));
 	mMusicVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 	AppendChild(mMusicVolumeLabel);
 

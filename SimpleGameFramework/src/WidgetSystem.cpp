@@ -44,7 +44,7 @@ void sgf::WidgetManager::ClearWidget()
 
 
 
-void sgf::WidgetManager::Update(SimpleApp* app)
+void sgf::WidgetManager::Update(GameAppBase* app)
 {
 	size_t length = mWidgets.size();
 	bool isMouseUsed = false;
