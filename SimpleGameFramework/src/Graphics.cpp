@@ -118,6 +118,7 @@ int sgf::Graphics::TryToBindNewTexture(sgf::SimpleImage* src)
 
 		glUniform1i(textureArrayIndex, mTexturesNumber);
 		mTexturesBuffer.push_back(src);
+
 	}
 	mTexturesNumber++;
 	return mTexturesNumber - 1;

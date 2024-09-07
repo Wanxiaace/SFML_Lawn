@@ -19,6 +19,9 @@ unsigned int sgf::SimpleImage::GenerateTexture()
 {
 	if (mIsLoadedTexture)
 		return mTextureHandle;
+	unsigned int currentBoundTexture = 0;
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, (GLint*)&currentBoundTexture);
+
 	GL_CALL(glGenTextures(1, &mTextureHandle););
 	GL_CALL(glBindTexture(GL_TEXTURE_2D, mTextureHandle));
 	
@@ -28,6 +31,8 @@ unsigned int sgf::SimpleImage::GenerateTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	GL_CALL(glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,mSurface->w,mSurface->h,0,GL_RGBA,GL_UNSIGNED_BYTE,mSurface->pixels));
+	
+	GL_CALL(glBindTexture(GL_TEXTURE_2D, currentBoundTexture));
 
 	mIsLoadedTexture = true;
 	return mTextureHandle;
