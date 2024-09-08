@@ -39,10 +39,12 @@ void Lawn::LawnApp::LawnStart()
 
     gUpdateThread = new std::thread(GameUpdateThread, this);
 
+
     while (mIsOpen)
     {
 
         SDL_Event _event;
+
         if (SDL_PollEvent(&_event)) {
             ImGui_ImplSDL2_ProcessEvent(&_event);
             CopeEvent(_event);

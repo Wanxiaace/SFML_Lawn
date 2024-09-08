@@ -8,6 +8,7 @@
 #include "MusicSystem.h"
 #include "ResourceManager.h"
 #include "Dictionary.h"
+#include "CursorObject.h"
 
 namespace sgf {
 
@@ -29,6 +30,7 @@ namespace sgf {
 		ResourceManager mResourceManager;
 		MusicManager mMusicManager;
 		Dictionary mDictionary;
+		CursorObject mCursor;
 
 		float mMusicVolume = 100.0f;
 		

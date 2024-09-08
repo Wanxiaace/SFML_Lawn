@@ -263,8 +263,18 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
-		if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-			GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+		//if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
+		//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+		
+		if (mReanimBlendCounter > 0) {
+			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / 100.0f, aSource);
+		}
+		else {
+			if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
+				GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+		}
+		
 		if (!aSource.f) {
 			if (!mExtraInfos[i].mAttachedReanim) {
 				SimpleImage* targetImage;

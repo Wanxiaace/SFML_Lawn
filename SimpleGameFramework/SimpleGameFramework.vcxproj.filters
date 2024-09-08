@@ -60,6 +60,9 @@
     <ClCompile Include="src\Particle.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\CursorObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SimpleApp.h">
@@ -111,6 +114,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\MusicSystem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CursorObject.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

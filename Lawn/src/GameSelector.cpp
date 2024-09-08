@@ -6,6 +6,7 @@
 Lawn::GameSelector::GameSelector(int theId, sgf::GameApp* app, bool useEntryAnimation) :Widget(theId)
 {
 	mApp = app;
+	mApp->mCursor.SetVisible(false);
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 	if (useEntryAnimation) {
 		mPlayingEntryAnimation = true;
@@ -70,7 +71,7 @@ void Lawn::GameSelector::Draw(sgf::Graphics* g)
 		g->SetCubeColor({ 1.0f,1.0f,1.0f,float(mAnimeTicker) / 3000.0f });
 		g->FillRect({ 0,LAWN_GAME_WINDOW_HEIGHT-30,LAWN_GAME_WINDOW_WIDTH,30 });
 
-		sgf::SimpleImage* background = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_TITLESCREEN2"];
+		sgf::SimpleImage* background = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_TITLESCREEN2");
 		if (background) {
 			g->MoveTo(0,0);
 			g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f - float(mAnimeTicker) / 3000.0f });
@@ -78,14 +79,13 @@ void Lawn::GameSelector::Draw(sgf::Graphics* g)
 		}
 	}
 	else {
-		sgf::SimpleImage* background = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_TITLESCREEN2"];
+		sgf::SimpleImage* background = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_TITLESCREEN2");
 		if (background) {
 			g->MoveTo(0, 0);
 			g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f });
 			g->DrawImageInRect(background, mRect.mWidth, mRect.mHeight);
 		}
 	}
-
 }
 
 void Lawn::GameSelector::OnClick(int buttonId)

@@ -149,19 +149,25 @@ void Lawn::Zombie::DropHead()
 
 void Lawn::Zombie::DoDeathReanim()
 {
-	PlayTrack("anim_death2");
-	if(!sgf::Rand(0,2))
-		PlayTrack("anim_death");
+	if (!sgf::Rand(0, 2))
+		PlayTrack("anim_death", 0);
+	else {
+		if (!sgf::Rand(0, 3))
+			PlayTrack("anim_superlongdeath", 200);
+		else
+			PlayTrack("anim_death2", 200);
+	}
+	
 	mBodyReanim.Play(sgf::Animator::PlayState::PLAY_ONCE);
 }
 
-void Lawn::Zombie::PlayTrack(const sgf::String& trackName)
+void Lawn::Zombie::PlayTrack(const sgf::String& trackName,int blendTime)
 {
 	mBodyReanim.mFrameIndexBlendBuffer = mBodyReanim.mFrameIndexNow;
 
 	mBodyReanim.SetFrameRangeByTrackName(trackName);
 	
-	mBodyReanim.mReanimBlendCounter = 100;
+	mBodyReanim.mReanimBlendCounter = blendTime;
 }
 
 void Lawn::Zombie::UpdateEating(Plant* target)

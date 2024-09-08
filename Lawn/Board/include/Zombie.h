@@ -156,7 +156,7 @@ namespace Lawn {
         void DropArm();
         void DropHead();
         void DoDeathReanim();
-        void PlayTrack(const sgf::String& trackName);
+        void PlayTrack(const sgf::String& trackName, int blendTime = 100);
         void UpdateEating(Plant* target);
 
         Plant* FindPlant();

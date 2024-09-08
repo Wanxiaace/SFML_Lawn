@@ -76,6 +76,16 @@ namespace sgf {
 		void DrawImageInRect(sgf::SimpleImage* src, float width, float height);
 		void DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, float oriX = 0, float oriY = 0);
 
+		//根据份数进行切片
+		void DrawImageGridAtlas(sgf::SimpleImage* src, float rowNum, float columnNum, float targetRow, float targetColumn);
+		
+		void DrawImageGridAtlasScaleF(sgf::SimpleImage* src, float rowNum, float columnNum, float targetRow, float targetColumn, float scaleX, float scaleY);
+
+		//绘制纹理图集的一部分,所有参数采用uv坐标系，范围为0~1
+		void DrawImageAtlas(sgf::SimpleImage* src, float u, float v, float width, float height);
+		
+		void DrawImageAtlasScaleF(sgf::SimpleImage* src, float u, float v, float width, float height, float scaleX, float scaleY);
+
 		void Translate(float x, float y);
 		void MoveTo(int x, int y);
 		void ModelMoveTo(float x, float y);

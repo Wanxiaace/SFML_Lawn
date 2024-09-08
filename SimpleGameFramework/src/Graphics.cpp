@@ -216,20 +216,81 @@ void sgf::Graphics::DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, f
 		mCubeVertices[i].matrixIndex = -1;
 	}
 }
-/*float matrixPosition = TryToBindNewMatrix(matrix);
 
+void sgf::Graphics::DrawImageGridAtlas(sgf::SimpleImage* src, float rowNum, float columnNum, float targetRow, float targetColumn)
+{
+	DrawImageAtlas(src, targetColumn / columnNum, targetRow / rowNum, 1.0f / columnNum, 1.0f / rowNum);
+}
+
+void sgf::Graphics::DrawImageGridAtlasScaleF(sgf::SimpleImage* src, float rowNum, float columnNum, float targetRow, float targetColumn, float scaleX, float scaleY)
+{
+	DrawImageAtlasScaleF(src, targetColumn / columnNum, targetRow / rowNum, 1.0f / columnNum, 1.0f / rowNum, scaleX, scaleY);
+}
+
+void sgf::Graphics::DrawImageAtlas(sgf::SimpleImage* src,float u, float v,float width,float height)
+{
 	for (size_t i = 0; i < 6; i++)
 	{
-		mCubeVertices[i].matrixIndex = matrixPosition;
+		mCubeVertices[i].u *= width;
+		mCubeVertices[i].v *= height;
+
+		mCubeVertices[i].u += u;
+		mCubeVertices[i].v += v;
 	}
 
-	DrawImage(src);
+	DrawImageScaleF(src, width, height);
 
+	mCubeVertices[0].u = 1.0f;
+	mCubeVertices[0].v = 1.0f;
+
+	mCubeVertices[1].u = 1.0f;
+	mCubeVertices[1].v = 0.0f;
+
+	mCubeVertices[2].u = 0.0f;
+	mCubeVertices[2].v = 0.0f;
+
+	mCubeVertices[3].u = 1.0f;
+	mCubeVertices[3].v = 1.0f;
+
+	mCubeVertices[4].u = 0.0f;
+	mCubeVertices[4].v = 1.0f;
+
+	mCubeVertices[5].u = 0.0f;
+	mCubeVertices[5].v = 0.0f;
+
+}
+
+void sgf::Graphics::DrawImageAtlasScaleF(sgf::SimpleImage* src, float u, float v, float width, float height, float scaleX, float scaleY)
+{
 	for (size_t i = 0; i < 6; i++)
 	{
-		mCubeVertices[i].matrixIndex = -1;
-	}*/
+		mCubeVertices[i].u *= width;
+		mCubeVertices[i].v *= height;
 
+		mCubeVertices[i].u += u;
+		mCubeVertices[i].v += v;
+	}
+
+	DrawImageScaleF(src, width * scaleX, height * scaleY);
+
+	mCubeVertices[0].u = 1.0f;
+	mCubeVertices[0].v = 1.0f;
+
+	mCubeVertices[1].u = 1.0f;
+	mCubeVertices[1].v = 0.0f;
+
+	mCubeVertices[2].u = 0.0f;
+	mCubeVertices[2].v = 0.0f;
+
+	mCubeVertices[3].u = 1.0f;
+	mCubeVertices[3].v = 1.0f;
+
+	mCubeVertices[4].u = 0.0f;
+	mCubeVertices[4].v = 1.0f;
+
+	mCubeVertices[5].u = 0.0f;
+	mCubeVertices[5].v = 0.0f;
+}
 
 void sgf::Graphics::Translate(float x, float y)
 {

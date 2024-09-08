@@ -13,5 +13,6 @@ int main(int argc,char** argv) {
 	gLawnApp->SetWindowIcon("data/WindowIcon.png");
 	gLawnApp->LoadGraphics();
 	gLawnApp->EnterLoadingPage();
+
 	gLawnApp->LawnStart();
 }

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="src\CursorObject.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\MusicSystem.cpp" />
     <ClCompile Include="src\Font.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb\stb_image.h" />
+    <ClInclude Include="include\CursorObject.h" />
     <ClInclude Include="include\Dictionary.h" />
     <ClInclude Include="include\Animator.h" />
     <ClInclude Include="include\Font.h" />
