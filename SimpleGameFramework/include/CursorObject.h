@@ -4,6 +4,7 @@
 #include "Graphics.h"
 
 namespace sgf {
+	class Graphics;
 
 	class CursorObject {
 	public:

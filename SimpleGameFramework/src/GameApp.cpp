@@ -4,6 +4,7 @@ sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, b
 {
 	mWidgetManager = new WidgetManager();
 	UpdateMusicVolume();
+	mCursor = new CursorObject();
 	
 }
 
@@ -11,6 +12,7 @@ sgf::GameApp::~GameApp()
 {
 	delete mGraphics;
 	delete mWidgetManager;
+	delete mCursor;
 
 	GameAppBase::~GameAppBase();
 }

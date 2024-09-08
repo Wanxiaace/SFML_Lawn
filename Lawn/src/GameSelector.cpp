@@ -6,7 +6,7 @@
 Lawn::GameSelector::GameSelector(int theId, sgf::GameApp* app, bool useEntryAnimation) :Widget(theId)
 {
 	mApp = app;
-	mApp->mCursor.SetVisible(false);
+	mApp->mCursor->SetVisible(false);
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 	if (useEntryAnimation) {
 		mPlayingEntryAnimation = true;

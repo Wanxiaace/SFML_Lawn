@@ -11,9 +11,9 @@
 #include "CursorObject.h"
 
 namespace sgf {
-
 	class Graphics;
 	class WidgetManager;
+	class CursorObject;
 	class Widget;
 
 	class GameApp : public GameAppBase {
@@ -30,7 +30,7 @@ namespace sgf {
 		ResourceManager mResourceManager;
 		MusicManager mMusicManager;
 		Dictionary mDictionary;
-		CursorObject mCursor;
+		CursorObject* mCursor;
 
 		float mMusicVolume = 100.0f;
 		
