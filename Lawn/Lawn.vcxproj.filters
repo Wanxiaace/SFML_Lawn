@@ -66,6 +66,9 @@
     <ClCompile Include="Board\src\Projectile.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Board\src\SeedPack.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LawnApp.h">
@@ -117,6 +120,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\SeedPack.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

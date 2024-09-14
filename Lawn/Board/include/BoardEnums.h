@@ -180,6 +180,11 @@ namespace Lawn {
         int mReanimOffsetY;
     };
 
+    enum SeedPackBackground {
+        SEEDPACK_NORMAL,
+    };
+
+
     struct ProjectileDefinition {
         ProjectileType mZombieType;
         int mDamage;
@@ -189,6 +194,9 @@ namespace Lawn {
         sgf::String mImageID;
     };
 
+
+
+   
     extern std::unordered_map<SeedType, PlantDefinition> gPlantsDefinitions;
     extern std::unordered_map<ZombieType, ZombieDefinition> gZombiesDefinitions;
     extern std::unordered_map<ProjectileType, ProjectileDefinition> gProjectilesDefinitions;

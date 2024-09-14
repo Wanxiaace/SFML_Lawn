@@ -20,6 +20,8 @@ constexpr int LAWN_WIDGET_BUTTON_OK = 500;
 constexpr int LAWN_WIDGET_BUTTON_CANCEL = 501;
 constexpr int LAWN_WIDGET_BUTTON_MENU = 502;
 
+constexpr int LAWN_SEED_BANK= 1000;
+
 constexpr int LAWN_DIALOG_SETTING = 5000;
 
 

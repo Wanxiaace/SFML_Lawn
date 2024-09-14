@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board\Board.cpp" />
+    <ClCompile Include="Board\src\SeedPack.cpp" />
     <ClCompile Include="Board\src\Projectile.cpp" />
     <ClCompile Include="Board\src\Zombie.cpp" />
     <ClCompile Include="Board\src\BoardAnimator.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Board\include\Plant.h" />
     <ClInclude Include="Board\include\Projectile.h" />
     <ClInclude Include="Board\include\SceneObejct.h" />
+    <ClInclude Include="Board\include\SeedPack.h" />
     <ClInclude Include="Board\include\Zombie.h" />
     <ClInclude Include="Dialogs\include\SettingDialog.h" />
     <ClInclude Include="Board\include\GameObject.h" />

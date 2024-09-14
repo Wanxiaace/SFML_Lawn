@@ -2,6 +2,7 @@
 #include "../include/Constant.h"
 #include "../include/LawnApp.h"
 #include "include/Plant.h"
+#include "include/SeedPack.h"
 
 Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
 {
@@ -234,6 +235,14 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 		x->Draw(g);
 	}
 	//mParticleManager.Draw(g);
+	auto pos = GetExactPosition();
+	g->SetCubeColor({ 1,1,1,1 });
+	g->ModelMoveTo(pos.first, pos.second);
+
+	/*static auto* packet = new SeedPack();
+
+	g->MoveTo(0, 30);
+	packet->Draw(g);*/
 }
 
 void Lawn::Board::OnClick(int theId)
