@@ -95,8 +95,9 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 
 	if (mIsMouseHover) {
 		g->MoveTo(mRect.mX, mRect.mY);
+		float scaleFlash = sin(mFlashTime) * 0.01f;
 		g->Translate(-3 * mScaleF, -3 * mScaleF);
-		g->DrawImageScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDCHOOSE"), 0.4f, 0.4f);
+		g->DrawImageScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDCHOOSE"), 0.4f + scaleFlash, 0.4f + scaleFlash);
 	}
 
 }
@@ -121,6 +122,8 @@ void Lawn::SeedPack::Update()
 		}
 	}
 	
+	mFlashTime += float(gLawnApp->mDeltaTime) / 100.0f;
+
 }
 
 Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)

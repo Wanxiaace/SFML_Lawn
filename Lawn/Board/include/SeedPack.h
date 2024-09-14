@@ -16,6 +16,8 @@ namespace Lawn {
 		int mCost = 0;
 		sgf::FloatRect mRect;
 
+		float mFlashTime;
+
 		SeedType mSeedType;
 		sgf::SimpleImage* mTextImage = nullptr;
 		float mScaleF = 1.0f;
