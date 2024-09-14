@@ -2,7 +2,6 @@
 #include "../include/Constant.h"
 #include "../include/LawnApp.h"
 #include "include/Plant.h"
-#include "include/SeedPack.h"
 
 Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
 {
@@ -16,14 +15,20 @@ Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
 	mMenuButton->LoadLabel(_LS("Menu"));
 	mMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
 	mMenuButton->AttachToListener(this);
+
+	mSeedBank = new SeedBank(this);
+
 	AppendChild(mMenuButton);
+	AppendChild(mSeedBank);
 }
 
 Lawn::Board::~Board()
 {
 	Widget::~Widget();
 	mWidgetManager->RemoveWidget(mMenuButton);
+	mWidgetManager->RemoveWidget(mSeedBank);
 	delete mMenuButton;
+	delete mSeedBank;
 
 	for (auto& x : mPlantVector)
 	{
@@ -33,6 +38,8 @@ Lawn::Board::~Board()
 	{
 		delete x;
 	}
+
+	
 }
 
 void Lawn::Board::UpdateBoardBackground()
@@ -187,7 +194,7 @@ void Lawn::Board::Update()
 
 
 	mParticleManager.Update();
-
+	mSeedBank->Update();
 }
 
 void Lawn::Board::Draw(sgf::Graphics* g)
@@ -234,15 +241,7 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 		g->MoveTo(0, 0);
 		x->Draw(g);
 	}
-	//mParticleManager.Draw(g);
-	auto pos = GetExactPosition();
-	g->SetCubeColor({ 1,1,1,1 });
-	g->ModelMoveTo(pos.first, pos.second);
 
-	/*static auto* packet = new SeedPack();
-
-	g->MoveTo(0, 30);
-	packet->Draw(g);*/
 }
 
 void Lawn::Board::OnClick(int theId)

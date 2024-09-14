@@ -182,6 +182,7 @@ namespace Lawn {
 
     enum SeedPackBackground {
         SEEDPACK_NORMAL,
+        SEEDPACK_NONE,
     };
 
 

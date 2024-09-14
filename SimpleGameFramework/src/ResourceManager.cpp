@@ -137,6 +137,7 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	for (size_t i = 0; i < LOADING_THREAD_NUM_MAX; i++)
 	{
 		loadingThreads[i]->join();
+		delete loadingThreads[i];
 	}
 
 	LoadParticleImages();

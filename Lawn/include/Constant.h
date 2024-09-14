@@ -31,6 +31,9 @@ constexpr char LAWN_GAME_WINDOW_CAPTAIN[] = "Demo1 v0.1";
 
 constexpr int DIALOG_HEADER_OFFSET = 45;
 
+
+constexpr int BOARD_SEED_BAND_SIZE_MAX = 10;
+
 #endif // !__LAWN_CONSTANT__
 
 

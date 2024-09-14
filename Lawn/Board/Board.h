@@ -10,8 +10,11 @@
 #include "../include/BasicWidgets.h"
 #include "include/ObjectArray.h"
 #include "Particle.h"
+#include "include/SeedPack.h"
 
 namespace Lawn {
+	class SeedBank;
+
 	enum BackGroundType {
 		BACKGROUND_FRONT_YARD_DAY,
 		BACKGROUND_FRONT_YARD_NIGHT,
@@ -22,6 +25,8 @@ namespace Lawn {
 		sgf::SimpleImage* mBackGroundImageCache;
 		BackGroundType mBackGroundType;
 		LawnStoneButton* mMenuButton = nullptr;
+		SeedBank* mSeedBank = nullptr;
+
 		sgf::ParticleManager mParticleManager;
 
 		PlantVector mPlantVector;

@@ -68,6 +68,7 @@ void Lawn::LawnApp::LawnStart()
             mDisplay(this, mDeltaTime);
 
         gMutex.lock();
+        //SDL_ShowCursor(SDL_DISABLE);
         Draw();
         gMutex.unlock();
 

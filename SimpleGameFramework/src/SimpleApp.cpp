@@ -43,7 +43,7 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
     mDisplay = nullptr;
     mCallback = nullptr;
 
-    SDL_GL_SetSwapInterval(false);
+    SDL_GL_SetSwapInterval(false);//关闭自带的逆天垂直同步
     mEnabledASync = enableASync;
     //
 
