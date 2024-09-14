@@ -82,7 +82,7 @@ void sgf::GameAppBase::EnterMainLoop()
                 mCallback(this, _event);
         }
 
-        Uint32 tick = SDL_GetTicks();
+        Uint32 tick = sgf::TryGetTicks();
         mDeltaTime = (tick - m_deltaTimeTick);
 
         if (tick - mLastSecondBuffer >= 1000) {
@@ -106,10 +106,10 @@ void sgf::GameAppBase::EnterMainLoop()
         static const Uint32 FPS = 1000 / 60;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {
-            if (SDL_GetTicks() - _FPS_Timer < FPS) {
-                SDL_Delay(FPS - SDL_GetTicks() + _FPS_Timer);
+            if (sgf::TryGetTicks() - _FPS_Timer < FPS) {
+                SDL_Delay(FPS - sgf::TryGetTicks() + _FPS_Timer);
             }
-            _FPS_Timer = SDL_GetTicks();
+            _FPS_Timer = sgf::TryGetTicks();
         }
     }
 }

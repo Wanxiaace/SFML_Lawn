@@ -151,7 +151,7 @@ void Lawn::Board::Update()
 			length--;
 			continue;
 		}
-
+		mPlantVector[i]->mTickDelta = mTickDelta;
 		mPlantVector[i]->Update();
 	}
 
@@ -166,6 +166,7 @@ void Lawn::Board::Update()
 			continue;
 		}
 
+		mZombieVector[i]->mTickDelta = mTickDelta;
 		mZombieVector[i]->Update();
 	}
 
@@ -179,9 +180,10 @@ void Lawn::Board::Update()
 			length--;
 			continue;
 		}
-
+		mProjectileVector[i]->mTickDelta = mTickDelta;
 		mProjectileVector[i]->Update();
 	}
+
 
 	mParticleManager.Update();
 

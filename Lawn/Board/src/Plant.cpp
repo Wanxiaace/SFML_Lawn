@@ -22,7 +22,7 @@ void Lawn::Plant::PlantInit()
 
 	auto& def = gPlantsDefinitions[mSeedType];
 
-	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
+	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
 	mBodyReanim.SetFrameRangeByTrackName("anim_idle");
 	mBodyReanim.Play();
 	mTickCache = sgf::TryGetTicks();
@@ -32,7 +32,7 @@ void Lawn::Plant::PlantInit()
 	case Lawn::SEED_PEASHOOTER:
 		mShootBox = { mBox.mX,mBox.mY,800,60 };
 		mHeadReanimMatrix = glm::translate(glm::mat4x4(1.0f), glm::vec3(-37, -47, 0));
-		mHeadReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
+		mHeadReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
 		mBodyReanim.TrackAttachAnimator("anim_stem", &mHeadReanim);
 		mBodyReanim.TrackAttachAnimatorMatrix("anim_stem", &mHeadReanimMatrix);
 		mHeadReanim.SetFrameRangeByTrackName("anim_head_idle");

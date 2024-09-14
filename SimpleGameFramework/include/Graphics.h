@@ -17,6 +17,13 @@ namespace sgf {
 	class Graphics;
 
 	class Graphics {
+	protected:
+		void ResizeCube(float targetX,float targetY,float targetWidth,float targetHeight);
+		void SetCubeImagePostion(float u,float v,float width,float height);
+		void ReSetCubeImagePostion();
+		void SetCubeTextureIndex(float index);
+		void SetCubeMatrixIndex(float index);
+
 	public:
 		unsigned int mCubeVAO;
 		unsigned int mCubeVBO;

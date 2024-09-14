@@ -137,8 +137,7 @@ namespace Lawn {
         bool mDoDeathReanim = false;
         int mReanimOffsetX = 0;
         int mReanimOffsetY = 0;
-        unsigned int mTickCache = 0;
-        unsigned int mTickDelta = 0;
+        
         bool mAvailable = true;
         bool mIsLive = true;
         bool mIsEating = false;

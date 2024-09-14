@@ -5,9 +5,9 @@ sgf::Animator::Animator()
 	mReanim = nullptr;
 }
 
-sgf::Animator::Animator(sgf::Reanimation* reanim)
+sgf::Animator::Animator(sgf::Reanimation* reanim, sgf::GameApp* app)
 {
-	Init(reanim);
+	Init(reanim, app);
 }
 
 void sgf::Animator::Play(const PlayState& state)
@@ -16,8 +16,9 @@ void sgf::Animator::Play(const PlayState& state)
 	mIsPlaying = true;
 }
 
-void sgf::Animator::Init(Reanimation* reanim)
+void sgf::Animator::Init(Reanimation* reanim, sgf::GameApp* app)
 {
+	mApp = app;
 	mReanim = reanim;
 	mFPS = mReanim->mFPS;
 	mDeltaRate = 1000.0f / mFPS;
@@ -128,11 +129,9 @@ bool sgf::Animator::GetTrackVisible(const sgf::String& trackName)
 void sgf::Animator::Update()
 {
 	if (mIsPlaying) {
-		unsigned int delta = sgf::TryGetTicks() - mTickBuffer;
+		unsigned int delta = mApp->mDeltaTime;
 		float num = ((float)delta) / mDeltaRate;
 
-		mTickBuffer = sgf::TryGetTicks();
-		
 		if (mReanimBlendCounter > 0) {
 			mReanimBlendCounter -= delta;
 		}

@@ -51,7 +51,13 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 	for (auto x = mWidgets.rbegin();x < mWidgets.rend();x++)
 	{
 		if ((*x)->GetVisible()) {
+			(*x)->mTickDelta = app->mDeltaTime;
 			(*x)->Update();
+
+			if ((*x)->mEnabledModel) {
+				isMouseUsed = true;
+			}
+
 			if (!isMouseUsed && (*x)->GetExactRect().IsPointIn(app->mMouseX, app->mMouseY)) {
 				(*x)->mIsMouseHover = true;
 				if (app->mIsMouseLeftDown) {

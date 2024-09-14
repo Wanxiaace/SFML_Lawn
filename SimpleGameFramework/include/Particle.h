@@ -29,6 +29,8 @@ namespace sgf {
 		//EMITTER_BOMB_PHYSIC,//四散爆开（不规则），物理掉落
 
 	};
+	class Graphics;
+
 
 	class Particle {
 	public:
@@ -111,6 +113,7 @@ namespace sgf {
 		void SetAngleRange(float angleMin, float angleMax) { mAngleMin = angleMin; mAngleMax = angleMax; };
 		Particle* Emitt();
 		void AttachImage(SimpleImage* image) { mImages.push_back(image); };
+
 		void AttachShadowImage(SimpleImage* image) { mShadowImage = image; };
 		void MoveTo(int targetX, int targetY, int targetZ) { mX = targetX; mY = targetY; mZ = targetZ; };
 		//加载paxml

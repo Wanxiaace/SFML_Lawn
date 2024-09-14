@@ -15,7 +15,7 @@ Lawn::Projectile::~Projectile()
 
 void Lawn::Projectile::Init()
 {
-	mTickCache = sgf::TryGetTicks();
+	//mTickCache = sgf::TryGetTicks();
 	auto& def = gProjectilesDefinitions[mProjectileType];
 	mProjectileImage = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool[def.mImageID];
 	mImageOffsetX = def.mImageOffsetX;
@@ -81,9 +81,7 @@ void Lawn::Projectile::Update()
 {
 	if (!mAvailable)
 		return;
-	unsigned int tick = sgf::TryGetTicks();
-	int tickDelta = tick - mTickCache;
-	mTickCache = tick;
+	int tickDelta = mTickDelta;
 
 	switch (mMotionType)
 	{

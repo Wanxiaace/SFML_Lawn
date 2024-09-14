@@ -3,9 +3,11 @@
 #define __SIMPLE_RESOURCE_MANAGER__
 #include <iostream>
 #include <vector>
+#include <mutex>
 #include <unordered_map>
 #include "Common.h"
 #include "MusicSystem.h"
+//#include "Particle.h"
 
 namespace sgf{
 
@@ -35,6 +37,8 @@ namespace sgf{
 		float mProcess = 0;
 		int mTotalFile = 0;
 		int mNowFile = 0;
+		std::mutex mMutex;
+		std::vector<void*> mEmitters;
 
 	public:
 		ResourceManager();
@@ -44,8 +48,10 @@ namespace sgf{
 		void LoadReanimWithID(const sgf::String& aPath, sgf::String id);
 		void LoadFontWithID(const sgf::String& aPath, sgf::String id);
 		void LoadParticleWithID(const sgf::String& aPath, sgf::String id);
+		void LoadParticleImages();
 
 		void LoadFromResouceList(ResourceList* src,MusicManager* mus);
+
 		void AttachBasePath(const sgf::String& tar) { mBasePath = tar; }
 
 		template <typename T>

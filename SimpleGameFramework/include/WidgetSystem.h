@@ -47,12 +47,16 @@ namespace sgf {
 		Widget* mParent = nullptr;
 		std::vector<Widget*> mChilds;
 		bool mVisible = true;
+		int mTickDelta = 0;
 
 		bool mIsMouseHover = false;
 		bool mIsPlayHoverSound = false;
 
 		//是否被鼠标摁住
 		bool mIsMouseCaught = false;
+
+		//是否为模态窗口
+		bool mEnabledModel = false;
 		int mId;
 
 	public:

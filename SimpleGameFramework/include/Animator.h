@@ -28,13 +28,14 @@ namespace sgf {
 
 	public:
 		Reanimation* mReanim;
+		GameApp* mApp;
 		float mFPS = 0;
 		float mFrameIndexNow =0;
 		float mFrameIndexBegin = 0;
 		float mFrameIndexEnd = 0;
 		float mSpeed = 1.0f;
 		float mDeltaRate = 0.0f;
-		unsigned int mTickBuffer = 0;
+		//unsigned int mTickBuffer = 0;
 
 		//过渡动画倒计时
 		float mReanimBlendCounter = -1.0f;
@@ -49,11 +50,11 @@ namespace sgf {
 
 	public:
 		Animator();
-		Animator(Reanimation* reanim);
+		Animator(Reanimation* reanim, sgf::GameApp* app);
 		~Animator() {};
 
 		void Play(const PlayState& state = PLAY_REPEAT);
-		void Init(Reanimation* reanim);
+		void Init(Reanimation* reanim, sgf::GameApp* app);
 		void Pause();
 
 		std::pair<int, int> GetTrackRange(const sgf::String& trackName);

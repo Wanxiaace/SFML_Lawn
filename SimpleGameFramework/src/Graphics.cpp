@@ -1,6 +1,72 @@
 #include "../include/Graphics.h"
 #include <string>
 
+void sgf::Graphics::ResizeCube(float targetX, float targetY, float targetWidth, float targetHeight)
+{
+	for (size_t i = 0; i < 6; i++)
+	{
+		mCubeVertices[i].x = targetX;
+		mCubeVertices[i].y = targetY;
+	}
+
+	mCubeVertices[0].x += targetWidth;
+	mCubeVertices[0].y += targetHeight;
+	mCubeVertices[1].x += targetWidth;
+
+	mCubeVertices[3].x += targetWidth;
+	mCubeVertices[3].y += targetHeight;
+	mCubeVertices[4].y += targetHeight;
+}
+
+void sgf::Graphics::SetCubeImagePostion(float u, float v, float width, float height)
+{
+	for (size_t i = 0; i < 6; i++)
+	{
+		mCubeVertices[i].u *= width;
+		mCubeVertices[i].v *= height;
+
+		mCubeVertices[i].u += u;
+		mCubeVertices[i].v += v;
+	}
+}
+
+void sgf::Graphics::ReSetCubeImagePostion()
+{
+	mCubeVertices[0].u = 1.0f;
+	mCubeVertices[0].v = 1.0f;
+
+	mCubeVertices[1].u = 1.0f;
+	mCubeVertices[1].v = 0.0f;
+
+	mCubeVertices[2].u = 0.0f;
+	mCubeVertices[2].v = 0.0f;
+
+	mCubeVertices[3].u = 1.0f;
+	mCubeVertices[3].v = 1.0f;
+
+	mCubeVertices[4].u = 0.0f;
+	mCubeVertices[4].v = 1.0f;
+
+	mCubeVertices[5].u = 0.0f;
+	mCubeVertices[5].v = 0.0f;
+}
+
+void sgf::Graphics::SetCubeTextureIndex(float index)
+{
+	for (size_t i = 0; i < 6; i++)
+	{
+		mCubeVertices[i].texIndex = index;
+	}
+}
+
+void sgf::Graphics::SetCubeMatrixIndex(float index)
+{
+	for (size_t i = 0; i < 6; i++)
+	{
+		mCubeVertices[i].matrixIndex = index;
+	}
+}
+
 sgf::Graphics::Graphics(GameApp* gameApp)
 {
 
@@ -75,18 +141,7 @@ void sgf::Graphics::DrawTriangleArrays()
 void sgf::Graphics::FillRect(int width, int height)
 {
 	Point graPos = GetGraphicsTransformPosition();
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].x = graPos.x;
-		mCubeVertices[i].y = graPos.y;
-	}
-	mCubeVertices[0].x += width;
-	mCubeVertices[0].y += height;
-	mCubeVertices[1].x += width;
-
-	mCubeVertices[3].x += width;
-	mCubeVertices[3].y += height;
-	mCubeVertices[4].y += height;
+	ResizeCube(graPos.x, graPos.y, width, height);
 
 	AppendVertices(mCubeVertices,6);
 
@@ -126,10 +181,6 @@ int sgf::Graphics::TryToBindNewTexture(sgf::SimpleImage* src)
 
 int sgf::Graphics::TryToBindNewMatrix(glm::mat4x4 src)
 {
-	//auto itr = std::find(mMatrixsBuffer.begin(), mMatrixsBuffer.end(), src);
-	
-	//if (itr != mMatrixsBuffer.end())
-		//return itr - mMatrixsBuffer.begin();
 
 	mMatrixsBuffer.push_back(src);
 	mMatrixsNumber++;
@@ -171,17 +222,11 @@ void sgf::Graphics::DrawImageScaleF(sgf::SimpleImage* src, float scaleX, float s
 void sgf::Graphics::DrawImageInRect(sgf::SimpleImage* src, float width, float height)
 {
 	int tex = TryToBindNewTexture(src);
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].texIndex = tex;
-	}
+	SetCubeTextureIndex(tex);
 
 	FillRect(width, height);
 
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].texIndex = -1;
-	}
+	SetCubeTextureIndex(-1);
 }
 
 void sgf::Graphics::DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, float oriX, float oriY)
@@ -190,31 +235,16 @@ void sgf::Graphics::DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, f
 	float matrixPosition = TryToBindNewMatrix(glm::translate(glm::mat4x4(1.0f), glm::vec3(graPos.x+ oriX, graPos.y+ oriY, 0)) * matrix);
 	int tex = TryToBindNewTexture(src);
 
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].texIndex = tex;
-		mCubeVertices[i].matrixIndex = matrixPosition;
+	SetCubeTextureIndex(tex);
+	SetCubeMatrixIndex(matrixPosition);
 
-		mCubeVertices[i].x = 0;
-		mCubeVertices[i].y = 0;
-	}
-
-	mCubeVertices[0].x += src->mSurface->w;
-	mCubeVertices[0].y += src->mSurface->h;
-	mCubeVertices[1].x += src->mSurface->w;
-
-	mCubeVertices[3].x += src->mSurface->w;
-	mCubeVertices[3].y += src->mSurface->h;
-	mCubeVertices[4].y += src->mSurface->h;
+	ResizeCube(0, 0, src->mSurface->w, src->mSurface->h);
 
 	AppendVertices(mCubeVertices, 6);
 	CheckSubmit();
 
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].texIndex = -1;
-		mCubeVertices[i].matrixIndex = -1;
-	}
+	SetCubeTextureIndex(-1);
+	SetCubeMatrixIndex(-1);
 }
 
 void sgf::Graphics::DrawImageGridAtlas(sgf::SimpleImage* src, float rowNum, float columnNum, float targetRow, float targetColumn)
@@ -229,67 +259,23 @@ void sgf::Graphics::DrawImageGridAtlasScaleF(sgf::SimpleImage* src, float rowNum
 
 void sgf::Graphics::DrawImageAtlas(sgf::SimpleImage* src,float u, float v,float width,float height)
 {
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].u *= width;
-		mCubeVertices[i].v *= height;
-
-		mCubeVertices[i].u += u;
-		mCubeVertices[i].v += v;
-	}
+	SetCubeImagePostion(u,v,width,height);
 
 	DrawImageScaleF(src, width, height);
 
-	mCubeVertices[0].u = 1.0f;
-	mCubeVertices[0].v = 1.0f;
-
-	mCubeVertices[1].u = 1.0f;
-	mCubeVertices[1].v = 0.0f;
-
-	mCubeVertices[2].u = 0.0f;
-	mCubeVertices[2].v = 0.0f;
-
-	mCubeVertices[3].u = 1.0f;
-	mCubeVertices[3].v = 1.0f;
-
-	mCubeVertices[4].u = 0.0f;
-	mCubeVertices[4].v = 1.0f;
-
-	mCubeVertices[5].u = 0.0f;
-	mCubeVertices[5].v = 0.0f;
+	ReSetCubeImagePostion();
 
 }
 
 void sgf::Graphics::DrawImageAtlasScaleF(sgf::SimpleImage* src, float u, float v, float width, float height, float scaleX, float scaleY)
 {
-	for (size_t i = 0; i < 6; i++)
-	{
-		mCubeVertices[i].u *= width;
-		mCubeVertices[i].v *= height;
 
-		mCubeVertices[i].u += u;
-		mCubeVertices[i].v += v;
-	}
+	SetCubeImagePostion(u, v, width, height);
 
 	DrawImageScaleF(src, width * scaleX, height * scaleY);
 
-	mCubeVertices[0].u = 1.0f;
-	mCubeVertices[0].v = 1.0f;
+	ReSetCubeImagePostion();
 
-	mCubeVertices[1].u = 1.0f;
-	mCubeVertices[1].v = 0.0f;
-
-	mCubeVertices[2].u = 0.0f;
-	mCubeVertices[2].v = 0.0f;
-
-	mCubeVertices[3].u = 1.0f;
-	mCubeVertices[3].v = 1.0f;
-
-	mCubeVertices[4].u = 0.0f;
-	mCubeVertices[4].v = 1.0f;
-
-	mCubeVertices[5].u = 0.0f;
-	mCubeVertices[5].v = 0.0f;
 }
 
 void sgf::Graphics::Translate(float x, float y)

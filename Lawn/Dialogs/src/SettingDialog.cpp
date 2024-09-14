@@ -5,7 +5,7 @@
 
 Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_SETTING,app)
 {
-
+	mEnabledModel = true;
 	mOKButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_OK,mApp);
 	mOKButton->Resize(500,500,170,50);
 	mOKButton->AttachToListener(this);

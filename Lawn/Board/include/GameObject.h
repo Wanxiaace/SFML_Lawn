@@ -10,6 +10,7 @@ namespace Lawn {
 	class GameObject {
 	public:
 		sgf::FloatRect mBox;
+		unsigned int mTickDelta = 0;
 
 	public:
 		const sgf::FloatRect& GetHitBox() const { return mBox; };

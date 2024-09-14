@@ -27,6 +27,8 @@
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
 
+const int LOADING_THREAD_NUM_MAX = 10;
+
 
 static void CheckGLError(const char* file, int line)
 {

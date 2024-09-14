@@ -11,6 +11,8 @@
 
 
 namespace Lawn {
+	class Board;
+
 	class LawnApp : public sgf::GameApp {
 	public:
 		LoadingPage* mLoadingPage = nullptr;

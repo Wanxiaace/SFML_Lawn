@@ -34,7 +34,6 @@ namespace Lawn {
         float mScale = 1.0f;
         float mZ = 40;
         int mDamage = 0;
-        unsigned int mTickCache = 0;
         int mImageOffsetX = 0;
         int mImageOffsetY = 0;
         bool mAvailable = true;

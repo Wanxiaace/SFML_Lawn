@@ -11,9 +11,9 @@ Lawn::Zombie::Zombie()
 
 void Lawn::Zombie::Init()
 {
-	mTickCache = sgf::TryGetTicks();
+	//mTickCache = sgf::TryGetTicks();
 	auto& def = gZombiesDefinitions[mZombieType];
-	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
+	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
 	PlayTrack("anim_walk");
 	mBodyReanim.Play();
 	mHealth = 270;
@@ -212,9 +212,9 @@ void Lawn::Zombie::InitZombiesDefinitions()
 
 void Lawn::Zombie::Update()
 {
-	unsigned int tickNow = sgf::TryGetTicks();
+	/*unsigned int tickNow = sgf::TryGetTicks();
 	mTickDelta = tickNow - mTickCache;
-	mTickCache = tickNow;
+	mTickCache = tickNow;*/
 
 	mBodyReanim.Update();
 	if (mBodyReanim.GetTrackVisible("_ground")) {
