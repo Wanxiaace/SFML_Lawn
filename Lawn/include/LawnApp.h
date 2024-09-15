@@ -8,6 +8,8 @@
 #include "GameSelector.h"
 #include "../Dialogs/include/SettingDialog.h"
 #include "../Board/Board.h"
+#include "PlayerInfo.h"
+#include "LawnPlayerInfo.h"
 
 
 namespace Lawn {
@@ -19,6 +21,8 @@ namespace Lawn {
 		GameSelector* mGameSelector = nullptr;
 		SettingDialog* mSettingDialog = nullptr;
 		Board* mBoard = nullptr;
+
+		LawnPlayerInfo mPlayerInfo;
 
 	public:
 		LawnApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync = true, bool resiziable = false);
@@ -36,6 +40,8 @@ namespace Lawn {
 		void EnterGameBoard();
 		void MakeNewBoard();
 		void KillBoard();
+
+		void LoadPlayerInfo(const sgf::String& path);
 		
 
 	public:

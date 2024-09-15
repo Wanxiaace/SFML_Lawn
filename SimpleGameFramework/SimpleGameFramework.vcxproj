@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="src\PlayerInfo.cpp" />
     <ClCompile Include="src\CursorObject.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\MusicSystem.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\MusicSystem.h" />
     <ClInclude Include="include\Particle.h" />
+    <ClInclude Include="include\PlayerInfo.h" />
     <ClInclude Include="include\Program.h" />
     <ClInclude Include="include\Reanimation.h" />
     <ClInclude Include="include\ResourceManager.h" />

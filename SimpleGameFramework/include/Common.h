@@ -134,6 +134,16 @@ namespace sgf {
         }
     }
 
+    static bool IsFileExist(const sgf::String& filename) {
+        FILE* file;
+        fopen_s(&file, filename.c_str(), "r");
+        if (file) {
+            fclose(file);
+            return true;
+        }
+        return 0;
+    }
+
     static unsigned int TryGetTicks() {
         //可调多倍速
         return SDL_GetTicks();

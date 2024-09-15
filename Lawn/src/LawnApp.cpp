@@ -158,6 +158,11 @@ void Lawn::LawnApp::KillBoard()
     }
 }
 
+void Lawn::LawnApp::LoadPlayerInfo(const sgf::String& path)
+{
+    mPlayerInfo.TryLoadFromFile(path);
+}
+
 
 void Lawn::LawnApp::CopeEvent(SDL_Event& _event)
 {

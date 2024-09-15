@@ -139,6 +139,7 @@
     <ClCompile Include="Board\src\BoardAnimator.cpp" />
     <ClCompile Include="Board\src\Plant.cpp" />
     <ClCompile Include="Dialogs\src\SettingDialog.cpp" />
+    <ClCompile Include="src\LawnPlayerInfo.cpp" />
     <ClCompile Include="src\BasicWidgets.cpp" />
     <ClCompile Include="src\GameSelector.cpp" />
     <ClCompile Include="src\LoadingPage.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="include\Constant.h" />
     <ClInclude Include="include\GameSelector.h" />
     <ClInclude Include="include\LawnApp.h" />
+    <ClInclude Include="include\LawnPlayerInfo.h" />
     <ClInclude Include="include\LoadingPage.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

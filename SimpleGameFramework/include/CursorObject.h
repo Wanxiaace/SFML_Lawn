@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __SIMPLE_CURSOR_OBJECT__
+#define __SIMPLE_CURSOR_OBJECT__
+
 
 #include "Common.h"
 #include "Graphics.h"
@@ -21,3 +24,5 @@ namespace sgf {
 		virtual void Draw(Graphics* g);
 	};
 }
+
+#endif // !__SIMPLE_CURSOR_OBJECT__

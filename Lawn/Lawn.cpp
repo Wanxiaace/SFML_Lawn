@@ -14,6 +14,8 @@ int main(int argc,char** argv) {
 	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
 	gLawnApp->SetWindowIcon("data/WindowIcon.png");
 	gLawnApp->LoadGraphics();
+	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
+
 	gLawnApp->EnterLoadingPage();
 
 	gLawnApp->LawnStart();

@@ -138,7 +138,6 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 	AppendSeedPack(SEED_NONE);
 	AppendSeedPack(SEED_NONE);
 	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
 
 }
 
