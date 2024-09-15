@@ -27,6 +27,7 @@ namespace sgf {
 		void ReleaseTexture();
 		SDL_Surface* LoadFromFile(const char* path);
 		void LoadFromSurface(SDL_Surface* path);
+		void DumpToFiles(const char* path) const;
 
 		int GetWidth() const;
 		int GetHeight() const;

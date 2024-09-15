@@ -48,6 +48,7 @@ Lawn::SettingDialog::~SettingDialog()
 	delete mVolumeSlider;
 }
 
+
 void Lawn::SettingDialog::Draw(sgf::Graphics* g)
 {
 	LawnDialog::Draw(g);

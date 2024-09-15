@@ -86,6 +86,12 @@ void sgf::SimpleImage::LoadFromSurface(SDL_Surface* src)
 	}
 }
 
+void sgf::SimpleImage::DumpToFiles(const char* path) const
+{
+	if (mSurface)
+		IMG_SavePNG(mSurface, path);
+}
+
 int sgf::SimpleImage::GetWidth() const
 {
 	if (mIsAtlasUnit)

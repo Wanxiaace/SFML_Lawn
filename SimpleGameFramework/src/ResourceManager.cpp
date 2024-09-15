@@ -169,6 +169,7 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	mNowFile = 0;
 
 	int len = src->mResouces.size();
+	/*
 	int stride = len / (LOADING_THREAD_NUM_MAX+1);
 
 	std::vector<std::thread*> loadingThreads;
@@ -183,7 +184,8 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	{
 		loadingThreads[i]->join();
 		delete loadingThreads[i];
-	}
+	} 多线程加载*/
+	LoadFromResouceListFunc(this, src, mus, 0, len);
 
 	LoadParticleImages();
 	mIsLoaded = true;

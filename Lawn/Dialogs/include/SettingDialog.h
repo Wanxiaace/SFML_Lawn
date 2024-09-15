@@ -27,6 +27,7 @@ namespace Lawn {
 		SettingDialog(sgf::GameApp* app);
 		~SettingDialog();
 
+
 	public:
 
 		virtual void Draw(sgf::Graphics* g) override;

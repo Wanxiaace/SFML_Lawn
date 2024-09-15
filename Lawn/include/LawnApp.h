@@ -46,7 +46,8 @@ namespace Lawn {
 }
 
 extern Lawn::LawnApp* gLawnApp;//全局App
-extern std::thread* gUpdateThread;//全局App
+extern std::thread* gUpdateThread;
+extern std::mutex gLoopMutex;//全局Mutex
 
 
 #endif

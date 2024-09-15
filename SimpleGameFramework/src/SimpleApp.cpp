@@ -98,7 +98,7 @@ void sgf::GameAppBase::EnterMainLoop()
             mDisplay(this, mDeltaTime);
 
         Draw();
-        
+        mMessageManager.CopeAllMessage();
         Update();
 
         m_deltaTimeTick = tick;
@@ -143,7 +143,6 @@ void sgf::GameAppBase::CopeEvent(SDL_Event& theEvent)
 
 void sgf::GameAppBase::Update()
 {
-    mMessageManager.CopeAllMessage();
     auto state = SDL_GetMouseState(&mMouseX,&mMouseY);
     mMouseX *= mMouseXScale;
     mMouseY *= mMouseYScale;

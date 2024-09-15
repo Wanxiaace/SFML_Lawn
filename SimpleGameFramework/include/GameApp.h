@@ -42,11 +42,12 @@ namespace sgf {
 		void SafeDeleteWidget(Widget* target);
 		void SafeAppendWidget(Widget* target);
 		void LoadResources(const char* resourcesListPath);
-		//提供一些多语言支持
+		/// 提供一些多语言支持
 		void LoadDict(const char* dictPath);
 		void SetWindowIcon(const char* path);
 		void SetWindowIconFromImage(sgf::SimpleImage* image);
 		void SetWindowCaptain(const sgf::String& title);
+		void ScreenShot(const sgf::String& outPath);
 
 		void UpdateMusicVolume();
 		Graphics* LoadGraphics();

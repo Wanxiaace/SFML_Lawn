@@ -190,9 +190,33 @@ namespace sgf {
 		/// @brief 检查缓冲区是否达到上限，如果是就调用Present
 		void CheckSubmit();
 
+		/// @brief 创建一个Color帧缓冲并绑定到上去
+		/// @param fbo 创建的帧缓冲储存地址
+		/// @param tex 创建的帧缓冲纹理储存地址
+		/// @param width
+		/// @param height
+		/// @return 会将fbo指向的值设置为新的帧缓冲，tex指向的值设为新的纹理
+		void GenFrameBuffer(unsigned int* fbo, unsigned int* tex, int width, int height);
+
+		/// @brief 绑定一个帧缓冲对象
+		/// @param fbo 目标帧缓冲
+		void BindFrameBuffer(unsigned int fbo);
+
+		/// @brief 切换为屏幕默认的帧缓冲对象
+		void ResetFrameBuffer();
+
 		/// @brief 获得Gra的实际坐标（原点坐标+临时原点坐标）
 		/// @return x和y组成的pair
 		Point GetGraphicsTransformPosition();
+
+		/// @brief 主要用于获得屏幕帧缓冲的像素数据，用于截图之类的，实际上是读取当前绑定的帧缓存的数据
+		/// @param x 开始读取的x
+		/// @param y 开始读取的y
+		/// @param width 读取的宽度
+		/// @param height 读取高度
+		/// @return 返回当前绑定的帧缓存的图像
+		SimpleImage* CaptureScreen(int x, int y, int width, int height);
+
 
 	};
 

@@ -251,6 +251,7 @@ void Lawn::Board::OnClick(int theId)
 	case LAWN_WIDGET_BUTTON_MENU:
 		gLawnApp->KillBoard();
 		gLawnApp->EnterGameSelector();
+
 		break;
 	default:
 		break;

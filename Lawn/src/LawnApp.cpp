@@ -8,7 +8,7 @@
 
 Lawn::LawnApp* gLawnApp = nullptr;
 std::thread* gUpdateThread = nullptr;
-std::mutex gMutex;
+std::mutex gLoopMutex;
 
 static unsigned int m_deltaTimeTick;
 
@@ -67,10 +67,12 @@ void Lawn::LawnApp::LawnStart()
         if (mDisplay)
             mDisplay(this, mDeltaTime);
 
-        gMutex.lock();
+        gLoopMutex.lock();
         //SDL_ShowCursor(SDL_DISABLE);
         Draw();
-        gMutex.unlock();
+        mMessageManager.CopeAllMessage();
+
+        gLoopMutex.unlock();
 
         m_deltaTimeTick = tick;
 
@@ -172,9 +174,9 @@ void Lawn::GameUpdateThread(LawnApp* app)
 
     while (true)
     {
-        gMutex.lock();
+        gLoopMutex.lock();
         app->Update();
-        gMutex.unlock();
+        gLoopMutex.unlock();
         
         Sleep(10);
     }

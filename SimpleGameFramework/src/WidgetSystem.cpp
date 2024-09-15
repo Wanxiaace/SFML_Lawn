@@ -160,6 +160,29 @@ void sgf::Widget::RemoveAllChild()
 	}
 }
 
+void sgf::Widget::DumpWidgetImage(Graphics* g,const char* outPath)
+{
+	g->Present();
+
+	unsigned int fbo, tex;
+	g->GenFrameBuffer(&fbo, &tex, mRect.mWidth + GetExactPosition().first, mRect.mHeight + GetExactPosition().second);
+
+	Draw(g);
+
+	for (auto& x : mChilds)
+	{
+		g->ModelMoveTo(x->GetExactPosition().first, x->GetExactPosition().second);
+		g->MoveTo(0, 0);
+		x->Draw(g);
+	}
+
+	g->Present();
+	g->CaptureScreen(GetExactPosition().first, GetExactPosition().second, mRect.mWidth, mRect.mHeight)->DumpToFiles(outPath);
+
+	g->ResetFrameBuffer();
+
+}
+
 std::pair<int, int> sgf::Widget::GetExactPosition()
 {
 	if (mParent) {

@@ -387,8 +387,72 @@ void sgf::Graphics::CheckSubmit()
 		Present();
 }
 
+void sgf::Graphics::GenFrameBuffer(unsigned int* fbo, unsigned int* tex,int width, int height)
+{
+	glGenFramebuffers(1, fbo);
+	glBindFramebuffer(GL_FRAMEBUFFER, *fbo);
+
+	unsigned int currentBoundTexture = 0;
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, (GLint*)&currentBoundTexture);
+
+	glGenTextures(1, tex);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, *tex, 0);
+	glBindTexture(GL_TEXTURE_2D, currentBoundTexture);
+
+}
+
+void sgf::Graphics::BindFrameBuffer(unsigned int fbo)
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+}
+
+void sgf::Graphics::ResetFrameBuffer()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 sgf::Point sgf::Graphics::GetGraphicsTransformPosition()
 {
 	return { mTransformPosition.x + mModelTransformPosition.x,
 		mTransformPosition.y + mModelTransformPosition.y,};
+}
+
+
+static void FlipPixelsVertically(unsigned int* pixels, int width, int height) {
+	for (int row = 0; row < height / 2; ++row) {
+		int rowIndex = row * width;
+		int oppositeRowIndex = (height - row - 1) * width;
+
+		for (int col = 0; col < width; ++col) {
+			unsigned int temp = pixels[rowIndex + col];
+			pixels[rowIndex + col] = pixels[oppositeRowIndex + col];
+			pixels[oppositeRowIndex + col] = temp;
+		}
+	}
+}
+
+sgf::SimpleImage* sgf::Graphics::CaptureScreen(int x, int y, int width, int height)
+{
+	sgf::SimpleImage* result = new sgf::SimpleImage();
+	unsigned int* pixels = new unsigned int[width * height];//四字节一个像素，可以视为int
+	glReadBuffer(GL_FRONT);
+	glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	FlipPixelsVertically(pixels, width, height);
+
+	result->LoadFromSurface(SDL_CreateRGBSurfaceFrom(pixels,
+		width, height,
+		32,
+		width * 4,
+		0xff,
+		0xff00,
+		0xff0000,
+		0xff000000));
+
+	return result;
 }

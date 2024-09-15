@@ -86,6 +86,7 @@ void Lawn::GameSelector::Draw(sgf::Graphics* g)
 			g->DrawImageInRect(background, mRect.mWidth, mRect.mHeight);
 		}
 	}
+
 }
 
 void Lawn::GameSelector::OnClick(int buttonId)

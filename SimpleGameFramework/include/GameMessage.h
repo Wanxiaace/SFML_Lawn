@@ -11,6 +11,7 @@ namespace sgf {
 			MSG_TYPE_NONE,
 			MSG_TYPE_DELETE_WIDGET,
 			MSG_TYPE_APPEND_WIDGET,
+			MSG_TYPE_SCREEN_SHOT,
 		};
 	public:
 		MessageType mMessageType;

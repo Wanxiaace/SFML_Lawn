@@ -75,6 +75,8 @@ namespace sgf {
 		void RemoveChild(Widget* child);
 		void RemoveAllChild();
 
+		void DumpWidgetImage(Graphics* g, const char* outPath);
+
 		std::pair<int, int> GetExactPosition();
 		FloatRect GetExactRect();
 

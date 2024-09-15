@@ -89,6 +89,15 @@ void sgf::GameApp::SetWindowCaptain(const sgf::String& title)
 	SDL_SetWindowTitle(mGameWindow, title.c_str());
 }
 
+void sgf::GameApp::ScreenShot(const sgf::String& outPath)
+{
+	GameMessage srceenShotMessage = {};
+	srceenShotMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_SCREEN_SHOT;
+	srceenShotMessage.mParamPointer1 = this;
+	mMessageManager.SendGameMessage(srceenShotMessage);
+
+}
+
 
 void sgf::GameApp::Update()
 {

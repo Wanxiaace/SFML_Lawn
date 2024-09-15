@@ -24,6 +24,14 @@ void sgf::GameMessageManager::CopeAllMessage()
 		{
 			Widget* widget = (Widget*)mMessages[i].mParamPointer2;
 			((WidgetManager*)mMessages[i].mParamPointer1)->AddWidget(widget);
+			break;
+		}
+		case sgf::GameMessage::MessageType::MSG_TYPE_SCREEN_SHOT: {
+			GameApp* app = static_cast<GameApp*>(mMessages[i].mParamPointer1);
+			auto screenShot = app->mGraphics->CaptureScreen(0, 0, app->mWidth, app->mHeight);
+			screenShot->DumpToFiles("ScreenShot.png");
+			delete screenShot;
+			break;
 		}
 		default:
 			break;
