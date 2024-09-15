@@ -115,35 +115,23 @@ namespace sgf {
         };
     };
 
-    static std::string StringToGBK(const String& src_str) {
-        int len = MultiByteToWideChar(CP_UTF8, 0, src_str.c_str(), -1, NULL, 0);
-        wchar_t* wszGBK = new wchar_t[len + 1];
-        memset(wszGBK, 0, len * 2 + 2);
-        MultiByteToWideChar(CP_UTF8, 0, src_str.c_str(), -1, wszGBK, len);
-        len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);
-        char* szGBK = new char[len + 1];
-        memset(szGBK, 0, len + 1);
-        WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, szGBK, len, NULL, NULL);
-        std::string strTemp(szGBK);
-        if (wszGBK) delete[] wszGBK;
-        if (szGBK) delete[] szGBK;
-        return strTemp;
-    };
+    //请只使用英文字符串调用该函数
+    static sgf::String StringtoUpper(const sgf::String& src) {
+        std::string result;
+        for (char c : src) {
+            result += std::toupper(c);
+        }
+        return result;
+    }
 
-    static String GBKToString(const char* src_str)
-    {
-        int len = MultiByteToWideChar(CP_ACP, 0, src_str, -1, NULL, 0);
-        wchar_t* wstr = new wchar_t[len + 1];
-        memset(wstr, 0, len + 1);
-        MultiByteToWideChar(CP_ACP, 0, src_str, -1, wstr, len);
-        len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
-        char* str = new char[len + 1];
-        memset(str, 0, len + 1);
-        WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
-        String strTemp = str;
-        if (wstr) delete[] wstr;
-        if (str) delete[] str;
-        return strTemp;
+    static sgf::String StringRemoveFileExtension(const sgf::String& filename) {
+        size_t dotPos = filename.find_last_of(".");
+        if (dotPos != sgf::String::npos && dotPos > 0) {
+            return filename.substr(0, dotPos);
+        }
+        else {
+            return filename;
+        }
     }
 
     static unsigned int TryGetTicks() {

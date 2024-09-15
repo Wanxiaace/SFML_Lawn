@@ -31,21 +31,21 @@ void Lawn::LawnStoneButton::LoadLabel(const sgf::String& label)
 void Lawn::LawnStoneButton::Draw(sgf::Graphics* g)
 {
 	g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f });
-	int middleCount = (mRect.mWidth - (mImageLeft->mSurface->w + mImageRight->mSurface->w))/ mImageMiddle->mSurface->w;
+	int middleCount = (mRect.mWidth - (mImageLeft->GetWidth() + mImageRight->GetWidth()))/ mImageMiddle->GetWidth();
 
 	if (mIsMouseCaught) {
 		g->Translate(1,1);
 		
 		g->DrawImage(mImageLeft);
-		g->Translate(mImageLeft->mSurface->w, 0);
+		g->Translate(mImageLeft->GetWidth(), 0);
 		for (int i = 0; i < middleCount; i++)
 		{
 			g->DrawImage(mImageMiddle);
-			g->Translate(mImageMiddle->mSurface->w, 0);
+			g->Translate(mImageMiddle->GetWidth(), 0);
 		}
 		g->DrawImage(mImageRight);
 		if (mImageLabel) {
-			g->MoveTo((mRect.mWidth - mImageLabel->mSurface->w) / 2, (mRect.mHeight - mImageLabel->mSurface->h) / 2);
+			g->MoveTo((mRect.mWidth - mImageLabel->GetWidth()) / 2, (mRect.mHeight - mImageLabel->GetHeight()) / 2);
 			g->Translate(1, -1);
 
 			g->SetCubeColor({ 0.0f,0.0f,0.0f,1.0f });
@@ -58,16 +58,16 @@ void Lawn::LawnStoneButton::Draw(sgf::Graphics* g)
 	}
 	else {
 		g->DrawImage(mImageLeft);
-		g->Translate(mImageLeft->mSurface->w, 0);
+		g->Translate(mImageLeft->GetWidth(), 0);
 		for (int i = 0; i < middleCount; i++)
 		{
 			g->DrawImage(mImageMiddle);
-			g->Translate(mImageMiddle->mSurface->w, 0);
+			g->Translate(mImageMiddle->GetWidth(), 0);
 		}
 		g->DrawImage(mImageRight);
 		if (mImageLabel) {
 			
-			g->MoveTo((mRect.mWidth - mImageLabel->mSurface->w) / 2, (mRect.mHeight - mImageLabel->mSurface->h) / 2);
+			g->MoveTo((mRect.mWidth - mImageLabel->GetWidth()) / 2, (mRect.mHeight - mImageLabel->GetHeight()) / 2);
 			g->Translate(0, -2);
 
 			g->SetCubeColor({ 0.0f,0.0f,0.0f,1.0f });
@@ -116,7 +116,7 @@ void Lawn::TextButton::LoadLabel(const sgf::String& text, const sgf::String& key
 		return;
 	font->SetFontSize(mFontSize);
 	mTextImage = font->GenTextImage(text);
-	Resize(mRect.mX, mRect.mY, mTextImage->mSurface->w, mTextImage->mSurface->h);
+	Resize(mRect.mX, mRect.mY, mTextImage->GetWidth(), mTextImage->GetHeight());
 
 }
 
@@ -191,58 +191,58 @@ void Lawn::LawnDialog::Draw(sgf::Graphics* g)
 	sgf::SimpleImage* aBottomMiddleImage = mDialogBottomMiddle;
 	sgf::SimpleImage* aBottomRightImage = mDialogBottomRight;
 
-	int aRepeatX = (mRect.mWidth - mDialogTopRight->mSurface->w - mDialogTopLeft->mSurface->w) / mDialogTopMiddle->mSurface->w;
-	int aRepeatY = (mRect.mHeight - mDialogTopLeft->mSurface->h - aBottomLeftImage->mSurface->h - DIALOG_HEADER_OFFSET) / mDialogCenterLeft->mSurface->h;
+	int aRepeatX = (mRect.mWidth - mDialogTopRight->GetWidth() - mDialogTopLeft->GetWidth()) / mDialogTopMiddle->GetWidth();
+	int aRepeatY = (mRect.mHeight - mDialogTopLeft->GetHeight() - aBottomLeftImage->GetHeight() - DIALOG_HEADER_OFFSET) / mDialogCenterLeft->GetHeight();
 
 	int aPosX = 0;
 	int aPosY = DIALOG_HEADER_OFFSET;
 	g->MoveTo(aPosX, aPosY);
 	g->DrawImage(mDialogTopLeft);
-	aPosX += mDialogTopLeft->mSurface->w;
+	aPosX += mDialogTopLeft->GetWidth();
 	for (int i = 0; i < aRepeatX; i++)
 	{
 		g->MoveTo(aPosX, aPosY);
 		g->DrawImage(mDialogTopMiddle);
-		aPosX += mDialogTopMiddle->mSurface->w;
+		aPosX += mDialogTopMiddle->GetWidth();
 	}
 	g->MoveTo(aPosX, aPosY);
 	g->DrawImage(mDialogTopRight);
 
-	aPosY += mDialogTopRight->mSurface->h;
+	aPosY += mDialogTopRight->GetHeight();
 	for (int y = 0; y < aRepeatY; y++)
 	{
 		aPosX = 0;
 
 		g->MoveTo(aPosX, aPosY);
 		g->DrawImage(mDialogCenterLeft);
-		aPosX += mDialogCenterLeft->mSurface->w;
+		aPosX += mDialogCenterLeft->GetWidth();
 
 		for (int x = 0; x < aRepeatX; x++)
 		{
 			g->MoveTo(aPosX, aPosY);
 			g->DrawImage(mDialogCenterMiddle);
-			aPosX += mDialogCenterMiddle->mSurface->w;
+			aPosX += mDialogCenterMiddle->GetWidth();
 		}
 
 		g->MoveTo(aPosX, aPosY);
 		g->DrawImage(mDialogCenterRight);
-		aPosY += mDialogCenterLeft->mSurface->h;
+		aPosY += mDialogCenterLeft->GetHeight();
 	}
 
 	aPosX = 0;
 	g->MoveTo(aPosX, aPosY);
 	g->DrawImage(aBottomLeftImage);
-	aPosX += aBottomLeftImage->mSurface->w;
+	aPosX += aBottomLeftImage->GetWidth();
 	for (int i = 0; i < aRepeatX; i++)
 	{
 		g->MoveTo(aPosX, aPosY);
 		g->DrawImage(aBottomMiddleImage);
-		aPosX += aBottomMiddleImage->mSurface->w;
+		aPosX += aBottomMiddleImage->GetWidth();
 	}
 
 	g->MoveTo(aPosX, aPosY);
 	g->DrawImage(aBottomRightImage);
-	g->MoveTo((mRect.mWidth - mDialogHeader->mSurface->w) / 2 - 5, 0);
+	g->MoveTo((mRect.mWidth - mDialogHeader->GetWidth()) / 2 - 5, 0);
 	g->DrawImage(mDialogHeader);
 }
 
@@ -263,7 +263,7 @@ Lawn::LawnSlider::LawnSlider(int theId, sgf::GameApp* app) : sgf::Widget(theId)
 	mImageSliderBar = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERSLOT"];
 	mImageSliderButton = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERKNOB2"];
 
-	Resize(0, 0, mImageSliderBar->mSurface->w, 50);
+	Resize(0, 0, mImageSliderBar->GetWidth(), 50);
 
 }
 
@@ -292,7 +292,7 @@ void Lawn::LawnSlider::Draw(sgf::Graphics* g)
 {
 	g->SetCubeColor({1.0f,1.0f,1.0f,1.0f});
 	g->DrawImage(mImageSliderBar);
-	g->MoveTo((mValue - mRangeMin) / mRangeDistence * mImageSliderBar->mSurface->w * 0.85, 0);
+	g->MoveTo((mValue - mRangeMin) / mRangeDistence * mImageSliderBar->GetWidth() * 0.85, 0);
 	g->DrawImage(mImageSliderButton);
 }
 
@@ -300,7 +300,7 @@ void Lawn::LawnSlider::Update()
 {
 	auto pos = GetExactPosition();
 	if (mIsMouseCaught) {
-		mValue = (static_cast<float>(mApp->mMouseX) - pos.first) / mImageSliderBar->mSurface->w * mRangeDistence + mRangeMin;
+		mValue = (static_cast<float>(mApp->mMouseX) - pos.first) / mImageSliderBar->GetWidth() * mRangeDistence + mRangeMin;
 		if (mValue > mRangeMax)
 			mValue = mRangeMax;
 		if (mValue < mRangeMin)

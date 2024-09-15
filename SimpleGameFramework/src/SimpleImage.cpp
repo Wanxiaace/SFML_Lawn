@@ -17,6 +17,9 @@ sgf::SimpleImage::~SimpleImage()
 
 unsigned int sgf::SimpleImage::GenerateTexture()
 {
+	if (mIsAtlasUnit)
+		return mAtlasSrc->GenerateTexture();
+
 	if (mIsLoadedTexture)
 		return mTextureHandle;
 	unsigned int currentBoundTexture = 0;
@@ -38,10 +41,6 @@ unsigned int sgf::SimpleImage::GenerateTexture()
 	return mTextureHandle;
 }
 
-void sgf::SimpleImage::BindTexture()
-{
-	glBindTexture(GL_TEXTURE_2D, GenerateTexture());
-}
 
 void sgf::SimpleImage::ReleaseTexture()
 {
@@ -85,6 +84,20 @@ void sgf::SimpleImage::LoadFromSurface(SDL_Surface* src)
 		mSurface = SDL_ConvertSurfaceFormat(bufferSuface, SDL_PIXELFORMAT_ABGR8888, 0);
 		SDL_FreeSurface(bufferSuface);
 	}
+}
+
+int sgf::SimpleImage::GetWidth() const
+{
+	if (mIsAtlasUnit)
+		return mSurface->w * mAtlasUnitWidth;
+	return mSurface->w;
+}
+
+int sgf::SimpleImage::GetHeight() const
+{
+	if (mIsAtlasUnit)
+		return mSurface->h * mAtlasUnitHeight;
+	return mSurface->h;
 }
 
 

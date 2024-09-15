@@ -195,7 +195,17 @@ void sgf::Graphics::DrawImage(sgf::SimpleImage* src)
 		mCubeVertices[i].texIndex = tex;
 	}
 
-	FillRect(src->mSurface->w, src->mSurface->h);
+	if (src->mIsAtlasUnit)
+	{
+		SetCubeImagePostion(src->mAtlasUnitU, src->mAtlasUnitV, src->mAtlasUnitWidth, src->mAtlasUnitHeight);
+	}
+
+	FillRect(src->GetWidth(), src->GetHeight());
+
+	if (src->mIsAtlasUnit)
+	{
+		ReSetCubeImagePostion();
+	}
 
 	for (size_t i = 0; i < 6; i++)
 	{
@@ -211,7 +221,17 @@ void sgf::Graphics::DrawImageScaleF(sgf::SimpleImage* src, float scaleX, float s
 		mCubeVertices[i].texIndex = tex;
 	}
 
-	FillRect(src->mSurface->w * scaleX, src->mSurface->h * scaleY);
+	if (src->mIsAtlasUnit)
+	{
+		SetCubeImagePostion(src->mAtlasUnitU, src->mAtlasUnitV, src->mAtlasUnitWidth, src->mAtlasUnitHeight);
+	}
+
+	FillRect(src->GetWidth() * scaleX, src->GetHeight() * scaleY);
+
+	if (src->mIsAtlasUnit)
+	{
+		ReSetCubeImagePostion();
+	}
 
 	for (size_t i = 0; i < 6; i++)
 	{
@@ -224,7 +244,18 @@ void sgf::Graphics::DrawImageInRect(sgf::SimpleImage* src, float width, float he
 	int tex = TryToBindNewTexture(src);
 	SetCubeTextureIndex(tex);
 
+	if (src->mIsAtlasUnit)
+	{
+		SetCubeImagePostion(src->mAtlasUnitU, src->mAtlasUnitV, src->mAtlasUnitWidth, src->mAtlasUnitHeight);
+	}
+
 	FillRect(width, height);
+
+
+	if (src->mIsAtlasUnit)
+	{
+		ReSetCubeImagePostion();
+	}
 
 	SetCubeTextureIndex(-1);
 }
@@ -238,9 +269,19 @@ void sgf::Graphics::DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, f
 	SetCubeTextureIndex(tex);
 	SetCubeMatrixIndex(matrixPosition);
 
-	ResizeCube(0, 0, src->mSurface->w, src->mSurface->h);
+	if (src->mIsAtlasUnit)
+	{
+		SetCubeImagePostion(src->mAtlasUnitU, src->mAtlasUnitV, src->mAtlasUnitWidth, src->mAtlasUnitHeight);
+	}
+	ResizeCube(0, 0, src->GetWidth(), src->GetHeight());
 
 	AppendVertices(mCubeVertices, 6);
+
+	if (src->mIsAtlasUnit)
+	{
+		ReSetCubeImagePostion();
+	}
+	
 	CheckSubmit();
 
 	SetCubeTextureIndex(-1);
@@ -259,6 +300,7 @@ void sgf::Graphics::DrawImageGridAtlasScaleF(sgf::SimpleImage* src, float rowNum
 
 void sgf::Graphics::DrawImageAtlas(sgf::SimpleImage* src,float u, float v,float width,float height)
 {
+
 	SetCubeImagePostion(u,v,width,height);
 
 	DrawImageScaleF(src, width, height);

@@ -28,6 +28,45 @@ void sgf::ResourceManager::LoadImageWithID(const sgf::String& path, sgf::String 
 	mMutex.unlock();
 }
 
+#include "../include/json.hpp"
+
+void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::String& folder, sgf::String id_info)
+{
+	Dictionary dict;
+	dict.LoadFromFile(aPath.c_str());
+
+	nlohmann::json& json = dict.mJson;
+
+	nlohmann::json& frameArray = json.at("frames");
+	sgf::String texPath = json.at("meta").at("image");
+
+	LoadImageWithID(folder + "/" + texPath, id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+	SimpleImage* tex = GetResourceFast<SimpleImage>(id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+
+	for (auto& x : frameArray)
+	{
+		SimpleImage* atlasUnit = new SimpleImage();
+		atlasUnit->mSurface = tex->mSurface;
+
+		sgf::String rid = id_info + StringtoUpper(StringRemoveFileExtension(x.at("filename")));
+		atlasUnit->mIsLoadedTexture = true;
+		atlasUnit->mIsAtlasUnit = true;
+		atlasUnit->mAtlasSrc = tex;
+
+		mResourcePool[rid] = atlasUnit;
+
+		atlasUnit->mAtlasUnitU = float(x.at("frame").at("x")) / tex->mSurface->w;
+		atlasUnit->mAtlasUnitV = float(x.at("frame").at("y")) / tex->mSurface->h;
+
+		atlasUnit->mAtlasUnitWidth = float(x.at("frame").at("w")) / tex->mSurface->w;
+		atlasUnit->mAtlasUnitHeight = float(x.at("frame").at("h")) / tex->mSurface->h;
+
+		std::cout << rid << std::endl;
+
+	}
+
+}
+
 void sgf::ResourceManager::LoadReanimWithID(const sgf::String& path, sgf::String id)
 {
 	Reanimation* reanim = new Reanimation();
@@ -86,6 +125,12 @@ static void LoadFromResouceListFunc(sgf::ResourceManager* tar,sgf::ResourceList*
 		tar->mNowFile += 1;
 		auto& x = src->mResouces[i];
 		tar->mNowInfo = &x;
+
+
+		if (x.folder.size() >= 5 && x.folder.substr(x.folder.size() - 5) == "atlas" && x.path.substr(x.path.size() - 4) == "json") {
+			//std::cout << "Atlas" << std::endl;
+			tar->LoadImageAtlas((tar->mBasePath + x.path), (tar->mBasePath + x.folder), sgf::StringtoUpper(x.folder.substr(0, x.folder.size() - 5)));
+		}
 
 		if (x.folder == "image" || x.folder == "image_reanim" || x.folder == "particle") {
 			tar->LoadImageWithID((tar->mBasePath + x.path), x.id);

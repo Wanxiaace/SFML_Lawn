@@ -45,6 +45,8 @@ namespace sgf{
 		~ResourceManager();
 
 		void LoadImageWithID(const sgf::String& aPath, sgf::String id);
+		void LoadImageAtlas(const sgf::String& aPath, const sgf::String& folder, sgf::String id_info);
+
 		void LoadReanimWithID(const sgf::String& aPath, sgf::String id);
 		void LoadFontWithID(const sgf::String& aPath, sgf::String id);
 		void LoadParticleWithID(const sgf::String& aPath, sgf::String id);

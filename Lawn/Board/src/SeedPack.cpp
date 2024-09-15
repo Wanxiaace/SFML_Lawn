@@ -95,9 +95,8 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 
 	if (mIsMouseHover) {
 		g->MoveTo(mRect.mX, mRect.mY);
-		float scaleFlash = sin(mFlashTime) * 0.01f;
 		g->Translate(-3 * mScaleF, -3 * mScaleF);
-		g->DrawImageScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDCHOOSE"), 0.4f + scaleFlash, 0.4f + scaleFlash);
+		g->DrawImageScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDCHOOSE"), 0.4f, 0.4f);
 	}
 
 }
@@ -121,8 +120,6 @@ void Lawn::SeedPack::Update()
 			mIsMouseHover = false;
 		}
 	}
-	
-	mFlashTime += float(gLawnApp->mDeltaTime) / 100.0f;
 
 }
 
@@ -131,6 +128,7 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 	mBoard = board;
 	Resize(0, 60, 100, 500);
 
+	//≤‚ ‘”√¥˙¬Î
 	AppendSeedPack(SEED_PEASHOOTER);
 
 	AppendSeedPack(SEED_NONE);
@@ -146,6 +144,7 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 
 Lawn::SeedBank::~SeedBank()
 {
+
 }
 
 void Lawn::SeedBank::AppendSeedPack(SeedType type)

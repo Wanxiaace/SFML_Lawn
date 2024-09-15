@@ -11,16 +11,25 @@ namespace sgf {
 		bool mIsLoadedTexture = false;
 		unsigned int mTextureHandle = 0;
 		char* mPixels = nullptr;
+		bool mIsAtlasUnit = false;
+
+		float mAtlasUnitU = 0;
+		float mAtlasUnitV = 0;
+		float mAtlasUnitWidth = 0;
+		float mAtlasUnitHeight = 0;
+		SimpleImage* mAtlasSrc = nullptr;
 
 	public:
 		SimpleImage();
 		~SimpleImage();
 
 		unsigned int GenerateTexture();
-		void BindTexture();
 		void ReleaseTexture();
 		SDL_Surface* LoadFromFile(const char* path);
 		void LoadFromSurface(SDL_Surface* path);
+
+		int GetWidth() const;
+		int GetHeight() const;
 
 	};
 }

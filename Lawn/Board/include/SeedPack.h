@@ -1,4 +1,7 @@
 #pragma once
+#ifndef __LAWN_BOARD_SEED_PACK__
+#define __LAWN_BOARD_SEED_PACK__
+
 
 #include "../Board.h"
 #include "BoardEnums.h"
@@ -15,8 +18,6 @@ namespace Lawn {
 	public:
 		int mCost = 0;
 		sgf::FloatRect mRect;
-
-		float mFlashTime;
 
 		SeedType mSeedType;
 		sgf::SimpleImage* mTextImage = nullptr;
@@ -56,3 +57,5 @@ namespace Lawn {
 		virtual void Update();
 	};
 }
+
+#endif

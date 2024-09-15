@@ -7,6 +7,7 @@ sgf::Dictionary::Dictionary()
 
 sgf::Dictionary::~Dictionary()
 {
+
 }
 
 void sgf::Dictionary::LoadFromFile(const char* path)
