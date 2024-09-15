@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SGFreference: F:/VSProjects/SFML_Lawn/SFML_Lawn/SimpleGameFramework/include/GameMessage.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">SGFreference<span id="projectnumber">&#160;Beta0.01</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">GameMessage.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_game_message_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef __SIMPLE_GAME_MESSAGE__</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_game_message_8h.html#a46facb40453a9728eb35e02898732ce8">    3</a></span><span class="preprocessor">#define __SIMPLE_GAME_MESSAGE__</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacesgf.html">sgf</a> {</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html">    8</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classsgf_1_1_game_message.html">GameMessage</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4">   10</a></span>        <span class="keyword">enum</span> <a class="code hl_enumeration" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4">MessageType</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a99732e8cdaf035ba4d097e8d070c22d1">   11</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a99732e8cdaf035ba4d097e8d070c22d1">MSG_TYPE_NONE</a>,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a32de99111486402a22a4da239fc243f9">   12</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a32de99111486402a22a4da239fc243f9">MSG_TYPE_DELETE_WIDGET</a>,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4af62cbb032b4d6523bef810fe19bb5aff">   13</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4af62cbb032b4d6523bef810fe19bb5aff">MSG_TYPE_APPEND_WIDGET</a>,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        };</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#ac5c1c7729f70cbd739ddc8fb8e4cb48c">   16</a></span>        <a class="code hl_enumeration" href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4">MessageType</a> <a class="code hl_variable" href="classsgf_1_1_game_message.html#ac5c1c7729f70cbd739ddc8fb8e4cb48c">mMessageType</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#a4c05534fbf76d0e296a7bbd89382e9b4">   17</a></span>        <span class="keywordtype">void</span>* <a class="code hl_variable" href="classsgf_1_1_game_message.html#a4c05534fbf76d0e296a7bbd89382e9b4">mParamPointer1</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#ab2b03264a5d919c88bcb50d4411b45d5">   18</a></span>        <span class="keywordtype">void</span>* <a class="code hl_variable" href="classsgf_1_1_game_message.html#ab2b03264a5d919c88bcb50d4411b45d5">mParamPointer2</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#a4093af80193aa1a0564fe1b430e6e6d2">   19</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_message.html#a4093af80193aa1a0564fe1b430e6e6d2">mParam32</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message.html#ae20a4765a87279a1effad215cbd8e19a">   20</a></span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code hl_variable" href="classsgf_1_1_game_message.html#ae20a4765a87279a1effad215cbd8e19a">mParam64</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    };</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html">   23</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classsgf_1_1_game_message_manager.html">GameMessageManager</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#aaa16910613417ebc7387b1343fb949b2">   25</a></span>        std::vector&lt;GameMessage&gt; <a class="code hl_variable" href="classsgf_1_1_game_message_manager.html#aaa16910613417ebc7387b1343fb949b2">mMessages</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#a8f9c1eaedda46dd7f45a07c8b4f54af7">   28</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#a8f9c1eaedda46dd7f45a07c8b4f54af7">SendGameMessage</a>(<a class="code hl_class" href="classsgf_1_1_game_message.html">GameMessage</a> src);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#af6aaa8630ea7ab44655a6a27a7721381">   29</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#af6aaa8630ea7ab44655a6a27a7721381">CopeAllMessage</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#a7d9fee9e481e09df5873a8328dc56ff6">   30</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#a7d9fee9e481e09df5873a8328dc56ff6">CopeMessage</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#a048b278852c58ecb96491b1317dab43b">   31</a></span>        <a class="code hl_class" href="classsgf_1_1_game_message.html">GameMessage</a> <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#a048b278852c58ecb96491b1317dab43b">PeekMessage</a>(<span class="keywordtype">int</span> index) { <span class="keywordflow">return</span> <a class="code hl_variable" href="classsgf_1_1_game_message_manager.html#aaa16910613417ebc7387b1343fb949b2">mMessages</a>[index]; };</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#afd791d53c4d154917214ef0c3dc14f1a">   33</a></span>        <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#afd791d53c4d154917214ef0c3dc14f1a">GameMessageManager</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_message_manager.html#a23b45a22c3227530280c7e70046f9125">   34</a></span>        <a class="code hl_function" href="classsgf_1_1_game_message_manager.html#a23b45a22c3227530280c7e70046f9125">~GameMessageManager</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    };</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif </span><span class="comment">// !__SIMPLE_GAME_MESSAGE__</span></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html"><div class="ttname"><a href="classsgf_1_1_game_message.html">sgf::GameMessage</a></div><div class="ttdef"><b>定义</b> GameMessage.h:8</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_a4093af80193aa1a0564fe1b430e6e6d2"><div class="ttname"><a href="classsgf_1_1_game_message.html#a4093af80193aa1a0564fe1b430e6e6d2">sgf::GameMessage::mParam32</a></div><div class="ttdeci">int mParam32</div><div class="ttdef"><b>定义</b> GameMessage.h:19</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_a4c05534fbf76d0e296a7bbd89382e9b4"><div class="ttname"><a href="classsgf_1_1_game_message.html#a4c05534fbf76d0e296a7bbd89382e9b4">sgf::GameMessage::mParamPointer1</a></div><div class="ttdeci">void * mParamPointer1</div><div class="ttdef"><b>定义</b> GameMessage.h:17</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_aaf5a70a632566ec16c96bb402e2e54c4"><div class="ttname"><a href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4">sgf::GameMessage::MessageType</a></div><div class="ttdeci">MessageType</div><div class="ttdef"><b>定义</b> GameMessage.h:10</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_aaf5a70a632566ec16c96bb402e2e54c4a32de99111486402a22a4da239fc243f9"><div class="ttname"><a href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a32de99111486402a22a4da239fc243f9">sgf::GameMessage::MSG_TYPE_DELETE_WIDGET</a></div><div class="ttdeci">@ MSG_TYPE_DELETE_WIDGET</div><div class="ttdef"><b>定义</b> GameMessage.h:12</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_aaf5a70a632566ec16c96bb402e2e54c4a99732e8cdaf035ba4d097e8d070c22d1"><div class="ttname"><a href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4a99732e8cdaf035ba4d097e8d070c22d1">sgf::GameMessage::MSG_TYPE_NONE</a></div><div class="ttdeci">@ MSG_TYPE_NONE</div><div class="ttdef"><b>定义</b> GameMessage.h:11</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_aaf5a70a632566ec16c96bb402e2e54c4af62cbb032b4d6523bef810fe19bb5aff"><div class="ttname"><a href="classsgf_1_1_game_message.html#aaf5a70a632566ec16c96bb402e2e54c4af62cbb032b4d6523bef810fe19bb5aff">sgf::GameMessage::MSG_TYPE_APPEND_WIDGET</a></div><div class="ttdeci">@ MSG_TYPE_APPEND_WIDGET</div><div class="ttdef"><b>定义</b> GameMessage.h:13</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_ab2b03264a5d919c88bcb50d4411b45d5"><div class="ttname"><a href="classsgf_1_1_game_message.html#ab2b03264a5d919c88bcb50d4411b45d5">sgf::GameMessage::mParamPointer2</a></div><div class="ttdeci">void * mParamPointer2</div><div class="ttdef"><b>定义</b> GameMessage.h:18</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_ac5c1c7729f70cbd739ddc8fb8e4cb48c"><div class="ttname"><a href="classsgf_1_1_game_message.html#ac5c1c7729f70cbd739ddc8fb8e4cb48c">sgf::GameMessage::mMessageType</a></div><div class="ttdeci">MessageType mMessageType</div><div class="ttdef"><b>定义</b> GameMessage.h:16</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_html_ae20a4765a87279a1effad215cbd8e19a"><div class="ttname"><a href="classsgf_1_1_game_message.html#ae20a4765a87279a1effad215cbd8e19a">sgf::GameMessage::mParam64</a></div><div class="ttdeci">long long mParam64</div><div class="ttdef"><b>定义</b> GameMessage.h:20</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html">sgf::GameMessageManager</a></div><div class="ttdef"><b>定义</b> GameMessage.h:23</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_a048b278852c58ecb96491b1317dab43b"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#a048b278852c58ecb96491b1317dab43b">sgf::GameMessageManager::PeekMessage</a></div><div class="ttdeci">GameMessage PeekMessage(int index)</div><div class="ttdef"><b>定义</b> GameMessage.h:31</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_a23b45a22c3227530280c7e70046f9125"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#a23b45a22c3227530280c7e70046f9125">sgf::GameMessageManager::~GameMessageManager</a></div><div class="ttdeci">~GameMessageManager()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_a7d9fee9e481e09df5873a8328dc56ff6"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#a7d9fee9e481e09df5873a8328dc56ff6">sgf::GameMessageManager::CopeMessage</a></div><div class="ttdeci">void CopeMessage(int index)</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_a8f9c1eaedda46dd7f45a07c8b4f54af7"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#a8f9c1eaedda46dd7f45a07c8b4f54af7">sgf::GameMessageManager::SendGameMessage</a></div><div class="ttdeci">void SendGameMessage(GameMessage src)</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_aaa16910613417ebc7387b1343fb949b2"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#aaa16910613417ebc7387b1343fb949b2">sgf::GameMessageManager::mMessages</a></div><div class="ttdeci">std::vector&lt; GameMessage &gt; mMessages</div><div class="ttdef"><b>定义</b> GameMessage.h:25</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_af6aaa8630ea7ab44655a6a27a7721381"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#af6aaa8630ea7ab44655a6a27a7721381">sgf::GameMessageManager::CopeAllMessage</a></div><div class="ttdeci">void CopeAllMessage()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html_afd791d53c4d154917214ef0c3dc14f1a"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html#afd791d53c4d154917214ef0c3dc14f1a">sgf::GameMessageManager::GameMessageManager</a></div><div class="ttdeci">GameMessageManager()</div></div>
+<div class="ttc" id="anamespacesgf_html"><div class="ttname"><a href="namespacesgf.html">sgf</a></div><div class="ttdef"><b>定义</b> Animator.h:9</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

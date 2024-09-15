@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SGFreference: sgf::Emitter类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">SGFreference<span id="projectnumber">&#160;Beta0.01</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespacesgf.html">sgf</a></li><li class="navelem"><a class="el" href="classsgf_1_1_emitter.html">Emitter</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="classsgf_1_1_emitter-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">sgf::Emitter类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_particle_8h_source.html">Particle.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ac651e241cb1d223560d656fca802ed79" id="r_ac651e241cb1d223560d656fca802ed79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac651e241cb1d223560d656fca802ed79">Init</a> (<a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38">EmitterMotionType</a> motionType)</td></tr>
+<tr class="separator:ac651e241cb1d223560d656fca802ed79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a436470382e9642dbfb529827b5f1c4ff" id="r_a436470382e9642dbfb529827b5f1c4ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a436470382e9642dbfb529827b5f1c4ff">InitDefault</a> ()</td></tr>
+<tr class="separator:a436470382e9642dbfb529827b5f1c4ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64d10821499240bbee151307f8ec5843" id="r_a64d10821499240bbee151307f8ec5843"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d10821499240bbee151307f8ec5843">SetAngleRange</a> (float angleMin, float angleMax)</td></tr>
+<tr class="separator:a64d10821499240bbee151307f8ec5843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2ee60664cc7f79278532f681c2eae4" id="r_a1f2ee60664cc7f79278532f681c2eae4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsgf_1_1_particle.html">Particle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f2ee60664cc7f79278532f681c2eae4">Emitt</a> ()</td></tr>
+<tr class="separator:a1f2ee60664cc7f79278532f681c2eae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ad444b7f02f605133f6d6e4e868608e" id="r_a4ad444b7f02f605133f6d6e4e868608e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ad444b7f02f605133f6d6e4e868608e">AttachImage</a> (<a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> *image)</td></tr>
+<tr class="separator:a4ad444b7f02f605133f6d6e4e868608e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa17adc90fa21111cb85120c06da8252c" id="r_aa17adc90fa21111cb85120c06da8252c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa17adc90fa21111cb85120c06da8252c">AttachShadowImage</a> (<a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> *image)</td></tr>
+<tr class="separator:aa17adc90fa21111cb85120c06da8252c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0edbcb031e3fda077ff119ea67c3ab66" id="r_a0edbcb031e3fda077ff119ea67c3ab66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0edbcb031e3fda077ff119ea67c3ab66">MoveTo</a> (int targetX, int targetY, int targetZ)</td></tr>
+<tr class="separator:a0edbcb031e3fda077ff119ea67c3ab66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740fe9b0b5fae0f636525150235f6fb1" id="r_a740fe9b0b5fae0f636525150235f6fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a740fe9b0b5fae0f636525150235f6fb1">LoadFromFile</a> (const char *paxmlPath)</td></tr>
+<tr class="separator:a740fe9b0b5fae0f636525150235f6fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:ae7dcb17f0217bc72426d87f7c9b41d5c" id="r_ae7dcb17f0217bc72426d87f7c9b41d5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38">EmitterMotionType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7dcb17f0217bc72426d87f7c9b41d5c">mMotionType</a> = <a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38a71f677be2f6f3500646ea5ccdc7cab3b">EMITTER_NORMAL</a></td></tr>
+<tr class="separator:ae7dcb17f0217bc72426d87f7c9b41d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4800c892792289ead85668a8bebcc9e7" id="r_a4800c892792289ead85668a8bebcc9e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesgf.html#a100bbc5ff630c9258c5a417797c6bf05">ParticleImageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4800c892792289ead85668a8bebcc9e7">mImageType</a></td></tr>
+<tr class="separator:a4800c892792289ead85668a8bebcc9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08bd884b23a475a17d511cd27e667ff0" id="r_a08bd884b23a475a17d511cd27e667ff0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08bd884b23a475a17d511cd27e667ff0">mImageIDs</a> = nullptr</td></tr>
+<tr class="separator:a08bd884b23a475a17d511cd27e667ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2190639aa9ceabd428985141f19dd2c" id="r_ab2190639aa9ceabd428985141f19dd2c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2190639aa9ceabd428985141f19dd2c">mImages</a></td></tr>
+<tr class="separator:ab2190639aa9ceabd428985141f19dd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca09805e79bf779b54697a272c62ff14" id="r_aca09805e79bf779b54697a272c62ff14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca09805e79bf779b54697a272c62ff14">mImageNumber</a> = 0</td></tr>
+<tr class="separator:aca09805e79bf779b54697a272c62ff14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9221e87af4de531ceef2958f4fa01b3f" id="r_a9221e87af4de531ceef2958f4fa01b3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9221e87af4de531ceef2958f4fa01b3f">mShadowImage</a> = nullptr</td></tr>
+<tr class="separator:a9221e87af4de531ceef2958f4fa01b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e5a6bfe19791cab8b2a0613e1ca7b15" id="r_a0e5a6bfe19791cab8b2a0613e1ca7b15"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e5a6bfe19791cab8b2a0613e1ca7b15">mLifeTimeMax</a></td></tr>
+<tr class="separator:a0e5a6bfe19791cab8b2a0613e1ca7b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b8bd42325239bf7fd9297538f7c185" id="r_a54b8bd42325239bf7fd9297538f7c185"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54b8bd42325239bf7fd9297538f7c185">mX</a> = 0</td></tr>
+<tr class="separator:a54b8bd42325239bf7fd9297538f7c185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e233a3bcb24239a3b91774256da766" id="r_a13e233a3bcb24239a3b91774256da766"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13e233a3bcb24239a3b91774256da766">mY</a> = 0</td></tr>
+<tr class="separator:a13e233a3bcb24239a3b91774256da766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4e7f96e79c7ed39671175226ca5da2e" id="r_aa4e7f96e79c7ed39671175226ca5da2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4e7f96e79c7ed39671175226ca5da2e">mZ</a> = 0</td></tr>
+<tr class="separator:aa4e7f96e79c7ed39671175226ca5da2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fe1c9b485a1587cef43b21b6d6498dd" id="r_a0fe1c9b485a1587cef43b21b6d6498dd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fe1c9b485a1587cef43b21b6d6498dd">mAngleMin</a> = 0</td></tr>
+<tr class="separator:a0fe1c9b485a1587cef43b21b6d6498dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e5c2c2dc6315e3d3245bef69a80fa48" id="r_a2e5c2c2dc6315e3d3245bef69a80fa48"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e5c2c2dc6315e3d3245bef69a80fa48">mAngleMax</a> = 0</td></tr>
+<tr class="separator:a2e5c2c2dc6315e3d3245bef69a80fa48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3dc7d7dbe2ccf6b26255b5992ad39e9" id="r_ab3dc7d7dbe2ccf6b26255b5992ad39e9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3dc7d7dbe2ccf6b26255b5992ad39e9">mPowerMax</a> = 0</td></tr>
+<tr class="separator:ab3dc7d7dbe2ccf6b26255b5992ad39e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacfe064b7a7727f67c0100a3437f97d4" id="r_aacfe064b7a7727f67c0100a3437f97d4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacfe064b7a7727f67c0100a3437f97d4">mPowerMin</a> = 0</td></tr>
+<tr class="separator:aacfe064b7a7727f67c0100a3437f97d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460de7c01396ef6640442725a655432a" id="r_a460de7c01396ef6640442725a655432a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a460de7c01396ef6640442725a655432a">mSpeedX</a> = 0</td></tr>
+<tr class="separator:a460de7c01396ef6640442725a655432a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19545388ad12c7d049f627b228287948" id="r_a19545388ad12c7d049f627b228287948"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19545388ad12c7d049f627b228287948">mSpeedY</a> = 0</td></tr>
+<tr class="separator:a19545388ad12c7d049f627b228287948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ec40b0c00df314172abd33ed96f19ec" id="r_a8ec40b0c00df314172abd33ed96f19ec"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ec40b0c00df314172abd33ed96f19ec">mSpeedZ</a> = 0</td></tr>
+<tr class="separator:a8ec40b0c00df314172abd33ed96f19ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0feafa010c57b9c761939e5bb4d50112" id="r_a0feafa010c57b9c761939e5bb4d50112"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0feafa010c57b9c761939e5bb4d50112">mLossRate</a> = 0</td></tr>
+<tr class="separator:a0feafa010c57b9c761939e5bb4d50112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ab9e8ebd86d3711d170f29595a996b" id="r_a52ab9e8ebd86d3711d170f29595a996b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52ab9e8ebd86d3711d170f29595a996b">mImageOffsetX</a> = 0</td></tr>
+<tr class="separator:a52ab9e8ebd86d3711d170f29595a996b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27e39e6c41e4733776a50074cbe0859" id="r_ae27e39e6c41e4733776a50074cbe0859"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27e39e6c41e4733776a50074cbe0859">mImageOffsetY</a> = 0</td></tr>
+<tr class="separator:ae27e39e6c41e4733776a50074cbe0859"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74bf1c27a77f3153ec8d37c9c8c00550" id="r_a74bf1c27a77f3153ec8d37c9c8c00550"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74bf1c27a77f3153ec8d37c9c8c00550">mScaleF</a> = 1.0f</td></tr>
+<tr class="separator:a74bf1c27a77f3153ec8d37c9c8c00550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a908a1451f64a842c863b077f7fe6e4b3" id="r_a908a1451f64a842c863b077f7fe6e4b3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a908a1451f64a842c863b077f7fe6e4b3">mTransScaleF</a> = 0.0f</td></tr>
+<tr class="separator:a908a1451f64a842c863b077f7fe6e4b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc6acbefc5af78753dcaae6b25404e2" id="r_a8cc6acbefc5af78753dcaae6b25404e2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cc6acbefc5af78753dcaae6b25404e2">mGravity</a> = 0.1f</td></tr>
+<tr class="separator:a8cc6acbefc5af78753dcaae6b25404e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e350749ad1e5857a9de816b2ca02895" id="r_a4e350749ad1e5857a9de816b2ca02895"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e350749ad1e5857a9de816b2ca02895">mImageScaleRangeF</a> = 0</td></tr>
+<tr class="separator:a4e350749ad1e5857a9de816b2ca02895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae466109f5347814e61fa4350794f456a" id="r_ae466109f5347814e61fa4350794f456a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae466109f5347814e61fa4350794f456a">mUseFade</a> = true</td></tr>
+<tr class="separator:ae466109f5347814e61fa4350794f456a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a4ad444b7f02f605133f6d6e4e868608e" name="a4ad444b7f02f605133f6d6e4e868608e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ad444b7f02f605133f6d6e4e868608e">&#9670;&#160;</a></span>AttachImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::AttachImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> *</td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa17adc90fa21111cb85120c06da8252c" name="aa17adc90fa21111cb85120c06da8252c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17adc90fa21111cb85120c06da8252c">&#9670;&#160;</a></span>AttachShadowImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::AttachShadowImage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a> *</td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f2ee60664cc7f79278532f681c2eae4" name="a1f2ee60664cc7f79278532f681c2eae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f2ee60664cc7f79278532f681c2eae4">&#9670;&#160;</a></span>Emitt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsgf_1_1_particle.html">Particle</a> * sgf::Emitter::Emitt </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac651e241cb1d223560d656fca802ed79" name="ac651e241cb1d223560d656fca802ed79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac651e241cb1d223560d656fca802ed79">&#9670;&#160;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::Init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38">EmitterMotionType</a></td>          <td class="paramname"><span class="paramname"><em>motionType</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a436470382e9642dbfb529827b5f1c4ff" name="a436470382e9642dbfb529827b5f1c4ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436470382e9642dbfb529827b5f1c4ff">&#9670;&#160;</a></span>InitDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::InitDefault </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a740fe9b0b5fae0f636525150235f6fb1" name="a740fe9b0b5fae0f636525150235f6fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a740fe9b0b5fae0f636525150235f6fb1">&#9670;&#160;</a></span>LoadFromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::LoadFromFile </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>paxmlPath</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0edbcb031e3fda077ff119ea67c3ab66" name="a0edbcb031e3fda077ff119ea67c3ab66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0edbcb031e3fda077ff119ea67c3ab66">&#9670;&#160;</a></span>MoveTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::MoveTo </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>targetX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>targetY</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>targetZ</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64d10821499240bbee151307f8ec5843" name="a64d10821499240bbee151307f8ec5843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d10821499240bbee151307f8ec5843">&#9670;&#160;</a></span>SetAngleRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgf::Emitter::SetAngleRange </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angleMin</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>angleMax</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a2e5c2c2dc6315e3d3245bef69a80fa48" name="a2e5c2c2dc6315e3d3245bef69a80fa48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e5c2c2dc6315e3d3245bef69a80fa48">&#9670;&#160;</a></span>mAngleMax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mAngleMax = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0fe1c9b485a1587cef43b21b6d6498dd" name="a0fe1c9b485a1587cef43b21b6d6498dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fe1c9b485a1587cef43b21b6d6498dd">&#9670;&#160;</a></span>mAngleMin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mAngleMin = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cc6acbefc5af78753dcaae6b25404e2" name="a8cc6acbefc5af78753dcaae6b25404e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc6acbefc5af78753dcaae6b25404e2">&#9670;&#160;</a></span>mGravity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mGravity = 0.1f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08bd884b23a475a17d511cd27e667ff0" name="a08bd884b23a475a17d511cd27e667ff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08bd884b23a475a17d511cd27e667ff0">&#9670;&#160;</a></span>mImageIDs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>* sgf::Emitter::mImageIDs = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca09805e79bf779b54697a272c62ff14" name="aca09805e79bf779b54697a272c62ff14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca09805e79bf779b54697a272c62ff14">&#9670;&#160;</a></span>mImageNumber</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sgf::Emitter::mImageNumber = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52ab9e8ebd86d3711d170f29595a996b" name="a52ab9e8ebd86d3711d170f29595a996b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ab9e8ebd86d3711d170f29595a996b">&#9670;&#160;</a></span>mImageOffsetX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mImageOffsetX = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae27e39e6c41e4733776a50074cbe0859" name="ae27e39e6c41e4733776a50074cbe0859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae27e39e6c41e4733776a50074cbe0859">&#9670;&#160;</a></span>mImageOffsetY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mImageOffsetY = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2190639aa9ceabd428985141f19dd2c" name="ab2190639aa9ceabd428985141f19dd2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2190639aa9ceabd428985141f19dd2c">&#9670;&#160;</a></span>mImages</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a>*&gt; sgf::Emitter::mImages</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e350749ad1e5857a9de816b2ca02895" name="a4e350749ad1e5857a9de816b2ca02895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e350749ad1e5857a9de816b2ca02895">&#9670;&#160;</a></span>mImageScaleRangeF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mImageScaleRangeF = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4800c892792289ead85668a8bebcc9e7" name="a4800c892792289ead85668a8bebcc9e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4800c892792289ead85668a8bebcc9e7">&#9670;&#160;</a></span>mImageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesgf.html#a100bbc5ff630c9258c5a417797c6bf05">ParticleImageType</a> sgf::Emitter::mImageType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e5a6bfe19791cab8b2a0613e1ca7b15" name="a0e5a6bfe19791cab8b2a0613e1ca7b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e5a6bfe19791cab8b2a0613e1ca7b15">&#9670;&#160;</a></span>mLifeTimeMax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int sgf::Emitter::mLifeTimeMax</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0feafa010c57b9c761939e5bb4d50112" name="a0feafa010c57b9c761939e5bb4d50112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0feafa010c57b9c761939e5bb4d50112">&#9670;&#160;</a></span>mLossRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mLossRate = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7dcb17f0217bc72426d87f7c9b41d5c" name="ae7dcb17f0217bc72426d87f7c9b41d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7dcb17f0217bc72426d87f7c9b41d5c">&#9670;&#160;</a></span>mMotionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38">EmitterMotionType</a> sgf::Emitter::mMotionType = <a class="el" href="namespacesgf.html#a1e25a2328a6abe41e8e90238796cde38a71f677be2f6f3500646ea5ccdc7cab3b">EMITTER_NORMAL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3dc7d7dbe2ccf6b26255b5992ad39e9" name="ab3dc7d7dbe2ccf6b26255b5992ad39e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3dc7d7dbe2ccf6b26255b5992ad39e9">&#9670;&#160;</a></span>mPowerMax</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mPowerMax = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aacfe064b7a7727f67c0100a3437f97d4" name="aacfe064b7a7727f67c0100a3437f97d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacfe064b7a7727f67c0100a3437f97d4">&#9670;&#160;</a></span>mPowerMin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mPowerMin = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74bf1c27a77f3153ec8d37c9c8c00550" name="a74bf1c27a77f3153ec8d37c9c8c00550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74bf1c27a77f3153ec8d37c9c8c00550">&#9670;&#160;</a></span>mScaleF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mScaleF = 1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9221e87af4de531ceef2958f4fa01b3f" name="a9221e87af4de531ceef2958f4fa01b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9221e87af4de531ceef2958f4fa01b3f">&#9670;&#160;</a></span>mShadowImage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsgf_1_1_simple_image.html">SimpleImage</a>* sgf::Emitter::mShadowImage = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a460de7c01396ef6640442725a655432a" name="a460de7c01396ef6640442725a655432a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a460de7c01396ef6640442725a655432a">&#9670;&#160;</a></span>mSpeedX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mSpeedX = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19545388ad12c7d049f627b228287948" name="a19545388ad12c7d049f627b228287948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19545388ad12c7d049f627b228287948">&#9670;&#160;</a></span>mSpeedY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mSpeedY = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ec40b0c00df314172abd33ed96f19ec" name="a8ec40b0c00df314172abd33ed96f19ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ec40b0c00df314172abd33ed96f19ec">&#9670;&#160;</a></span>mSpeedZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mSpeedZ = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a908a1451f64a842c863b077f7fe6e4b3" name="a908a1451f64a842c863b077f7fe6e4b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a908a1451f64a842c863b077f7fe6e4b3">&#9670;&#160;</a></span>mTransScaleF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float sgf::Emitter::mTransScaleF = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae466109f5347814e61fa4350794f456a" name="ae466109f5347814e61fa4350794f456a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae466109f5347814e61fa4350794f456a">&#9670;&#160;</a></span>mUseFade</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sgf::Emitter::mUseFade = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54b8bd42325239bf7fd9297538f7c185" name="a54b8bd42325239bf7fd9297538f7c185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b8bd42325239bf7fd9297538f7c185">&#9670;&#160;</a></span>mX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sgf::Emitter::mX = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13e233a3bcb24239a3b91774256da766" name="a13e233a3bcb24239a3b91774256da766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e233a3bcb24239a3b91774256da766">&#9670;&#160;</a></span>mY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sgf::Emitter::mY = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa4e7f96e79c7ed39671175226ca5da2e" name="aa4e7f96e79c7ed39671175226ca5da2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4e7f96e79c7ed39671175226ca5da2e">&#9670;&#160;</a></span>mZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sgf::Emitter::mZ = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>F:/VSProjects/SFML_Lawn/SFML_Lawn/SimpleGameFramework/include/<a class="el" href="_particle_8h_source.html">Particle.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

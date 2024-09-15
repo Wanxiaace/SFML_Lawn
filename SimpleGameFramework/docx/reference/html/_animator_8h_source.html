@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SGFreference: F:/VSProjects/SFML_Lawn/SFML_Lawn/SimpleGameFramework/include/Animator.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">SGFreference<span id="projectnumber">&#160;Beta0.01</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">Animator.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_animator_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef __SIMPLE_ANIMATOR__</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_animator_8h.html#af09a6081e129701112177149196dbb10">    3</a></span><span class="preprocessor">#define __SIMPLE_ANIMATOR__</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_common_8h.html">Common.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_reanimation_8h.html">Reanimation.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespacesgf.html">    9</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacesgf.html">sgf</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span><a class="code hl_class" href="classsgf_1_1_animator.html">Animator</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structsgf_1_1_track_extra_info.html">   12</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structsgf_1_1_track_extra_info.html">TrackExtraInfo</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structsgf_1_1_track_extra_info.html#afd92b26997be6199f1ac8a690731d48e">   13</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="structsgf_1_1_track_extra_info.html#afd92b26997be6199f1ac8a690731d48e">mVisible</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structsgf_1_1_track_extra_info.html#aac531084dfea7a594e93af175dbb400a">   14</a></span>        <a class="code hl_class" href="classsgf_1_1_animator.html">Animator</a>* <a class="code hl_variable" href="structsgf_1_1_track_extra_info.html#aac531084dfea7a594e93af175dbb400a">mAttachedReanim</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structsgf_1_1_track_extra_info.html#ab684f33a534da735cc33622baabb26f1">   15</a></span>        <a class="code hl_class" href="classsgf_1_1_simple_image.html">SimpleImage</a>* <a class="code hl_variable" href="structsgf_1_1_track_extra_info.html#ab684f33a534da735cc33622baabb26f1">mAttachedImage</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structsgf_1_1_track_extra_info.html#af7c360e9545161bd52bb0ea3a5350f39">   16</a></span>        glm::mat4x4* <a class="code hl_variable" href="structsgf_1_1_track_extra_info.html#af7c360e9545161bd52bb0ea3a5350f39">mAttachedReanimMatrix</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    };</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html">   19</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classsgf_1_1_animator.html">Animator</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dca">   22</a></span>        <span class="keyword">enum</span> <a class="code hl_enumeration" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dca">PlayState</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa91ce2796443b2ce1aaa10b8985079b68">   23</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa91ce2796443b2ce1aaa10b8985079b68">PLAY_NONE</a>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa9d463a0333ec1c1ca0cff1aea30c8c0b">   24</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa9d463a0333ec1c1ca0cff1aea30c8c0b">PLAY_REPEAT</a>,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaaa1aa7eb70d20d7e18fead4ae73f1e91d">   25</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaaa1aa7eb70d20d7e18fead4ae73f1e91d">PLAY_ONCE</a>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa3e9498687e6f8baacddc7d2d8a143f93">   26</a></span>            <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa3e9498687e6f8baacddc7d2d8a143f93">PLAY_ONCE_TO</a>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        };</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a5c19a163ee7022324c4f033b7560f294">   30</a></span>        <a class="code hl_class" href="classsgf_1_1_reanimation.html">Reanimation</a>* <a class="code hl_variable" href="classsgf_1_1_animator.html#a5c19a163ee7022324c4f033b7560f294">mReanim</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a12e6e004f42b90370a02f7ae3fb652f9">   31</a></span>        <a class="code hl_class" href="classsgf_1_1_game_app.html">GameApp</a>* <a class="code hl_variable" href="classsgf_1_1_animator.html#a12e6e004f42b90370a02f7ae3fb652f9">mApp</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a8068381fad1154d1126653f3d917eff5">   32</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a8068381fad1154d1126653f3d917eff5">mFPS</a> = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a21168ce455d5ecfd1de16ed7fab33120">   33</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a21168ce455d5ecfd1de16ed7fab33120">mFrameIndexNow</a> =0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a9206ce74dea4915a634b22008a178a1c">   34</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a9206ce74dea4915a634b22008a178a1c">mFrameIndexBegin</a> = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a770f337c53b3518f3bd1da243733e2e2">   35</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a770f337c53b3518f3bd1da243733e2e2">mFrameIndexEnd</a> = 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a1a2e4d22ff48be8d5aa053a4a1f025a2">   36</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a1a2e4d22ff48be8d5aa053a4a1f025a2">mSpeed</a> = 1.0f;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a2428297ace27a04558a088f01081c9ae">   37</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a2428297ace27a04558a088f01081c9ae">mDeltaRate</a> = 0.0f;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">//unsigned int mTickBuffer = 0;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="comment">//过渡动画倒计时</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a63b7caf07d1407ec1dd94d2fde9c53d6">   41</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a63b7caf07d1407ec1dd94d2fde9c53d6">mReanimBlendCounter</a> = -1.0f;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">//过渡动画缓存</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a2504db6874864282bed21d05615c2dcc">   43</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a2504db6874864282bed21d05615c2dcc">mFrameIndexBlendBuffer</a> = 0;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a2865a91e5999e4f37671f5e8e071d319">   45</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_animator.html#a2865a91e5999e4f37671f5e8e071d319">mIsPlaying</a> = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a0bba39640b55fd3f80ae03be3df1f792">   46</a></span>        <a class="code hl_enumeration" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dca">PlayState</a> <a class="code hl_variable" href="classsgf_1_1_animator.html#a0bba39640b55fd3f80ae03be3df1f792">mPlayingState</a> = <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa91ce2796443b2ce1aaa10b8985079b68">PLAY_NONE</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a2d46c79376e49e08b34ef2c063dc4c76">   47</a></span>        std::vector&lt;TrackExtraInfo&gt; <a class="code hl_variable" href="classsgf_1_1_animator.html#a2d46c79376e49e08b34ef2c063dc4c76">mExtraInfos</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a408715b0f30a214e3495028079afe3f9">   48</a></span>        std::unordered_map&lt;sgf::String, int&gt; <a class="code hl_variable" href="classsgf_1_1_animator.html#a408715b0f30a214e3495028079afe3f9">mTrackIndicesMap</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a5ab810d994ed4d36a98f3c38b2ba585b">   49</a></span>        <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a> <a class="code hl_variable" href="classsgf_1_1_animator.html#a5ab810d994ed4d36a98f3c38b2ba585b">mTargetTrack</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a4037201e50952e5bdd243b1aa91a604b">   52</a></span>        <a class="code hl_function" href="classsgf_1_1_animator.html#a4037201e50952e5bdd243b1aa91a604b">Animator</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a4bb5d10fb5456c55c72f9fc0cbc5bda8">   53</a></span>        <a class="code hl_function" href="classsgf_1_1_animator.html#a4bb5d10fb5456c55c72f9fc0cbc5bda8">Animator</a>(<a class="code hl_class" href="classsgf_1_1_reanimation.html">Reanimation</a>* reanim, <a class="code hl_class" href="classsgf_1_1_game_app.html">sgf::GameApp</a>* app);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae8ccdac61575e86b98243aad7c29169a">   54</a></span>        <a class="code hl_function" href="classsgf_1_1_animator.html#ae8ccdac61575e86b98243aad7c29169a">~Animator</a>() {};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#afa4852a79e7958c66f6c6965fc4d07ac">   56</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#afa4852a79e7958c66f6c6965fc4d07ac">Play</a>(<span class="keyword">const</span> <a class="code hl_enumeration" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dca">PlayState</a>&amp; state = <a class="code hl_enumvalue" href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa9d463a0333ec1c1ca0cff1aea30c8c0b">PLAY_REPEAT</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a2129c8a4b40610ddafcd95a19ef5b04d">   57</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a2129c8a4b40610ddafcd95a19ef5b04d">Init</a>(<a class="code hl_class" href="classsgf_1_1_reanimation.html">Reanimation</a>* reanim, <a class="code hl_class" href="classsgf_1_1_game_app.html">sgf::GameApp</a>* app);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae0835985aef7fc032ddc2e3b448a7927">   58</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#ae0835985aef7fc032ddc2e3b448a7927">Pause</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a3ac7b5d7cf8a9ea88e5f7543efd2c7d2">   60</a></span>        std::pair&lt;int, int&gt; <a class="code hl_function" href="classsgf_1_1_animator.html#a3ac7b5d7cf8a9ea88e5f7543efd2c7d2">GetTrackRange</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ab0b98eb79385b1330a6cb403d3804a57">   61</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#ab0b98eb79385b1330a6cb403d3804a57">SetFrameRange</a>(<span class="keywordtype">int</span> frameBegin,<span class="keywordtype">int</span> frameEnd);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a773793b23cdf096d92adbb92cdb3a23f">   62</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a773793b23cdf096d92adbb92cdb3a23f">SetFrameRangeByTrackName</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">//自动恢复</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a32ca8d9788aede3bd4daf1bcd708cdf7">   64</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a32ca8d9788aede3bd4daf1bcd708cdf7">SetFrameRangeByTrackNameOnce</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName, <span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; oriTrackName);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a6280b5cf66bdbc8d3f3f3e32852d1295">   65</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a6280b5cf66bdbc8d3f3f3e32852d1295">SetTrackVisible</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName,<span class="keywordtype">bool</span> visible);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ac2b7bf8a0ddfe8a8af303a2892732a65">   66</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#ac2b7bf8a0ddfe8a8af303a2892732a65">TrackAttachImage</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName, <a class="code hl_class" href="classsgf_1_1_simple_image.html">SimpleImage</a>* target);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a25412464786ccd6cfba0ad3759d9dacb">   67</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a25412464786ccd6cfba0ad3759d9dacb">TrackAttachAnimator</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName, <a class="code hl_class" href="classsgf_1_1_animator.html">Animator</a>* target);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ab32d52f2d43f900fd0026df50496bc16">   68</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#ab32d52f2d43f900fd0026df50496bc16">TrackAttachAnimatorMatrix</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName, glm::mat4x4* target);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#af262eb4a03e9e7c6ebe1515b9644892c">   69</a></span>        <span class="keywordtype">float</span> <a class="code hl_function" href="classsgf_1_1_animator.html#af262eb4a03e9e7c6ebe1515b9644892c">GetTrackVelocity</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a5fb1ceecf47183673cb0d33beb32ff78">   70</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a5fb1ceecf47183673cb0d33beb32ff78">GetTrackVisible</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackName);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#ae1de8c139abe9a14302fcd58834094c6">   72</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#ae1de8c139abe9a14302fcd58834094c6">Update</a>();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a64ac5389b54ffb410a062be4f8971df8">   73</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a64ac5389b54ffb410a062be4f8971df8">Present</a>(<a class="code hl_class" href="classsgf_1_1_graphics.html">Graphics</a>* g);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a13ae0c2568ce33d5a5f774f98ed4f4bb">   74</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a13ae0c2568ce33d5a5f774f98ed4f4bb">PresentMatrix</a>(<a class="code hl_class" href="classsgf_1_1_graphics.html">Graphics</a>* g, <span class="keyword">const</span> glm::mat4x4&amp; mat);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a36a70656fd3b33c27221f60e4f8c461e">   75</a></span>        <a class="code hl_typedef" href="namespacesgf.html#a6ae3bf03372d4c9f83e88458b01c9b44">sgf::Point</a> <a class="code hl_function" href="classsgf_1_1_animator.html#a36a70656fd3b33c27221f60e4f8c461e">GetTrackPos</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackname);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classsgf_1_1_animator.html#a0f2e79c61b584bcf138b1d61615935db">   76</a></span>        <span class="keywordtype">float</span> <a class="code hl_function" href="classsgf_1_1_animator.html#a0f2e79c61b584bcf138b1d61615935db">GetTrackRotate</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; trackname);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_common_8h_html"><div class="ttname"><a href="_common_8h.html">Common.h</a></div></div>
+<div class="ttc" id="a_reanimation_8h_html"><div class="ttname"><a href="_reanimation_8h.html">Reanimation.h</a></div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html"><div class="ttname"><a href="classsgf_1_1_animator.html">sgf::Animator</a></div><div class="ttdef"><b>定义</b> Animator.h:20</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a0bba39640b55fd3f80ae03be3df1f792"><div class="ttname"><a href="classsgf_1_1_animator.html#a0bba39640b55fd3f80ae03be3df1f792">sgf::Animator::mPlayingState</a></div><div class="ttdeci">PlayState mPlayingState</div><div class="ttdef"><b>定义</b> Animator.h:46</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a0f2e79c61b584bcf138b1d61615935db"><div class="ttname"><a href="classsgf_1_1_animator.html#a0f2e79c61b584bcf138b1d61615935db">sgf::Animator::GetTrackRotate</a></div><div class="ttdeci">float GetTrackRotate(const sgf::String &amp;trackname)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a12e6e004f42b90370a02f7ae3fb652f9"><div class="ttname"><a href="classsgf_1_1_animator.html#a12e6e004f42b90370a02f7ae3fb652f9">sgf::Animator::mApp</a></div><div class="ttdeci">GameApp * mApp</div><div class="ttdef"><b>定义</b> Animator.h:31</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a13ae0c2568ce33d5a5f774f98ed4f4bb"><div class="ttname"><a href="classsgf_1_1_animator.html#a13ae0c2568ce33d5a5f774f98ed4f4bb">sgf::Animator::PresentMatrix</a></div><div class="ttdeci">void PresentMatrix(Graphics *g, const glm::mat4x4 &amp;mat)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a1a2e4d22ff48be8d5aa053a4a1f025a2"><div class="ttname"><a href="classsgf_1_1_animator.html#a1a2e4d22ff48be8d5aa053a4a1f025a2">sgf::Animator::mSpeed</a></div><div class="ttdeci">float mSpeed</div><div class="ttdef"><b>定义</b> Animator.h:36</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a21168ce455d5ecfd1de16ed7fab33120"><div class="ttname"><a href="classsgf_1_1_animator.html#a21168ce455d5ecfd1de16ed7fab33120">sgf::Animator::mFrameIndexNow</a></div><div class="ttdeci">float mFrameIndexNow</div><div class="ttdef"><b>定义</b> Animator.h:33</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a2129c8a4b40610ddafcd95a19ef5b04d"><div class="ttname"><a href="classsgf_1_1_animator.html#a2129c8a4b40610ddafcd95a19ef5b04d">sgf::Animator::Init</a></div><div class="ttdeci">void Init(Reanimation *reanim, sgf::GameApp *app)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a2428297ace27a04558a088f01081c9ae"><div class="ttname"><a href="classsgf_1_1_animator.html#a2428297ace27a04558a088f01081c9ae">sgf::Animator::mDeltaRate</a></div><div class="ttdeci">float mDeltaRate</div><div class="ttdef"><b>定义</b> Animator.h:37</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a2504db6874864282bed21d05615c2dcc"><div class="ttname"><a href="classsgf_1_1_animator.html#a2504db6874864282bed21d05615c2dcc">sgf::Animator::mFrameIndexBlendBuffer</a></div><div class="ttdeci">int mFrameIndexBlendBuffer</div><div class="ttdef"><b>定义</b> Animator.h:43</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a25412464786ccd6cfba0ad3759d9dacb"><div class="ttname"><a href="classsgf_1_1_animator.html#a25412464786ccd6cfba0ad3759d9dacb">sgf::Animator::TrackAttachAnimator</a></div><div class="ttdeci">void TrackAttachAnimator(const sgf::String &amp;trackName, Animator *target)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a2865a91e5999e4f37671f5e8e071d319"><div class="ttname"><a href="classsgf_1_1_animator.html#a2865a91e5999e4f37671f5e8e071d319">sgf::Animator::mIsPlaying</a></div><div class="ttdeci">bool mIsPlaying</div><div class="ttdef"><b>定义</b> Animator.h:45</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a2d46c79376e49e08b34ef2c063dc4c76"><div class="ttname"><a href="classsgf_1_1_animator.html#a2d46c79376e49e08b34ef2c063dc4c76">sgf::Animator::mExtraInfos</a></div><div class="ttdeci">std::vector&lt; TrackExtraInfo &gt; mExtraInfos</div><div class="ttdef"><b>定义</b> Animator.h:47</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a32ca8d9788aede3bd4daf1bcd708cdf7"><div class="ttname"><a href="classsgf_1_1_animator.html#a32ca8d9788aede3bd4daf1bcd708cdf7">sgf::Animator::SetFrameRangeByTrackNameOnce</a></div><div class="ttdeci">void SetFrameRangeByTrackNameOnce(const sgf::String &amp;trackName, const sgf::String &amp;oriTrackName)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a36a70656fd3b33c27221f60e4f8c461e"><div class="ttname"><a href="classsgf_1_1_animator.html#a36a70656fd3b33c27221f60e4f8c461e">sgf::Animator::GetTrackPos</a></div><div class="ttdeci">sgf::Point GetTrackPos(const sgf::String &amp;trackname)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a3ac7b5d7cf8a9ea88e5f7543efd2c7d2"><div class="ttname"><a href="classsgf_1_1_animator.html#a3ac7b5d7cf8a9ea88e5f7543efd2c7d2">sgf::Animator::GetTrackRange</a></div><div class="ttdeci">std::pair&lt; int, int &gt; GetTrackRange(const sgf::String &amp;trackName)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a4037201e50952e5bdd243b1aa91a604b"><div class="ttname"><a href="classsgf_1_1_animator.html#a4037201e50952e5bdd243b1aa91a604b">sgf::Animator::Animator</a></div><div class="ttdeci">Animator()</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a408715b0f30a214e3495028079afe3f9"><div class="ttname"><a href="classsgf_1_1_animator.html#a408715b0f30a214e3495028079afe3f9">sgf::Animator::mTrackIndicesMap</a></div><div class="ttdeci">std::unordered_map&lt; sgf::String, int &gt; mTrackIndicesMap</div><div class="ttdef"><b>定义</b> Animator.h:48</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a4bb5d10fb5456c55c72f9fc0cbc5bda8"><div class="ttname"><a href="classsgf_1_1_animator.html#a4bb5d10fb5456c55c72f9fc0cbc5bda8">sgf::Animator::Animator</a></div><div class="ttdeci">Animator(Reanimation *reanim, sgf::GameApp *app)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a5ab810d994ed4d36a98f3c38b2ba585b"><div class="ttname"><a href="classsgf_1_1_animator.html#a5ab810d994ed4d36a98f3c38b2ba585b">sgf::Animator::mTargetTrack</a></div><div class="ttdeci">sgf::String mTargetTrack</div><div class="ttdef"><b>定义</b> Animator.h:49</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a5c19a163ee7022324c4f033b7560f294"><div class="ttname"><a href="classsgf_1_1_animator.html#a5c19a163ee7022324c4f033b7560f294">sgf::Animator::mReanim</a></div><div class="ttdeci">Reanimation * mReanim</div><div class="ttdef"><b>定义</b> Animator.h:30</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a5fb1ceecf47183673cb0d33beb32ff78"><div class="ttname"><a href="classsgf_1_1_animator.html#a5fb1ceecf47183673cb0d33beb32ff78">sgf::Animator::GetTrackVisible</a></div><div class="ttdeci">bool GetTrackVisible(const sgf::String &amp;trackName)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a6280b5cf66bdbc8d3f3f3e32852d1295"><div class="ttname"><a href="classsgf_1_1_animator.html#a6280b5cf66bdbc8d3f3f3e32852d1295">sgf::Animator::SetTrackVisible</a></div><div class="ttdeci">void SetTrackVisible(const sgf::String &amp;trackName, bool visible)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a63b7caf07d1407ec1dd94d2fde9c53d6"><div class="ttname"><a href="classsgf_1_1_animator.html#a63b7caf07d1407ec1dd94d2fde9c53d6">sgf::Animator::mReanimBlendCounter</a></div><div class="ttdeci">float mReanimBlendCounter</div><div class="ttdef"><b>定义</b> Animator.h:41</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a64ac5389b54ffb410a062be4f8971df8"><div class="ttname"><a href="classsgf_1_1_animator.html#a64ac5389b54ffb410a062be4f8971df8">sgf::Animator::Present</a></div><div class="ttdeci">void Present(Graphics *g)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a770f337c53b3518f3bd1da243733e2e2"><div class="ttname"><a href="classsgf_1_1_animator.html#a770f337c53b3518f3bd1da243733e2e2">sgf::Animator::mFrameIndexEnd</a></div><div class="ttdeci">float mFrameIndexEnd</div><div class="ttdef"><b>定义</b> Animator.h:35</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a773793b23cdf096d92adbb92cdb3a23f"><div class="ttname"><a href="classsgf_1_1_animator.html#a773793b23cdf096d92adbb92cdb3a23f">sgf::Animator::SetFrameRangeByTrackName</a></div><div class="ttdeci">void SetFrameRangeByTrackName(const sgf::String &amp;trackName)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a8068381fad1154d1126653f3d917eff5"><div class="ttname"><a href="classsgf_1_1_animator.html#a8068381fad1154d1126653f3d917eff5">sgf::Animator::mFPS</a></div><div class="ttdeci">float mFPS</div><div class="ttdef"><b>定义</b> Animator.h:32</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_a9206ce74dea4915a634b22008a178a1c"><div class="ttname"><a href="classsgf_1_1_animator.html#a9206ce74dea4915a634b22008a178a1c">sgf::Animator::mFrameIndexBegin</a></div><div class="ttdeci">float mFrameIndexBegin</div><div class="ttdef"><b>定义</b> Animator.h:34</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ab0b98eb79385b1330a6cb403d3804a57"><div class="ttname"><a href="classsgf_1_1_animator.html#ab0b98eb79385b1330a6cb403d3804a57">sgf::Animator::SetFrameRange</a></div><div class="ttdeci">void SetFrameRange(int frameBegin, int frameEnd)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ab32d52f2d43f900fd0026df50496bc16"><div class="ttname"><a href="classsgf_1_1_animator.html#ab32d52f2d43f900fd0026df50496bc16">sgf::Animator::TrackAttachAnimatorMatrix</a></div><div class="ttdeci">void TrackAttachAnimatorMatrix(const sgf::String &amp;trackName, glm::mat4x4 *target)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ac2b7bf8a0ddfe8a8af303a2892732a65"><div class="ttname"><a href="classsgf_1_1_animator.html#ac2b7bf8a0ddfe8a8af303a2892732a65">sgf::Animator::TrackAttachImage</a></div><div class="ttdeci">void TrackAttachImage(const sgf::String &amp;trackName, SimpleImage *target)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae0835985aef7fc032ddc2e3b448a7927"><div class="ttname"><a href="classsgf_1_1_animator.html#ae0835985aef7fc032ddc2e3b448a7927">sgf::Animator::Pause</a></div><div class="ttdeci">void Pause()</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae1de8c139abe9a14302fcd58834094c6"><div class="ttname"><a href="classsgf_1_1_animator.html#ae1de8c139abe9a14302fcd58834094c6">sgf::Animator::Update</a></div><div class="ttdeci">void Update()</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae50ce13d3b0008a457d8376169ca4dca"><div class="ttname"><a href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dca">sgf::Animator::PlayState</a></div><div class="ttdeci">PlayState</div><div class="ttdef"><b>定义</b> Animator.h:22</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae50ce13d3b0008a457d8376169ca4dcaa3e9498687e6f8baacddc7d2d8a143f93"><div class="ttname"><a href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa3e9498687e6f8baacddc7d2d8a143f93">sgf::Animator::PLAY_ONCE_TO</a></div><div class="ttdeci">@ PLAY_ONCE_TO</div><div class="ttdef"><b>定义</b> Animator.h:26</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae50ce13d3b0008a457d8376169ca4dcaa91ce2796443b2ce1aaa10b8985079b68"><div class="ttname"><a href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa91ce2796443b2ce1aaa10b8985079b68">sgf::Animator::PLAY_NONE</a></div><div class="ttdeci">@ PLAY_NONE</div><div class="ttdef"><b>定义</b> Animator.h:23</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae50ce13d3b0008a457d8376169ca4dcaa9d463a0333ec1c1ca0cff1aea30c8c0b"><div class="ttname"><a href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaa9d463a0333ec1c1ca0cff1aea30c8c0b">sgf::Animator::PLAY_REPEAT</a></div><div class="ttdeci">@ PLAY_REPEAT</div><div class="ttdef"><b>定义</b> Animator.h:24</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae50ce13d3b0008a457d8376169ca4dcaaa1aa7eb70d20d7e18fead4ae73f1e91d"><div class="ttname"><a href="classsgf_1_1_animator.html#ae50ce13d3b0008a457d8376169ca4dcaaa1aa7eb70d20d7e18fead4ae73f1e91d">sgf::Animator::PLAY_ONCE</a></div><div class="ttdeci">@ PLAY_ONCE</div><div class="ttdef"><b>定义</b> Animator.h:25</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_ae8ccdac61575e86b98243aad7c29169a"><div class="ttname"><a href="classsgf_1_1_animator.html#ae8ccdac61575e86b98243aad7c29169a">sgf::Animator::~Animator</a></div><div class="ttdeci">~Animator()</div><div class="ttdef"><b>定义</b> Animator.h:54</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_af262eb4a03e9e7c6ebe1515b9644892c"><div class="ttname"><a href="classsgf_1_1_animator.html#af262eb4a03e9e7c6ebe1515b9644892c">sgf::Animator::GetTrackVelocity</a></div><div class="ttdeci">float GetTrackVelocity(const sgf::String &amp;trackName)</div></div>
+<div class="ttc" id="aclasssgf_1_1_animator_html_afa4852a79e7958c66f6c6965fc4d07ac"><div class="ttname"><a href="classsgf_1_1_animator.html#afa4852a79e7958c66f6c6965fc4d07ac">sgf::Animator::Play</a></div><div class="ttdeci">void Play(const PlayState &amp;state=PLAY_REPEAT)</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_html"><div class="ttname"><a href="classsgf_1_1_game_app.html">sgf::GameApp</a></div><div class="ttdef"><b>定义</b> GameApp.h:19</div></div>
+<div class="ttc" id="aclasssgf_1_1_graphics_html"><div class="ttname"><a href="classsgf_1_1_graphics.html">sgf::Graphics</a></div><div class="ttdef"><b>定义</b> Graphics.h:19</div></div>
+<div class="ttc" id="aclasssgf_1_1_reanimation_html"><div class="ttname"><a href="classsgf_1_1_reanimation.html">sgf::Reanimation</a></div><div class="ttdef"><b>定义</b> Reanimation.h:31</div></div>
+<div class="ttc" id="aclasssgf_1_1_simple_image_html"><div class="ttname"><a href="classsgf_1_1_simple_image.html">sgf::SimpleImage</a></div><div class="ttdef"><b>定义</b> SimpleImage.h:8</div></div>
+<div class="ttc" id="anamespacesgf_html"><div class="ttname"><a href="namespacesgf.html">sgf</a></div><div class="ttdef"><b>定义</b> Animator.h:9</div></div>
+<div class="ttc" id="anamespacesgf_html_a6ae3bf03372d4c9f83e88458b01c9b44"><div class="ttname"><a href="namespacesgf.html#a6ae3bf03372d4c9f83e88458b01c9b44">sgf::Point</a></div><div class="ttdeci">SDL_FPoint Point</div><div class="ttdef"><b>定义</b> Common.h:103</div></div>
+<div class="ttc" id="anamespacesgf_html_abaf0b4238cbc33fe5cd5b03adb1057d8"><div class="ttname"><a href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a></div><div class="ttdeci">std::string String</div><div class="ttdef"><b>定义</b> Common.h:99</div></div>
+<div class="ttc" id="astructsgf_1_1_track_extra_info_html"><div class="ttname"><a href="structsgf_1_1_track_extra_info.html">sgf::TrackExtraInfo</a></div><div class="ttdef"><b>定义</b> Animator.h:12</div></div>
+<div class="ttc" id="astructsgf_1_1_track_extra_info_html_aac531084dfea7a594e93af175dbb400a"><div class="ttname"><a href="structsgf_1_1_track_extra_info.html#aac531084dfea7a594e93af175dbb400a">sgf::TrackExtraInfo::mAttachedReanim</a></div><div class="ttdeci">Animator * mAttachedReanim</div><div class="ttdef"><b>定义</b> Animator.h:14</div></div>
+<div class="ttc" id="astructsgf_1_1_track_extra_info_html_ab684f33a534da735cc33622baabb26f1"><div class="ttname"><a href="structsgf_1_1_track_extra_info.html#ab684f33a534da735cc33622baabb26f1">sgf::TrackExtraInfo::mAttachedImage</a></div><div class="ttdeci">SimpleImage * mAttachedImage</div><div class="ttdef"><b>定义</b> Animator.h:15</div></div>
+<div class="ttc" id="astructsgf_1_1_track_extra_info_html_af7c360e9545161bd52bb0ea3a5350f39"><div class="ttname"><a href="structsgf_1_1_track_extra_info.html#af7c360e9545161bd52bb0ea3a5350f39">sgf::TrackExtraInfo::mAttachedReanimMatrix</a></div><div class="ttdeci">glm::mat4x4 * mAttachedReanimMatrix</div><div class="ttdef"><b>定义</b> Animator.h:16</div></div>
+<div class="ttc" id="astructsgf_1_1_track_extra_info_html_afd92b26997be6199f1ac8a690731d48e"><div class="ttname"><a href="structsgf_1_1_track_extra_info.html#afd92b26997be6199f1ac8a690731d48e">sgf::TrackExtraInfo::mVisible</a></div><div class="ttdeci">bool mVisible</div><div class="ttdef"><b>定义</b> Animator.h:13</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

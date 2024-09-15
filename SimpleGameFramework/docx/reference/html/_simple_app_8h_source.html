@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.12.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SGFreference: F:/VSProjects/SFML_Lawn/SFML_Lawn/SimpleGameFramework/include/SimpleApp.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">SGFreference<span id="projectnumber">&#160;Beta0.01</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.12.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',false);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){ initResizable(false); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">SimpleApp.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_simple_app_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef __SIMPLE_APP__</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_simple_app_8h.html#a3f63e285fc93d953839e146e47d2e78e">    3</a></span><span class="preprocessor">#define __SIMPLE_APP__</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_common_8h.html">Common.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../../glm/ext/matrix_float4x4.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_game_message_8h.html">GameMessage.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacesgf.html">sgf</a> {</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classsgf_1_1_game_app_base.html">GameAppBase</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a1fa1a671c4737d1535d4af8893dc393a">   11</a></span>        void (*<a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a1fa1a671c4737d1535d4af8893dc393a">mDisplay</a>)(<a class="code hl_class" href="classsgf_1_1_game_app_base.html">GameAppBase</a>*,int) = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#ac87c0e2092f0b90c5e181619e1cfed1b">   12</a></span>        void (*<a class="code hl_variable" href="classsgf_1_1_game_app_base.html#ac87c0e2092f0b90c5e181619e1cfed1b">mCallback</a>)(<a class="code hl_class" href="classsgf_1_1_game_app_base.html">GameAppBase</a>*, SDL_Event&amp;) = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a4482804032302bc4d0d7246c80cc228b">   15</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a4482804032302bc4d0d7246c80cc228b">mWidth</a> = 0;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a84dae06f58b3ae862912db5cd5a4e307">   16</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a84dae06f58b3ae862912db5cd5a4e307">mHeight</a> = 0;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a4807f5ef5f2896a3b77b5ee9aa71d5e3">   17</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a4807f5ef5f2896a3b77b5ee9aa71d5e3">mIsOpen</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a003b6aa558332b0c3a54073bafc9985f">   18</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a003b6aa558332b0c3a54073bafc9985f">mShowDebugWindow</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a6cbe3bcbd500cde5e562a27d98f5daf9">   19</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a6cbe3bcbd500cde5e562a27d98f5daf9">mMouseX</a> = 0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a5daf49910fb9127ee90d80df34717535">   20</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a5daf49910fb9127ee90d80df34717535">mMouseY</a> = 0;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a035c9401ce02058bef0a59c4d05c8945">   21</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a035c9401ce02058bef0a59c4d05c8945">mMouseXScale</a> = 1.0f;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#ab1fc7b7d957ab1f8e6d573419230fce5">   22</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#ab1fc7b7d957ab1f8e6d573419230fce5">mMouseYScale</a> = 1.0f;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a1962e45dea84c9fc9abbc521807837e4">   23</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a1962e45dea84c9fc9abbc521807837e4">mDeltaTime</a> = 0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#afe5bf3ef8af7c02a63543209d2885636">   25</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#afe5bf3ef8af7c02a63543209d2885636">mLastSecondBuffer</a> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#af3b5b1022a8092d1cddc59035d90ae35">   26</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#af3b5b1022a8092d1cddc59035d90ae35">mFramePerSecondBuffer</a> = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#aac07f3a0e72247d9c75698c8e0ddbe3b">   27</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#aac07f3a0e72247d9c75698c8e0ddbe3b">mFPS</a> = 0;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#af3f6ca47db4896b50f185e02af23087d">   29</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#af3f6ca47db4896b50f185e02af23087d">mIsMouseLeftDown</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a96f0b3fcae6528a5b207e1ff9666c7eb">   30</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a96f0b3fcae6528a5b207e1ff9666c7eb">mIsMouseMiddleDown</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#ae996d16711a32a56c9a62cfa29f8cecb">   31</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#ae996d16711a32a56c9a62cfa29f8cecb">mIsMouseRightDown</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#abf78482db1e190a92c026b3c25ba370f">   33</a></span>        <span class="keywordtype">int</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#abf78482db1e190a92c026b3c25ba370f">mTextureNumberMax</a> = 0;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a4434426ecb2ee151113c55fbcc124b19">   34</a></span>        SDL_Window* <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a4434426ecb2ee151113c55fbcc124b19">mGameWindow</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a5d6e617b788d5b80fafb00015209e831">   35</a></span>        <a class="code hl_class" href="classsgf_1_1_game_message_manager.html">GameMessageManager</a> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a5d6e617b788d5b80fafb00015209e831">mMessageManager</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#adb657cff7933a6cce05d3d4fd2238ae7">   36</a></span>        SDL_GLContext <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#adb657cff7933a6cce05d3d4fd2238ae7">mGLContext</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#aafb6c2fab2a958da3354267d60a4bbb5">   37</a></span>        glm::mat4x4 <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#aafb6c2fab2a958da3354267d60a4bbb5">mViewMatrix</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a7a7b35343bbfa47d597ff25105506e77">   38</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="classsgf_1_1_game_app_base.html#a7a7b35343bbfa47d597ff25105506e77">mEnabledASync</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a6b839bcd21de6474fe5dfe7d0ff77055">   41</a></span>        <a class="code hl_function" href="classsgf_1_1_game_app_base.html#a6b839bcd21de6474fe5dfe7d0ff77055">GameAppBase</a>(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keyword">const</span> <a class="code hl_typedef" href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a>&amp; windowCaptain,<span class="keywordtype">bool</span> enabledASync=<span class="keyword">true</span>, <span class="keywordtype">bool</span> resiziable = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#aa8136b974b621d3432188107ba69e88b">   42</a></span>        <a class="code hl_function" href="classsgf_1_1_game_app_base.html#aa8136b974b621d3432188107ba69e88b">~GameAppBase</a>();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a26003f60e9f623986564abcdb0eae076">   44</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#a26003f60e9f623986564abcdb0eae076">EnterMainLoop</a>();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#aa265918ff0905b4f2bc6ab2501f0f4a7">   45</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#aa265918ff0905b4f2bc6ab2501f0f4a7">SetDisplayFunction</a>(<span class="keywordtype">void</span> (*display)(<a class="code hl_class" href="classsgf_1_1_game_app_base.html">GameAppBase</a>*, <span class="keywordtype">int</span>));</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#ae0c81c3ea80afe79ba641292e7e678a0">   46</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#ae0c81c3ea80afe79ba641292e7e678a0">SetCallBackFunction</a>(<span class="keywordtype">void</span> (*callback)(<a class="code hl_class" href="classsgf_1_1_game_app_base.html">GameAppBase</a>*, SDL_Event&amp;));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#ab80a88b86a2eaacb5142e668ab2b5e73">   47</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#ab80a88b86a2eaacb5142e668ab2b5e73">CopeEvent</a>(SDL_Event&amp; theEvent);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#a3eacd679115562302784a20ed47c6132">   49</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#a3eacd679115562302784a20ed47c6132">Update</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classsgf_1_1_game_app_base.html#af2842dc66117ca6509fe583fa8f3845c">   50</a></span>        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classsgf_1_1_game_app_base.html#af2842dc66117ca6509fe583fa8f3845c">Draw</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    };</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif </span><span class="comment">// !__SIMPLE_APP__</span></div>
+<div class="ttc" id="a_common_8h_html"><div class="ttname"><a href="_common_8h.html">Common.h</a></div></div>
+<div class="ttc" id="a_game_message_8h_html"><div class="ttname"><a href="_game_message_8h.html">GameMessage.h</a></div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html"><div class="ttname"><a href="classsgf_1_1_game_app_base.html">sgf::GameAppBase</a></div><div class="ttdef"><b>定义</b> SimpleApp.h:9</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a003b6aa558332b0c3a54073bafc9985f"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a003b6aa558332b0c3a54073bafc9985f">sgf::GameAppBase::mShowDebugWindow</a></div><div class="ttdeci">bool mShowDebugWindow</div><div class="ttdef"><b>定义</b> SimpleApp.h:18</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a035c9401ce02058bef0a59c4d05c8945"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a035c9401ce02058bef0a59c4d05c8945">sgf::GameAppBase::mMouseXScale</a></div><div class="ttdeci">float mMouseXScale</div><div class="ttdef"><b>定义</b> SimpleApp.h:21</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a1962e45dea84c9fc9abbc521807837e4"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a1962e45dea84c9fc9abbc521807837e4">sgf::GameAppBase::mDeltaTime</a></div><div class="ttdeci">unsigned int mDeltaTime</div><div class="ttdef"><b>定义</b> SimpleApp.h:23</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a1fa1a671c4737d1535d4af8893dc393a"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a1fa1a671c4737d1535d4af8893dc393a">sgf::GameAppBase::mDisplay</a></div><div class="ttdeci">void(* mDisplay)(GameAppBase *, int)</div><div class="ttdef"><b>定义</b> SimpleApp.h:11</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a26003f60e9f623986564abcdb0eae076"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a26003f60e9f623986564abcdb0eae076">sgf::GameAppBase::EnterMainLoop</a></div><div class="ttdeci">void EnterMainLoop()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a3eacd679115562302784a20ed47c6132"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a3eacd679115562302784a20ed47c6132">sgf::GameAppBase::Update</a></div><div class="ttdeci">virtual void Update()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a4434426ecb2ee151113c55fbcc124b19"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a4434426ecb2ee151113c55fbcc124b19">sgf::GameAppBase::mGameWindow</a></div><div class="ttdeci">SDL_Window * mGameWindow</div><div class="ttdef"><b>定义</b> SimpleApp.h:34</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a4482804032302bc4d0d7246c80cc228b"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a4482804032302bc4d0d7246c80cc228b">sgf::GameAppBase::mWidth</a></div><div class="ttdeci">int mWidth</div><div class="ttdef"><b>定义</b> SimpleApp.h:15</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a4807f5ef5f2896a3b77b5ee9aa71d5e3"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a4807f5ef5f2896a3b77b5ee9aa71d5e3">sgf::GameAppBase::mIsOpen</a></div><div class="ttdeci">bool mIsOpen</div><div class="ttdef"><b>定义</b> SimpleApp.h:17</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a5d6e617b788d5b80fafb00015209e831"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a5d6e617b788d5b80fafb00015209e831">sgf::GameAppBase::mMessageManager</a></div><div class="ttdeci">GameMessageManager mMessageManager</div><div class="ttdef"><b>定义</b> SimpleApp.h:35</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a5daf49910fb9127ee90d80df34717535"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a5daf49910fb9127ee90d80df34717535">sgf::GameAppBase::mMouseY</a></div><div class="ttdeci">int mMouseY</div><div class="ttdef"><b>定义</b> SimpleApp.h:20</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a6b839bcd21de6474fe5dfe7d0ff77055"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a6b839bcd21de6474fe5dfe7d0ff77055">sgf::GameAppBase::GameAppBase</a></div><div class="ttdeci">GameAppBase(int width, int height, const sgf::String &amp;windowCaptain, bool enabledASync=true, bool resiziable=false)</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a6cbe3bcbd500cde5e562a27d98f5daf9"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a6cbe3bcbd500cde5e562a27d98f5daf9">sgf::GameAppBase::mMouseX</a></div><div class="ttdeci">int mMouseX</div><div class="ttdef"><b>定义</b> SimpleApp.h:19</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a7a7b35343bbfa47d597ff25105506e77"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a7a7b35343bbfa47d597ff25105506e77">sgf::GameAppBase::mEnabledASync</a></div><div class="ttdeci">bool mEnabledASync</div><div class="ttdef"><b>定义</b> SimpleApp.h:38</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a84dae06f58b3ae862912db5cd5a4e307"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a84dae06f58b3ae862912db5cd5a4e307">sgf::GameAppBase::mHeight</a></div><div class="ttdeci">int mHeight</div><div class="ttdef"><b>定义</b> SimpleApp.h:16</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_a96f0b3fcae6528a5b207e1ff9666c7eb"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#a96f0b3fcae6528a5b207e1ff9666c7eb">sgf::GameAppBase::mIsMouseMiddleDown</a></div><div class="ttdeci">bool mIsMouseMiddleDown</div><div class="ttdef"><b>定义</b> SimpleApp.h:30</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_aa265918ff0905b4f2bc6ab2501f0f4a7"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#aa265918ff0905b4f2bc6ab2501f0f4a7">sgf::GameAppBase::SetDisplayFunction</a></div><div class="ttdeci">void SetDisplayFunction(void(*display)(GameAppBase *, int))</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_aa8136b974b621d3432188107ba69e88b"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#aa8136b974b621d3432188107ba69e88b">sgf::GameAppBase::~GameAppBase</a></div><div class="ttdeci">~GameAppBase()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_aac07f3a0e72247d9c75698c8e0ddbe3b"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#aac07f3a0e72247d9c75698c8e0ddbe3b">sgf::GameAppBase::mFPS</a></div><div class="ttdeci">unsigned int mFPS</div><div class="ttdef"><b>定义</b> SimpleApp.h:27</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_aafb6c2fab2a958da3354267d60a4bbb5"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#aafb6c2fab2a958da3354267d60a4bbb5">sgf::GameAppBase::mViewMatrix</a></div><div class="ttdeci">glm::mat4x4 mViewMatrix</div><div class="ttdef"><b>定义</b> SimpleApp.h:37</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_ab1fc7b7d957ab1f8e6d573419230fce5"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#ab1fc7b7d957ab1f8e6d573419230fce5">sgf::GameAppBase::mMouseYScale</a></div><div class="ttdeci">float mMouseYScale</div><div class="ttdef"><b>定义</b> SimpleApp.h:22</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_ab80a88b86a2eaacb5142e668ab2b5e73"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#ab80a88b86a2eaacb5142e668ab2b5e73">sgf::GameAppBase::CopeEvent</a></div><div class="ttdeci">virtual void CopeEvent(SDL_Event &amp;theEvent)</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_abf78482db1e190a92c026b3c25ba370f"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#abf78482db1e190a92c026b3c25ba370f">sgf::GameAppBase::mTextureNumberMax</a></div><div class="ttdeci">int mTextureNumberMax</div><div class="ttdef"><b>定义</b> SimpleApp.h:33</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_ac87c0e2092f0b90c5e181619e1cfed1b"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#ac87c0e2092f0b90c5e181619e1cfed1b">sgf::GameAppBase::mCallback</a></div><div class="ttdeci">void(* mCallback)(GameAppBase *, SDL_Event &amp;)</div><div class="ttdef"><b>定义</b> SimpleApp.h:12</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_adb657cff7933a6cce05d3d4fd2238ae7"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#adb657cff7933a6cce05d3d4fd2238ae7">sgf::GameAppBase::mGLContext</a></div><div class="ttdeci">SDL_GLContext mGLContext</div><div class="ttdef"><b>定义</b> SimpleApp.h:36</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_ae0c81c3ea80afe79ba641292e7e678a0"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#ae0c81c3ea80afe79ba641292e7e678a0">sgf::GameAppBase::SetCallBackFunction</a></div><div class="ttdeci">void SetCallBackFunction(void(*callback)(GameAppBase *, SDL_Event &amp;))</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_ae996d16711a32a56c9a62cfa29f8cecb"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#ae996d16711a32a56c9a62cfa29f8cecb">sgf::GameAppBase::mIsMouseRightDown</a></div><div class="ttdeci">bool mIsMouseRightDown</div><div class="ttdef"><b>定义</b> SimpleApp.h:31</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_af2842dc66117ca6509fe583fa8f3845c"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#af2842dc66117ca6509fe583fa8f3845c">sgf::GameAppBase::Draw</a></div><div class="ttdeci">virtual void Draw()</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_af3b5b1022a8092d1cddc59035d90ae35"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#af3b5b1022a8092d1cddc59035d90ae35">sgf::GameAppBase::mFramePerSecondBuffer</a></div><div class="ttdeci">unsigned int mFramePerSecondBuffer</div><div class="ttdef"><b>定义</b> SimpleApp.h:26</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_af3f6ca47db4896b50f185e02af23087d"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#af3f6ca47db4896b50f185e02af23087d">sgf::GameAppBase::mIsMouseLeftDown</a></div><div class="ttdeci">bool mIsMouseLeftDown</div><div class="ttdef"><b>定义</b> SimpleApp.h:29</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_app_base_html_afe5bf3ef8af7c02a63543209d2885636"><div class="ttname"><a href="classsgf_1_1_game_app_base.html#afe5bf3ef8af7c02a63543209d2885636">sgf::GameAppBase::mLastSecondBuffer</a></div><div class="ttdeci">unsigned int mLastSecondBuffer</div><div class="ttdef"><b>定义</b> SimpleApp.h:25</div></div>
+<div class="ttc" id="aclasssgf_1_1_game_message_manager_html"><div class="ttname"><a href="classsgf_1_1_game_message_manager.html">sgf::GameMessageManager</a></div><div class="ttdef"><b>定义</b> GameMessage.h:23</div></div>
+<div class="ttc" id="anamespacesgf_html"><div class="ttname"><a href="namespacesgf.html">sgf</a></div><div class="ttdef"><b>定义</b> Animator.h:9</div></div>
+<div class="ttc" id="anamespacesgf_html_abaf0b4238cbc33fe5cd5b03adb1057d8"><div class="ttname"><a href="namespacesgf.html#abaf0b4238cbc33fe5cd5b03adb1057d8">sgf::String</a></div><div class="ttdeci">std::string String</div><div class="ttdef"><b>定义</b> Common.h:99</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+制作者&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
