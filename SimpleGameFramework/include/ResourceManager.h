@@ -37,7 +37,7 @@ namespace sgf{
 		float mProcess = 0;
 		int mTotalFile = 0;
 		int mNowFile = 0;
-		std::mutex mMutex;
+		std::mutex mResLoadMutex;
 		std::vector<void*> mEmitters;
 
 	public:

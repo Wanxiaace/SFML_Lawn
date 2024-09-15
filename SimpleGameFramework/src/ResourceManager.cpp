@@ -23,9 +23,9 @@ void sgf::ResourceManager::LoadImageWithID(const sgf::String& path, sgf::String 
 	SimpleImage* image = new SimpleImage();
 	image->LoadFromFile(path.c_str());
 
-	mMutex.lock();
+	mResLoadMutex.lock();
 	mResourcePool[id] = image;
-	mMutex.unlock();
+	mResLoadMutex.unlock();
 }
 
 #include "../include/json.hpp"
@@ -41,7 +41,10 @@ void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::S
 	sgf::String texPath = json.at("meta").at("image");
 
 	LoadImageWithID(folder + "/" + texPath, id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+	
+	mResLoadMutex.lock();
 	SimpleImage* tex = GetResourceFast<SimpleImage>(id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+	mResLoadMutex.unlock();
 
 	for (auto& x : frameArray)
 	{
@@ -53,7 +56,10 @@ void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::S
 		atlasUnit->mIsAtlasUnit = true;
 		atlasUnit->mAtlasSrc = tex;
 
+		mResLoadMutex.lock();
 		mResourcePool[rid] = atlasUnit;
+		mResLoadMutex.unlock();
+		
 
 		atlasUnit->mAtlasUnitU = float(x.at("frame").at("x")) / tex->mSurface->w;
 		atlasUnit->mAtlasUnitV = float(x.at("frame").at("y")) / tex->mSurface->h;
@@ -72,9 +78,9 @@ void sgf::ResourceManager::LoadReanimWithID(const sgf::String& path, sgf::String
 	Reanimation* reanim = new Reanimation();
 	reanim->LoadFromFile(path.c_str());
 	reanim->mResourceManager = this;
-	mMutex.lock();
+	mResLoadMutex.lock();
 	mResourcePool[id] = reanim;
-	mMutex.unlock();
+	mResLoadMutex.unlock();
 	//mResourcePool[id] = reanim;
 }
 
@@ -83,9 +89,9 @@ void sgf::ResourceManager::LoadFontWithID(const sgf::String& aPath, sgf::String 
 	Font* font = new Font();
 	font->LoadFromFile(aPath.c_str());
 	//mResourcePool[id] = font;
-	mMutex.lock();
+	mResLoadMutex.lock();
 	mResourcePool[id] = font;
-	mMutex.unlock();
+	mResLoadMutex.unlock();
 }
 
 //请在加载完所有图片后调用此函数
@@ -96,9 +102,9 @@ void sgf::ResourceManager::LoadParticleWithID(const sgf::String& aPath, sgf::Str
 	int length = particle->mImageNumber;
 	
 	mEmitters.push_back(particle);
-	mMutex.lock();
+	mResLoadMutex.lock();
 	mResourcePool[id] = particle;
-	mMutex.unlock();
+	mResLoadMutex.unlock();
 	//mResourcePool[id] = particle;
 }
 
@@ -169,7 +175,7 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	mNowFile = 0;
 
 	int len = src->mResouces.size();
-	/*
+	
 	int stride = len / (LOADING_THREAD_NUM_MAX+1);
 
 	std::vector<std::thread*> loadingThreads;
@@ -184,8 +190,9 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	{
 		loadingThreads[i]->join();
 		delete loadingThreads[i];
-	} 多线程加载*/
-	LoadFromResouceListFunc(this, src, mus, 0, len);
+	} //多线程加载
+
+	//LoadFromResouceListFunc(this, src, mus, 0, len);
 
 	LoadParticleImages();
 	mIsLoaded = true;
