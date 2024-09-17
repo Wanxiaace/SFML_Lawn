@@ -34,7 +34,7 @@ namespace sgf {
 		CursorObject* mCursor;
 
 		float mMusicVolume = 100.0f;
-		
+		bool mUseFullScreen = false;
 
 	public:
 		GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync = true,bool resiziable = false);
@@ -49,6 +49,8 @@ namespace sgf {
 		void SetWindowIconFromImage(sgf::SimpleImage* image);
 		void SetWindowCaptain(const sgf::String& title);
 		void ScreenShot(const sgf::String& outPath);
+		void UseFullScreen();
+		void ExitFullScreen();
 
 		void UpdateMusicVolume();
 		Graphics* LoadGraphics();

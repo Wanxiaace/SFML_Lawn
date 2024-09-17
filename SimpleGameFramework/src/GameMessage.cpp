@@ -33,6 +33,16 @@ void sgf::GameMessageManager::CopeAllMessage()
 			delete screenShot;
 			break;
 		}
+		case sgf::GameMessage::MessageType::MSG_TYPE_FULL_SCREEN: {
+			GameApp* app = static_cast<GameApp*>(mMessages[i].mParamPointer1);
+			SDL_SetWindowFullscreen(app->mGameWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			break;
+		}
+		case sgf::GameMessage::MessageType::MSG_TYPE_EXIT_FULL_SCREEN: {
+			GameApp* app = static_cast<GameApp*>(mMessages[i].mParamPointer1);
+			SDL_SetWindowFullscreen(app->mGameWindow, 0);
+			break;
+		}
 		default:
 			break;
 		}

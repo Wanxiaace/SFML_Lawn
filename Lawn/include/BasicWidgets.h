@@ -122,7 +122,27 @@ namespace Lawn {
 
 	};
 
-	
+	class LawnCheckBox : public sgf::Widget {
+	public:
+		sgf::GameApp* mApp = nullptr;
+		bool* mTargetBool = nullptr;
+		sgf::SimpleImage* mCheckImage = nullptr;
+		sgf::SimpleImage* mUnCheckImage = nullptr;
+		LawnLabel* mLabel = nullptr;
+		bool mIsCheck = false;
+
+	public:
+		LawnCheckBox(int theId, sgf::GameApp* app);
+		~LawnCheckBox();
+
+		void SetLabel(const sgf::String& label);
+		void BindToBool(bool* boolean) { mTargetBool = boolean; };
+		void UpdateState();
+
+	public:
+		virtual void Draw(sgf::Graphics* g) override;
+		virtual void Update() override;
+	};
 }
 
 #endif

@@ -75,6 +75,7 @@ void sgf::GameAppBase::EnterMainLoop()
     mLastSecondBuffer = SDL_GetTicks();
     mFramePerSecondBuffer = 0;
 
+
     while (mIsOpen)
     {
         

@@ -6,6 +6,8 @@
 Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_SETTING,app)
 {
 	mEnabledModel = true;
+	mUseFullScreen = app->mUseFullScreen;
+
 	mOKButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_OK,mApp);
 	mOKButton->Resize(500,500,170,50);
 	mOKButton->AttachToListener(this);
@@ -18,6 +20,15 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 	mVolumeSlider->SetRange(100,0);
 	mVolumeSlider->BindToFloat(&gLawnApp->mMusicVolume);
 	AppendChild(mVolumeSlider);
+
+
+	mFullScreenCheckBox = new LawnCheckBox(CHECKBOX_FULLSCREEN, mApp);
+	mFullScreenCheckBox->MoveTo(100, 250);
+	mFullScreenCheckBox->AttachToListener(this);
+	mFullScreenCheckBox->BindToBool(&mUseFullScreen);
+	mFullScreenCheckBox->SetLabel(_LS("FullScreen"));
+	mFullScreenCheckBox->mIsCheck = mUseFullScreen;
+	AppendChild(mFullScreenCheckBox);
 
 	auto font = (sgf::Font*)mApp->mResourceManager.mResourcePool["FONT_FONT2"];
 
@@ -42,10 +53,12 @@ Lawn::SettingDialog::~SettingDialog()
 	mWidgetManager->RemoveWidget(mOKButton);
 	mWidgetManager->RemoveWidget(mVolumeSlider);
 	mWidgetManager->RemoveWidget(mMusicVolumeLabel);
+	mWidgetManager->RemoveWidget(mFullScreenCheckBox);
 
 	delete mMusicVolumeLabel;
 	delete mOKButton;
 	delete mVolumeSlider;
+	delete mFullScreenCheckBox;
 }
 
 
@@ -80,6 +93,15 @@ void Lawn::SettingDialog::OnClick(int buttonId)
 		break;
 	case SLIDER_VOLUME:
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
+		break;
+	case CHECKBOX_FULLSCREEN:
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
+		mFullScreenCheckBox->UpdateState();
+		if (mUseFullScreen)
+			mApp->UseFullScreen();
+		else
+			mApp->ExitFullScreen();
+		mApp->mUseFullScreen = mFullScreenCheckBox->mIsCheck;
 		break;
 	default:
 		break;

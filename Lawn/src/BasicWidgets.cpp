@@ -315,7 +315,7 @@ void Lawn::LawnSlider::Update()
 Lawn::LawnLabel::LawnLabel(sgf::GameApp* app) :sgf::Widget(20000)
 {
 	mApp = app;
-	mFont = (sgf::Font*)mApp->mResourceManager.mResourcePool["FONT_FONT2"];
+	mFont = mApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
 }
 
 Lawn::LawnLabel::~LawnLabel()
@@ -347,4 +347,58 @@ void Lawn::LawnLabel::Draw(sgf::Graphics* g)
 		g->SetCubeColor(mTextColor);
 		g->DrawImage(mLabelImage);
 	}
+}
+
+Lawn::LawnCheckBox::LawnCheckBox(int theId, sgf::GameApp* app) : Widget(theId)
+{
+	mApp = app;
+	mUnCheckImage = app->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX0");
+	mCheckImage = app->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX1");
+	Resize(mRect.mX,mRect.mY,40,40);
+}
+
+Lawn::LawnCheckBox::~LawnCheckBox()
+{
+	Widget::~Widget();
+	if(mWidgetManager)
+		mWidgetManager->RemoveWidget(mLabel);
+	if (mLabel)
+		delete mLabel;
+}
+
+void Lawn::LawnCheckBox::SetLabel(const sgf::String& label)
+{
+	if (mLabel)
+		return;
+	mLabel = new LawnLabel(mApp);
+	mLabel->LoadLabel(label);
+	AppendChild(mLabel);
+	mLabel->MoveTo(50,-5);
+	mLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
+}
+
+void Lawn::LawnCheckBox::UpdateState()
+{
+	if (mIsCheck)
+		mIsCheck = false;
+	else 
+		mIsCheck = true;
+	Update();
+}
+
+void Lawn::LawnCheckBox::Draw(sgf::Graphics* g)
+{
+	g->SetCubeColor({ 1,1,1,1 });
+	if (mIsCheck) {
+		g->DrawImage(mCheckImage);
+	}
+	else {
+		g->DrawImage(mUnCheckImage);
+	}
+}
+
+void Lawn::LawnCheckBox::Update()
+{
+	if (mTargetBool)
+		*mTargetBool = mIsCheck;
 }

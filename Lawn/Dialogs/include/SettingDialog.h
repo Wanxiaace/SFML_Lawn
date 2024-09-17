@@ -12,6 +12,7 @@ namespace Lawn {
 	protected:
 		enum {
 			SLIDER_VOLUME = 10000,
+			CHECKBOX_FULLSCREEN = 10001,
 		};
 	public:
 		LawnStoneButton* mOKButton = nullptr;
@@ -19,7 +20,9 @@ namespace Lawn {
 		sgf::SimpleImage* mCaptainImage = nullptr;
 
 		LawnLabel* mMusicVolumeLabel = nullptr;
+		LawnCheckBox* mFullScreenCheckBox = nullptr;
 		float mMusicVolume = 0;
+		bool mUseFullScreen = false;
 
 		LawnSlider* mVolumeSlider = nullptr;
 
