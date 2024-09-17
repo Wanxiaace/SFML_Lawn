@@ -55,6 +55,7 @@ void sgf::GameApp::DrawImgui()
 	ImGui::Checkbox("Show Widget Box", &gShowWidgetHitBoxAllowed);
 	ImGui::Checkbox("Rotate", &mRotateAllowed);
 	ImGui::SliderFloat("Moving Speed", &mMovingSpeed, 1.0f, 5.0f);;
+	ImGui::SliderFloat("Render Scale", &mRenderScale, 0.5f, 10.0f);;
 	ImGui::End();
 
 	ImGui::Render();
@@ -104,21 +105,24 @@ void sgf::GameApp::Update()
 	GameAppBase::Update();
 	mWidgetManager->Update(this);
 
+
 	if (mDragAllowed) {
 		const unsigned char* keyStates = SDL_GetKeyboardState(NULL);
 		if(keyStates[SDL_SCANCODE_W])
-			mViewMatrix = glm::translate(mViewMatrix,glm::vec3(0, mMovingSpeed,0));
+			mViewMatrixBuf = glm::translate(mViewMatrixBuf,glm::vec3(0, mMovingSpeed,0));
 		if (keyStates[SDL_SCANCODE_S])
-			mViewMatrix = glm::translate(mViewMatrix, glm::vec3(0, -mMovingSpeed, 0));
+			mViewMatrixBuf = glm::translate(mViewMatrixBuf, glm::vec3(0, -mMovingSpeed, 0));
 		if (keyStates[SDL_SCANCODE_A])
-			mViewMatrix = glm::translate(mViewMatrix, glm::vec3(mMovingSpeed, 0, 0));
+			mViewMatrixBuf = glm::translate(mViewMatrixBuf, glm::vec3(mMovingSpeed, 0, 0));
 		if (keyStates[SDL_SCANCODE_D])
-			mViewMatrix = glm::translate(mViewMatrix, glm::vec3(-mMovingSpeed, 0, 0));
+			mViewMatrixBuf = glm::translate(mViewMatrixBuf, glm::vec3(-mMovingSpeed, 0, 0));
 	}
 
 	if (mRotateAllowed) {
-		mViewMatrix = glm::rotate(mViewMatrix, 0.05f, glm::vec3(0, 0, 1.0f));
+		mViewMatrixBuf = glm::rotate(mViewMatrix, 0.05f, glm::vec3(0, 0, 1.0f));
 	}
+	
+	mViewMatrix = glm::scale(mViewMatrixBuf, glm::vec3(mRenderScale, mRenderScale, 1.0f));
 }
 
 void sgf::GameApp::Draw()

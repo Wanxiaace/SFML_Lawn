@@ -155,9 +155,7 @@ void sgf::Widget::RemoveChild(Widget* child)
 
 void sgf::Widget::RemoveAllChild()
 {
-	for (auto& x : mChilds) {
-		RemoveChild(x);
-	}
+	mChilds.clear();
 }
 
 void sgf::Widget::DumpWidgetImage(Graphics* g,const char* outPath)
@@ -183,6 +181,7 @@ void sgf::Widget::DumpWidgetImage(Graphics* g,const char* outPath)
 
 }
 
+//¿˙ ∑“≈¡Ù
 std::pair<int, int> sgf::Widget::GetExactPosition()
 {
 	if (mParent) {

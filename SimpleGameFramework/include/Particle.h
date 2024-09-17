@@ -64,7 +64,7 @@ namespace sgf {
 		float mScaleF = 1.0f;
 		float mTransScaleF = 0.0f;
 		bool mUseFade = true;
-		SimpleImage* mShadowImage;
+		SimpleImage* mShadowImage = nullptr;
 
 	public:
 		Particle();
@@ -105,6 +105,7 @@ namespace sgf {
 		float mGravity = 0.1f;
 		float mImageScaleRangeF = 0;
 		bool mUseFade = true;
+		bool mUseShadowed = false;
 
 	public:
 

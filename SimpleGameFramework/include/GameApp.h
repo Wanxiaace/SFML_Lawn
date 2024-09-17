@@ -25,6 +25,7 @@ namespace sgf {
 		bool mShowWidgetHitBoxAllowed = false;
 		
 		float mMovingSpeed = 1.0f;
+		float mRenderScale = 1.0f;
 
 		ResourceList mResourceList;
 		ResourceManager mResourceManager;

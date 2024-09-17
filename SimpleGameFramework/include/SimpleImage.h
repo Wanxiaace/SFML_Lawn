@@ -29,8 +29,8 @@ namespace sgf {
 		void LoadFromSurface(SDL_Surface* path);
 		void DumpToFiles(const char* path) const;
 
-		int GetWidth() const;
-		int GetHeight() const;
+		float GetWidth() const;
+		float GetHeight() const;
 
 	};
 }

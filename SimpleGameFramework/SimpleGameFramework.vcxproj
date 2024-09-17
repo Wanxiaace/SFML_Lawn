@@ -27,7 +27,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -73,19 +73,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\Libs</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)_d</TargetName>
+    <OutDir>$(SolutionDir)\Libs</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../glext/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Imgui/;../glext/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../glext/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;glext.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libs;../glext/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Imgui_d.lib;SDL2.lib;SDL2_image.lib;glext.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,12 +97,12 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../Imgui/;../glext/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
       <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
@@ -140,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="src\PlayerInfo.cpp" />
     <ClCompile Include="src\CursorObject.cpp" />
     <ClCompile Include="src\Particle.cpp" />
@@ -156,6 +161,20 @@
     <ClCompile Include="src\SimpleImage.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\SimpleApp.cpp" />
+    <ClCompile Include="PopCom\zlib\adler32.c" />
+    <ClCompile Include="PopCom\zlib\compress.c" />
+    <ClCompile Include="PopCom\zlib\crc32.c" />
+    <ClCompile Include="PopCom\zlib\deflate.c" />
+    <ClCompile Include="PopCom\zlib\gzio.c" />
+    <ClCompile Include="PopCom\zlib\infblock.c" />
+    <ClCompile Include="PopCom\zlib\infcodes.c" />
+    <ClCompile Include="PopCom\zlib\inffast.c" />
+    <ClCompile Include="PopCom\zlib\inflate.c" />
+    <ClCompile Include="PopCom\zlib\inftrees.c" />
+    <ClCompile Include="PopCom\zlib\infutil.c" />
+    <ClCompile Include="PopCom\zlib\trees.c" />
+    <ClCompile Include="PopCom\zlib\uncompr.c" />
+    <ClCompile Include="PopCom\zlib\zutil.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb\stb_image.h" />
@@ -177,6 +196,34 @@
     <ClInclude Include="include\SimpleApp.h" />
     <ClInclude Include="include\SimpleImage.h" />
     <ClInclude Include="include\WidgetSystem.h" />
+    <ClInclude Include="PopCom\CompiledReader.h" />
+    <ClInclude Include="PopCom\zlib\deflate.h" />
+    <ClInclude Include="PopCom\zlib\infblock.h" />
+    <ClInclude Include="PopCom\zlib\infcodes.h" />
+    <ClInclude Include="PopCom\zlib\inffast.h" />
+    <ClInclude Include="PopCom\zlib\inffixed.h" />
+    <ClInclude Include="PopCom\zlib\inftrees.h" />
+    <ClInclude Include="PopCom\zlib\infutil.h" />
+    <ClInclude Include="PopCom\zlib\trees.h" />
+    <ClInclude Include="PopCom\zlib\zconf.h" />
+    <ClInclude Include="PopCom\zlib\zlib.h" />
+    <ClInclude Include="PopCom\zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PopCom\zlib\algorithm.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PopCom\zlib\ChangeLog" />
+    <None Include="PopCom\zlib\configure" />
+    <None Include="PopCom\zlib\descrip.mms" />
+    <None Include="PopCom\zlib\faq" />
+    <None Include="PopCom\zlib\index" />
+    <None Include="PopCom\zlib\Makefile" />
+    <None Include="PopCom\zlib\Makefile.in" />
+    <None Include="PopCom\zlib\Makefile.riscos" />
+    <None Include="PopCom\zlib\Make_vms.com" />
+    <None Include="PopCom\zlib\readme" />
+    <None Include="PopCom\zlib\zlib.3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

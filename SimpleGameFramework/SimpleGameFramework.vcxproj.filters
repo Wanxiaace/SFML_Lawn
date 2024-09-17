@@ -66,6 +66,51 @@
     <ClCompile Include="src\PlayerInfo.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="PopCom\CompiledReader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\adler32.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\compress.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\crc32.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\deflate.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\gzio.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\infblock.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\infcodes.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inffast.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inflate.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inftrees.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\infutil.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\trees.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\uncompr.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\zutil.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SimpleApp.h">
@@ -125,5 +170,57 @@
     <ClInclude Include="include\PlayerInfo.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="PopCom\CompiledReader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\deflate.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\infblock.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\infcodes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\inffast.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\inffixed.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\inftrees.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\infutil.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\trees.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\zconf.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\zlib.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\zutil.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PopCom\zlib\algorithm.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PopCom\zlib\ChangeLog" />
+    <None Include="PopCom\zlib\configure" />
+    <None Include="PopCom\zlib\descrip.mms" />
+    <None Include="PopCom\zlib\faq" />
+    <None Include="PopCom\zlib\index" />
+    <None Include="PopCom\zlib\Make_vms.com" />
+    <None Include="PopCom\zlib\Makefile" />
+    <None Include="PopCom\zlib\Makefile.in" />
+    <None Include="PopCom\zlib\Makefile.riscos" />
+    <None Include="PopCom\zlib\readme" />
+    <None Include="PopCom\zlib\zlib.3" />
   </ItemGroup>
 </Project>

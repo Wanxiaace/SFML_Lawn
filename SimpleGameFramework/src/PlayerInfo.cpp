@@ -26,7 +26,8 @@ void sgf::PlayerInfo::TryLoadFromFile(const sgf::String& path)
 	file.seekg(0, std::ios::end);
 	mFileSize = file.tellg();
 	file.seekg(0, std::ios::beg);
-	unsigned char* data = new unsigned char[mFileSize];
+	unsigned char* data = new unsigned char[mFileSize + 1];
+	memset(data,0, mFileSize + 1);
 	file.read((char*)data, mFileSize);
 
 	if (mUseEncode) {

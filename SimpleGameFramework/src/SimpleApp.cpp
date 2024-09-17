@@ -9,6 +9,7 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
     mWidth = width;
     mHeight = height;
     mViewMatrix = glm::mat4x4(1.0f);
+    mViewMatrixBuf = glm::mat4x4(1.0f);
     SDL_Init(SDL_INIT_EVERYTHING);
     TTF_Init();
     Mix_Init(MIX_InitFlags::MIX_INIT_MP3 | MIX_InitFlags::MIX_INIT_OGG | MIX_InitFlags::MIX_INIT_WAVPACK | MIX_InitFlags::MIX_INIT_MID);
@@ -27,9 +28,13 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
    
     glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &mTextureNumberMax);
 
-    glDepthMask(GL_FALSE);//关掉深度测试
-    glEnable(GL_BLEND); //开混合模式贴图
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);// 指定混合模式算法
+    glDepthMask(GL_FALSE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    // glEnable(GL_ALPHA_TEST);
+
+    // glEnable(GL_MULTISAMPLE); //开启多重采样
 
     std::cout << "Texture Number Max: " << mTextureNumberMax << std::endl;
 

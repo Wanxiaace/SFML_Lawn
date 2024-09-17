@@ -29,7 +29,7 @@ sgf::Particle* sgf::Emitter::Emitt()
 	{
 		particle->mMotionType = PARTICLE_MOTION_NORMAL;
 		particle->Init();
-		particle->mHasShadowed = true;
+		particle->mHasShadowed = mUseShadowed;
 		particle->mCostingLifeTime = true;
 		particle->mMoving = false;
 		break;
@@ -38,7 +38,7 @@ sgf::Particle* sgf::Emitter::Emitt()
 	{
 		particle->mMotionType = PARTICLE_MOTION_THROW;
 		particle->Init();
-		particle->mHasShadowed = true;
+		particle->mHasShadowed = mUseShadowed;
 		particle->mCostingLifeTime = true;
 		particle->mMoving = true;
 		float angle = RandF(mAngleMin, mAngleMax);
@@ -145,6 +145,9 @@ void sgf::Emitter::LoadFromFile(const char* paxmlPath)
 		}
 		if (tag == "UseFade") {
 			mUseFade = x.text().as_bool();
+		}
+		if (tag == "UseShadowed") {
+			mUseShadowed = x.text().as_bool();
 		}
 		if (tag == "ImageRangeF") {
 			mImageScaleRangeF = x.text().as_float();

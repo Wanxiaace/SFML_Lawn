@@ -28,8 +28,8 @@ unsigned int sgf::SimpleImage::GenerateTexture()
 	GL_CALL(glGenTextures(1, &mTextureHandle););
 	GL_CALL(glBindTexture(GL_TEXTURE_2D, mTextureHandle));
 	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -92,17 +92,17 @@ void sgf::SimpleImage::DumpToFiles(const char* path) const
 		IMG_SavePNG(mSurface, path);
 }
 
-int sgf::SimpleImage::GetWidth() const
+float sgf::SimpleImage::GetWidth() const
 {
 	if (mIsAtlasUnit)
-		return mSurface->w * mAtlasUnitWidth;
+		return float(mSurface->w) * mAtlasUnitWidth;
 	return mSurface->w;
 }
 
-int sgf::SimpleImage::GetHeight() const
+float sgf::SimpleImage::GetHeight() const
 {
 	if (mIsAtlasUnit)
-		return mSurface->h * mAtlasUnitHeight;
+		return float(mSurface->h) * mAtlasUnitHeight;
 	return mSurface->h;
 }
 

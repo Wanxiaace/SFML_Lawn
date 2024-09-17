@@ -35,6 +35,7 @@ namespace sgf {
 		GameMessageManager mMessageManager;
 		SDL_GLContext mGLContext;
 		glm::mat4x4 mViewMatrix;
+		glm::mat4x4 mViewMatrixBuf;
 		bool mEnabledASync = false;
 
 	public:
