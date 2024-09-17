@@ -90,22 +90,38 @@ void sgf::Animator::SetFrameRangeByTrackNameOnce(const sgf::String& trackName, c
 
 void sgf::Animator::SetTrackVisible(const sgf::String& trackName, bool visible)
 {
-	mExtraInfos[mTrackIndicesMap[trackName]].mVisible = visible;
+	for (auto& x : GetAllTracksByName(trackName))
+	{
+		x->mVisible = visible;
+	}
+	//mExtraInfos[mTrackIndicesMap[trackName]].mVisible = visible;
 }
 
 void sgf::Animator::TrackAttachImage(const sgf::String& trackName, SimpleImage* target)
 {
-	mExtraInfos[mTrackIndicesMap[trackName]].mAttachedImage = target;
+	for (auto& x : GetAllTracksByName(trackName))
+	{
+		x->mAttachedImage = target;
+	}
+	//mExtraInfos[mTrackIndicesMap[trackName]].mAttachedImage = target;
 }
 
 void sgf::Animator::TrackAttachAnimator(const sgf::String& trackName, Animator* target)
 {
-	mExtraInfos[mTrackIndicesMap[trackName]].mAttachedReanim = target;
+	for (auto& x : GetAllTracksByName(trackName))
+	{
+		x->mAttachedReanim = target;
+	}
+	//mExtraInfos[mTrackIndicesMap[trackName]].mAttachedReanim = target;
 }
 
 void sgf::Animator::TrackAttachAnimatorMatrix(const sgf::String& trackName, glm::mat4x4* target)
 {
-	mExtraInfos[mTrackIndicesMap[trackName]].mAttachedReanimMatrix = target;
+	for (auto& x : GetAllTracksByName(trackName))
+	{
+		x->mAttachedReanimMatrix = target;
+	}
+	//mExtraInfos[mTrackIndicesMap[trackName]].mAttachedReanimMatrix = target;
 }
 
 float sgf::Animator::GetTrackVelocity(const sgf::String& trackName)
@@ -124,6 +140,17 @@ bool sgf::Animator::GetTrackVisible(const sgf::String& trackName)
 		return ! mReanim->mTracks->at(pos).mFrames[mFrameIndexNow].f;
 	else 
 		return false;
+}
+
+std::vector<sgf::TrackExtraInfo*> sgf::Animator::GetAllTracksByName(const sgf::String& trackName)
+{
+	auto result = std::vector<sgf::TrackExtraInfo*>();
+	for (size_t i = 0; i < mReanim->mTracks->size(); i++)
+	{
+		if (mReanim->mTracks->at(i).mTrackName == trackName)
+			result.push_back(&mExtraInfos[i]);
+	}
+	return result;
 }
 
 void sgf::Animator::Update()

@@ -9,7 +9,7 @@ int main(int argc,char** argv) {
 		gLawnApp->mShowDebugWindow = true;
 	
 
-	gLawnApp->mResourceManager.AttachBasePath("assets/en/");
+	gLawnApp->mResourceManager.AttachBasePath("assets/en2pak/");
 	gLawnApp->LoadDict("LawnStrings.json");
 	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
 	gLawnApp->SetWindowIcon("data/WindowIcon.png");

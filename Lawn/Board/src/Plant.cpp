@@ -123,7 +123,7 @@ void Lawn::Plant::Update()
 			}
 
 			if (mState == STATE_READY) {
-				if (int(mHeadReanim.mFrameIndexNow) == 65) {
+				if (abs((mHeadReanim.mFrameIndexNow - mHeadReanim.mFrameIndexBegin) / (mHeadReanim.mFrameIndexEnd - mHeadReanim.mFrameIndexBegin) - 0.7f) <= 0.1f) {//65
 					if (!mIsFire) {
 						Fire();
 						mIsFire = true;
