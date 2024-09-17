@@ -127,7 +127,7 @@ void sgf::GameApp::Update()
 
 void sgf::GameApp::Draw()
 {
-	//mGraphics->Clear();
+	mGraphics->Clear();
 
 	mGraphics->ActiveTextureShader();
 	mWidgetManager->Draw(mGraphics);

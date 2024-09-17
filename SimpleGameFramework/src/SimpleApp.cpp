@@ -31,8 +31,7 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
     glDepthMask(GL_FALSE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // glEnable(GL_ALPHA_TEST);
+    //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
     // glEnable(GL_MULTISAMPLE); //开启多重采样
 
