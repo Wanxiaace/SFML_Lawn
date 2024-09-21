@@ -39,6 +39,7 @@ namespace sgf {
 
 		//过渡动画倒计时
 		float mReanimBlendCounter = -1.0f;
+		float mReanimBlendCounterMax = 100.0f;
 		//过渡动画缓存
 		int mFrameIndexBlendBuffer = 0;
 

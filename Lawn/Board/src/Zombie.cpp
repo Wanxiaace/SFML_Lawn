@@ -18,7 +18,7 @@ void Lawn::Zombie::Init()
 	mBodyReanim.Play();
 	mHealth = 270;
 	mHealthMax = 270;
-	mBox.mWidth = 60;
+	mBox.mWidth = 40;
 	mBox.mHeight = 90;
 	mReanimOffsetX = def.mReanimOffsetX;
 	mReanimOffsetY = def.mReanimOffsetY;
@@ -167,7 +167,7 @@ void Lawn::Zombie::PlayTrack(const sgf::String& trackName,int blendTime)
 	mBodyReanim.mFrameIndexBlendBuffer = mBodyReanim.mFrameIndexNow;
 
 	mBodyReanim.SetFrameRangeByTrackName(trackName);
-	
+	mBodyReanim.mReanimBlendCounterMax = blendTime;
 	mBodyReanim.mReanimBlendCounter = blendTime;
 }
 

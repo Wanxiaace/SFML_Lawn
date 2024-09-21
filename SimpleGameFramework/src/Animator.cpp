@@ -205,7 +205,7 @@ static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf:
 	tOutput.sy = (tDst.sy - tSrc.sy) * tDelta + tSrc.sy;
 	tOutput.kx = (tDst.kx - tSrc.kx) * tDelta + tSrc.kx;
 	tOutput.ky = (tDst.ky - tSrc.ky) * tDelta + tSrc.ky;
-	tOutput.f = tSrc.f;
+	tOutput.f = tDst.f;
 	tOutput.i = tSrc.i;
 
 	if (tDst.kx > tSrc.kx + 180.0f)
@@ -237,7 +237,7 @@ void sgf::Animator::Present(Graphics* g)
 
 		if (mReanimBlendCounter > 0) {
 			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
-			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / 100.0f, aSource);
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
 		}
 		else {
 			if (int(mFrameIndexNow) < mFrameIndexEnd)//ÏßĞÔ²åÖµ

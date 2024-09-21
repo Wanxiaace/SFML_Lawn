@@ -82,15 +82,14 @@ namespace Lawn {
         sgf::Animator mHeadReanim;
         glm::mat4x4 mHeadReanimMatrix;
 
-		int mFireCountDown = 0;
 		int mProduceCountDown = 0;
 		float mHealth = 0;
 		int mDamage = 0;
         bool mCanShoot = true;
-        //int mFireCD = 0;
-        unsigned int mTickCache = 0;
         bool mIsFire = false;
         bool mAvailable = true;
+        float mReanimOffsetX;
+        float mReanimOffsetY;
 
     public:
         Plant();

@@ -17,15 +17,18 @@ void Lawn::Plant::PlantInit()
 {
 	mHealth = 300;
 	mDamage = 20;
-	mBox.mWidth = 70;
+	mBox.mWidth = 40;
 	mBox.mHeight = 80;
+	mBox.mX += 20;
 
 	auto& def = gPlantsDefinitions[mSeedType];
+
+	mReanimOffsetX = def.mReanimOffsetX;
+	mReanimOffsetY = def.mReanimOffsetY;
 
 	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
 	mBodyReanim.SetFrameRangeByTrackName("anim_idle");
 	mBodyReanim.Play();
-	mTickCache = sgf::TryGetTicks();
 
 	switch (mSeedType)
 	{
@@ -47,6 +50,7 @@ void Lawn::Plant::Fire()
 		auto pea = mBoard->SpawnProjectileAt(mBox.mX + 50, mBox.mY + 15, PROJECTILE_PEA);
 		pea->mSpeedX = 35;
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_THROW2");
+		mProduceCountDown = 1000;
 		//std::cout << "shit" << std::endl;
 		break;
 	}
@@ -59,6 +63,16 @@ bool Lawn::Plant::IsOnBoard() const
 
 Lawn::Zombie* Lawn::Plant::TryToFindTarget()
 {
+	switch (mSeedType)
+	{
+	case Lawn::SEED_PEASHOOTER:
+	{
+		if (mProduceCountDown > 0)
+			return nullptr;
+		break;
+	}
+	}
+
 	Zombie* result = nullptr;
 	for (auto& x : mBoard->mZombieVector)
 	{
@@ -87,19 +101,21 @@ void Lawn::Plant::PlayTrack(const sgf::String& trackName,int blendTime)
 	mBodyReanim.mFrameIndexBlendBuffer = mBodyReanim.mFrameIndexNow;
 
 	mBodyReanim.SetFrameRangeByTrackName(trackName);
-
+	mBodyReanim.mReanimBlendCounterMax = blendTime;
 	mBodyReanim.mReanimBlendCounter = blendTime;
 }
 
 void Lawn::Plant::InitPlantsDefinitions()
 {
-	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20 };
+	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20,-20,0 };
 }
 
 void Lawn::Plant::Update()
 {
 	mBodyReanim.Update();
 	mHeadReanim.Update();
+	if (mProduceCountDown > 0)
+		mProduceCountDown -= mTickDelta;
 
 	switch (mSeedType)
 	{
@@ -115,7 +131,7 @@ void Lawn::Plant::Update()
 			}
 			else {
 				if (mState == STATE_READY) {
-					PlayTrack("anim_head_idle");
+					PlayTrack("anim_head_idle",200);
 				}
 				mState = STATE_NOTREADY;
 			}
@@ -152,10 +168,10 @@ void Lawn::Plant::Draw(sgf::Graphics* g)
 	g->SetCubeColor({ 1,1,1,1 });
 	if (mShadowImage)
 	{
-		g->Translate(-2,mBox.mHeight-25);
+		g->Translate(-2 + mReanimOffsetX, mBox.mHeight - 25 + mReanimOffsetY);
 		g->DrawImage(mShadowImage);
 	}
-	g->MoveTo(0,0);
+	g->MoveTo(mReanimOffsetX, mReanimOffsetY);
 	if (mBodyReanim.mReanim)
 		mBodyReanim.Present(g);
 	

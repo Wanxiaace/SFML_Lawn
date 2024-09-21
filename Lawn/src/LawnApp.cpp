@@ -161,6 +161,13 @@ void Lawn::LawnApp::KillBoard()
         mBoard = nullptr;
     }
 }
+#include "../resource.h"
+
+void Lawn::LawnApp::WindowsEnhance()
+{
+#ifdef _WIN32
+#endif
+}
 
 void Lawn::LawnApp::LoadPlayerInfo(const sgf::String& path)
 {

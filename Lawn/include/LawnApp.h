@@ -45,6 +45,9 @@ namespace Lawn {
 		void MakeNewBoard();
 		void KillBoard();
 
+		//基于Windows平台的程序优化
+		void WindowsEnhance();
+
 		void LoadPlayerInfo(const sgf::String& path);
 		
 

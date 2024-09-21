@@ -263,7 +263,7 @@ Lawn::LawnSlider::LawnSlider(int theId, sgf::GameApp* app) : sgf::Widget(theId)
 	mImageSliderBar = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERSLOT"];
 	mImageSliderButton = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERKNOB2"];
 
-	Resize(0, 0, mImageSliderBar->GetWidth(), 50);
+	Resize(0, 0, mImageSliderBar->GetWidth(), 25);
 
 }
 
@@ -374,7 +374,7 @@ void Lawn::LawnCheckBox::SetLabel(const sgf::String& label)
 	if (mLabel)
 		return;
 	mLabel = new LawnLabel(mApp);
-	mLabel->LoadLabel(label);
+	mLabel->LoadLabel(label,25);
 	AppendChild(mLabel);
 	mLabel->MoveTo(50,5);
 	mLabel->SetColor({ 1.0f,0.73f,0.38f,1 });

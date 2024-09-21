@@ -17,7 +17,6 @@ namespace Lawn {
 	public:
 		LawnStoneButton* mOKButton = nullptr;
 		LawnStoneButton* mCancelButton = nullptr;
-		sgf::SimpleImage* mCaptainImage = nullptr;
 
 		LawnLabel* mMusicVolumeLabel = nullptr;
 		LawnCheckBox* mFullScreenCheckBox = nullptr;
@@ -25,6 +24,7 @@ namespace Lawn {
 		bool mUseFullScreen = false;
 
 		LawnSlider* mVolumeSlider = nullptr;
+		sgf::SimpleImage* mBackImage = nullptr;
 
 	public:
 		SettingDialog(sgf::GameApp* app);

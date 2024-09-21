@@ -166,6 +166,8 @@ namespace Lawn {
         sgf::String mPlantDescription;
         int mCost;
         int mDamage;
+        float mReanimOffsetX;
+        float mReanimOffsetY;
     };
 
     struct ZombieDefinition {

@@ -67,7 +67,7 @@ void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::S
 		atlasUnit->mAtlasUnitWidth = float(x.at("frame").at("w")) / tex->mSurface->w;
 		atlasUnit->mAtlasUnitHeight = float(x.at("frame").at("h")) / tex->mSurface->h;
 
-		std::cout << rid << std::endl;
+		//std::cout << rid << std::endl;
 
 	}
 
@@ -213,7 +213,7 @@ static void LoadFromResouceListFunc(sgf::ResourceManager* tar,sgf::ResourceList*
 			tar->LoadParticleWithID((tar->mBasePath + x.path).c_str(), x.id);
 		}
 		//输出加载的路径
-		std::cout << x.path << std::endl;
+		//std::cout << x.path << std::endl;
 		tar->mProcess += delta;
 	}
 }
