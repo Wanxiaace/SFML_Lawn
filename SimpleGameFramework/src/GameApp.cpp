@@ -109,10 +109,19 @@ void sgf::GameApp::UseFullScreen()
 
 void sgf::GameApp::ExitFullScreen()
 {
-	GameMessage srceenShotMessage = {};
-	srceenShotMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_EXIT_FULL_SCREEN;
-	srceenShotMessage.mParamPointer1 = this;
-	mMessageManager.SendGameMessage(srceenShotMessage);
+	GameMessage exitFullMessage = {};
+	exitFullMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_EXIT_FULL_SCREEN;
+	exitFullMessage.mParamPointer1 = this;
+	mMessageManager.SendGameMessage(exitFullMessage);
+}
+
+void sgf::GameApp::DoInGraphicsThread(std::function<void()>* func)
+{
+	GameMessage dolaterMessage = {};
+	dolaterMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_DO_LATER;
+	dolaterMessage.mParamPointer1 = this;
+	dolaterMessage.mParamPointer2 = func;
+	mMessageManager.SendGameMessage(dolaterMessage);
 }
 
 

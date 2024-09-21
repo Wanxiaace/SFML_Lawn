@@ -51,6 +51,7 @@ namespace sgf {
 		void ScreenShot(const sgf::String& outPath);
 		void UseFullScreen();
 		void ExitFullScreen();
+		void DoInGraphicsThread(std::function<void()>* func);
 
 		void UpdateMusicVolume();
 		Graphics* LoadGraphics();

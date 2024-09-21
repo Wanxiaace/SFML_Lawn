@@ -14,6 +14,7 @@ namespace sgf {
 			MSG_TYPE_SCREEN_SHOT,
 			MSG_TYPE_FULL_SCREEN,
 			MSG_TYPE_EXIT_FULL_SCREEN,
+			MSG_TYPE_DO_LATER,
 		};
 	public:
 		MessageType mMessageType;

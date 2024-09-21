@@ -43,6 +43,14 @@ void sgf::GameMessageManager::CopeAllMessage()
 			SDL_SetWindowFullscreen(app->mGameWindow, 0);
 			break;
 		}
+		case sgf::GameMessage::MessageType::MSG_TYPE_DO_LATER:
+		{
+			GameApp* app = static_cast<GameApp*>(mMessages[i].mParamPointer1);
+			std::function<void()>* func = (std::function<void()>*)(mMessages[i].mParamPointer2);
+			(*func)();
+			delete func;
+			break;
+		}
 		default:
 			break;
 		}

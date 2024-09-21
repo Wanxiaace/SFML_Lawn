@@ -292,7 +292,7 @@ void Lawn::LawnSlider::Draw(sgf::Graphics* g)
 {
 	g->SetCubeColor({1.0f,1.0f,1.0f,1.0f});
 	g->DrawImage(mImageSliderBar);
-	g->MoveTo((mValue - mRangeMin) / mRangeDistence * mImageSliderBar->GetWidth() * 0.85, 0);
+	g->MoveTo((mValue - mRangeMin) / mRangeDistence * mImageSliderBar->GetWidth() * 0.85, -7);
 	g->DrawImage(mImageSliderButton);
 }
 

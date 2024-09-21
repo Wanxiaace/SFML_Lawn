@@ -56,5 +56,8 @@ extern Lawn::LawnApp* gLawnApp;//全局App
 extern std::thread* gUpdateThread;
 extern std::mutex gLoopMutex;//全局Mutex
 
+#define DO_IN_GRAPHICS_BEGIN gLawnApp->DoInGraphicsThread(new std::function<void()>([]()->void{
+#define DO_IN_GRAPHICS_END }));
+
 
 #endif
