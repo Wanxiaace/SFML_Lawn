@@ -161,6 +161,22 @@ void Lawn::LawnApp::KillBoard()
         mBoard = nullptr;
     }
 }
+void Lawn::LawnApp::GamePause()
+{
+    if (!mPauseDialog) {
+        mPauseDialog = new PauseDialog(this);
+        SafeAppendWidget(mPauseDialog);
+    }
+}
+
+void Lawn::LawnApp::KillGamePause()
+{
+    if (mPauseDialog) {
+        SafeDeleteWidget(mPauseDialog);
+        mPauseDialog = nullptr;
+    }
+}
+
 #include "../resource.h"
 
 void Lawn::LawnApp::WindowsEnhance()

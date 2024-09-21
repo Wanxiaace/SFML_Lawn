@@ -11,8 +11,7 @@
 #include "PlayerInfo.h"
 #include "LawnPlayerInfo.h"
 #include "LawnCursor.h"
-
-
+#include "../Dialogs/include/PauseDialog.h"
 
 namespace Lawn {
 	class Board;
@@ -22,6 +21,7 @@ namespace Lawn {
 	public:
 		LoadingPage* mLoadingPage = nullptr;
 		GameSelector* mGameSelector = nullptr;
+		PauseDialog* mPauseDialog = nullptr;
 		SettingDialog* mSettingDialog = nullptr;
 		Board* mBoard = nullptr;
 		LawnCursor* mCursor;
@@ -44,6 +44,9 @@ namespace Lawn {
 		void EnterGameBoard();
 		void MakeNewBoard();
 		void KillBoard();
+
+		void GamePause();
+		void KillGamePause();
 
 		//基于Windows平台的程序优化
 		void WindowsEnhance();

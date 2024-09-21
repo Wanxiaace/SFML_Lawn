@@ -144,6 +144,7 @@
     <ClCompile Include="Board\src\Zombie.cpp" />
     <ClCompile Include="Board\src\BoardAnimator.cpp" />
     <ClCompile Include="Board\src\Plant.cpp" />
+    <ClCompile Include="Dialogs\src\PauseDialog.cpp" />
     <ClCompile Include="Dialogs\src\SettingDialog.cpp" />
     <ClCompile Include="src\LawnCursor.cpp" />
     <ClCompile Include="src\LawnPlayerInfo.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Board\include\SceneObejct.h" />
     <ClInclude Include="Board\include\SeedPack.h" />
     <ClInclude Include="Board\include\Zombie.h" />
+    <ClInclude Include="Dialogs\include\PauseDialog.h" />
     <ClInclude Include="Dialogs\include\SettingDialog.h" />
     <ClInclude Include="Board\include\GameObject.h" />
     <ClInclude Include="include\BasicWidgets.h" />

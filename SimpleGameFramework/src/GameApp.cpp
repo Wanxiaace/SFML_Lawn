@@ -18,6 +18,11 @@ void sgf::GameApp::UpdateMusicVolume()
 	mMusicManager.SetMusicVolume(mMusicVolume / 100.0f);
 }
 
+void sgf::GameApp::UpdateSoundVolume()
+{
+	mMusicManager.SetChannelVolume(-1, mSoundVolume / 100.0f);
+}
+
 sgf::Graphics* sgf::GameApp::LoadGraphics()
 {
 	if(!mGraphics)
@@ -63,6 +68,7 @@ void sgf::GameApp::LoadResources(const char* resourcesListPath)
 	mResourceList.Load(resourcesListPath);
 	mResourceManager.LoadFromResouceList(&mResourceList, &mMusicManager);
 	UpdateMusicVolume();
+	UpdateSoundVolume();
 
 }
 

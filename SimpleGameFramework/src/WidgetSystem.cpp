@@ -48,14 +48,18 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 {
 	size_t length = mWidgets.size();
 	bool isMouseUsed = false;
+	bool isModelUsed = false;
 	for (auto x = mWidgets.rbegin();x < mWidgets.rend();x++)
 	{
 		if ((*x)->GetVisible()) {
 			(*x)->mTickDelta = app->mDeltaTime;
-			(*x)->Update();
+			
+			if(!isModelUsed)
+				(*x)->Update();
 
 			if ((*x)->mEnabledModel) {
 				isMouseUsed = true;
+				isModelUsed = true;
 			}
 
 			if (!isMouseUsed && (*x)->GetExactRect().IsPointIn(app->mMouseX, app->mMouseY)) {

@@ -26,6 +26,7 @@ namespace sgf {
 
 		void SetMusicVolume(float volume);//range from 0~1
 		void SetChunkVolume(float volume, const String& key);
+		void SetChannelVolume(int channel,float volume);
 
 		void MixPlayChunk(Mix_Chunk* chunk, int channel);
 		void MixPlayMusic(Mix_Music* music);

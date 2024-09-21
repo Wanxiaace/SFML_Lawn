@@ -54,6 +54,11 @@ void sgf::MusicManager::SetChunkVolume(float volume,const String& key)
 	Mix_VolumeChunk(chunk, volume * MIX_MAX_VOLUME);
 }
 
+void sgf::MusicManager::SetChannelVolume(int channel, float volume)
+{
+	Mix_Volume(channel, volume * MIX_MAX_VOLUME);
+}
+
 void sgf::MusicManager::MixPlayChunk(Mix_Chunk* chunk,int channel)
 {
 	Mix_PlayChannel(channel,chunk,0);

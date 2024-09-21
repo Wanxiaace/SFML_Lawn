@@ -270,9 +270,10 @@ void Lawn::Board::OnClick(int theId)
 	switch (theId)
 	{
 	case LAWN_WIDGET_BUTTON_MENU:
-		gLawnApp->KillBoard();
-		gLawnApp->EnterGameSelector();
+		//gLawnApp->KillBoard();
+		//gLawnApp->EnterGameSelector();
 
+		gLawnApp->GamePause();
 		break;
 	case LAWN_SEED_BANK:
 		mSeedBank->ClickOn();

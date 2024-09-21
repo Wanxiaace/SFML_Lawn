@@ -13,17 +13,21 @@ namespace Lawn {
 		enum {
 			SLIDER_VOLUME = 10000,
 			CHECKBOX_FULLSCREEN = 10001,
+			SLIDER_SOUND_VOLUME = 10002,
 		};
 	public:
 		LawnStoneButton* mOKButton = nullptr;
-		LawnStoneButton* mCancelButton = nullptr;
+		LawnStoneButton* mContinueButton = nullptr;
 
 		LawnLabel* mMusicVolumeLabel = nullptr;
+		LawnLabel* mSoundVolumeLabel = nullptr;
+
 		LawnCheckBox* mFullScreenCheckBox = nullptr;
 		float mMusicVolume = 0;
 		bool mUseFullScreen = false;
 
 		LawnSlider* mVolumeSlider = nullptr;
+		LawnSlider* mSoundVolumeSlider = nullptr;
 		sgf::SimpleImage* mBackImage = nullptr;
 
 	public:

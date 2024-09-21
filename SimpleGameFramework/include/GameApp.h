@@ -34,6 +34,7 @@ namespace sgf {
 		Dictionary mDictionary;
 
 		float mMusicVolume = 100.0f;
+		float mSoundVolume = 100.0f;
 		bool mUseFullScreen = false;
 
 	public:
@@ -54,6 +55,7 @@ namespace sgf {
 		void DoInGraphicsThread(std::function<void()>* func);
 
 		void UpdateMusicVolume();
+		void UpdateSoundVolume();
 		Graphics* LoadGraphics();
 
 

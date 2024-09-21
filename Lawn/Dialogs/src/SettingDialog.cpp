@@ -21,9 +21,15 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 	mVolumeSlider->BindToFloat(&gLawnApp->mMusicVolume);
 	AppendChild(mVolumeSlider);
 
+	mSoundVolumeSlider = new LawnSlider(SLIDER_SOUND_VOLUME, mApp);
+	mSoundVolumeSlider->MoveTo(100, 235);
+	mSoundVolumeSlider->AttachToListener(this);
+	mSoundVolumeSlider->SetRange(100, 0);
+	mSoundVolumeSlider->BindToFloat(&gLawnApp->mSoundVolume);
+	AppendChild(mSoundVolumeSlider);
 
 	mFullScreenCheckBox = new LawnCheckBox(CHECKBOX_FULLSCREEN, mApp);
-	mFullScreenCheckBox->MoveTo(100, 190);
+	mFullScreenCheckBox->MoveTo(100, 260);
 	mFullScreenCheckBox->AttachToListener(this);
 	mFullScreenCheckBox->BindToBool(&mUseFullScreen);
 	mFullScreenCheckBox->SetLabel(_LS("FullScreen"));
@@ -39,6 +45,12 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 	mMusicVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 	AppendChild(mMusicVolumeLabel);
 
+	mSoundVolumeLabel = new LawnLabel(mApp);
+	mSoundVolumeLabel->MoveTo(100, 195);
+	mSoundVolumeLabel->LoadLabel(_LS("SoundVolmne"), 25);
+	mSoundVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
+	AppendChild(mSoundVolumeLabel);
+
 
 	Resize(0,0,425,500);
 	MoveToCenter(mApp->mWidth, mApp->mHeight);
@@ -51,11 +63,15 @@ Lawn::SettingDialog::~SettingDialog()
 	mWidgetManager->RemoveWidget(mVolumeSlider);
 	mWidgetManager->RemoveWidget(mMusicVolumeLabel);
 	mWidgetManager->RemoveWidget(mFullScreenCheckBox);
+	mWidgetManager->RemoveWidget(mSoundVolumeLabel);
+	mWidgetManager->RemoveWidget(mSoundVolumeSlider);
 
 	delete mMusicVolumeLabel;
 	delete mOKButton;
 	delete mVolumeSlider;
 	delete mFullScreenCheckBox;
+	delete mSoundVolumeLabel;
+	delete mSoundVolumeSlider;
 }
 
 
@@ -105,6 +121,9 @@ void Lawn::SettingDialog::OnChange(int buttonId)
 	{
 	case SLIDER_VOLUME:
 		gLawnApp->UpdateMusicVolume();
+		break;
+	case SLIDER_SOUND_VOLUME:
+		gLawnApp->UpdateSoundVolume();
 		break;
 	default:
 		break;
