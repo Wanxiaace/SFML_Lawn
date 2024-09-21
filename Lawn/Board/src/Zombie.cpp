@@ -123,7 +123,7 @@ void Lawn::Zombie::DropArm()
 		mBodyReanim.SetTrackVisible("Zombie_outerarm_lower", false);
 		mBodyReanim.TrackAttachImage("Zombie_outerarm_upper", gLawnApp->mResourceManager.GetResource<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_OUTERARM_UPPER2"));
 		sgf::Point dropPoint = mBodyReanim.GetTrackPos("Zombie_outerarm_upper");
-		mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMARMDROP"), dropPoint.x + mBox.mX - 80, dropPoint.y + mBox.mY + 40, -40);
+		mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMARMDROP"), dropPoint.x + mBox.mX + mReanimOffsetX - 40, dropPoint.y + mBox.mY + mReanimOffsetY + 60, -40);
 		break;
 	}
 	}
@@ -140,8 +140,9 @@ void Lawn::Zombie::DropHead()
 		mBodyReanim.SetTrackVisible("anim_head1", false);
 		mBodyReanim.SetTrackVisible("anim_head2", false);
 		mBodyReanim.SetTrackVisible("anim_hair", false);
-		sgf::Point dropPoint = mBodyReanim.GetTrackPos("Zombie_neck");
-		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX - 85, dropPoint.y + mBox.mY + 40, -80);
+		mBodyReanim.SetTrackVisible("anim_tongue", false);
+		sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_head1");
+		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX + mReanimOffsetX - 20, dropPoint.y + mBox.mY + mReanimOffsetY + 80, -80);
 		break;
 	}
 	}

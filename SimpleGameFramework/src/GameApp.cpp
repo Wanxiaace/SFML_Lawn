@@ -3,16 +3,12 @@
 sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable): GameAppBase::GameAppBase(width, height, windowCaptain, enabledASync, resiziable)
 {
 	mWidgetManager = new WidgetManager();
-	UpdateMusicVolume();
-	mCursor = new CursorObject();
-	
 }
 
 sgf::GameApp::~GameApp()
 {
 	delete mGraphics;
 	delete mWidgetManager;
-	delete mCursor;
 
 	GameAppBase::~GameAppBase();
 }
@@ -54,8 +50,8 @@ void sgf::GameApp::DrawImgui()
 	ImGui::Checkbox("Allow Moving", &mDragAllowed);
 	ImGui::Checkbox("Show Widget Box", &gShowWidgetHitBoxAllowed);
 	ImGui::Checkbox("Rotate", &mRotateAllowed);
-	ImGui::SliderFloat("Moving Speed", &mMovingSpeed, 1.0f, 5.0f);;
-	ImGui::SliderFloat("Render Scale", &mRenderScale, 0.5f, 10.0f);;
+	ImGui::SliderFloat("Moving Speed", &mMovingSpeed, 1.0f, 5.0f);
+	ImGui::SliderFloat("Render Scale", &mRenderScale, 0.5f, 10.0f);
 	ImGui::End();
 
 	ImGui::Render();
@@ -66,6 +62,8 @@ void sgf::GameApp::LoadResources(const char* resourcesListPath)
 {
 	mResourceList.Load(resourcesListPath);
 	mResourceManager.LoadFromResouceList(&mResourceList, &mMusicManager);
+	UpdateMusicVolume();
+
 }
 
 void sgf::GameApp::LoadDict(const char* dictPath)

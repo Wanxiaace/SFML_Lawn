@@ -23,19 +23,22 @@ namespace Lawn {
 		sgf::SimpleImage* mTextImage = nullptr;
 		float mScaleF = 1.0f;
 		bool mIsMouseHover = false;
+		bool mIsChose = false;
 
 		sgf::Widget* mParent = nullptr;
+		Lawn::Board* mBoard = nullptr;
 
 	public:
 		SeedPack();
 		~SeedPack();
 
-		void Init(SeedType type);
+		void Init(SeedType type, Board* board);
 
 	public:
 		void Draw(sgf::Graphics* g);
 		void Update();
 
+		void OnClick();
 	};
 
 	class SeedBank : public sgf::Widget {
@@ -49,12 +52,13 @@ namespace Lawn {
 
 		void AppendSeedPack(SeedType type);
 		void ClearSeedPack(SeedType type);
+		void ClickOn();
 
 		SeedPack& operator [](int index);
 
 	public:
-		virtual void Draw(sgf::Graphics* g);
-		virtual void Update();
+		virtual void Draw(sgf::Graphics* g) override;
+		virtual void Update() override;
 	};
 }
 

@@ -13,7 +13,6 @@ void Lawn::DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF)
 		DrawSeedBackgound(bkg, g, scaleF);
 		g->Translate(-2 * scaleF, -2 * scaleF);
 		g->DrawImageGridAtlasScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_PACKET_PLANTS_PLUS"), 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
-
 	}
 	
 	
@@ -58,8 +57,9 @@ Lawn::SeedPack::~SeedPack()
 	
 }
 
-void Lawn::SeedPack::Init(SeedType type)
+void Lawn::SeedPack::Init(SeedType type,Board* board)
 {
+	mBoard = board;
 	mSeedType = type;
 	mRect.mWidth = 100 * mScaleF;
 	mRect.mHeight = 55 * mScaleF;
@@ -69,7 +69,7 @@ void Lawn::SeedPack::Init(SeedType type)
 	}
 	else {
 		PlantDefinition& def = gPlantsDefinitions[mSeedType];
-		sgf::Font* font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT4");
+		sgf::Font* font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT3");
 		mCost = def.mCost;
 		mTextImage = font->GenTextImage(std::to_string(mCost));
 	}
@@ -78,9 +78,16 @@ void Lawn::SeedPack::Init(SeedType type)
 
 void Lawn::SeedPack::Draw(sgf::Graphics* g)
 {
-	g->SetCubeColor({ 1, 1, 1, 1 });
-
-	DrawSeedPack(mSeedType,g,mScaleF);
+	if (mIsChose)
+	{
+		g->SetCubeColor({ 0.7, 0.7, 0.7, 1 });
+		DrawSeedPack(mSeedType, g, mScaleF);
+	}
+	else
+	{
+		g->SetCubeColor({ 1, 1, 1, 1 });
+		DrawSeedPack(mSeedType, g, mScaleF);
+	}
 
 	g->Translate(60 * mScaleF, 35 * mScaleF);
 	if (mTextImage) {
@@ -123,6 +130,24 @@ void Lawn::SeedPack::Update()
 
 }
 
+void Lawn::SeedPack::OnClick()
+{
+	if (mIsChose)
+	{
+		if (mBoard->mApp->mCursor->mSeedPack == this)
+		{
+			mIsChose = false;
+			mBoard->mApp->mCursor->Reset();
+		}
+		else
+			mBoard->mApp->mCursor->PickSeedPack(this);
+	}
+	else
+	{
+		mBoard->mApp->mCursor->PickSeedPack(this);
+	}
+}
+
 Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 {
 	mBoard = board;
@@ -130,14 +155,6 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 
 	//²âÊÔÓÃ´úÂë
 	AppendSeedPack(SEED_PEASHOOTER);
-
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
-	AppendSeedPack(SEED_NONE);
 
 }
 
@@ -149,7 +166,7 @@ Lawn::SeedBank::~SeedBank()
 void Lawn::SeedBank::AppendSeedPack(SeedType type)
 {
 	SeedPack pack;
-	pack.Init(type);
+	pack.Init(type,mBoard);
 	pack.mRect.mY = mSeedPacks.size() * 60;
 	pack.mParent = this;
 
@@ -160,6 +177,15 @@ void Lawn::SeedBank::AppendSeedPack(SeedType type)
 void Lawn::SeedBank::ClearSeedPack(SeedType type)
 {
 	mSeedPacks.clear();
+}
+
+void Lawn::SeedBank::ClickOn()
+{
+	for (auto& x : mSeedPacks)
+	{
+		if (x.mIsMouseHover)
+			x.OnClick();
+	}
 }
 
 Lawn::SeedPack& Lawn::SeedBank::operator[](int index)
@@ -177,6 +203,14 @@ void Lawn::SeedBank::Draw(sgf::Graphics* g)
 	{
 		g->MoveTo(mSeedPacks[i].mRect.mX, mSeedPacks[i].mRect.mY);
 		mSeedPacks[i].Draw(g);
+	}
+	g->SetCubeColor({ 1,1,1,1 });
+
+	for (size_t i = len; i < BOARD_SEED_BAND_SIZE_MAX; i++)
+	{
+		
+		g->MoveTo(0, 60*i);
+		DrawSeedBackgound(SEEDPACK_NONE, g, 0.4f);
 	}
 
 }

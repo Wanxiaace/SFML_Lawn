@@ -10,11 +10,13 @@
 #include "../Board/Board.h"
 #include "PlayerInfo.h"
 #include "LawnPlayerInfo.h"
+#include "LawnCursor.h"
 
 
 
 namespace Lawn {
 	class Board;
+	class LawnCursor;
 
 	class LawnApp : public sgf::GameApp {
 	public:
@@ -22,6 +24,7 @@ namespace Lawn {
 		GameSelector* mGameSelector = nullptr;
 		SettingDialog* mSettingDialog = nullptr;
 		Board* mBoard = nullptr;
+		LawnCursor* mCursor;
 
 		LawnPlayerInfo mPlayerInfo;
 
@@ -47,6 +50,7 @@ namespace Lawn {
 
 	public:
 		virtual void CopeEvent(SDL_Event& _event) override;
+		virtual void Draw() override;
 	};
 
 	static void GameUpdateThread(LawnApp* app);

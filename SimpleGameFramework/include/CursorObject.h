@@ -4,19 +4,22 @@
 
 
 #include "Common.h"
+#include "GameApp.h"
 #include "Graphics.h"
 
 namespace sgf {
 	class Graphics;
-
+	class GameApp;
 	class CursorObject {
 	public:
 		bool mVisible = true;
 		SDL_Cursor* mCursor = nullptr;
+		GameApp* mApp = nullptr;
 	public:
 		CursorObject();
 		~CursorObject();
 
+		void AttachApp(GameApp* app) { mApp = app; };
 		void SetVisible(bool visible);
 
 	public:

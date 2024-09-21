@@ -263,7 +263,17 @@ void sgf::Graphics::DrawImageInRect(sgf::SimpleImage* src, float width, float he
 void sgf::Graphics::DrawImageMatrix(sgf::SimpleImage* src, glm::mat4x4 matrix, float oriX, float oriY)
 {
 	Point graPos = GetGraphicsTransformPosition();
-	float matrixPosition = TryToBindNewMatrix(glm::translate(glm::mat4x4(1.0f), glm::vec3(graPos.x+ oriX, graPos.y+ oriY, 0)) * matrix);
+	glm::vec3 pivotPoint = glm::vec3(oriX,oriY,0);
+
+	glm::mat4 finalTransform;
+	if (!oriX && !oriY)
+		finalTransform = matrix;
+	else
+		finalTransform = glm::translate(glm::mat4(1.0f), pivotPoint) *
+			matrix *
+			glm::translate(glm::mat4(1.0f), -pivotPoint);
+
+	float matrixPosition = TryToBindNewMatrix(glm::translate(glm::mat4x4(1.0f), glm::vec3(graPos.x, graPos.y, 0)) * finalTransform);
 	int tex = TryToBindNewTexture(src);
 
 	SetCubeTextureIndex(tex);
@@ -326,7 +336,7 @@ void sgf::Graphics::Translate(float x, float y)
 	mTransformPosition.y += y;
 }
 
-void sgf::Graphics::MoveTo(int x, int y)
+void sgf::Graphics::MoveTo(float x, float y)
 {
 	mTransformPosition.x = x;
 	mTransformPosition.y = y;

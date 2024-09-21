@@ -14,6 +14,7 @@
 
 namespace Lawn {
 	class SeedBank;
+	class LawnApp;
 
 	enum BackGroundType {
 		BACKGROUND_FRONT_YARD_DAY,
@@ -33,7 +34,7 @@ namespace Lawn {
 		ZombieVector mZombieVector;
 		ProjectileVector mProjectileVector;
 
-		sgf::GameApp* mApp;
+		Lawn::LawnApp* mApp;
 		float mBackgroundScaleF;
 
 		int mGridOriPosX = 0;
@@ -43,7 +44,7 @@ namespace Lawn {
 		int mGridHeight = 0;
 
 	public:
-		Board(sgf::GameApp* app);
+		Board(LawnApp* app);
 		~Board();
 
 		void UpdateBoardBackground();

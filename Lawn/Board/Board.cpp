@@ -1,11 +1,14 @@
 #include "Board.h"
+#include "../include/LawnCursor.h"
 #include "../include/Constant.h"
 #include "../include/LawnApp.h"
 #include "include/Plant.h"
 
-Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
+Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 {
 	mApp = app;
+	mApp->mCursor->mIsOnBoard = true;
+	mApp->mCursor->mBoard = this;
 	mBackGroundType = BACKGROUND_FRONT_YARD_DAY;
 	UpdateBoardBackground();
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
@@ -17,13 +20,17 @@ Lawn::Board::Board(sgf::GameApp* app):Widget(LAWN_WIDGET_BOARD)
 	mMenuButton->AttachToListener(this);
 
 	mSeedBank = new SeedBank(this);
+	mSeedBank->AttachToListener(this);
 
 	AppendChild(mMenuButton);
 	AppendChild(mSeedBank);
+	AttachToListener(this);
 }
 
 Lawn::Board::~Board()
 {
+	mApp->mCursor->mIsOnBoard = false;
+	mApp->mCursor->Reset();
 	Widget::~Widget();
 	mWidgetManager->RemoveWidget(mMenuButton);
 	mWidgetManager->RemoveWidget(mSeedBank);
@@ -64,7 +71,7 @@ void Lawn::Board::UpdateBoardBackground()
 		break;
 	}
 	mBackgroundScaleF = float(LAWN_GAME_WINDOW_HEIGHT) / mBackGroundImageCache->mSurface->h;
-	mApp->mMusicManager.PlayMusic("MUSIC_TH06_B3");
+	mApp->mMusicManager.PlayMusic("MUSIC_LAWNBGM(13)");
 
 }
 
@@ -78,12 +85,22 @@ void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
 
 int Lawn::Board::PointXtoGridX(int pointX) const
 {
-	return (pointX - mGridOriPosX) / mGridWidth;
+	auto rX = round(float(pointX - mGridOriPosX) / float(mGridWidth));
+	if (rX < 0)
+		rX = 0;
+	if (rX > 9)
+		rX = 9;
+	return rX;
 }
 
 int Lawn::Board::PointYtoGridY(int pointY) const
 {
-	return (pointY - mGridOriPosY) / mGridHeight;
+	auto rY = round(float(pointY - mGridOriPosY) / float(mGridHeight));
+	if (rY < 0)
+		rY = 0;
+	if (rY > 4)
+		rY = 4;
+	return rY;
 }
 
 int Lawn::Board::GridXtoPointX(int gridX) const
@@ -246,12 +263,19 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 
 void Lawn::Board::OnClick(int theId)
 {
+	if (theId == mId && mApp->mCursor->mState == LAWN_CURSOR_SEED) {
+		mApp->mCursor->SeedPlant();
+	}
+
 	switch (theId)
 	{
 	case LAWN_WIDGET_BUTTON_MENU:
 		gLawnApp->KillBoard();
 		gLawnApp->EnterGameSelector();
 
+		break;
+	case LAWN_SEED_BANK:
+		mSeedBank->ClickOn();
 		break;
 	default:
 		break;

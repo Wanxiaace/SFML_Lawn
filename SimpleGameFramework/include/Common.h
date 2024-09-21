@@ -10,12 +10,11 @@
 
 #define SGF_CONFIRM_LOG(x,y) if(!x)printf(y);
 
-
 #ifdef _WIN32
 #include <Windows.h>
-#include "gl/GL.h"
-#include "gl/glext.h"
-#endif
+#endif // _WIN32
+
+#include "GL/glew.h"
 
 #include <iostream>
 
@@ -100,7 +99,14 @@ namespace sgf {
     struct Color {
         float r, g, b, a;
     };
-    typedef SDL_FPoint Point;
+
+    struct Point
+    {
+        float x;
+        float y;
+
+        void operator*(float mul) { x *= mul, y *= mul; };
+    };
 
     struct GameMat44 {
         union {

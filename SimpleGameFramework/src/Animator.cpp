@@ -90,7 +90,7 @@ void sgf::Animator::SetFrameRangeByTrackNameOnce(const sgf::String& trackName, c
 
 void sgf::Animator::SetTrackVisible(const sgf::String& trackName, bool visible)
 {
-	for (auto& x : GetAllTracksByName(trackName))
+	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
 		x->mVisible = visible;
 	}
@@ -99,7 +99,7 @@ void sgf::Animator::SetTrackVisible(const sgf::String& trackName, bool visible)
 
 void sgf::Animator::TrackAttachImage(const sgf::String& trackName, SimpleImage* target)
 {
-	for (auto& x : GetAllTracksByName(trackName))
+	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
 		x->mAttachedImage = target;
 	}
@@ -108,7 +108,7 @@ void sgf::Animator::TrackAttachImage(const sgf::String& trackName, SimpleImage* 
 
 void sgf::Animator::TrackAttachAnimator(const sgf::String& trackName, Animator* target)
 {
-	for (auto& x : GetAllTracksByName(trackName))
+	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
 		x->mAttachedReanim = target;
 	}
@@ -117,7 +117,7 @@ void sgf::Animator::TrackAttachAnimator(const sgf::String& trackName, Animator* 
 
 void sgf::Animator::TrackAttachAnimatorMatrix(const sgf::String& trackName, glm::mat4x4* target)
 {
-	for (auto& x : GetAllTracksByName(trackName))
+	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
 		x->mAttachedReanimMatrix = target;
 	}
@@ -142,13 +142,24 @@ bool sgf::Animator::GetTrackVisible(const sgf::String& trackName)
 		return false;
 }
 
-std::vector<sgf::TrackExtraInfo*> sgf::Animator::GetAllTracksByName(const sgf::String& trackName)
+std::vector<sgf::TrackExtraInfo*> sgf::Animator::GetAllTracksExtraByName(const sgf::String& trackName)
 {
 	auto result = std::vector<sgf::TrackExtraInfo*>();
 	for (size_t i = 0; i < mReanim->mTracks->size(); i++)
 	{
 		if (mReanim->mTracks->at(i).mTrackName == trackName)
 			result.push_back(&mExtraInfos[i]);
+	}
+	return result;
+}
+
+std::vector<sgf::TrackInfo*> sgf::Animator::GetAllTracksByName(const sgf::String& trackName)
+{
+	auto result = std::vector<sgf::TrackInfo*>();
+	for (size_t i = 0; i < mReanim->mTracks->size(); i++)
+	{
+		if (mReanim->mTracks->at(i).mTrackName == trackName)
+			result.push_back(&mReanim->mTracks->at(i));
 	}
 	return result;
 }
@@ -341,10 +352,15 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 sgf::Point sgf::Animator::GetTrackPos(const sgf::String& trackname)
 {
-	return sgf::Point{
-		mReanim->mTracks->at(mTrackIndicesMap[trackname]).mFrames[mFrameIndexNow].x,
-		mReanim->mTracks->at(mTrackIndicesMap[trackname]).mFrames[mFrameIndexNow].y
+	for (auto& x : GetAllTracksByName(trackname))
+	{
+		if(x->mFrames[mFrameIndexNow].f == 0)
+			return sgf::Point{
+		x->mFrames[mFrameIndexNow].x,
+		x->mFrames[mFrameIndexNow].y
+		};
 	};
+	return {0,0};
 }
 
 float sgf::Animator::GetTrackRotate(const sgf::String& trackname)

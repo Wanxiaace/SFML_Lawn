@@ -15,7 +15,6 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
     Mix_Init(MIX_InitFlags::MIX_INIT_MP3 | MIX_InitFlags::MIX_INIT_OGG | MIX_InitFlags::MIX_INIT_WAVPACK | MIX_InitFlags::MIX_INIT_MID);
     Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_CHANNELS, 4096);
 
-
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_WEBP);
     Uint32 windowFlags = SDL_WindowFlags::SDL_WINDOW_OPENGL;
     if(resiziable)
@@ -25,6 +24,8 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
     mGameWindow = SDL_CreateWindow(windowCaptain.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,width,height, windowFlags);
     mGLContext = SDL_GL_CreateContext(mGameWindow);
     SDL_GL_MakeCurrent(mGameWindow,mGLContext);
+
+    glewInit();
    
     glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &mTextureNumberMax);
 

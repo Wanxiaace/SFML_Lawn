@@ -166,7 +166,7 @@ namespace sgf {
 		/// @brief 移动gra临时原点到某处
 		/// @param x
 		/// @param y
-		void MoveTo(int x, int y);
+		void MoveTo(float x, float y);
 
 		/// @brief 移动gra原点到某处
 		/// @param x

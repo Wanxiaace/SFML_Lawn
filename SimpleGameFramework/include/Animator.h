@@ -68,7 +68,8 @@ namespace sgf {
 		void TrackAttachAnimatorMatrix(const sgf::String& trackName, glm::mat4x4* target);
 		float GetTrackVelocity(const sgf::String& trackName);
 		bool GetTrackVisible(const sgf::String& trackName);
-		std::vector<sgf::TrackExtraInfo*> GetAllTracksByName(const sgf::String& trackName);
+		std::vector<sgf::TrackExtraInfo*> GetAllTracksExtraByName(const sgf::String& trackName);
+		std::vector<sgf::TrackInfo*> GetAllTracksByName(const sgf::String& trackName);
 
 		void Update();
 		void Present(Graphics* g);

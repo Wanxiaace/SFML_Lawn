@@ -31,15 +31,8 @@ void Lawn::Plant::PlantInit()
 	{
 	case Lawn::SEED_PEASHOOTER:
 		mShootBox = { mBox.mX,mBox.mY,800,60 };
-		mHeadReanimMatrix = glm::translate(glm::mat4x4(1.0f), glm::vec3(-37, -47, 0));
-		mHeadReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
-		mBodyReanim.TrackAttachAnimator("anim_stem", &mHeadReanim);
-		mBodyReanim.TrackAttachAnimatorMatrix("anim_stem", &mHeadReanimMatrix);
-		mHeadReanim.SetFrameRangeByTrackName("anim_head_idle");
-		mHeadReanim.Play();
-		mHeadReanim.mSpeed = 1.5f;
+		PlayTrack("anim_head_idle");
 		mBodyReanim.mSpeed = 1.5f;
-		//mFireCD = 1000;
 		break;
 	default:
 		break;
@@ -89,6 +82,15 @@ void Lawn::Plant::TakeDamage(float damage)
 	mHealth -= damage;
 }
 
+void Lawn::Plant::PlayTrack(const sgf::String& trackName,int blendTime)
+{
+	mBodyReanim.mFrameIndexBlendBuffer = mBodyReanim.mFrameIndexNow;
+
+	mBodyReanim.SetFrameRangeByTrackName(trackName);
+
+	mBodyReanim.mReanimBlendCounter = blendTime;
+}
+
 void Lawn::Plant::InitPlantsDefinitions()
 {
 	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20 };
@@ -99,10 +101,6 @@ void Lawn::Plant::Update()
 	mBodyReanim.Update();
 	mHeadReanim.Update();
 
-	unsigned int tick = sgf::TryGetTicks();
-	int tickDelta = tick - mTickCache;
-	mTickCache = tick;
-
 	switch (mSeedType)
 	{
 	case Lawn::SEED_PEASHOOTER:
@@ -111,19 +109,19 @@ void Lawn::Plant::Update()
 			mTargetZombie = TryToFindTarget();
 			if (mTargetZombie) {
 				if (mState == STATE_NOTREADY) {
-					mHeadReanim.SetFrameRangeByTrackName("anim_shooting");
+					PlayTrack("anim_shooting");
 				}
 				mState = STATE_READY;
 			}
 			else {
 				if (mState == STATE_READY) {
-					mHeadReanim.SetFrameRangeByTrackName("anim_head_idle");
+					PlayTrack("anim_head_idle");
 				}
 				mState = STATE_NOTREADY;
 			}
 
 			if (mState == STATE_READY) {
-				if (abs((mHeadReanim.mFrameIndexNow - mHeadReanim.mFrameIndexBegin) / (mHeadReanim.mFrameIndexEnd - mHeadReanim.mFrameIndexBegin) - 0.7f) <= 0.1f) {//65
+				if (abs((mBodyReanim.mFrameIndexNow - mBodyReanim.mFrameIndexBegin) / (mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexBegin) - 0.7f) <= 0.1f) {//65
 					if (!mIsFire) {
 						Fire();
 						mIsFire = true;

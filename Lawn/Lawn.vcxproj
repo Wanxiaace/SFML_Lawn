@@ -76,15 +76,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glext/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Libs;../glext/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SimpleGameFramework_d.lib;Imgui_d.lib;SDL2.lib;SDL2_image.lib;glext.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libs;../glew/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SimpleGameFramework_d.lib;Imgui_d.lib;SDL2.lib;SDL2_image.lib;glew32s.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glext/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -105,8 +105,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Libs;../glext/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SimpleGameFramework.lib;Imgui.lib;SDL2.lib;SDL2_image.lib;glext.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Libs;../glew/lib;../SDL/lib/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SimpleGameFramework.lib;Imgui.lib;SDL2.lib;SDL2_image.lib;opengl32.lib;glew32.lib;glew32s.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,6 +145,7 @@
     <ClCompile Include="Board\src\BoardAnimator.cpp" />
     <ClCompile Include="Board\src\Plant.cpp" />
     <ClCompile Include="Dialogs\src\SettingDialog.cpp" />
+    <ClCompile Include="src\LawnCursor.cpp" />
     <ClCompile Include="src\LawnPlayerInfo.cpp" />
     <ClCompile Include="src\BasicWidgets.cpp" />
     <ClCompile Include="src\GameSelector.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="include\Constant.h" />
     <ClInclude Include="include\GameSelector.h" />
     <ClInclude Include="include\LawnApp.h" />
+    <ClInclude Include="include\LawnCursor.h" />
     <ClInclude Include="include\LawnPlayerInfo.h" />
     <ClInclude Include="include\LoadingPage.h" />
     <ClInclude Include="resource.h" />

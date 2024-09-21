@@ -293,7 +293,10 @@ void Lawn::LawnSlider::Draw(sgf::Graphics* g)
 	g->SetCubeColor({1.0f,1.0f,1.0f,1.0f});
 	g->DrawImage(mImageSliderBar);
 	g->MoveTo((mValue - mRangeMin) / mRangeDistence * mImageSliderBar->GetWidth() * 0.85, -7);
-	g->DrawImage(mImageSliderButton);
+	glm::mat4x4 rotMat = glm::rotate(glm::mat4x4(1.0f), (mValue - mRangeMin) / mRangeDistence * 15.7075f, glm::vec3(0, 0, 1));
+
+	g->DrawImageMatrix(mImageSliderButton, rotMat,13.3f,13.3f);
+	//g->DrawImage(mImageSliderButton);
 }
 
 void Lawn::LawnSlider::Update()
@@ -373,7 +376,7 @@ void Lawn::LawnCheckBox::SetLabel(const sgf::String& label)
 	mLabel = new LawnLabel(mApp);
 	mLabel->LoadLabel(label);
 	AppendChild(mLabel);
-	mLabel->MoveTo(50,-5);
+	mLabel->MoveTo(50,5);
 	mLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 }
 

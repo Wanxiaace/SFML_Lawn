@@ -103,6 +103,7 @@ namespace Lawn {
         Zombie* TryToFindTarget();
         void Die();
         void TakeDamage(float damage);
+        void PlayTrack(const sgf::String& trackName,int blendTime = 100);
 
 		static void InitPlantsDefinitions();
 

@@ -26,12 +26,12 @@ namespace sgf {
 		
 		float mMovingSpeed = 1.0f;
 		float mRenderScale = 1.0f;
+		float mRunningSpeed = 1.0f;
 
 		ResourceList mResourceList;
 		ResourceManager mResourceManager;
 		MusicManager mMusicManager;
 		Dictionary mDictionary;
-		CursorObject* mCursor;
 
 		float mMusicVolume = 100.0f;
 		bool mUseFullScreen = false;

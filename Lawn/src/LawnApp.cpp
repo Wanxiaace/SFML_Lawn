@@ -18,8 +18,10 @@ Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, 
     Zombie::InitZombiesDefinitions();
     Projectile::InitProjectilesDefinitions();
 #ifdef _WIN32
-    sgf::SRand(GetTickCount());
+    sgf::SRand(sgf::TryGetTicks());
 #endif
+    mCursor = new LawnCursor();
+    mCursor->AttachApp(this);
 }
 
 Lawn::LawnApp::~LawnApp()
@@ -70,7 +72,9 @@ void Lawn::LawnApp::LawnStart()
         gLoopMutex.lock();
         //SDL_ShowCursor(SDL_DISABLE);
         Draw();
+        
         mMessageManager.CopeAllMessage();
+
 
         gLoopMutex.unlock();
 
@@ -117,7 +121,7 @@ void Lawn::LawnApp::EnterGameSelector()
     if (!mGameSelector) {
         mGameSelector = new GameSelector(LAWN_WIDGET_GAME_SELECTOR_ID,this, true);
         SafeAppendWidget(mGameSelector);
-        mMusicManager.PlayMusic("MUSIC_TH06_B2");
+        mMusicManager.PlayMusic("MUSIC_LAWNBGM(8)");
     }
 }
 
@@ -169,6 +173,19 @@ void Lawn::LawnApp::CopeEvent(SDL_Event& _event)
 	sgf::GameApp::CopeEvent(_event);
 }
 
+void Lawn::LawnApp::Draw()
+{
+    mGraphics->Clear();
+
+    mGraphics->ActiveTextureShader();
+    mWidgetManager->Draw(mGraphics);
+    mCursor->Draw(mGraphics);
+    mGraphics->Present();
+
+    DrawImgui();
+    SDL_GL_SwapWindow(mGameWindow);
+}
+
 
 void Lawn::GameUpdateThread(LawnApp* app)
 {
@@ -181,8 +198,11 @@ void Lawn::GameUpdateThread(LawnApp* app)
     {
         gLoopMutex.lock();
         app->Update();
+        app->mCursor->Update();
+        if (app->mIsMouseRightDown)
+            app->mCursor->MouseRightOn();
         gLoopMutex.unlock();
         
-        Sleep(10);
+        SDL_Delay(10);
     }
 }
