@@ -34,33 +34,33 @@ namespace sgf {
 
 	class Particle {
 	public:
-		float mX;
-		float mY;
-		float mZ;
-		unsigned int mLifeTime;
-		unsigned int mLifeTimeMax;
-		unsigned int mLifeTimeTick;
+		float mX = 0;
+		float mY = 0;
+		float mZ = 0;
+		unsigned int mLifeTime = 0;
+		unsigned int mLifeTimeMax = 0;
+		unsigned int mLifeTimeTick = 0;
 		unsigned int mEachFrameStride = 100;
 
-		bool mCostingLifeTime;
-		bool mMoving;
-		bool mVisible;
+		bool mCostingLifeTime = true;
+		bool mMoving = false;
+		bool mVisible = false;
 
-		unsigned int mTickCache;
-		SimpleImage** mImages;
+		unsigned int mTickCache = 0;
+		SimpleImage** mImages = nullptr;
 		ParticleMotionType mMotionType;
 		ParticleImageType mImageType;
 		int mImageNumber = 1;
-		float mSpeedX;
-		float mSpeedY;
-		float mSpeedZ;
+		float mSpeedX = 0;
+		float mSpeedY = 0;
+		float mSpeedZ = 0;
 		float mImageOffsetX = 0;
 		float mImageOffsetY = 0;
-		bool mHasShadowed;
-		float mGravity;//重力加速度
-		float mEnergyLossRate;//能量损耗率，决定回弹高度，范围0~1
-		float mRotateSpeed;
-		float mAngle;
+		bool mHasShadowed = false;
+		float mGravity = 0;//重力加速度
+		float mEnergyLossRate = 1;//能量损耗率，决定回弹高度，范围0~1
+		float mRotateSpeed = 0;
+		float mAngle = 0;
 		float mScaleF = 1.0f;
 		float mTransScaleF = 0.0f;
 		bool mUseFade = true;
@@ -104,6 +104,8 @@ namespace sgf {
 		float mTransScaleF = 0.0f;
 		float mGravity = 0.1f;
 		float mImageScaleRangeF = 0;
+		float mRotateSpeed = 0;
+		float mEnergyLossRate = 0.3;
 		bool mUseFade = true;
 		bool mUseShadowed = false;
 

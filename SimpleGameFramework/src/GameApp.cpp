@@ -161,6 +161,9 @@ void sgf::GameApp::Draw()
 	mGraphics->ActiveTextureShader();
 	mWidgetManager->Draw(mGraphics);
 
+	if (mDisplay)
+		mDisplay(this, mDeltaTime);
+
 	DrawImgui();
 	SDL_GL_SwapWindow(mGameWindow);
 }

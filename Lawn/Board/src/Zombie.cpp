@@ -142,7 +142,7 @@ void Lawn::Zombie::DropHead()
 		mBodyReanim.SetTrackVisible("anim_hair", false);
 		mBodyReanim.SetTrackVisible("anim_tongue", false);
 		sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_head1");
-		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX + mReanimOffsetX - 20, dropPoint.y + mBox.mY + mReanimOffsetY + 80, -80);
+		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		break;
 	}
 	}

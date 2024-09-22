@@ -15,7 +15,7 @@ namespace Lawn {
 		};
 
 	public:
-		LawnStoneButton* mContinueButton = nullptr;
+		LawnImageButton* mContinueButton = nullptr;
 		LawnStoneButton* mMenuButton = nullptr;
 
 	public:

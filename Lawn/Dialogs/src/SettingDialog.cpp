@@ -41,13 +41,13 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 
 	mMusicVolumeLabel = new LawnLabel(mApp);
 	mMusicVolumeLabel->MoveTo(100, 125);
-	mMusicVolumeLabel->LoadLabel(_LS("MusicVolmne"),25);
+	mMusicVolumeLabel->LoadLabel(_LS("MusicVolume"),25);
 	mMusicVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 	AppendChild(mMusicVolumeLabel);
 
 	mSoundVolumeLabel = new LawnLabel(mApp);
 	mSoundVolumeLabel->MoveTo(100, 195);
-	mSoundVolumeLabel->LoadLabel(_LS("SoundVolmne"), 25);
+	mSoundVolumeLabel->LoadLabel(_LS("SoundVolume"), 25);
 	mSoundVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 	AppendChild(mSoundVolumeLabel);
 

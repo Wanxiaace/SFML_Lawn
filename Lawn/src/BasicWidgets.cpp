@@ -405,3 +405,33 @@ void Lawn::LawnCheckBox::Update()
 	if (mTargetBool)
 		*mTargetBool = mIsCheck;
 }
+
+Lawn::LawnImageButton::LawnImageButton(int buttonId, sgf::GameApp* app) : LawnStoneButton(buttonId,app)
+{
+
+}
+
+Lawn::LawnImageButton::~LawnImageButton()
+{
+
+}
+
+void Lawn::LawnImageButton::Draw(sgf::Graphics* g)
+{
+	g->SetCubeColor({1,1,1,1});
+
+	if (mIsMouseHover) {
+		if(mIsMouseCaught)
+			g->DrawImage(mImageDown);
+		else
+			g->DrawImage(mImageHover);
+	}
+	else {
+		g->DrawImage(mImageNormal);
+	}
+}
+
+void Lawn::LawnImageButton::Update()
+{
+	LawnStoneButton::Update();
+}

@@ -99,6 +99,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

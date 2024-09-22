@@ -8,7 +8,7 @@ int main(int argc,char** argv) {
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
 		gLawnApp->mShowDebugWindow = true;
 
-	gLawnApp->mResourceManager.AttachBasePath("assets/zh2pak/");
+	gLawnApp->mResourceManager.AttachBasePath("assets/en2pak/");
 	gLawnApp->LoadDict("LawnStrings.json");
 	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
 	gLawnApp->SetWindowIcon("data/WindowIcon.png");

@@ -27,18 +27,33 @@ namespace Lawn {
 	};
 
 	class LawnStoneButton :public sgf::TemplateButton {
-	public:
-		sgf::GameApp* mApp = nullptr;
+	protected:
 		sgf::SimpleImage* mImageLeft = nullptr;
 		sgf::SimpleImage* mImageMiddle = nullptr;
 		sgf::SimpleImage* mImageRight = nullptr;
 		sgf::SimpleImage* mImageLabel = nullptr;
+	public:
+		sgf::GameApp* mApp = nullptr;
 
 	public:
 		LawnStoneButton(int buttonId, sgf::GameApp* app);
 		~LawnStoneButton();
 
 		void LoadLabel(const sgf::String& label);
+
+	public:
+		virtual void Draw(sgf::Graphics* g) override;
+		virtual void Update() override;
+	};
+
+	class LawnImageButton : public LawnStoneButton {
+	public:
+		sgf::SimpleImage* mImageNormal = nullptr;
+		sgf::SimpleImage* mImageHover = nullptr;
+		sgf::SimpleImage* mImageDown = nullptr;
+	public:
+		LawnImageButton(int buttonId, sgf::GameApp* app);
+		~LawnImageButton();
 
 	public:
 		virtual void Draw(sgf::Graphics* g) override;

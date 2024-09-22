@@ -100,11 +100,10 @@ void sgf::GameAppBase::EnterMainLoop()
             mFramePerSecondBuffer++;
         }
 
-        if (mDisplay)
-            mDisplay(this, mDeltaTime);
-
+        
         Draw();
         mMessageManager.CopeAllMessage();
+
         Update();
 
         m_deltaTimeTick = tick;

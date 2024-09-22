@@ -22,6 +22,8 @@ sgf::Particle* sgf::Emitter::Emitt()
 	particle->mGravity = mGravity;
 	particle->mImageNumber = mImageNumber;
 	particle->mUseFade = mUseFade;
+	particle->mRotateSpeed = mRotateSpeed;
+	particle->mEnergyLossRate = mEnergyLossRate;
 
 	switch (mMotionType)
 	{
@@ -152,6 +154,14 @@ void sgf::Emitter::LoadFromFile(const char* paxmlPath)
 		if (tag == "ImageRangeF") {
 			mImageScaleRangeF = x.text().as_float();
 		}
+		if(tag == "RotateSpeed")
+		{
+			mRotateSpeed = x.text().as_float();
+		}
+		if (tag == "EnergyLossRate")
+		{
+			mEnergyLossRate = x.text().as_float();
+		}
 		//printf("%s\n",x.name());
 	}
 }
@@ -196,8 +206,8 @@ void sgf::Particle::Init()
 	case sgf::PARTICLE_MOTION_THROW:
 		//mGravity = 0.1f;
 		//mLifeTimeMax = 3000;
-		mEnergyLossRate = 0.3f;
-		mRotateSpeed = 0.05f;
+		//mEnergyLossRate = 0.3f;
+		//mRotateSpeed = 0.05f;
 		break;
 	default:
 		break;
@@ -234,17 +244,6 @@ void sgf::Particle::Update()
 		}
 		mLifeTime = mLifeTimeMax - mLifeTimeTick / mEachFrameStride;
 		break;
-	case sgf::PARTICLE_IMAGE_GROUP_RANDOM:
-		if (mCostingLifeTime) {
-			if (mLifeTime > tickDelta)
-				mLifeTime -= tickDelta;
-			else
-				mLifeTime = 0;
-		}
-
-		if (mLifeTime <= 0) {
-			mVisible = false;
-		}
 	}
 
 	switch (mMotionType)
@@ -253,7 +252,7 @@ void sgf::Particle::Update()
 		mSpeedZ += mGravity * tickDelta;
 		if (mZ > 0) {
 			mZ = 0;
-			mSpeedZ *= -1.0f*mEnergyLossRate;
+			mSpeedZ *= -1.0f * mEnergyLossRate;
 			if (int(mSpeedZ / 5.0f) == 0)
 				mSpeedZ = 0;
 			mSpeedX *= mEnergyLossRate;
@@ -261,20 +260,22 @@ void sgf::Particle::Update()
 			mCostingLifeTime = true;
 		}
 
-		if (mCostingLifeTime) {
-			if (mLifeTime > tickDelta)
-				mLifeTime -= tickDelta;
-			else
-				mLifeTime = 0;
-		}
-
-		if (mLifeTime <= 0) {
-			mVisible = false;
-		}
 
 		break;
 	default:
 		break;
+	}
+
+
+	if (mCostingLifeTime) {
+		if (mLifeTime > tickDelta)
+			mLifeTime -= tickDelta;
+		else
+			mLifeTime = 0;
+	}
+
+	if (mLifeTime <= 0) {
+		mVisible = false;
 	}
 
 	mZ += mSpeedZ * tickDelta / 100.0f;
@@ -313,35 +314,39 @@ void sgf::Particle::TryToRenderImage(Graphics* g) const
 	case PARTICLE_IMAGE_GROUP_RANDOM:
 	{
 		g->MoveTo(mX + mImageOffsetX* mScaleF, mY + mZ + mImageOffsetY* mScaleF);
-		g->DrawImageScaleF(mImages[0], mScaleF, mScaleF);
+		//g->DrawImageScaleF(mImages[0], mScaleF, mScaleF);
+		g->DrawImageMatrix(mImages[0], glm::rotate(glm::scale(glm::mat4x4(1.0f), glm::vec3(mScaleF, mScaleF, 1.0f)), mAngle, glm::vec3(0.0f, 0.0f, 1.0f)), mImages[0]->GetWidth() / 2.0f, mImages[0]->GetHeight() / 2.0f);
 
-		if (mHasShadowed && mShadowImage) {
-			g->MoveTo(mX, mY + mImages[0]->mSurface->h - mShadowImage->mSurface->h);
-			g->DrawImage(mShadowImage);
-		}
 		break;
 	}
-	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION:
-		g->SetCubeColor({ 1,1,1,1}); 
-		g->MoveTo(mX + mImageOffsetX* mScaleF, mY + mZ + mImageOffsetY* mScaleF);
-		g->DrawImageScaleF(mImages[mLifeTimeMax - mLifeTime], mScaleF, mScaleF);
-		
-		if (mHasShadowed && mShadowImage) {
-			g->MoveTo(mX, mY + mImages[mLifeTimeMax - mLifeTime]->mSurface->h - mShadowImage->mSurface->h);
-			g->DrawImage(mShadowImage);
-		}
-		break;
 	case sgf::PARTICLE_IMAGE_SINGLE:
+		/*g->SetCubeColor({ 1,0,0,0.5f });
 		g->MoveTo(mX + mImageOffsetX, mY + mZ + mImageOffsetY);
-		//g->DrawImage(mImages);
-		g->DrawImageMatrix(mImages[0], glm::rotate(glm::scale(glm::mat4x4(1.0f),glm::vec3(mScaleF, mScaleF,1.0f)), mAngle, glm::vec3(0.0f, 0.0f, 1.0f)), mImages[0]->mSurface->w / 2.0f, -mImages[0]->mSurface->h / 2.0f);
-		if (mHasShadowed && mShadowImage) {
-			g->MoveTo(mX, mY + mImages[0]->mSurface->h - mShadowImage->mSurface->h);
-			g->DrawImage(mShadowImage);
-		}
+		g->FillRect(mImages[0]->GetWidth(), mImages[0]->GetHeight());*/
+
+		g->SetCubeColor({ 1,1,1,1 });
+		g->MoveTo(mX + mImageOffsetX, mY + mZ + mImageOffsetY);
+		g->DrawImageMatrix(mImages[0],
+			glm::rotate(
+				glm::scale(glm::mat4x4(1.0f),glm::vec3(mScaleF, mScaleF,1.0f)), 
+				mAngle, glm::vec3(0.0f, 0.0f, 1.0f)), mImages[0]->GetWidth() / 2.0f, mImages[0]->GetHeight() / 2.0f
+		);
+		
+		break;
+
+	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION:
+		g->SetCubeColor({ 1,1,1,1 });
+		g->MoveTo(mX + mImageOffsetX * mScaleF, mY + mZ + mImageOffsetY * mScaleF);
+		g->DrawImageScaleF(mImages[mLifeTimeMax - mLifeTime], mScaleF, mScaleF);
+
 		break;
 	default:
 		break;
+	}
+
+	if (mHasShadowed && mShadowImage) {
+		g->MoveTo(mX, mY + mImages[0]->GetHeight() - mShadowImage->GetHeight());
+		g->DrawImage(mShadowImage);
 	}
 }
 
