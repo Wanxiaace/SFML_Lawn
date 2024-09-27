@@ -134,15 +134,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsolePage.cpp" />
     <ClCompile Include="ImguiLayer.cpp" />
     <ClCompile Include="LeftBar.cpp" />
+    <ClCompile Include="PreviewPage.cpp" />
     <ClCompile Include="ResGenApp.cpp" />
     <ClCompile Include="ResourceGen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="ConsolePage.h" />
     <ClInclude Include="ImguiLayer.h" />
     <ClInclude Include="LeftBar.h" />
+    <ClInclude Include="PreviewPage.h" />
     <ClInclude Include="ResGenApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

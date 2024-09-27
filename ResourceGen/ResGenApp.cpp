@@ -13,15 +13,24 @@ ResGenApp::ResGenApp(int width, int height, const sgf::String& windowCaptain, bo
 	ImFont* font = io.Fonts->AddFontFromFileTTF("assets/msyh.ttc", 16.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
 
 	mResourceList = new sgf::ResourceList();
+
 	mLeftBar = new TreeBar(this);
+	mPreviewPage = new PreviewPage(this);
+	mConsolePage = new ConsolePage(this);
+
 	AppendLayer(mLeftBar);
+	AppendLayer(mPreviewPage);
+	AppendLayer(mConsolePage);
 }
 
 ResGenApp::~ResGenApp()
 {
 	if (mResourceList)
 		delete mResourceList;
+
 	delete mLeftBar;
+	delete mPreviewPage;
+	delete mConsolePage;
 }
 
 void ResGenApp::AppendLayer(ImguiLayer* layer)
@@ -35,6 +44,7 @@ void ResGenApp::RenderMenuBar()
 		if (ImGui::BeginMenu(_LS_C("FILE"))) {
 			if (ImGui::MenuItem(_LS_C("OPEN"), "Ctrl+O")) {
 				char* xmlPath = nullptr;
+				
 				nfdresult_t result = NFD_OpenDialog("xml", nullptr, &xmlPath);
 				
 				if(!xmlPath)
@@ -42,9 +52,14 @@ void ResGenApp::RenderMenuBar()
 				else
 				{
 					std::cout << "Open from: " << xmlPath << std::endl;
-					mResourceList->Load(xmlPath);
+					sgf::String xmlPathStr = xmlPath;
+					//mResourceList->Load(xmlPath);
 					mSelectedBoolList = new bool[mResourceList->mResouces.size()];
 					memset(mSelectedBoolList,0, mResourceList->mResouces.size());
+					
+					std::cout << xmlPathStr.substr(0,xmlPathStr.rfind("/")) << std::endl;
+					//mResourceManager.AttachBasePath();
+					//LoadAllResource();
 
 				}
 				
@@ -55,6 +70,13 @@ void ResGenApp::RenderMenuBar()
 		ImGui::EndMenuBar();
 	}
 	
+}
+
+void ResGenApp::LoadAllResource()
+{
+	if (!mResourceList)
+		return;
+	mResourceManager.LoadFromResouceList(mResourceList,&mMusicManager);
 }
 
 void ResGenApp::DrawImgui()

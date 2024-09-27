@@ -1,5 +1,18 @@
 {
     "OPEN":"打开",
     "FILE":"文件",
-    "RESOUCES":"资源"
+    "RESOUCES":"资源",
+    "PREVIEW":"预览",
+    "CHUNK":"音效",
+    "RAXML":"动画",
+    "PAXML":"特效",
+    "IMAGE":"图片",
+    "PARTICLE":"特效图片",
+    "MUSIC":"音乐",
+    "IMAGE_REANIM":"动画图片",
+    "IMAGE_ATLAS":"图片图集",
+    "IMAGE_REANIM_ATLAS":"动画图片图集",
+    "FONT":"字体",
+    "SHADERS":"着色器",
+    "CONSOLE":"控制台"
 }

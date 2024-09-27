@@ -7,6 +7,8 @@
 #include "GameApp.h"
 #include "LeftBar.h"
 #include "ImguiLayer.h"
+#include "PreviewPage.h"
+#include "ConsolePage.h"
 
 class ImguiLayer;
 
@@ -14,8 +16,13 @@ class ResGenApp : public sgf::GameApp {
 public:
 	std::vector<ImguiLayer*> mLayers;
 	TreeBar* mLeftBar = nullptr;
+	PreviewPage* mPreviewPage = nullptr;
+	ConsolePage* mConsolePage = nullptr;
+
 	sgf::ResourceList* mResourceList = nullptr;
+
 	bool* mSelectedBoolList = nullptr;
+	int mCurentBoolIndex = -1;
 
 public:
 	ResGenApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync = true, bool resiziable = false);
@@ -23,6 +30,7 @@ public:
 
 	void AppendLayer(ImguiLayer* layer);
 	void RenderMenuBar();
+	void LoadAllResource();
 
 public:
 	virtual void DrawImgui() override;

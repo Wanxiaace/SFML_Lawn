@@ -27,6 +27,12 @@
     <ClCompile Include="LeftBar.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="PreviewPage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsolePage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResGenApp.h">
@@ -39,6 +45,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Common.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviewPage.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsolePage.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
