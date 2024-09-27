@@ -216,11 +216,5 @@
     <None Include="PopCom\zlib\descrip.mms" />
     <None Include="PopCom\zlib\faq" />
     <None Include="PopCom\zlib\index" />
-    <None Include="PopCom\zlib\Make_vms.com" />
-    <None Include="PopCom\zlib\Makefile" />
-    <None Include="PopCom\zlib\Makefile.in" />
-    <None Include="PopCom\zlib\Makefile.riscos" />
-    <None Include="PopCom\zlib\readme" />
-    <None Include="PopCom\zlib\zlib.3" />
   </ItemGroup>
 </Project>

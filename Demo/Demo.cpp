@@ -65,9 +65,6 @@ int main() {
 	peaEmitter = new Emitter();
 	peaEmitter->LoadFromFile("demo/paxml/PeaSplats.xml");
 	peaEmitter->AttachImage(Image1);
-	//peaEmitter->AttachImage(Image2);
-	//peaEmitter->AttachImage(Image3);
-	//peaEmitter->AttachImage(Image4);
 
 	particleManager = new ParticleManager();
 

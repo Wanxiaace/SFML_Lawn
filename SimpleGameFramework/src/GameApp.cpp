@@ -105,10 +105,10 @@ void sgf::GameApp::ScreenShot(const sgf::String& outPath)
 
 void sgf::GameApp::UseFullScreen()
 {
-	GameMessage srceenShotMessage = {};
-	srceenShotMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_FULL_SCREEN;
-	srceenShotMessage.mParamPointer1 = this;
-	mMessageManager.SendGameMessage(srceenShotMessage);
+	GameMessage fullMessage = {};
+	fullMessage.mMessageType = sgf::GameMessage::MessageType::MSG_TYPE_FULL_SCREEN;
+	fullMessage.mParamPointer1 = this;
+	mMessageManager.SendGameMessage(fullMessage);
 }
 
 void sgf::GameApp::ExitFullScreen()
