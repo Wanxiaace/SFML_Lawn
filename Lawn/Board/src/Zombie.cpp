@@ -153,10 +153,7 @@ void Lawn::Zombie::DoDeathReanim()
 	if (!sgf::Rand(0, 2))
 		PlayTrack("anim_death", 0);
 	else {
-		if (!sgf::Rand(0, 3))
-			PlayTrack("anim_superlongdeath", 200);
-		else
-			PlayTrack("anim_death2", 200);
+		PlayTrack("anim_death2", 200);
 	}
 	
 	mBodyReanim.Play(sgf::Animator::PlayState::PLAY_ONCE);
