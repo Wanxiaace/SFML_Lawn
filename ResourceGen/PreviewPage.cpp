@@ -39,14 +39,14 @@ static void ImGuiDrawGrid(
 	int num_lines_x = (int)(window_size.x / grid_spacing) + 1;
 	int num_lines_y = (int)(window_size.y / grid_spacing) + 1;
 
-
 	for (int i = 0; i < num_lines_x; ++i)
 	{
 		float x = window_pos.x + i * grid_spacing + pos_offset.x;
-		if(i % 10)
+		if (i % 10)
 			draw_list->AddLine(ImVec2(x, window_pos.y), ImVec2(x, window_pos.y + window_size.y), grid_color_shallow);
 		else
 			draw_list->AddLine(ImVec2(x, window_pos.y), ImVec2(x, window_pos.y + window_size.y), grid_color);
+		
 	}
 
 	
@@ -66,9 +66,31 @@ void ImagePreview::Draw()
 	mWindowSize = ImGui::GetWindowSize();
 	mWindowPos = ImGui::GetWindowPos();
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	
 	ImGuiDrawGrid(draw_list, mWindowPos, mWindowSize, 
 		{ mMapPos .x + mDragDelta.x, mMapPos.y + mDragDelta.y },
 		10.0f * mScale, IM_COL32(0xff, 0xff, 0xff, 0xA0), IM_COL32(0xff, 0xff, 0xff, 0x20));
+	
+	if (gApp->mCurentImageIndex != -1) {
+		auto img = gApp->mResourceManager.GetResourceFast<sgf::SimpleImage>(gApp->mResourceList->mResouces[gApp->mCurentImageIndex].id);
+
+		draw_list->AddRect(
+			{
+				mWindowPos.x + mMapPos.x + mDragDelta.x - 1,
+				mWindowPos.y + mMapPos.y + mDragDelta.y - 1 },
+			{
+				mWindowPos.x + mMapPos.x + mDragDelta.x + 1 + img->GetWidth() * mScale,
+				mWindowPos.y + mMapPos.y + mDragDelta.y + 1 + img->GetHeight() * mScale }
+			, IM_COL32(0xff, 0, 0, 0xff));
+
+		draw_list->AddText(
+			{
+				mWindowPos.x + mMapPos.x + mDragDelta.x,
+				mWindowPos.y + mMapPos.y + mDragDelta.y + img->GetHeight() * mScale
+			},IM_COL32(0xff, 0, 0, 0xff),("width: " + std::to_string(int(img->GetWidth())) + " Height: " + std::to_string(int(img->GetHeight()))).c_str()
+		);
+	}
+
 
 	ImGui::End();
 }
