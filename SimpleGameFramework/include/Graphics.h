@@ -217,7 +217,10 @@ namespace sgf {
 		/// @return 返回当前绑定的帧缓存的图像
 		SimpleImage* CaptureScreen(int x, int y, int width, int height);
 
+		/// @brief 设置裁切矩形
+		void SetClipRect(const sgf::FloatRect& src);
 
+		void ClearClipRect();
 	};
 
 	static Graphics* CreateFromApp(GameApp* gameApp) { return new Graphics(gameApp); };

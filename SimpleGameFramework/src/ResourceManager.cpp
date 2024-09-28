@@ -243,6 +243,7 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 		loadingThreads[i]->join();
 		delete loadingThreads[i];
 	}
+	//LoadFromResouceListFunc(this, src, mus, 0, len);
 	LoadParticleImages();
 	mIsLoaded = true;
 }

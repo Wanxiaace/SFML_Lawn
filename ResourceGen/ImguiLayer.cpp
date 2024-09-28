@@ -20,6 +20,10 @@ void ImguiLayer::Draw()
 
 }
 
+void ImguiLayer::SGFDraw(sgf::Graphics* g)
+{
+}
+
 void ImguiLayer::Update()
 {
 

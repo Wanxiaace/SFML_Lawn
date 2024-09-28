@@ -14,5 +14,11 @@
     "IMAGE_REANIM_ATLAS":"动画图片图集",
     "FONT":"字体",
     "SHADERS":"着色器",
-    "CONSOLE":"控制台"
+    "CONSOLE":"控制台",
+    "IMAGE_VIEWER":"图片预览",
+    "REANIM_VIEWER":"动画预览",
+    "PARTICLE_VIEWER":"特效预览",
+    "ATLAS_VIEWER":"图集预览",
+    "FONT_VIEWER":"字体预览",
+    "IMAGE_VIEWER_PAGE":"图片预览器"
 }

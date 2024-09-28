@@ -26,7 +26,7 @@
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
 
-const int LOADING_THREAD_NUM_MAX = 10;
+const int LOADING_THREAD_NUM_MAX = 5;
 
 
 static void CheckGLError(const char* file, int line)
@@ -130,6 +130,16 @@ namespace sgf {
         return result;
     }
 
+    static sgf::String StringReplace(const sgf::String& resource_str, const sgf::String& sub_str, const sgf::String& new_str)
+    {
+        sgf::String dst_str = resource_str;
+        sgf::String::size_type pos = 0;
+        while ((pos = dst_str.find(sub_str)) != std::string::npos) 
+        {
+            dst_str.replace(pos, sub_str.length(), new_str);
+        }
+        return dst_str;
+    }
     static sgf::String StringRemoveFileExtension(const sgf::String& filename) {
         size_t dotPos = filename.find_last_of(".");
         if (dotPos != sgf::String::npos && dotPos > 0) {

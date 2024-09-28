@@ -1,5 +1,6 @@
 #pragma once
 #include "imgui.h"
+#include "Graphics.h"
 
 class ImguiLayer {
 public:
@@ -12,5 +13,6 @@ public:
 
 public:
 	virtual void Draw();
+	virtual void SGFDraw(sgf::Graphics* g);
 	virtual void Update();
 };

@@ -9,6 +9,8 @@ void TreeBar::SelectRes(int index)
 		app->mSelectedBoolList[i] = (i == index);
 	}
 	app->mCurentBoolIndex = index;
+	if (app->mResourceList->mResouces[index].folder == "image")
+		app->mCurentImageIndex = index;
 }
 
 std::vector<sgf::String> strList;

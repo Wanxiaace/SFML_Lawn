@@ -24,6 +24,8 @@ public:
 	bool* mSelectedBoolList = nullptr;
 	int mCurentBoolIndex = -1;
 
+	int mCurentImageIndex = -1;
+
 public:
 	ResGenApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync = true, bool resiziable = false);
 	~ResGenApp();
@@ -34,6 +36,7 @@ public:
 
 public:
 	virtual void DrawImgui() override;
+	virtual void Draw() override;
 };
 
 extern ResGenApp* gApp;

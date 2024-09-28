@@ -53,13 +53,20 @@ void ResGenApp::RenderMenuBar()
 				{
 					std::cout << "Open from: " << xmlPath << std::endl;
 					sgf::String xmlPathStr = xmlPath;
-					//mResourceList->Load(xmlPath);
+					mResourceList->Load(xmlPath);
 					mSelectedBoolList = new bool[mResourceList->mResouces.size()];
 					memset(mSelectedBoolList,0, mResourceList->mResouces.size());
 					
-					std::cout << xmlPathStr.substr(0,xmlPathStr.rfind("/")) << std::endl;
-					//mResourceManager.AttachBasePath();
-					//LoadAllResource();
+					sgf::String xmlDirPath = xmlPathStr;
+#ifdef _WIN32
+					xmlDirPath = sgf::StringReplace(xmlDirPath, "\\", "/");
+#endif				
+					xmlDirPath = xmlDirPath.substr(0, xmlDirPath.rfind("/")) + "/";
+
+
+					std::cout << xmlDirPath << std::endl;
+					mResourceManager.AttachBasePath(xmlDirPath);
+					LoadAllResource();
 
 				}
 				
@@ -110,11 +117,30 @@ void ResGenApp::DrawImgui()
 		x->Draw();
 	}
 
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 	for (auto& x : mLayers)
 	{
 		x->Update();
 	}
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void ResGenApp::Draw()
+{
+	mGraphics->Clear();
+
+	mGraphics->ActiveTextureShader();
+	mWidgetManager->Draw(mGraphics);
+
+	DrawImgui();
+
+	for (auto& x : mLayers)
+	{
+		x->SGFDraw(mGraphics);
+	}
+
+	mGraphics->Present();
+
+	SDL_GL_SwapWindow(mGameWindow);
 }

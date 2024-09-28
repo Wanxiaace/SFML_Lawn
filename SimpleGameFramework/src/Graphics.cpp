@@ -466,3 +466,19 @@ sgf::SimpleImage* sgf::Graphics::CaptureScreen(int x, int y, int width, int heig
 
 	return result;
 }
+
+void sgf::Graphics::SetClipRect(const sgf::FloatRect& src)
+{
+	int w, h;
+	SDL_GetWindowSize(mGameApp->mGameWindow, &w, &h);
+	ProjectionResize(src.mWidth, src.mHeight);
+	glViewport(src.mX, h - src.mY - src.mHeight, src.mWidth, src.mHeight);
+}
+
+void sgf::Graphics::ClearClipRect()
+{
+	int w, h;
+	SDL_GetWindowSize(mGameApp->mGameWindow,&w,&h);
+	ProjectionResize(w, h);
+	glViewport(0, 0, w, h);
+}
