@@ -10,6 +10,8 @@
 #include "PreviewPage.h"
 #include "ConsolePage.h"
 
+#include "Animator.h"
+
 class ImguiLayer;
 
 class ResGenApp : public sgf::GameApp {
@@ -22,9 +24,15 @@ public:
 	sgf::ResourceList* mResourceList = nullptr;
 
 	bool* mSelectedBoolList = nullptr;
+	
 	int mCurentBoolIndex = -1;
+	int mCurentTrackIndex = -1;
 
-	int mCurentImageIndex = -1;
+	sgf::SimpleImage* mCurentImagePointer = nullptr;
+
+	bool mSelectedTrackBoolList[100] = {false};
+	sgf::Animator* mCurentAnimatorPointer = nullptr;
+	bool mIsAtlas = false;
 
 public:
 	ResGenApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync = true, bool resiziable = false);

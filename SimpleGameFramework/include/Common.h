@@ -150,6 +150,29 @@ namespace sgf {
         }
     }
 
+    /// @brief 获得相对路径
+    static sgf::String StringGetCurrentPath(const sgf::String& filename) {
+        size_t dotPos = filename.find_last_of("/");
+        if (dotPos != sgf::String::npos && dotPos > 0) {
+            return filename.substr(0, dotPos);
+        }
+        else {
+            return filename;
+        }
+    }
+
+    /// @brief 获得相对路径并去除后缀
+    static sgf::String StringGetCurrentPathWithoutExtension(const sgf::String& filename) {
+        size_t dotPos = filename.find_last_of("/");
+        if (dotPos != sgf::String::npos && dotPos > 0) {
+            return StringRemoveFileExtension(filename.substr( dotPos + 1));
+        }
+        else {
+            return filename;
+        }
+    }
+
+
     static bool IsFileExist(const sgf::String& filename) {
         FILE* file;
         fopen_s(&file, filename.c_str(), "r");

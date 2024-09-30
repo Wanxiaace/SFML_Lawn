@@ -9,8 +9,30 @@ void TreeBar::SelectRes(int index)
 		app->mSelectedBoolList[i] = (i == index);
 	}
 	app->mCurentBoolIndex = index;
-	if (app->mResourceList->mResouces[index].folder == "image")
-		app->mCurentImageIndex = index;
+
+	if (app->mResourceList->mResouces[index].folder == "image" || app->mResourceList->mResouces[index].folder == "particle")
+	{
+		app->mIsAtlas = false;
+		app->mCurentImagePointer = app->mResourceManager.GetResourceFast<sgf::SimpleImage>(app->mResourceList->mResouces[index].id);
+	}
+	else if (app->mResourceList->mResouces[index].folder.size() >= 5
+		&& app->mResourceList->mResouces[index].
+		folder.substr(app->mResourceList->mResouces[index].folder.size() - 5) == "atlas") {
+		app->mIsAtlas = true;
+		sgf::String currentId = sgf::StringtoUpper(app->mResourceList->mResouces[index].folder).substr(0, app->mResourceList->mResouces[index].folder.length() - 5) +
+			sgf::StringGetCurrentPathWithoutExtension(sgf::StringtoUpper(app->mResourceList->mResouces[index].path));
+
+		app->mCurentImagePointer = app->mCurentImagePointer = 
+			app->mResourceManager.GetResourceFast<sgf::SimpleImage>(currentId);
+	}
+	else if (app->mResourceList->mResouces[index].folder == "raxml") {
+		auto reanim = app->mResourceManager.GetResourceFast<sgf::Reanimation>(app->mResourceList->mResouces[index].id);
+		if (app->mCurentAnimatorPointer)
+			delete app->mCurentAnimatorPointer;
+		app->mCurentAnimatorPointer = new sgf::Animator(reanim,gApp);
+		app->mCurentAnimatorPointer->SetFrameRangeByTrackName("anim_idle");
+		app->mCurentAnimatorPointer->Play();
+	}
 }
 
 std::vector<sgf::String> strList;

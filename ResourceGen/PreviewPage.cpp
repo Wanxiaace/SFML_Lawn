@@ -14,16 +14,19 @@ void PreviewPage::Draw()
 	ImGui::End();
 
 	mImagePreview->Draw();
+	mReanimPreview->Draw();
 }
 
 void PreviewPage::Update()
 {
 	mImagePreview->Update();
+	mReanimPreview->Update();
 }
 
 void PreviewPage::SGFDraw(sgf::Graphics* g)
 {
 	mImagePreview->SGFDraw(g);
+	mReanimPreview->SGFDraw(g);
 }
 
 
@@ -65,14 +68,16 @@ void ImagePreview::Draw()
 	mVisible = ImGui::Begin(_LS_C("IMAGE_VIEWER_PAGE"));
 	mWindowSize = ImGui::GetWindowSize();
 	mWindowPos = ImGui::GetWindowPos();
+	mFocused = ImGui::IsWindowFocused();
+
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	
 	ImGuiDrawGrid(draw_list, mWindowPos, mWindowSize, 
 		{ mMapPos .x + mDragDelta.x, mMapPos.y + mDragDelta.y },
 		10.0f * mScale, IM_COL32(0xff, 0xff, 0xff, 0xA0), IM_COL32(0xff, 0xff, 0xff, 0x20));
 	
-	if (gApp->mCurentImageIndex != -1) {
-		auto img = gApp->mResourceManager.GetResourceFast<sgf::SimpleImage>(gApp->mResourceList->mResouces[gApp->mCurentImageIndex].id);
+	if (gApp->mCurentImagePointer) {
+		auto img = gApp->mCurentImagePointer;
 
 		draw_list->AddRect(
 			{
@@ -105,9 +110,9 @@ void ImagePreview::SGFDraw(sgf::Graphics* g)
 	g->SetClipRect({ mWindowPos.x ,mWindowPos.y + 20,mWindowSize.x ,mWindowSize.y - 20 });
 
 	ResGenApp* app = (ResGenApp*)mApp;
-	if (app->mCurentImageIndex != -1) {
+	if (app->mCurentImagePointer) {
 		g->MoveTo(mMapPos.x + mDragDelta.x, mMapPos.y + mDragDelta.y - 20);
-		g->DrawImageScaleF(app->mResourceManager.GetResourceFast<sgf::SimpleImage>(app->mResourceList->mResouces[app->mCurentImageIndex].id),mScale,mScale);
+		g->DrawImageScaleF(app->mCurentImagePointer,mScale,mScale);
 	}
 
 	g->Present();
@@ -116,6 +121,9 @@ void ImagePreview::SGFDraw(sgf::Graphics* g)
 
 void ImagePreview::Update()
 {
+	if (!mVisible || !mFocused)
+		return;
+
 	ImGuiIO& io = ImGui::GetIO();
 	
 	float wheel = io.MouseWheel;
@@ -134,3 +142,108 @@ void ImagePreview::Update()
 		mDragDelta = { 0,0 };
 	}
 }
+
+void ReanimPreview::SelectTrack(int index)
+{
+	ResGenApp* app = (ResGenApp*)gApp;
+	for (size_t i = 0; i < 100; i++)
+	{
+		app->mSelectedTrackBoolList[i] = (i == index);
+	}
+	app->mCurentTrackIndex = index;
+
+	app->mCurentAnimatorPointer->SetFrameRangeByTrackName(
+		(*app->mCurentAnimatorPointer->mReanim->mTracks)[index].mTrackName);
+	
+
+}
+
+void ReanimPreview::Draw()
+{
+	mVisible = ImGui::Begin(_LS_C("REANIM_VIEWER_PAGE"));
+	mWindowSize = ImGui::GetWindowSize();
+	mWindowPos = ImGui::GetWindowPos();
+	mFocused = ImGui::IsWindowFocused();
+	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+	ImGuiDrawGrid(draw_list, mWindowPos, mWindowSize,
+		{ mMapPos.x + mDragDelta.x, mMapPos.y + mDragDelta.y },
+		10.0f * mScale, IM_COL32(0xff, 0xff, 0xff, 0xA0), IM_COL32(0xff, 0xff, 0xff, 0x20));
+
+	if (gApp->mCurentAnimatorPointer) 
+	{
+
+		ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+		float childWidth = 150; // ×Ó´°¿Ú¿í¶È
+		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + contentRegionAvailable.x - childWidth);
+
+		ImGui::BeginChild(_LS_C("REANIM_TRACK_LIST"), ImVec2(childWidth, 0),
+			ImGuiChildFlags_Border);
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.Colors[ImGuiCol_ChildBg] = ImVec4(0.1f, 0.1f, 0.1f, 1.0f);
+		ImGui::Text(_LS_C("REANIM_TRACK_LIST"));
+		
+		int i = 0;
+		for (auto& x : *gApp->mCurentAnimatorPointer->mReanim->mTracks)
+		{
+			if (ImGui::Selectable((std::to_string(i + 1) + "." + x.mTrackName).c_str(), &gApp->mSelectedTrackBoolList[i])) {
+				SelectTrack(i);
+			};
+			i++;
+		}
+
+		ImGui::EndChild();
+	}
+	
+	ImGui::End();
+}
+
+void ReanimPreview::SGFDraw(sgf::Graphics* g)
+{
+	if (!mVisible)
+		return;
+
+	g->MoveTo(0, 0);
+	g->SetClipRect({ mWindowPos.x ,mWindowPos.y + 20,mWindowSize.x ,mWindowSize.y - 20 });
+
+	ResGenApp* app = (ResGenApp*)mApp;
+	if (app->mCurentAnimatorPointer) {
+		g->MoveTo(mMapPos.x + mDragDelta.x, mMapPos.y + mDragDelta.y - 20);
+		app->mCurentAnimatorPointer->PresentMatrix(g,glm::scale(glm::mat4x4(1.0f),glm::vec3(mScale,mScale,1.0f)));
+	}
+
+	g->Present();
+	g->ClearClipRect();
+
+}
+
+void ReanimPreview::Update()
+{
+	if (gApp->mCurentAnimatorPointer) {
+		gApp->mCurentAnimatorPointer->Update();
+	}
+
+
+	if (!mVisible || !mFocused)
+		return;
+	ImGuiIO& io = ImGui::GetIO();
+
+	float wheel = io.MouseWheel;
+	mScale += wheel * 0.1f;
+	if (mScale < 0.5f)
+		mScale = 0.5f;
+
+	if (ImGui::IsMouseDragging(ImGuiMouseButton_Left))
+	{
+		mDragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left);
+	}
+	else {
+		mMapPos.x += mDragDelta.x;
+		mMapPos.y += mDragDelta.y;
+		mDragDelta = { 0,0 };
+	}
+
+	
+}
+

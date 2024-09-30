@@ -300,18 +300,15 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
-		//if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-		//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
-		
+
 		if (mReanimBlendCounter > 0) {
-			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
-			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / 100.0f, aSource);
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
 		}
 		else {
 			if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
 				GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
 		}
-		
+
 		if (!aSource.f) {
 			if (!mExtraInfos[i].mAttachedReanim) {
 				SimpleImage* targetImage;
@@ -327,16 +324,19 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
 				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+
 				animMatrix = mat * animMatrix;
-				animMatrix = glm::translate(animMatrix,glm::vec3(0.0f,0.0f,-1.0f));
+				animMatrix = glm::translate(animMatrix, glm::vec3(0.0f, 0.0f, -1.0f));
 
 				if (targetImage) {
-					g->DrawImageMatrix(targetImage,animMatrix);
+					g->DrawImageMatrix(targetImage, animMatrix);
 				}
 			}
 			else {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				if (mExtraInfos[i].mAttachedReanimMatrix)
+					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
 			}
 		}
@@ -344,6 +344,8 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 			if (mExtraInfos[i].mAttachedReanim) {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				if (mExtraInfos[i].mAttachedReanimMatrix)
+					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
 			}
 		}

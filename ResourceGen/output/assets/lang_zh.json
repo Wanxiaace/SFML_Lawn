@@ -20,5 +20,7 @@
     "PARTICLE_VIEWER":"特效预览",
     "ATLAS_VIEWER":"图集预览",
     "FONT_VIEWER":"字体预览",
-    "IMAGE_VIEWER_PAGE":"图片预览器"
+    "IMAGE_VIEWER_PAGE":"图片预览器",
+    "REANIM_VIEWER_PAGE":"动画预览器",
+    "REANIM_TRACK_LIST":"轨道列表"
 }
