@@ -115,6 +115,20 @@ namespace Lawn {
         PHASE_SQUASH_DONE_FALLING = 98
     };
 
+    enum HelmType
+    {
+        HELMTYPE_NONE = 0,
+        HELMTYPE_TRAFFIC_CONE = 1,
+        HELMTYPE_PAIL = 2,
+        HELMTYPE_FOOTBALL = 3,
+        HELMTYPE_DIGGER = 4,
+        HELMTYPE_REDEYES = 5,
+        HELMTYPE_HEADBAND = 6,
+        HELMTYPE_BOBSLED = 7,
+        HELMTYPE_WALLNUT = 8,
+        HELMTYPE_TALLNUT = 9
+    };
+
     class Zombie : public GameObject {
     public:
         Board* mBoard = nullptr;
@@ -131,6 +145,9 @@ namespace Lawn {
         float mHealth = 270;
         float mHealthMax = 270;
 
+        float mHelmHealth = 0;
+        float mHelmHealthMax = 0;
+
         bool mHasHead = true;
         bool mHasArm = true;
         bool mDoDeathReanim = false;
@@ -142,6 +159,8 @@ namespace Lawn {
         bool mIsEating = false;
         int mEatingChunkCounter = 0;
 
+        HelmType mHelmType = HELMTYPE_NONE;
+
     public:
         Zombie();
         void Init();
@@ -151,6 +170,7 @@ namespace Lawn {
         void DieNoLoot();
         void TakeDamage(ZombieDamageType damageType, int damage);
         void CheckIsDie();
+        void CheckIsHelmDie();
         void DropArm();
         void DropHead();
         void DoDeathReanim();

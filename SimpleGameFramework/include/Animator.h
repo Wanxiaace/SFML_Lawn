@@ -35,6 +35,8 @@ namespace sgf {
 		float mFrameIndexEnd = 0;
 		float mSpeed = 1.0f;
 		float mDeltaRate = 0.0f;
+
+
 		//unsigned int mTickBuffer = 0;
 
 		//过渡动画倒计时

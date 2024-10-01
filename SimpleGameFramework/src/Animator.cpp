@@ -197,7 +197,7 @@ void sgf::Animator::Update()
 	}
 }
 
-static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf::TrackFrameTransform& tDst, float tDelta, sgf::TrackFrameTransform& tOutput) {
+static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf::TrackFrameTransform& tDst, float tDelta, sgf::TrackFrameTransform& tOutput,bool useDestFrame = false) {
 	tOutput.a = (tDst.a - tSrc.a) * tDelta + tSrc.a;
 	tOutput.x = (tDst.x - tSrc.x) * tDelta + tSrc.x;
 	tOutput.y = (tDst.y - tSrc.y) * tDelta + tSrc.y;
@@ -205,7 +205,10 @@ static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf:
 	tOutput.sy = (tDst.sy - tSrc.sy) * tDelta + tSrc.sy;
 	tOutput.kx = (tDst.kx - tSrc.kx) * tDelta + tSrc.kx;
 	tOutput.ky = (tDst.ky - tSrc.ky) * tDelta + tSrc.ky;
-	tOutput.f = tDst.f;
+	if(useDestFrame)
+		tOutput.f = tDst.f;
+	else
+		tOutput.f = tSrc.f;
 	tOutput.i = tSrc.i;
 
 	if (tDst.kx > tSrc.kx + 180.0f)
@@ -234,14 +237,14 @@ void sgf::Animator::Present(Graphics* g)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
-
+		
 		if (mReanimBlendCounter > 0) {
 			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
-			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource,true);
 		}
 		else {
-			//if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-			//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+			if (int(mFrameIndexNow) > mFrameIndexBegin)//线性插值
+				GetDeltaTransformEx(x.mFrames[mFrameIndexNow - 1], x.mFrames[mFrameIndexNow], transformDelta, aSource);
 		}
 		
 		if (!aSource.f) {
@@ -300,13 +303,15 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
+		float rate = float(mFrameIndexNow - mFrameIndexBegin) / float(mFrameIndexEnd - mFrameIndexBegin);
+
 
 		if (mReanimBlendCounter > 0) {
-			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
+			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource, true);
 		}
 		else {
-			//if (int(mFrameIndexNow) < mFrameIndexEnd && int(mFrameIndexNow - mFrameIndexBegin) > 0)//线性插值
-			//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow - 1], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+			if (int(mFrameIndexNow) > mFrameIndexBegin)//线性插值
+				GetDeltaTransformEx(x.mFrames[mFrameIndexNow-1], x.mFrames[mFrameIndexNow], transformDelta, aSource);
 		}
 
 		if (!aSource.f) {

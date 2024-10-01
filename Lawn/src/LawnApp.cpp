@@ -55,7 +55,7 @@ void Lawn::LawnApp::LawnStart()
         }
 
         Uint32 tick = sgf::TryGetTicks();
-        mDeltaTime = (tick - m_deltaTimeTick);
+        mDeltaFrameTime = (tick - m_deltaTimeTick);
 
         if (tick - mLastSecondBuffer >= 1000) {
             mLastSecondBuffer = tick;
@@ -67,7 +67,7 @@ void Lawn::LawnApp::LawnStart()
         }
 
         if (mDisplay)
-            mDisplay(this, mDeltaTime);
+            mDisplay(this, mDeltaFrameTime);
 
         gLoopMutex.lock();
         //SDL_ShowCursor(SDL_DISABLE);
@@ -149,7 +149,10 @@ void Lawn::LawnApp::MakeNewBoard()
     {
         for (size_t j = 4; j < 8; j++)
         {
-            mBoard->SpawnZombieAt(j, i, ZOMBIE_NORMAL);
+            if(sgf::Rand(0,2))
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_NORMAL);
+            else
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_TRAFFIC_CONE);
         }
     }
 }
@@ -209,16 +212,22 @@ void Lawn::LawnApp::Draw()
     SDL_GL_SwapWindow(mGameWindow);
 }
 
-
+static unsigned int m_updateTickBuffer;
 void Lawn::GameUpdateThread(LawnApp* app)
 {
+    m_updateTickBuffer = sgf::TryGetTicks();
     app->Update();
     app->LoadResources((app->mResourceManager.mBasePath + "ResourceList.xml").c_str());
     app->KillLoadingPage();
     app->EnterGameSelector();
+   
 
     while (true)
     {
+        unsigned int nowTick = sgf::TryGetTicks();
+        app->mDeltaTime = nowTick - m_updateTickBuffer;
+        m_updateTickBuffer = nowTick;
+
         gLoopMutex.lock();
         app->Update();
         app->mCursor->Update();

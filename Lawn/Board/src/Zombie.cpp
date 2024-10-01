@@ -32,13 +32,21 @@ void Lawn::Zombie::Init()
 		mZombieType == ZOMBIE_PAIL)
 		InitNormalZombieReanim();
 
+
 	switch (mZombieType)
 	{
 	case Lawn::ZOMBIE_NORMAL:
 		break;
+	case Lawn::ZOMBIE_TRAFFIC_CONE:
+		mBodyReanim.SetTrackVisible("anim_cone", true);
+		mHelmType = HELMTYPE_TRAFFIC_CONE;
+		mHelmHealthMax = 200;
+		break;
 	default:
 		break;
 	}
+
+	mHelmHealth = mHelmHealthMax;
 }
 
 void Lawn::Zombie::InitNormalZombieReanim()
@@ -88,12 +96,25 @@ void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
 	case Lawn::ZOMBIE_DAMAGE_NORMAL: 
 	{
 		mFlashCounter = 300.0f;
+		if (mHelmType != HELMTYPE_NONE && mHelmHealth > 0) {
+			if (mHelmHealth > damage)
+			{
+				mHelmHealth -= damage;
+				damage = 0;
+			}
+			else {
+				damage -= mHelmHealth;
+				mHelmHealth = 0;
+			}
+		}
+		
 		mHealth -= damage;
 		break;
 	}
 	}
 
 	CheckIsDie();
+	CheckIsHelmDie();
 }
 
 void Lawn::Zombie::CheckIsDie()
@@ -108,6 +129,30 @@ void Lawn::Zombie::CheckIsDie()
 		if (mHealth <= mHealthMax * 0.3) {
 			DropHead();
 		}
+	}
+}
+
+void Lawn::Zombie::CheckIsHelmDie()
+{
+	switch (mHelmType)
+	{
+	case Lawn::HELMTYPE_TRAFFIC_CONE:
+	{
+		if ((mHelmHealth / mHelmHealthMax) <= 0.0f) {
+			mBodyReanim.SetTrackVisible("anim_cone", false);
+			mHelmType = HELMTYPE_NONE;
+			sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_cone");
+			sgf::Particle* cone = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMCONEDROP"),
+				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
+		}
+		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
+			mBodyReanim.TrackAttachImage("anim_cone",mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
+		}
+		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
+			mBodyReanim.TrackAttachImage("anim_cone", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
+		}
+		break;
+	}
 	}
 }
 
@@ -206,6 +251,7 @@ Lawn::Plant* Lawn::Zombie::FindPlant()
 void Lawn::Zombie::InitZombiesDefinitions()
 {
 	gZombiesDefinitions[ZOMBIE_NORMAL] = { ZOMBIE_NORMAL,"RAXML_ZOMBIE","NormalZombie","NormalZombie",1.0f,1.4f,1,-20,-40 };
+	gZombiesDefinitions[ZOMBIE_TRAFFIC_CONE] = { ZOMBIE_TRAFFIC_CONE,"RAXML_ZOMBIE","ConeZombie","ConeZombie",1.0f,1.4f,1,-20,-40 };
 }
 
 void Lawn::Zombie::Update()

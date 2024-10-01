@@ -21,6 +21,7 @@ namespace sgf {
 		float mMouseXScale = 1.0f;
 		float mMouseYScale = 1.0f;
 		unsigned int mDeltaTime = 0;
+		unsigned int mDeltaFrameTime = 0;
 
 		unsigned int mLastSecondBuffer = 0;
 		unsigned int mFramePerSecondBuffer = 0;
