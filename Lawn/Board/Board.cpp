@@ -251,7 +251,7 @@ void Lawn::Board::Update()
 	}
 
 
-	mParticleManager.Update();
+	mParticleManager.Update(mTickDelta);
 	mSeedBank->Update();
 }
 

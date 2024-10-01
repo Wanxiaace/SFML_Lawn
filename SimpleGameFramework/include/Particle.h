@@ -65,6 +65,7 @@ namespace sgf {
 		float mTransScaleF = 0.0f;
 		bool mUseFade = true;
 		SimpleImage* mShadowImage = nullptr;
+		float mTickDelta = 0;
 
 	public:
 		Particle();
@@ -129,12 +130,14 @@ namespace sgf {
 		int mX = 0;
 		int mY = 0;
 		int mZ = 0;
+		int mTickDelta = 0;
 
 	public:
 		ParticleManager();
 		~ParticleManager();
 
 		void Update();
+		void Update(float tickDelta) { mTickDelta = tickDelta; Update(); };
 		void Draw(sgf::Graphics* g);
 		void MoveTo(int x, int y, int z) { mX = x; mY = y; mZ = z; };
 		void MoveTo(int x,int y) { mX = x; mY = y;};

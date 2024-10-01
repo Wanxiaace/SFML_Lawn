@@ -229,16 +229,16 @@ void sgf::Particle::Update()
 {
 	if (!mVisible)
 		return;
-	unsigned int tickNow = TryGetTicks();
-	float tickDelta = float(tickNow - mTickCache);
-	mTickCache = tickNow;
+	/*unsigned int tickNow = TryGetTicks();
+	float mTickDelta = float(tickNow - mTickCache);
+	mTickCache = tickNow;*/
 
-	mScaleF += mTransScaleF * tickDelta / 1000.0f;
+	mScaleF += mTransScaleF * mTickDelta / 1000.0f;
 
 	switch (mImageType)
 	{
 	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION://PARTICLE_IMAGE_GROUP_ANIMARION
-		mLifeTimeTick += tickDelta;
+		mLifeTimeTick += mTickDelta;
 		if (mLifeTime == 0) {
 			mLifeTimeTick = 0;
 		}
@@ -249,7 +249,7 @@ void sgf::Particle::Update()
 	switch (mMotionType)
 	{
 	case sgf::PARTICLE_MOTION_THROW:
-		mSpeedZ += mGravity * tickDelta;
+		mSpeedZ += mGravity * mTickDelta;
 		if (mZ > 0) {
 			mZ = 0;
 			mSpeedZ *= -1.0f * mEnergyLossRate;
@@ -268,8 +268,8 @@ void sgf::Particle::Update()
 
 
 	if (mCostingLifeTime) {
-		if (mLifeTime > tickDelta)
-			mLifeTime -= tickDelta;
+		if (mLifeTime > mTickDelta)
+			mLifeTime -= mTickDelta;
 		else
 			mLifeTime = 0;
 	}
@@ -278,10 +278,10 @@ void sgf::Particle::Update()
 		mVisible = false;
 	}
 
-	mZ += mSpeedZ * tickDelta / 100.0f;
-	mX += mSpeedX * tickDelta / 100.0f;
-	mY += mSpeedY * tickDelta / 100.0f;
-	mAngle += mRotateSpeed * tickDelta / 100.0f;
+	mZ += mSpeedZ * mTickDelta / 100.0f;
+	mX += mSpeedX * mTickDelta / 100.0f;
+	mY += mSpeedY * mTickDelta / 100.0f;
+	mAngle += mRotateSpeed * mTickDelta / 100.0f;
 }
 
 void sgf::Particle::Draw(Graphics* g) const
@@ -375,6 +375,7 @@ void sgf::ParticleManager::Update()
 
 	for (auto& x : mParticles)
 	{
+		x->mTickDelta = mTickDelta;
 		x->Update();
 	}
 }
