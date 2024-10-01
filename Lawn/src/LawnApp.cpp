@@ -5,6 +5,7 @@
 #include "../Board/include/Zombie.h"
 #include "../Board/include/Projectile.h"
 #include <mutex>
+#include <ctime>
 
 Lawn::LawnApp* gLawnApp = nullptr;
 std::thread* gUpdateThread = nullptr;
@@ -17,9 +18,9 @@ Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, 
     Plant::InitPlantsDefinitions();
     Zombie::InitZombiesDefinitions();
     Projectile::InitProjectilesDefinitions();
-#ifdef _WIN32
-    sgf::SRand(sgf::TryGetTicks());
-#endif
+
+    sgf::SRand(time(nullptr));
+
     mCursor = new LawnCursor();
     mCursor->AttachApp(this);
 }

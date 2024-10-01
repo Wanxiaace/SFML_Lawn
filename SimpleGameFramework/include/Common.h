@@ -22,6 +22,7 @@
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
 
+#include <random>
  
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
@@ -205,21 +206,23 @@ namespace sgf {
         return SDL_GetTicks64();
     }
 
+    static std::mt19937 m_randomAdapter;
+
     static void SRand(unsigned int seed) {
-        srand(seed);
+        m_randomAdapter.seed(seed);
     };
 
     //注意，该函数无法达到rangeMax，最大值是rangeMax-1
     static int Rand(int rangeMin,int rangeMax) {
         int range = rangeMax - rangeMin;
-        return rand() % range + rangeMin;
+        return m_randomAdapter() % range + rangeMin;
     };
 
     static float RandF(float rangeMin, float rangeMax) {
         float range = rangeMax - rangeMin;
         if (!int(range * 1000.0f))
             return rangeMin;
-        return float(rand() % int(range * 1000.0f)) / 1000.0f + rangeMin;
+        return float(m_randomAdapter() % int(range * 1000.0f)) / 1000.0f + rangeMin;
     };
 
 }
