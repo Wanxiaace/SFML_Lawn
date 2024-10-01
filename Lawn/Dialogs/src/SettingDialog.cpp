@@ -86,7 +86,7 @@ void Lawn::SettingDialog::Draw(sgf::Graphics* g)
 
 void Lawn::SettingDialog::Update()
 {
-
+	LawnDialog::Update();
 }
 
 void Lawn::SettingDialog::OnClick(int buttonId)
@@ -99,6 +99,9 @@ void Lawn::SettingDialog::OnClick(int buttonId)
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
 		break;
 	case SLIDER_VOLUME:
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
+		break;
+	case SLIDER_SOUND_VOLUME:
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
 		break;
 	case CHECKBOX_FULLSCREEN:

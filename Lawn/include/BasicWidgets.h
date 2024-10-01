@@ -77,6 +77,9 @@ namespace Lawn {
 		sgf::SimpleImage* mDialogHeader = nullptr;
 	public:
 		sgf::GameApp* mApp = nullptr;
+		sgf::Point mMouseOriPoint = {};
+
+
 	public:
 
 		LawnDialog(int theId, sgf::GameApp* app);

@@ -26,6 +26,7 @@ namespace Lawn {
 		sgf::SimpleImage* mBackGroundImageCache;
 		BackGroundType mBackGroundType;
 		LawnStoneButton* mMenuButton = nullptr;
+		LawnStoneButton* mDefeatReturnToMenuButton = nullptr;
 		SeedBank* mSeedBank = nullptr;
 
 		sgf::ParticleManager mParticleManager;
@@ -42,6 +43,11 @@ namespace Lawn {
 
 		int mGridWidth = 0;
 		int mGridHeight = 0;
+		bool mIsBoardRunning = true;
+		Zombie* mWinZombie = nullptr;
+		sgf::Animator* mZombieAnimator = nullptr;
+		bool mIsZombieWin = false;
+		float mBlackScreenCounter = 0;
 
 	public:
 		Board(LawnApp* app);
@@ -60,6 +66,7 @@ namespace Lawn {
 		Projectile* SpawnProjectileAt(int x,int y, ProjectileType projectileType);
 		sgf::Particle* SpawnParticleAt(sgf::Emitter* emitter,int x,int y,int z);
 		void SpawnParticlesAt(sgf::Emitter* emitter,int number,int x,int y,int z);
+		void ZombieWin(Zombie* target);
 
 	public:
 		virtual void Update() override;

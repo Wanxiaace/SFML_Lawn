@@ -79,6 +79,17 @@ namespace sgf {
 			return { mX * mul ,mY * mul,mWidth * mul,mHeight * mul };
 		}
 
+        Rect operator+(Rect t2) {
+            return { mX + t2.mX , mY + t2.mY,mWidth + t2.mWidth,mHeight + t2.mHeight };
+        }
+
+        void operator+=(Rect t2) {
+            mX += t2.mX;
+            mY += t2.mY;
+            mWidth += t2.mWidth;
+            mHeight += t2.mHeight;
+        }
+
         bool IsPointIn(T pointX, T pointY) {
             if (pointX > mX && pointX < mX + mWidth && pointY > mY && pointY < mY + mHeight)
                 return true;
@@ -106,6 +117,8 @@ namespace sgf {
         float y;
 
         void operator*(float mul) { x *= mul, y *= mul; };
+        Point operator+(Point p2) { return{ x + p2.x, y + p2.y }; };
+        Point operator-(Point p2) { return{ x - p2.x, y - p2.y }; };
     };
 
     struct GameMat44 {

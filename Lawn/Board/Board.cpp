@@ -13,17 +13,24 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 	UpdateBoardBackground();
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 
-	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_MENU,mApp);
+	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_PAUSE,mApp);
 	//std::cout << _LS("Menu") << std::endl;
 	mMenuButton->LoadLabel(_LS("Menu"));
 	mMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
 	mMenuButton->AttachToListener(this);
+
+	mDefeatReturnToMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_RETURN_TO_MENU, mApp);
+	mDefeatReturnToMenuButton->LoadLabel(_LS("ReturnToMenu"));
+	mDefeatReturnToMenuButton->Resize((LAWN_GAME_WINDOW_WIDTH - 210)/2, 500, 210, 50);
+	mDefeatReturnToMenuButton->AttachToListener(this);
+	mDefeatReturnToMenuButton->mVisible = false;
 
 	mSeedBank = new SeedBank(this);
 	mSeedBank->AttachToListener(this);
 
 	AppendChild(mMenuButton);
 	AppendChild(mSeedBank);
+	AppendChild(mDefeatReturnToMenuButton);
 	AttachToListener(this);
 }
 
@@ -34,8 +41,12 @@ Lawn::Board::~Board()
 	Widget::~Widget();
 	mWidgetManager->RemoveWidget(mMenuButton);
 	mWidgetManager->RemoveWidget(mSeedBank);
+	mWidgetManager->RemoveWidget(mDefeatReturnToMenuButton);
 	delete mMenuButton;
 	delete mSeedBank;
+	delete mDefeatReturnToMenuButton;
+	if (mZombieAnimator)
+		delete mZombieAnimator;
 
 	for (auto& x : mPlantVector)
 	{
@@ -71,7 +82,7 @@ void Lawn::Board::UpdateBoardBackground()
 		break;
 	}
 	mBackgroundScaleF = float(LAWN_GAME_WINDOW_HEIGHT) / mBackGroundImageCache->mSurface->h;
-	mApp->mMusicManager.PlayMusic("MUSIC_LAWNBGM(13)");
+	mApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)",5000);
 
 }
 
@@ -164,8 +175,38 @@ void Lawn::Board::SpawnParticlesAt(sgf::Emitter* emitter, int number, int x, int
 	mParticleManager.EmittParticles(emitter, number);
 }
 
+void Lawn::Board::ZombieWin(Zombie* target)
+{
+	mWinZombie = target;
+	mWinZombie->PlayTrack("anim_eat");
+	mZombieAnimator = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_ZOMBIESWON"),gLawnApp);
+	mZombieAnimator->SetFrameRangeByTrackName("anim_screen");
+	mZombieAnimator->Play(sgf::Animator::PlayState::PLAY_ONCE);
+	mIsZombieWin = true;
+	mBlackScreenCounter = 2000;
+	mIsBoardRunning = false;
+	mSeedBank->mVisible = false;
+	mMenuButton->mVisible = false;
+	mDefeatReturnToMenuButton->mVisible = true;
+	mApp->mMusicManager.FadeOutMusic(2000);
+	mApp->mMusicManager.PlayChunk("CHUNK_SCREAM");
+}
+
 void Lawn::Board::Update()
 {
+	if (mBlackScreenCounter > mTickDelta)
+		mBlackScreenCounter -= mTickDelta;
+	else
+		mBlackScreenCounter = 0;
+
+	if (!mIsBoardRunning) {
+		mWinZombie->mTickDelta = mTickDelta;
+		mWinZombie->Update();
+		if(mBlackScreenCounter <= 0)
+			mZombieAnimator->Update();
+		return;
+	}
+		
 	int length = mPlantVector.size();
 	for (size_t i = 0; i < length; i++)
 	{
@@ -259,6 +300,26 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 		x->Draw(g);
 	}
 
+	if (mIsZombieWin) {
+		g->ModelMoveTo(0, 0);
+		g->MoveTo(0, 0);
+		
+		g->SetCubeColor({ 0,0,0,1.0f - mBlackScreenCounter / 2000.0f});
+		g->FillRect({ 0,0,LAWN_GAME_WINDOW_WIDTH ,LAWN_GAME_WINDOW_HEIGHT });
+
+		g->SetCubeColor({ 1,1,1,1 });
+		
+		if (mBlackScreenCounter <= 0)
+		{
+			g->Translate((LAWN_GAME_WINDOW_WIDTH - 800) / 2, 0);
+			mZombieAnimator->Present(g);
+		}
+
+		g->ModelMoveTo(boardPos.first + mWinZombie->mBox.mX, boardPos.second + mWinZombie->mBox.mY);
+		mWinZombie->Draw(g);
+
+	}
+
 }
 
 void Lawn::Board::OnClick(int theId)
@@ -269,7 +330,11 @@ void Lawn::Board::OnClick(int theId)
 
 	switch (theId)
 	{
-	case LAWN_WIDGET_BUTTON_MENU:
+	case LAWN_WIDGET_BUTTON_RETURN_TO_MENU:
+		gLawnApp->KillBoard();
+		gLawnApp->EnterGameSelector();
+		break;
+	case LAWN_WIDGET_BUTTON_PAUSE:
 		//gLawnApp->KillBoard();
 		//gLawnApp->EnterGameSelector();
 

@@ -19,7 +19,8 @@ constexpr int LAWN_WIDGET_STONE_TEST_BUTTON = 53;
 
 constexpr int LAWN_WIDGET_BUTTON_OK = 500;
 constexpr int LAWN_WIDGET_BUTTON_CANCEL = 501;
-constexpr int LAWN_WIDGET_BUTTON_MENU = 502;
+constexpr int LAWN_WIDGET_BUTTON_PAUSE = 502;
+constexpr int LAWN_WIDGET_BUTTON_RETURN_TO_MENU = 503;
 
 constexpr int LAWN_SEED_BANK= 1000;
 

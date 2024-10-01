@@ -23,6 +23,7 @@ namespace sgf {
 		void PauseMusic();
 		void ResumeMusic();
 		void FadeOutMusic(int ms = 1000);
+		void FadeInMusic(const String& musicKey,int ms = 1000);
 
 		void SetMusicVolume(float volume);//range from 0~1
 		void SetChunkVolume(float volume, const String& key);

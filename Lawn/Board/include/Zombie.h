@@ -124,7 +124,6 @@ namespace Lawn {
         sgf::Animator mBodyReanim;
         sgf::SimpleImage* mShadowImage = nullptr;
 
-
         float mSpeedMin = 0;
         float mSpeedMax = 0;
         float mFlashCounter = 0;

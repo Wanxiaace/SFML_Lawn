@@ -17,7 +17,7 @@ namespace sgf {
 		float ky;
 		float sx;
 		float sy;
-		int a;
+		float a;
 		int f;
 		sgf::String i;
 	};

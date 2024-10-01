@@ -57,11 +57,6 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 			if(!isModelUsed)
 				(*x)->Update();
 
-			if ((*x)->mEnabledModel) {
-				isMouseUsed = true;
-				isModelUsed = true;
-			}
-
 			if (!isMouseUsed && (*x)->GetExactRect().IsPointIn(app->mMouseX, app->mMouseY)) {
 				(*x)->mIsMouseHover = true;
 				if (app->mIsMouseLeftDown) {
@@ -84,6 +79,11 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 			else {
 				(*x)->mIsMouseHover = false;
 				(*x)->mIsMouseCaught = false;
+			}
+
+			if ((*x)->mEnabledModel) {
+				isMouseUsed = true;
+				isModelUsed = true;
 			}
 		}
 	}

@@ -248,7 +248,14 @@ void Lawn::LawnDialog::Draw(sgf::Graphics* g)
 
 void Lawn::LawnDialog::Update()
 {
-
+	if (mIsMouseCaught) {
+		sgf::Point p = sgf::Point{ (float)mApp->mMouseX, (float)mApp->mMouseY } - mMouseOriPoint;
+		mRect += sgf::FloatRect{p.x, p.y, 0, 0};
+		mMouseOriPoint = sgf::Point{ (float)mApp->mMouseX, (float)mApp->mMouseY };
+	}
+	else {
+		mMouseOriPoint = { (float)mApp->mMouseX,(float)mApp->mMouseY };
+	}
 }
 
 Lawn::LawnSlider::LawnSlider(int theId, sgf::GameApp* app) : sgf::Widget(theId)

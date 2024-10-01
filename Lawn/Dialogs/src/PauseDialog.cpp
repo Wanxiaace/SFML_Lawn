@@ -43,7 +43,7 @@ void Lawn::PauseDialog::Draw(sgf::Graphics* g)
 
 void Lawn::PauseDialog::Update()
 {
-
+	LawnDialog::Update();
 }
 
 void Lawn::PauseDialog::OnClick(int buttonId)

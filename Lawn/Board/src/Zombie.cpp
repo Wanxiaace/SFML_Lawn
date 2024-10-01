@@ -259,6 +259,9 @@ void Lawn::Zombie::Update()
 			}
 			mIsEating = false;
 		}
+		if (mBox.mX < 150 && mBoard->mIsBoardRunning) {
+			mBoard->ZombieWin(this);
+		}
 	}
 	
 }

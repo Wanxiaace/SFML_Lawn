@@ -43,6 +43,11 @@ void sgf::MusicManager::FadeOutMusic(int ms)
 	Mix_FadeOutMusic(ms);
 }
 
+void sgf::MusicManager::FadeInMusic(const String& musicKey, int ms)
+{
+	Mix_FadeInMusic(mMusicMap[musicKey],0,ms);
+}
+
 void sgf::MusicManager::SetMusicVolume(float volume)
 {
 	Mix_VolumeMusic(volume * MIX_MAX_VOLUME);

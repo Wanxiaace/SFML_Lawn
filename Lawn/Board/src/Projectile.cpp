@@ -1,5 +1,6 @@
 #include "../include/Projectile.h"
 #include "../../include/LawnApp.h"
+#include "../../include/Constant.h"
 
 std::unordered_map<Lawn::ProjectileType, Lawn::ProjectileDefinition> Lawn::gProjectilesDefinitions;
 
@@ -101,6 +102,9 @@ void Lawn::Projectile::Update()
 		DoEffect(target);
 	}
 
+	if (mBox.mX > LAWN_GAME_WINDOW_WIDTH) {
+		Die();
+	}
 }
 
 void Lawn::Projectile::Draw(sgf::Graphics* g)

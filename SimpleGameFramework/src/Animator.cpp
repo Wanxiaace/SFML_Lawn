@@ -240,8 +240,8 @@ void sgf::Animator::Present(Graphics* g)
 			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
 		}
 		else {
-			if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-				GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+			//if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
+			//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
 		}
 		
 		if (!aSource.f) {
@@ -259,7 +259,7 @@ void sgf::Animator::Present(Graphics* g)
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
 				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
-
+				
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);
 				}
@@ -305,8 +305,8 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource);
 		}
 		else {
-			if (int(mFrameIndexNow) < mFrameIndexEnd)//线性插值
-				GetDeltaTransformEx(x.mFrames[mFrameIndexNow], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
+			//if (int(mFrameIndexNow) < mFrameIndexEnd && int(mFrameIndexNow - mFrameIndexBegin) > 0)//线性插值
+			//	GetDeltaTransformEx(x.mFrames[mFrameIndexNow - 1], x.mFrames[mFrameIndexNow + 1], transformDelta, aSource);
 		}
 
 		if (!aSource.f) {

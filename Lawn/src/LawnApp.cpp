@@ -193,7 +193,7 @@ void Lawn::LawnApp::LoadPlayerInfo(const sgf::String& path)
 
 void Lawn::LawnApp::CopeEvent(SDL_Event& _event)
 {
-	sgf::GameApp::CopeEvent(_event);
+    GameApp::CopeEvent(_event);
 }
 
 void Lawn::LawnApp::Draw()
