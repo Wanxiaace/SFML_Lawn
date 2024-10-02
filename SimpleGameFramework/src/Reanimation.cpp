@@ -136,7 +136,7 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 }
 
 void sgf::TransformToMatrixEx(
-	sgf::TrackFrameTransform& src, glm::mat4x4* dest, float ScaleX, float ScaleY, int pX, int pY)
+	sgf::TrackFrameTransform& src, glm::mat4x4* dest, float ScaleX, float ScaleY, float pX, float pY)
 {
 	float aSkewX = (src.kx) * -0.017453292f;
 	float aSkewY = (src.ky) * -0.017453292f;

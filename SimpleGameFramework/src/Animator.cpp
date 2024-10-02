@@ -88,7 +88,7 @@ void sgf::Animator::SetFrameRangeByTrackNameOnce(const sgf::String& trackName, c
 	mTargetTrack = oriTrackName;
 }
 
-void sgf::Animator::SetTrackVisible(const sgf::String& trackName, bool visible)
+void sgf::Animator::SetTrackVisibleByTrackName(const sgf::String& trackName, bool visible)
 {
 	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
@@ -97,13 +97,23 @@ void sgf::Animator::SetTrackVisible(const sgf::String& trackName, bool visible)
 	//mExtraInfos[mTrackIndicesMap[trackName]].mVisible = visible;
 }
 
-void sgf::Animator::TrackAttachImage(const sgf::String& trackName, SimpleImage* target)
+void sgf::Animator::SetTrackVisible(int index, bool visible)
+{
+	mExtraInfos[index].mVisible = visible;
+}
+
+void sgf::Animator::TrackAttachImageByTrackName(const sgf::String& trackName, SimpleImage* target)
 {
 	for (auto& x : GetAllTracksExtraByName(trackName))
 	{
 		x->mAttachedImage = target;
 	}
 	//mExtraInfos[mTrackIndicesMap[trackName]].mAttachedImage = target;
+}
+
+void sgf::Animator::TrackAttachImage(int index, SimpleImage* target)
+{
+	mExtraInfos[index].mAttachedImage = target;
 }
 
 void sgf::Animator::TrackAttachAnimator(const sgf::String& trackName, Animator* target)
@@ -122,6 +132,33 @@ void sgf::Animator::TrackAttachAnimatorMatrix(const sgf::String& trackName, glm:
 		x->mAttachedReanimMatrix = target;
 	}
 	//mExtraInfos[mTrackIndicesMap[trackName]].mAttachedReanimMatrix = target;
+}
+
+void sgf::Animator::TrackAttachOffsetByTrackName(const sgf::String& trackName, float offsetX, float offsetY)
+{
+	for (auto& x : GetAllTracksExtraByName(trackName)) {
+		x->mOffsetX = offsetX;
+		x->mOffsetY = offsetY;
+	}
+}
+
+void sgf::Animator::TrackAttachOffset(int index, float offsetX, float offsetY)
+{
+	mExtraInfos[index].mOffsetX = offsetX;
+	mExtraInfos[index].mOffsetY = offsetY;
+}
+
+void sgf::Animator::TrackAttachFlashSpot(int index, float spot)
+{
+	mExtraInfos[index].mFlashSpotSingle = spot;
+}
+
+void sgf::Animator::TrackAttachFlashSpotByTrackName(const sgf::String& trackName, float spot)
+{
+	for (auto& x : GetAllTracksExtraByName(trackName))
+	{
+		x->mFlashSpotSingle = spot;
+	}
 }
 
 float sgf::Animator::GetTrackVelocity(const sgf::String& trackName)
@@ -162,6 +199,16 @@ std::vector<sgf::TrackInfo*> sgf::Animator::GetAllTracksByName(const sgf::String
 			result.push_back(&mReanim->mTracks->at(i));
 	}
 	return result;
+}
+
+int sgf::Animator::GetFirstTrackExtraIndexByName(const sgf::String& trackName)
+{
+	for (size_t i = 0; i < mReanim->mTracks->size(); i++)
+	{
+		if (mReanim->mTracks->at(i).mTrackName == trackName)
+			return i;
+	}
+	return -1;
 }
 
 void sgf::Animator::Update()
@@ -224,8 +271,8 @@ static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf:
 void sgf::Animator::Present(Graphics* g)
 {
 	Reanimation* R = mReanim;
-	int OffsetX = 0;
-	int OffsetY = 0;
+	float OffsetX = 0;
+	float OffsetY = 0;
 	float fScale = 1.0f;
 
 	for (int i = 0; i < R->mTracks->size(); i++) {
@@ -237,6 +284,10 @@ void sgf::Animator::Present(Graphics* g)
 
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
+
+		OffsetX = mExtraInfos[i].mOffsetX;
+		OffsetY = mExtraInfos[i].mOffsetY;
+		g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle });// 
 		
 		if (mReanimBlendCounter > 0) {
 			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
@@ -261,7 +312,7 @@ void sgf::Animator::Present(Graphics* g)
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetY);
 				
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);
@@ -269,7 +320,7 @@ void sgf::Animator::Present(Graphics* g)
 			}
 			else{
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale,0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetY);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -278,7 +329,7 @@ void sgf::Animator::Present(Graphics* g)
 		else {
 			if (mExtraInfos[i].mAttachedReanim) {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -290,8 +341,8 @@ void sgf::Animator::Present(Graphics* g)
 void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 {
 	Reanimation* R = mReanim;
-	int OffsetX = 0;
-	int OffsetY = 0;
+	float OffsetX = 0;
+	float OffsetY = 0;
 	float fScale = 1.0f;
 
 	for (int i = 0; i < R->mTracks->size(); i++) {
@@ -304,6 +355,10 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 		float transformDelta = mFrameIndexNow - int(mFrameIndexNow);
 		TrackFrameTransform aSource = x.mFrames[mFrameIndexNow];
 		float rate = float(mFrameIndexNow - mFrameIndexBegin) / float(mFrameIndexEnd - mFrameIndexBegin);
+
+		OffsetX = mExtraInfos[i].mOffsetX;
+		OffsetY = mExtraInfos[i].mOffsetY;
+		g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle });// 
 
 
 		if (mReanimBlendCounter > 0) {
@@ -328,7 +383,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
 
 				animMatrix = mat * animMatrix;
 				animMatrix = glm::translate(animMatrix, glm::vec3(0.0f, 0.0f, -1.0f));
@@ -339,7 +394,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 			}
 			else {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -348,7 +403,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 		else {
 			if (mExtraInfos[i].mAttachedReanim) {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, 0, 0);
+				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);

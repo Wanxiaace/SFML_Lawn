@@ -26,9 +26,10 @@ void Lawn::Zombie::Init()
 	mSpeedMax = def.mSpeedMax;
 	ResetZomSpeed();
 
-	if (mZombieType == Lawn::ZOMBIE_NORMAL ||
-		mZombieType == Lawn::ZOMBIE_TRAFFIC_CONE ||
+	if (mZombieType == ZOMBIE_NORMAL ||
+		mZombieType == ZOMBIE_TRAFFIC_CONE ||
 		mZombieType == ZOMBIE_FLAG ||
+		mZombieType == ZOMBIE_DOOR ||
 		mZombieType == ZOMBIE_PAIL)
 		InitNormalZombieReanim();
 
@@ -38,33 +39,53 @@ void Lawn::Zombie::Init()
 	case Lawn::ZOMBIE_NORMAL:
 		break;
 	case Lawn::ZOMBIE_TRAFFIC_CONE:
-		mBodyReanim.SetTrackVisible("anim_cone", true);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_cone", true);
 		mHelmType = HELMTYPE_TRAFFIC_CONE;
-		mHelmHealthMax = 200;
+		mHelmHealthMax = 370;
+		break;
+	case Lawn::ZOMBIE_PAIL:
+		mBodyReanim.SetTrackVisibleByTrackName("anim_bucket", true);
+		mHelmType = HELMTYPE_PAIL;
+		mHelmHealthMax = 1100;
+		break;
+	case Lawn::ZOMBIE_DOOR:
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_upper", false);
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_lower", false);
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_hand", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm1", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm2", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm3", false);
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_screendoor", true);
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", true);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_screendoor", true);
+		mScreenDoorLayerIndex = mBodyReanim.GetFirstTrackExtraIndexByName("anim_screendoor");
+		mShieldType = SHIELDTYPE_DOOR;
+		mShieldHealthMax = 1100;
 		break;
 	default:
 		break;
 	}
 
 	mHelmHealth = mHelmHealthMax;
+	mShieldHealth = mShieldHealthMax;
 }
 
 void Lawn::Zombie::InitNormalZombieReanim()
 {
-	mBodyReanim.SetTrackVisible("anim_cone",false);
-	mBodyReanim.SetTrackVisible("anim_bucket",false);
-	mBodyReanim.SetTrackVisible("Zombie_outerarm_screendoor",false);
-	mBodyReanim.SetTrackVisible("Zombie_innerarm_screendoor_hand",false);
-	mBodyReanim.SetTrackVisible("anim_screendoor",false);
-	mBodyReanim.SetTrackVisible("Zombie_duckytube",false);
-	mBodyReanim.SetTrackVisible("Zombie_flaghand",false);
-	mBodyReanim.SetTrackVisible("Zombie_innerarm_screendoor",false);
-	mBodyReanim.SetTrackVisible("anim_tongue", false);
-	mBodyReanim.SetTrackVisible("Zombie_mustache", false);
+	mBodyReanim.SetTrackVisibleByTrackName("anim_cone",false);
+	mBodyReanim.SetTrackVisibleByTrackName("anim_bucket",false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_screendoor",false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand",false);
+	mBodyReanim.SetTrackVisibleByTrackName("anim_screendoor",false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_duckytube",false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_flaghand",false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor",false);
+	mBodyReanim.SetTrackVisibleByTrackName("anim_tongue", false);
+	mBodyReanim.SetTrackVisibleByTrackName("Zombie_mustache", false);
 
 	int randomInteger = sgf::Rand(0,4);
 	if (!randomInteger) {
-		mBodyReanim.SetTrackVisible("anim_tongue", true);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_tongue", true);
 		mSpeedMax += 0.2f;
 		mSpeedMin += 0.2f;
 		ResetZomSpeed();
@@ -95,7 +116,7 @@ void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
 	{
 	case Lawn::ZOMBIE_DAMAGE_NORMAL: 
 	{
-		mFlashCounter = 300.0f;
+		
 		if (mHelmType != HELMTYPE_NONE && mHelmHealth > 0) {
 			if (mHelmHealth > damage)
 			{
@@ -107,6 +128,22 @@ void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
 				mHelmHealth = 0;
 			}
 		}
+
+		if (mShieldType != SHIELDTYPE_NONE && mShieldHealth > 0) {
+			if (mShieldHealth > damage)
+			{
+				mShieldHealth -= damage;
+				damage = 0;
+			}
+			else {
+				damage -= mShieldHealth;
+				mShieldHealth = 0;
+			}
+			mScreenDoorShakeCounter = 300.0f;
+		}
+		else {
+			mFlashCounter = 300.0f;
+		}
 		
 		mHealth -= damage;
 		break;
@@ -115,6 +152,7 @@ void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
 
 	CheckIsDie();
 	CheckIsHelmDie();
+	CheckIsShieldDie();
 }
 
 void Lawn::Zombie::CheckIsDie()
@@ -139,17 +177,65 @@ void Lawn::Zombie::CheckIsHelmDie()
 	case Lawn::HELMTYPE_TRAFFIC_CONE:
 	{
 		if ((mHelmHealth / mHelmHealthMax) <= 0.0f) {
-			mBodyReanim.SetTrackVisible("anim_cone", false);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_cone", false);
 			mHelmType = HELMTYPE_NONE;
 			sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_cone");
 			sgf::Particle* cone = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMCONEDROP"),
 				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImage("anim_cone",mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone",mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImage("anim_cone", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
+		}
+		break;
+	}
+	case Lawn::HELMTYPE_PAIL: {
+		if ((mHelmHealth / mHelmHealthMax) <= 0.0f) {
+			mBodyReanim.SetTrackVisibleByTrackName("anim_bucket", false);
+			mHelmType = HELMTYPE_NONE;
+			sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_bucket");
+			sgf::Particle* cone = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMBUCKETDROP"),
+				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
+		}
+		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET3"));
+		}
+		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET2"));
+		}
+		break;
+	}
+	}
+}
+
+void Lawn::Zombie::CheckIsShieldDie()
+{
+	switch (mShieldType)
+	{
+	case Lawn::SHIELDTYPE_DOOR:
+	{
+		if ((mShieldHealth / mShieldHealthMax) <= 0.0f) {
+			mBodyReanim.SetTrackVisibleByTrackName("anim_screendoor", false);
+			mShieldType = SHIELDTYPE_NONE;
+			sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_screendoor");
+			sgf::Particle* cone = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMSCREENDOORDROP"),
+				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_upper", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_lower", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_hand", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm1", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm2", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm3", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_screendoor", false);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", false);
+		}
+		else if (mShieldHealth / mShieldHealthMax < 0.3f) {
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR3"));
+		}
+		else if (mShieldHealth / mShieldHealthMax < 0.7f) {
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR2"));
 		}
 		break;
 	}
@@ -163,10 +249,11 @@ void Lawn::Zombie::DropArm()
 	{
 	case Lawn::ZOMBIE_TRAFFIC_CONE:
 	case Lawn::ZOMBIE_PAIL:
+	case Lawn::ZOMBIE_DOOR:
 	case Lawn::ZOMBIE_NORMAL: {
-		mBodyReanim.SetTrackVisible("Zombie_outerarm_hand", false);
-		mBodyReanim.SetTrackVisible("Zombie_outerarm_lower", false);
-		mBodyReanim.TrackAttachImage("Zombie_outerarm_upper", gLawnApp->mResourceManager.GetResource<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_OUTERARM_UPPER2"));
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_hand", false);
+		mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_lower", false);
+		mBodyReanim.TrackAttachImageByTrackName("Zombie_outerarm_upper", gLawnApp->mResourceManager.GetResource<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_OUTERARM_UPPER2"));
 		sgf::Point dropPoint = mBodyReanim.GetTrackPos("Zombie_outerarm_upper");
 		mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMARMDROP"), dropPoint.x + mBox.mX + mReanimOffsetX - 40, dropPoint.y + mBox.mY + mReanimOffsetY + 60, -40);
 		break;
@@ -181,11 +268,12 @@ void Lawn::Zombie::DropHead()
 	{
 	case Lawn::ZOMBIE_TRAFFIC_CONE:
 	case Lawn::ZOMBIE_PAIL:
+	case Lawn::ZOMBIE_DOOR:
 	case Lawn::ZOMBIE_NORMAL: {
-		mBodyReanim.SetTrackVisible("anim_head1", false);
-		mBodyReanim.SetTrackVisible("anim_head2", false);
-		mBodyReanim.SetTrackVisible("anim_hair", false);
-		mBodyReanim.SetTrackVisible("anim_tongue", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_head1", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_head2", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_hair", false);
+		mBodyReanim.SetTrackVisibleByTrackName("anim_tongue", false);
 		sgf::Point dropPoint = mBodyReanim.GetTrackPos("anim_head1");
 		sgf::Particle* head = mBoard->SpawnParticleAt(gLawnApp->mResourceManager.GetResource<sgf::Emitter>("PAXML_ZOMHEADDROP"), dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		break;
@@ -252,6 +340,8 @@ void Lawn::Zombie::InitZombiesDefinitions()
 {
 	gZombiesDefinitions[ZOMBIE_NORMAL] = { ZOMBIE_NORMAL,"RAXML_ZOMBIE","NormalZombie","NormalZombie",1.0f,1.4f,1,-20,-40 };
 	gZombiesDefinitions[ZOMBIE_TRAFFIC_CONE] = { ZOMBIE_TRAFFIC_CONE,"RAXML_ZOMBIE","ConeZombie","ConeZombie",1.0f,1.4f,1,-20,-40 };
+	gZombiesDefinitions[ZOMBIE_PAIL] = { ZOMBIE_PAIL,"RAXML_ZOMBIE","BucketZombie","BucketZombie",1.0f,1.4f,1,-20,-40 };
+	gZombiesDefinitions[ZOMBIE_DOOR] = { ZOMBIE_DOOR,"RAXML_ZOMBIE","ShieldZombie","ShieldZombie",1.0f,1.4f,1,-20,-40 };
 }
 
 void Lawn::Zombie::Update()
@@ -272,6 +362,23 @@ void Lawn::Zombie::Update()
 	else {
 		mFlashCounter = 0;
 	}
+
+	if (mScreenDoorShakeCounter > mTickDelta) {
+		mBodyReanim.TrackAttachOffset(mScreenDoorLayerIndex,
+			mScreenDoorShakeCounter / 100.0f, mScreenDoorShakeCounter / 100.0f);
+		mBodyReanim.TrackAttachFlashSpot(mScreenDoorLayerIndex,
+			mScreenDoorShakeCounter / 300.0f);
+		mScreenDoorShakeCounter -= mTickDelta;
+	}
+	else {
+		if (mScreenDoorShakeCounter > 0)
+		{
+			mBodyReanim.TrackAttachOffset(mScreenDoorLayerIndex, 0, 0);
+			mBodyReanim.TrackAttachFlashSpot(mScreenDoorLayerIndex,0);
+		}
+		mScreenDoorShakeCounter = 0;
+	}
+	
 
 	if (!mHasHead && mAvailable) {
 		if (!mDoDeathReanim) {

@@ -41,7 +41,21 @@ void Lawn::Projectile::DoEffect(Zombie* zom)
 	{
 		mBoard->SpawnParticlesAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEAPARTICLETHROW"], 10,mBox.mX + 10, mBox.mY+80, -80);
 		mBoard->SpawnParticleAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEASPLATS"], mBox.mX + 10, mBox.mY + 80, -80);
-		gLawnApp->mMusicManager.PlayChunk("CHUNK_SPLAT");
+		if(zom->mHelmType == HELMTYPE_PAIL || zom->mShieldType == SHIELDTYPE_DOOR)
+			if(sgf::Rand(0,2))
+				gLawnApp->mMusicManager.PlayChunk("CHUNK_SHIELDHIT");
+			else
+				gLawnApp->mMusicManager.PlayChunk("CHUNK_SHIELDHIT2");
+		else
+			switch (sgf::Rand(0, 3))
+			{
+			case 0:
+				gLawnApp->mMusicManager.PlayChunk("CHUNK_SPLAT"); break;
+			case 1:
+				gLawnApp->mMusicManager.PlayChunk("CHUNK_SPLAT2"); break;
+			case 2:
+				gLawnApp->mMusicManager.PlayChunk("CHUNK_SPLAT3"); break;
+			}
 		zom->TakeDamage(ZOMBIE_DAMAGE_NORMAL, mDamage);
 		break;
 	}

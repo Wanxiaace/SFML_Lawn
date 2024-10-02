@@ -43,7 +43,7 @@ namespace sgf {
 		void Present(Graphics* g, int frameIndex);
 	};
 
-	void TransformToMatrixEx(sgf::TrackFrameTransform& src, glm::mat4x4* dest, float ScaleX, float ScaleY, int pX, int pY);
+	void TransformToMatrixEx(sgf::TrackFrameTransform& src, glm::mat4x4* dest, float ScaleX, float ScaleY, float pX, float pY);
 
 }
 

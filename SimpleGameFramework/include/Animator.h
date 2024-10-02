@@ -14,6 +14,9 @@ namespace sgf {
 		Animator* mAttachedReanim = nullptr;
 		SimpleImage* mAttachedImage = nullptr;
 		glm::mat4x4* mAttachedReanimMatrix = nullptr;
+		float mOffsetX = 0;
+		float mOffsetY = 0;
+		float mFlashSpotSingle = 0;//单独的闪光程度
 	};
 
 	class Animator
@@ -65,14 +68,27 @@ namespace sgf {
 		void SetFrameRangeByTrackName(const sgf::String& trackName);
 		//自动恢复
 		void SetFrameRangeByTrackNameOnce(const sgf::String& trackName, const sgf::String& oriTrackName);
-		void SetTrackVisible(const sgf::String& trackName,bool visible);
-		void TrackAttachImage(const sgf::String& trackName, SimpleImage* target);
+		void SetTrackVisibleByTrackName(const sgf::String& trackName,bool visible);
+		void SetTrackVisible(int index,bool visible);
+
+		void TrackAttachImageByTrackName(const sgf::String& trackName, SimpleImage* target);
+		void TrackAttachImage(int index, SimpleImage* target);
+
 		void TrackAttachAnimator(const sgf::String& trackName, Animator* target);
 		void TrackAttachAnimatorMatrix(const sgf::String& trackName, glm::mat4x4* target);
+
+		void TrackAttachOffsetByTrackName(const sgf::String& trackName, float offsetX,float offsetY);
+		void TrackAttachOffset(int index, float offsetX, float offsetY);
+
+		void TrackAttachFlashSpot(int index, float spot);
+		void TrackAttachFlashSpotByTrackName(const sgf::String& trackName, float spot);
+
 		float GetTrackVelocity(const sgf::String& trackName);
 		bool GetTrackVisible(const sgf::String& trackName);
 		std::vector<sgf::TrackExtraInfo*> GetAllTracksExtraByName(const sgf::String& trackName);
 		std::vector<sgf::TrackInfo*> GetAllTracksByName(const sgf::String& trackName);
+
+		int GetFirstTrackExtraIndexByName(const sgf::String& trackName);
 
 		void Update();
 		void Present(Graphics* g);

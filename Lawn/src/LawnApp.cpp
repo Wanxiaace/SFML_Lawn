@@ -148,13 +148,20 @@ void Lawn::LawnApp::MakeNewBoard()
     mBoard->SpawnPlantAt(0,0,SEED_PEASHOOTER);
     for (size_t i = 0; i < 5; i++)
     {
-        for (size_t j = 4; j < 8; j++)
+        /*for (size_t j = 4; j < 8; j++)
         {
-            if(sgf::Rand(0,2))
-                mBoard->SpawnZombieAt(j, i, ZOMBIE_NORMAL);
-            else
-                mBoard->SpawnZombieAt(j, i, ZOMBIE_TRAFFIC_CONE);
-        }
+            switch (sgf::Rand(0, 4)) {
+            case 0:
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_NORMAL); break;
+            case 1:
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_TRAFFIC_CONE); break;
+            case 2:
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_PAIL); break;
+            case 3:
+                mBoard->SpawnZombieAt(j, i, ZOMBIE_DOOR); break;
+            }
+        }*/
+        mBoard->SpawnZombieAt(8, i, ZOMBIE_DOOR); break;
     }
 }
 

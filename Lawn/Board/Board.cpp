@@ -189,7 +189,7 @@ void Lawn::Board::ZombieWin(Zombie* target)
 	mMenuButton->mVisible = false;
 	mDefeatReturnToMenuButton->mVisible = true;
 	mApp->mMusicManager.FadeOutMusic(2000);
-	mApp->mMusicManager.PlayChunk("CHUNK_SCREAM");
+	mApp->mMusicManager.PlayChunk("CHUNK_LOSEMUSIC");
 }
 
 void Lawn::Board::Update()

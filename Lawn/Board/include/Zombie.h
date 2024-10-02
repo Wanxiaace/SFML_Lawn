@@ -129,6 +129,15 @@ namespace Lawn {
         HELMTYPE_TALLNUT = 9
     };
 
+    enum ShieldType
+    {
+        SHIELDTYPE_NONE = 0,
+        SHIELDTYPE_SILVER = 1,
+        SHIELDTYPE_DOOR = 2,
+        SHIELDTYPE_NEWSPAPER = 3,
+        SHIELDTYPE_LADDER = 4
+    };
+
     class Zombie : public GameObject {
     public:
         Board* mBoard = nullptr;
@@ -148,6 +157,12 @@ namespace Lawn {
         float mHelmHealth = 0;
         float mHelmHealthMax = 0;
 
+        float mShieldHealth = 0;
+        float mShieldHealthMax = 0;
+
+        float mScreenDoorShakeCounter = 0;
+
+
         bool mHasHead = true;
         bool mHasArm = true;
         bool mDoDeathReanim = false;
@@ -158,8 +173,10 @@ namespace Lawn {
         bool mIsLive = true;
         bool mIsEating = false;
         int mEatingChunkCounter = 0;
+        int mScreenDoorLayerIndex = -1;
 
         HelmType mHelmType = HELMTYPE_NONE;
+        ShieldType mShieldType = SHIELDTYPE_NONE;
 
     public:
         Zombie();
@@ -171,6 +188,7 @@ namespace Lawn {
         void TakeDamage(ZombieDamageType damageType, int damage);
         void CheckIsDie();
         void CheckIsHelmDie();
+        void CheckIsShieldDie();
         void DropArm();
         void DropHead();
         void DoDeathReanim();
