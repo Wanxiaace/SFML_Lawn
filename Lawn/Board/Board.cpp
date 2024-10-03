@@ -32,6 +32,13 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 	AppendChild(mSeedBank);
 	AppendChild(mDefeatReturnToMenuButton);
 	AttachToListener(this);
+
+
+	SpawnZombieWaves();
+	mCurrentWaveIndex = 0;
+	mNextWaveCounts = 1000;
+	mStartSpawningZombie = true;
+
 }
 
 Lawn::Board::~Board()
@@ -192,6 +199,114 @@ void Lawn::Board::ZombieWin(Zombie* target)
 	mApp->mMusicManager.PlayChunk("CHUNK_LOSEMUSIC");
 }
 
+int Lawn::Board::GetCurrentZombieNum() const
+{
+	return mZombieVector.size();
+}
+
+static float GetZombieWaveCurve(float x, float waveMax) {
+	return sinf(x * 50.0f / waveMax * 3.14159f / 100.0f) * 10 + 1;
+};
+
+static float GetZombeiSleepTimeCurve(float x, float waveMax) {
+	return cosf(x * 50.0f / waveMax * 3.14159f / 300.0f) * 100 - 70;
+};
+
+void Lawn::Board::SpawnZombieWaves()
+{
+	mLevel.mZombieTypes.push_back(ZOMBIE_NORMAL);
+	mLevel.mZombieTypes.push_back(ZOMBIE_TRAFFIC_CONE);
+	mLevel.mZombieTypes.push_back(ZOMBIE_PAIL);
+	mLevel.mZombieTypes.push_back(ZOMBIE_DOOR);
+
+	for (size_t i = 0; i < 10; i++)
+	{
+		int num = GetZombieWaveCurve(i,10);
+		ZombieWave zombieWave;
+		zombieWave.mSleepTime = GetZombeiSleepTimeCurve(i, 10) * 1000;
+
+		for (size_t j = 0; j < num; j++)
+		{
+			ZombieType zomType = ZOMBIE_NORMAL;
+
+			for (auto& x : mLevel.mZombieTypes)
+			{
+				ZombieDefinition& def = gZombiesDefinitions[x];
+				int spot = sgf::Rand(0, 100);
+				if (def.mMinimumWave < i && def.mPickWeight > spot)
+				{
+					zomType = def.mZombieType;
+				}
+			}
+
+			zombieWave.AppendZombie(zomType,sgf::Rand(0,5), 11);
+		}
+		mLevel.mZombieWaves.push_back(zombieWave);
+	}
+}
+
+void Lawn::Board::UpdateZombieWaves()
+{
+	if (!mStartSpawningZombie)
+		return;
+
+	if (mNextWaveCounts != -1) {
+		if (mNextWaveCounts < mTickDelta)
+		{
+			if (mLevel.mZombieWaves.size() > mCurrentWaveIndex)
+			{
+				ZombieWave& currentZombieWave = mLevel.mZombieWaves[mCurrentWaveIndex];
+				mNextWaveCounts = currentZombieWave.mSleepTime;
+				for (size_t i = 0; i < currentZombieWave.mZombieNum; i++)
+				{
+					SpawnZombieAt(currentZombieWave.mZombies[i].mTargetColumn,
+						currentZombieWave.mZombies[i].mTargetRow, currentZombieWave.mZombies[i].mZombieType);
+				}
+
+				mCurrentWaveIndex += 1;
+			}
+			else
+				mNextWaveCounts = -1;
+		}
+		else {
+			if (GetCurrentZombieNum() == 0 && mNextWaveCounts > 300) {
+				mNextWaveCounts = 300;
+			}
+			mNextWaveCounts -= mTickDelta;
+		}
+	}
+}
+
+void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
+{
+	if (!mLevelNameImage) {
+		sgf::Font* levelFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT3");
+		levelFont->SetFontSize(30);
+		mLevelNameImage = levelFont->GenTextImage(mLevel.mLevelName);
+	}
+	g->ModelMoveTo(0, 0);
+	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - mLevelNameImage->GetWidth()) / 2 + 2, 50);
+	g->SetCubeColor({ 0,0,0,1 });
+	g->DrawImage(mLevelNameImage);
+
+	g->Translate(-2, -2);
+	g->SetCubeColor({ 0.96,0.97,0.73,1 });
+	g->DrawImage(mLevelNameImage);
+
+	sgf::SimpleImage* processBarImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_FLAGMETER");
+
+	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2, 20);
+	g->SetCubeColor({ 1,1,1,1 });
+	g->DrawImageGridAtlas(processBarImage,2,1,0,0);
+	
+	g->Present();
+	g->SetClipRect({ (LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2,20,processBarImage->GetWidth() * float(mCurrentWaveIndex) / float(mLevel.mZombieWaves.size()),processBarImage->GetHeight()});
+	g->MoveTo(0,0);
+	g->DrawImageGridAtlas(processBarImage,2,1,1,0);
+	g->Present();
+	g->ClearClipRect();
+}
+
 void Lawn::Board::Update()
 {
 	if (mBlackScreenCounter > mTickDelta)
@@ -253,6 +368,7 @@ void Lawn::Board::Update()
 
 	mParticleManager.Update(mTickDelta);
 	mSeedBank->Update();
+	UpdateZombieWaves();
 }
 
 void Lawn::Board::Draw(sgf::Graphics* g)
@@ -320,6 +436,8 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 
 	}
 
+
+	DrawLevelInfo(g);
 }
 
 void Lawn::Board::OnClick(int theId)

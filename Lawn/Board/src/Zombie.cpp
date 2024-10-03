@@ -105,6 +105,7 @@ void Lawn::Zombie::ResetZomSpeed()
 
 void Lawn::Zombie::DieNoLoot()
 {
+	mIsLive = false;
 	mAvailable = false;
 }
 
@@ -305,6 +306,18 @@ void Lawn::Zombie::UpdateEating(Plant* target)
 {
 	if (!mIsEating) {
 		PlayTrack("anim_eat");
+
+		if (mShieldType == SHIELDTYPE_DOOR) {
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_upper", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_lower", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_hand", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm1", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm2", true);
+			mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm3", true);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_screendoor", false);
+			mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", false);
+		}
+
 		mBodyReanim.mSpeed = 2.5f;
 	}
 	target->TakeDamage(100.0f * float(mTickDelta) / 1000.0f);
@@ -338,10 +351,10 @@ Lawn::Plant* Lawn::Zombie::FindPlant()
 
 void Lawn::Zombie::InitZombiesDefinitions()
 {
-	gZombiesDefinitions[ZOMBIE_NORMAL] = { ZOMBIE_NORMAL,"RAXML_ZOMBIE","NormalZombie","NormalZombie",1.0f,1.4f,1,-20,-40 };
-	gZombiesDefinitions[ZOMBIE_TRAFFIC_CONE] = { ZOMBIE_TRAFFIC_CONE,"RAXML_ZOMBIE","ConeZombie","ConeZombie",1.0f,1.4f,1,-20,-40 };
-	gZombiesDefinitions[ZOMBIE_PAIL] = { ZOMBIE_PAIL,"RAXML_ZOMBIE","BucketZombie","BucketZombie",1.0f,1.4f,1,-20,-40 };
-	gZombiesDefinitions[ZOMBIE_DOOR] = { ZOMBIE_DOOR,"RAXML_ZOMBIE","ShieldZombie","ShieldZombie",1.0f,1.4f,1,-20,-40 };
+	gZombiesDefinitions[ZOMBIE_NORMAL] = { ZOMBIE_NORMAL,"RAXML_ZOMBIE","NormalZombie","NormalZombie",1.0f,1.4f,100,-20,-40,0};
+	gZombiesDefinitions[ZOMBIE_TRAFFIC_CONE] = { ZOMBIE_TRAFFIC_CONE,"RAXML_ZOMBIE","ConeZombie","ConeZombie",1.0f,1.4f,30,-20,-40,1 };
+	gZombiesDefinitions[ZOMBIE_PAIL] = { ZOMBIE_PAIL,"RAXML_ZOMBIE","BucketZombie","BucketZombie",1.0f,1.4f,15,-20,-40,2 };
+	gZombiesDefinitions[ZOMBIE_DOOR] = { ZOMBIE_DOOR,"RAXML_ZOMBIE","ScreenDoorZombie","ScreenDoorZombie",1.0f,1.4f,15,-20,-40,2 };
 }
 
 void Lawn::Zombie::Update()
@@ -408,6 +421,18 @@ void Lawn::Zombie::Update()
 		else {
 			if (mIsEating) {
 				ResetZomSpeed();
+
+				if (mShieldType == SHIELDTYPE_DOOR) {
+					mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_upper", false);
+					mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_lower", false);
+					mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_hand", false);
+					mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm1", false);
+					mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm2", false);
+					mBodyReanim.SetTrackVisibleByTrackName("anim_innerarm3", false);
+					mBodyReanim.SetTrackVisibleByTrackName("Zombie_outerarm_screendoor", true);
+					mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", true);
+				}
+
 				PlayTrack("anim_walk");
 			}
 			mIsEating = false;

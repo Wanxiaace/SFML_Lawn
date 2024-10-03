@@ -21,6 +21,36 @@ namespace Lawn {
 		BACKGROUND_FRONT_YARD_NIGHT,
 	};
 
+	struct BackstageZombie {
+		ZombieType mZombieType = ZOMBIE_INVALID;
+		int mTargetRow = -1;
+		int mTargetColumn = -1;
+	};
+
+	class ZombieWave {
+	public:
+		int mZombieNum = 0;
+		std::vector<BackstageZombie> mZombies;
+		int mSleepTime = 0;
+
+	public:
+		ZombieWave() {};
+		~ZombieWave() {};
+
+		void AppendZombie(ZombieType type, int row, int column) { 
+			mZombies.push_back({type,row,column}); 
+			mZombieNum += 1;
+		};
+
+		void SetSleepTime(int sleepTime) { mSleepTime = sleepTime; };
+	};
+
+	struct LevelInfo {
+		sgf::String mLevelName = u8"测试关卡";
+		std::vector<ZombieWave> mZombieWaves;
+		std::vector<ZombieType> mZombieTypes;
+	};
+
 	class Board : public sgf::Widget,sgf::WidgetListener {
 	public:
 		sgf::SimpleImage* mBackGroundImageCache;
@@ -34,6 +64,7 @@ namespace Lawn {
 		PlantVector mPlantVector;
 		ZombieVector mZombieVector;
 		ProjectileVector mProjectileVector;
+		LevelInfo mLevel;
 
 		Lawn::LawnApp* mApp;
 		float mBackgroundScaleF;
@@ -46,7 +77,16 @@ namespace Lawn {
 		bool mIsBoardRunning = true;
 		Zombie* mWinZombie = nullptr;
 		sgf::Animator* mZombieAnimator = nullptr;
+		sgf::SimpleImage* mLevelNameImage = nullptr;
 		bool mIsZombieWin = false;
+
+		//开始出怪
+		bool mStartSpawningZombie = false;
+		//下一波的倒计时，场上没有僵尸会瞬间变小
+		int mNextWaveCounts = -1;
+		//当前波数索引
+		int mCurrentWaveIndex = 0;
+
 		float mBlackScreenCounter = 0;
 
 	public:
@@ -67,6 +107,11 @@ namespace Lawn {
 		sgf::Particle* SpawnParticleAt(sgf::Emitter* emitter,int x,int y,int z);
 		void SpawnParticlesAt(sgf::Emitter* emitter,int number,int x,int y,int z);
 		void ZombieWin(Zombie* target);
+		int GetCurrentZombieNum() const;
+		void SpawnZombieWaves();
+		void UpdateZombieWaves();
+
+		void DrawLevelInfo(sgf::Graphics* g);
 
 	public:
 		virtual void Update() override;

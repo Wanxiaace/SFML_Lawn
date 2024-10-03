@@ -180,6 +180,7 @@ namespace Lawn {
         int mPickWeight;
         int mReanimOffsetX;
         int mReanimOffsetY;
+        int mMinimumWave;//最低可出场波数
     };
 
     enum SeedPackBackground {

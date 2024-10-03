@@ -42,8 +42,8 @@ void Lawn::LawnCursor::MouseRightOn()
 void Lawn::LawnCursor::SeedPlant()
 {
 
-	int gridX = mBoard->PointXtoGridX(mApp->mMouseX);
-	int gridY = mBoard->PointYtoGridY(mApp->mMouseY);
+	int gridX = mBoard->PointXtoGridX(mApp->mMouseX - 50);
+	int gridY = mBoard->PointYtoGridY(mApp->mMouseY - 30);
 
 	gLawnApp->mMusicManager.PlayChunk("CHUNK_PLANT");
 	mBoard->SpawnPlantAt(gridX, gridY,mSeed);
@@ -66,14 +66,14 @@ void Lawn::LawnCursor::Draw(sgf::Graphics* g)
 		g->ModelMoveTo(0, 0);
 
 
-		int gridX = mBoard->GridXtoPointX(mBoard->PointXtoGridX(mApp->mMouseX));
-		int gridY = mBoard->GridYtoPointY(mBoard->PointYtoGridY(mApp->mMouseY));
+		int gridX = mBoard->GridXtoPointX(mBoard->PointXtoGridX(mApp->mMouseX-50));
+		int gridY = mBoard->GridYtoPointY(mBoard->PointYtoGridY(mApp->mMouseY-30));
 
 		g->MoveTo(gridX, gridY);
 		g->SetCubeColor({1,1,1,0.5f});
 		DrawSeedPack(mSeed, g, 1.0f);
 
-		g->MoveTo(mApp->mMouseX, mApp->mMouseY);
+		g->MoveTo(mApp->mMouseX - 50, mApp->mMouseY - 30);
 		g->SetCubeColor({ 1,1,1,1 });
 		DrawSeedPack(mSeed, g, 1.0f);
 

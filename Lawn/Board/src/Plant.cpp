@@ -34,7 +34,7 @@ void Lawn::Plant::PlantInit()
 	{
 	case Lawn::SEED_PEASHOOTER:
 		mShootBox = { mBox.mX,mBox.mY,800,60 };
-		PlayTrack("anim_head_idle");
+		mBodyReanim.SetFrameRangeByTrackName("anim_head_idle");
 		mBodyReanim.mSpeed = 1.5f;
 		break;
 	default:
@@ -76,7 +76,7 @@ Lawn::Zombie* Lawn::Plant::TryToFindTarget()
 	Zombie* result = nullptr;
 	for (auto& x : mBoard->mZombieVector)
 	{
-		if (mShootBox.IsOverlap(x->mBox)) {
+		if (x->mIsLive && mShootBox.IsOverlap(x->mBox)) {
 			if (!result)
 				result = x;
 			else if (result->mBox.mX > x->mBox.mX)
@@ -124,16 +124,16 @@ void Lawn::Plant::Update()
 		if (mCanShoot && IsOnBoard()) {
 			mTargetZombie = TryToFindTarget();
 			if (mTargetZombie) {
-				if (mState == STATE_NOTREADY) {
+				if (mState == STATE_NOTREADY && int(mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexNow - 1) == 0) {
 					PlayTrack("anim_shooting");
+					mState = STATE_READY;
 				}
-				mState = STATE_READY;
 			}
 			else {
 				if (mState == STATE_READY) {
 					PlayTrack("anim_head_idle",200);
+					mState = STATE_NOTREADY;
 				}
-				mState = STATE_NOTREADY;
 			}
 
 			if (mState == STATE_READY) {
