@@ -11,6 +11,7 @@
 #include "include/ObjectArray.h"
 #include "Particle.h"
 #include "include/SeedPack.h"
+#include "../Lawn/include/Constant.h"
 
 namespace Lawn {
 	class SeedBank;
@@ -68,6 +69,7 @@ namespace Lawn {
 
 		Lawn::LawnApp* mApp;
 		float mBackgroundScaleF;
+		float mHugeWaveScaleF = BOARD_SCALE_EACH_HUGE_WAVW;//大波僵尸时出怪数扩大的因数
 
 		int mGridOriPosX = 0;
 		int mGridOriPosY = 0;
@@ -78,6 +80,7 @@ namespace Lawn {
 		Zombie* mWinZombie = nullptr;
 		sgf::Animator* mZombieAnimator = nullptr;
 		sgf::SimpleImage* mLevelNameImage = nullptr;
+		sgf::SimpleImage* mHugeTitleImage = nullptr;
 		bool mIsZombieWin = false;
 
 		//开始出怪
@@ -87,7 +90,10 @@ namespace Lawn {
 		//当前波数索引
 		int mCurrentWaveIndex = 0;
 
+		float mFlagMeterIndex = 0;
+
 		float mBlackScreenCounter = 0;
+		float mHugeCounter = 0;
 
 	public:
 		Board(LawnApp* app);

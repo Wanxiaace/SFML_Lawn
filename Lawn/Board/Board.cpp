@@ -257,13 +257,17 @@ void Lawn::Board::UpdateZombieWaves()
 			{
 				ZombieWave& currentZombieWave = mLevel.mZombieWaves[mCurrentWaveIndex];
 				mNextWaveCounts = currentZombieWave.mSleepTime;
+				mCurrentWaveIndex += 1;
+
+				if (mCurrentWaveIndex > 0 && !((mCurrentWaveIndex) % BOARD_WAVE_EACH_HUGE_EAVE)) {
+					gLawnApp->mMusicManager.PlayChunk("CHUNK_HUGEWAVE");
+					mHugeCounter = 3000;
+				}
 				for (size_t i = 0; i < currentZombieWave.mZombieNum; i++)
 				{
 					SpawnZombieAt(currentZombieWave.mZombies[i].mTargetColumn,
 						currentZombieWave.mZombies[i].mTargetRow, currentZombieWave.mZombies[i].mZombieType);
 				}
-
-				mCurrentWaveIndex += 1;
 			}
 			else
 				mNextWaveCounts = -1;
@@ -294,17 +298,31 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 	g->DrawImage(mLevelNameImage);
 
 	sgf::SimpleImage* processBarImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_FLAGMETER");
+	sgf::SimpleImage* processBarPartsImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_FLAGMETERPARTS");
 
 	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2, 20);
 	g->SetCubeColor({ 1,1,1,1 });
 	g->DrawImageGridAtlas(processBarImage,2,1,0,0);
 	
 	g->Present();
-	g->SetClipRect({ (LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2,20,processBarImage->GetWidth() * float(mCurrentWaveIndex) / float(mLevel.mZombieWaves.size()),processBarImage->GetHeight()});
+	g->SetClipRect({ (LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2,20,processBarImage->GetWidth() * mFlagMeterIndex / float(mLevel.mZombieWaves.size()),processBarImage->GetHeight()});
 	g->MoveTo(0,0);
 	g->DrawImageGridAtlas(processBarImage,2,1,1,0);
 	g->Present();
 	g->ClearClipRect();
+
+	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2 + processBarImage->GetWidth() * mFlagMeterIndex / float(mLevel.mZombieWaves.size()) - 5, 20);
+	g->DrawImageGridAtlas(processBarPartsImage, 1, 2, 0, 0);
+
+	int hugeWaveNum = mLevel.mZombieWaves.size() / BOARD_WAVE_EACH_HUGE_EAVE;
+	float distanceEachFlag = processBarImage->GetWidth() * BOARD_WAVE_EACH_HUGE_EAVE / float(mLevel.mZombieWaves.size());
+	for (size_t i = 1; i <= hugeWaveNum; i++)
+	{
+		g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2 + i * distanceEachFlag - 25, 20);
+		if (mCurrentWaveIndex >= i * BOARD_WAVE_EACH_HUGE_EAVE)
+			g->Translate(0,-5);
+		g->DrawImageGridAtlas(processBarPartsImage, 1, 2, 0, 1);
+	}
 }
 
 void Lawn::Board::Update()
@@ -313,6 +331,11 @@ void Lawn::Board::Update()
 		mBlackScreenCounter -= mTickDelta;
 	else
 		mBlackScreenCounter = 0;
+
+	if (mHugeCounter > mTickDelta)
+		mHugeCounter -= mTickDelta;
+	else
+		mHugeCounter = 0;
 
 	if (!mIsBoardRunning) {
 		mWinZombie->mTickDelta = mTickDelta;
@@ -364,6 +387,9 @@ void Lawn::Board::Update()
 		mProjectileVector[i]->mTickDelta = mTickDelta;
 		mProjectileVector[i]->Update();
 	}
+
+	if (mFlagMeterIndex < float(mCurrentWaveIndex))
+		mFlagMeterIndex += float(mTickDelta) / 200.0f;
 
 
 	mParticleManager.Update(mTickDelta);
@@ -438,6 +464,32 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 
 
 	DrawLevelInfo(g);
+	
+	if (mHugeCounter > 0) {
+		if (!mHugeTitleImage) {
+			sgf::Font* levelFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_BASEFONT");
+			levelFont->SetFontSize(50);
+			mHugeTitleImage = levelFont->GenTextImage(_LS("HugeWave"));
+		}
+
+		float scaleF = 0;
+		if (mHugeCounter >= 2800)
+			scaleF = (mHugeCounter - 2800) / 200.0f + 1.0f;
+		else
+			scaleF = 1.0f;
+
+		glm::mat4x4 bigTitleMatrix = glm::scale(glm::mat4x4(1.0f), glm::vec3(scaleF, scaleF, 1.0f));
+		
+		g->ModelMoveTo(
+			(LAWN_GAME_WINDOW_WIDTH - mHugeTitleImage->GetWidth()) / 2 + 2,
+			(LAWN_GAME_WINDOW_HEIGHT - mHugeTitleImage->GetHeight()) / 2 + 2);
+		g->MoveTo(0,0);
+		g->SetCubeColor({ 0,0,0,1 });
+		g->DrawImageMatrix(mHugeTitleImage, bigTitleMatrix, mHugeTitleImage->GetWidth() / 2, mHugeTitleImage->GetHeight() / 2);
+		g->Translate(-2,-2);
+		g->SetCubeColor({ 1,0,0,1 });
+		g->DrawImageMatrix(mHugeTitleImage, bigTitleMatrix, mHugeTitleImage->GetWidth() / 2, mHugeTitleImage->GetHeight() / 2);
+	}
 }
 
 void Lawn::Board::OnClick(int theId)

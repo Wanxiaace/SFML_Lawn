@@ -106,6 +106,8 @@ void ImagePreview::SGFDraw(sgf::Graphics* g)
 {
 	if (!mVisible)
 		return;
+
+	g->SetCubeColor({ 1,1,1,1 });
 	g->MoveTo(0,0);
 	g->SetClipRect({ mWindowPos.x ,mWindowPos.y + 20,mWindowSize.x ,mWindowSize.y - 20 });
 
@@ -203,6 +205,8 @@ void ReanimPreview::SGFDraw(sgf::Graphics* g)
 {
 	if (!mVisible)
 		return;
+
+	g->SetCubeColor({1,1,1,1});
 
 	g->MoveTo(0, 0);
 	g->SetClipRect({ mWindowPos.x ,mWindowPos.y + 20,mWindowSize.x ,mWindowSize.y - 20 });

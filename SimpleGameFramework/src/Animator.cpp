@@ -360,7 +360,6 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 		OffsetY = mExtraInfos[i].mOffsetY;
 		g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle });// 
 
-
 		if (mReanimBlendCounter > 0) {
 			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource, true);
 		}
