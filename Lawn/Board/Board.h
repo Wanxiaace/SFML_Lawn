@@ -95,6 +95,9 @@ namespace Lawn {
 		float mBlackScreenCounter = 0;
 		float mHugeCounter = 0;
 
+		unsigned int mPlantRandomSeed = 0;//随机数种子
+		unsigned int mZombieRandomSeed = 0;//随机数种子
+
 	public:
 		Board(LawnApp* app);
 		~Board();
