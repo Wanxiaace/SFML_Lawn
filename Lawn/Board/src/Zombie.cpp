@@ -464,3 +464,7 @@ void Lawn::Zombie::Draw(sgf::Graphics* g)
 	if (mBodyReanim.mReanim)
 		mBodyReanim.Present(g);
 }
+
+void Lawn::Zombie::ParseToJson(nlohmann::json& dstJson)
+{
+}

@@ -12,6 +12,7 @@
 #include "Particle.h"
 #include "include/SeedPack.h"
 #include "../Lawn/include/Constant.h"
+#include "json.hpp"
 
 namespace Lawn {
 	class SeedBank;
@@ -50,6 +51,7 @@ namespace Lawn {
 		sgf::String mLevelName = u8"≤‚ ‘πÿø®";
 		std::vector<ZombieWave> mZombieWaves;
 		std::vector<ZombieType> mZombieTypes;
+		int mWavesNum = 0;
 	};
 
 	class Board : public sgf::Widget,sgf::WidgetListener {
@@ -117,8 +119,11 @@ namespace Lawn {
 		void SpawnParticlesAt(sgf::Emitter* emitter,int number,int x,int y,int z);
 		void ZombieWin(Zombie* target);
 		int GetCurrentZombieNum() const;
-		void SpawnZombieWaves();
+		void AutoSpawnZombieWaves();
 		void UpdateZombieWaves();
+		
+		void LoadZombieFromJson(const nlohmann::json& json);
+		void LoadZombieFromJsonFile(const char* path);
 
 		void DrawLevelInfo(sgf::Graphics* g);
 

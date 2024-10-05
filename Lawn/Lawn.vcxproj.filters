@@ -78,6 +78,9 @@
     <ClCompile Include="Dialogs\src\PauseDialog.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\LawnTip.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LawnApp.h">
@@ -141,6 +144,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Dialogs\include\PauseDialog.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LawnTip.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

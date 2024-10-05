@@ -202,6 +202,8 @@ namespace Lawn {
     public:
         virtual void Update() override;
         virtual void Draw(sgf::Graphics* g) override;
+
+        virtual void ParseToJson(nlohmann::json& dstJson) override;
     };
 }
 

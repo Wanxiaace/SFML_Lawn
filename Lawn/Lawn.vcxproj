@@ -150,6 +150,7 @@
     <ClCompile Include="Board\src\Plant.cpp" />
     <ClCompile Include="Dialogs\src\PauseDialog.cpp" />
     <ClCompile Include="Dialogs\src\SettingDialog.cpp" />
+    <ClCompile Include="src\LawnTip.cpp" />
     <ClCompile Include="src\LawnCursor.cpp" />
     <ClCompile Include="src\LawnPlayerInfo.cpp" />
     <ClCompile Include="src\BasicWidgets.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="include\LawnApp.h" />
     <ClInclude Include="include\LawnCursor.h" />
     <ClInclude Include="include\LawnPlayerInfo.h" />
+    <ClInclude Include="include\LawnTip.h" />
     <ClInclude Include="include\LoadingPage.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

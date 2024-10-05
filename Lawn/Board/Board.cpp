@@ -34,11 +34,13 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 	AttachToListener(this);
 
 
-	SpawnZombieWaves();
+	AutoSpawnZombieWaves();
 	mCurrentWaveIndex = 0;
 	mNextWaveCounts = 1000;
 	mStartSpawningZombie = true;
 
+
+	LoadZombieFromJsonFile("level0.json");
 }
 
 Lawn::Board::~Board()
@@ -212,13 +214,9 @@ static float GetZombeiSleepTimeCurve(float x, float waveMax) {
 	return cosf(x * 50.0f / waveMax * 3.14159f / 300.0f) * 100 - 70;
 };
 
-void Lawn::Board::SpawnZombieWaves()
+//TODO 完成读取文件
+void Lawn::Board::AutoSpawnZombieWaves()
 {
-	mLevel.mZombieTypes.push_back(ZOMBIE_NORMAL);
-	mLevel.mZombieTypes.push_back(ZOMBIE_TRAFFIC_CONE);
-	mLevel.mZombieTypes.push_back(ZOMBIE_PAIL);
-	mLevel.mZombieTypes.push_back(ZOMBIE_DOOR);
-
 	for (size_t i = 0; i < 10; i++)
 	{
 		int num = GetZombieWaveCurve(i,10);
@@ -279,6 +277,59 @@ void Lawn::Board::UpdateZombieWaves()
 			mNextWaveCounts -= mTickDelta;
 		}
 	}
+}
+
+std::unordered_map<sgf::String, Lawn::ZombieType> gZombieStringMap = {
+	{"ZOMBIE_NORMAL",Lawn::ZOMBIE_NORMAL},
+	{"ZOMBIE_PAIL",Lawn::ZOMBIE_PAIL},
+	{"ZOMBIE_TRAFFIC_CONE",Lawn::ZOMBIE_TRAFFIC_CONE},
+	{"ZOMBIE_DOOR",Lawn::ZOMBIE_DOOR},
+};
+
+void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
+{
+	mLevel.mLevelName = json["LevelName"];
+	mLevel.mWavesNum = json["WavesNumber"];
+	nlohmann::json autoLoadArray = json["AutoLoadZombie"];
+	nlohmann::json zombieArray = json["ZombieList"];
+	for (auto& x : autoLoadArray)
+	{
+		ZombieType type = gZombieStringMap[x];
+	}
+
+	AutoSpawnZombieWaves();
+
+	for (auto& x : zombieArray)
+	{
+		ZombieType type = gZombieStringMap[x["Type"]];
+		int row = x["Row"];
+		int column = x["Column"];
+		int currentWave = x["CurrentWave"];
+		mLevel.mZombieWaves[currentWave - 1].AppendZombie(type, row, column);
+		//std::cout << x["Type"] << " " << row << " " << column << std::endl;
+	}
+
+	
+}
+
+#include <fstream>
+
+
+void Lawn::Board::LoadZombieFromJsonFile(const char* path)
+{
+	std::ifstream file;
+	file.open(path);
+	file.seekg(0,std::ios_base::end);
+	int size = file.tellg();
+	file.seekg(0, std::ios_base::beg);
+	char* jsonStr = new char[size+1];
+	memset(jsonStr,0, size + 1);
+	file.read(jsonStr, size);
+	file.close();
+
+	nlohmann::json result = nlohmann::json::parse(jsonStr);
+
+	LoadZombieFromJson(result);
 }
 
 void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)

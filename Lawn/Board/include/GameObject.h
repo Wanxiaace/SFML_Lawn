@@ -8,6 +8,7 @@
 #include "json.hpp"
 
 namespace Lawn {
+
 	class GameObject {
 	public:
 		sgf::FloatRect mBox;
@@ -25,6 +26,7 @@ namespace Lawn {
 		virtual void ParseToJson(nlohmann::json& dstJson) {};
 		virtual void UnparseFromJson(nlohmann::json& srcJson) {};
 
+		virtual ~GameObject() {};
 	};
 }
 

@@ -1,5 +1,6 @@
 #include "../include/Graphics.h"
 #include <string>
+#include "../../Lawn/include/Constant.h"
 
 void sgf::Graphics::ResizeCube(float targetX, float targetY, float targetWidth, float targetHeight)
 {
@@ -479,6 +480,7 @@ void sgf::Graphics::ClearClipRect()
 {
 	int w, h;
 	SDL_GetWindowSize(mGameApp->mGameWindow,&w,&h);
-	ProjectionResize(w, h);
+	ProjectionResize(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 	glViewport(0, 0, w, h);
+	//glViewport(0, 0, w, h);
 }
