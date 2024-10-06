@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board\Board.cpp" />
+    <ClCompile Include="Board\src\LawnMover.cpp" />
     <ClCompile Include="Board\src\SeedPack.cpp" />
     <ClCompile Include="Board\src\Projectile.cpp" />
     <ClCompile Include="Board\src\Zombie.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Board\include\BoardAnimator.h" />
     <ClInclude Include="Board\include\BoardEnums.h" />
     <ClInclude Include="Board\include\Coin.h" />
+    <ClInclude Include="Board\include\LawnMover.h" />
     <ClInclude Include="Board\include\ObjectArray.h" />
     <ClInclude Include="Board\include\Plant.h" />
     <ClInclude Include="Board\include\Projectile.h" />

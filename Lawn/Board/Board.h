@@ -67,6 +67,7 @@ namespace Lawn {
 		PlantVector mPlantVector;
 		ZombieVector mZombieVector;
 		ProjectileVector mProjectileVector;
+		LawnMoverVector mLawnMoverVector;
 		LevelInfo mLevel;
 
 		Lawn::LawnApp* mApp;
@@ -117,6 +118,8 @@ namespace Lawn {
 		Projectile* SpawnProjectileAt(int x,int y, ProjectileType projectileType);
 		sgf::Particle* SpawnParticleAt(sgf::Emitter* emitter,int x,int y,int z);
 		void SpawnParticlesAt(sgf::Emitter* emitter,int number,int x,int y,int z);
+		LawnMover* SpawnLawnMoverAt(int gridX, int gridY, LawnMoverType carType);
+
 		void ZombieWin(Zombie* target);
 		int GetCurrentZombieNum() const;
 		void AutoSpawnZombieWaves();
@@ -126,6 +129,7 @@ namespace Lawn {
 		void LoadZombieFromJsonFile(const char* path);
 
 		void DrawLevelInfo(sgf::Graphics* g);
+		void InitLawnMover();
 
 	public:
 		virtual void Update() override;

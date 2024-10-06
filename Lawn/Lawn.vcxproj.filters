@@ -81,6 +81,9 @@
     <ClCompile Include="src\LawnTip.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Board\src\LawnMover.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LawnApp.h">
@@ -147,6 +150,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\LawnTip.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\include\LawnMover.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

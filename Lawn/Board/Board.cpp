@@ -41,6 +41,7 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 
 
 	LoadZombieFromJsonFile("level0.json");
+	InitLawnMover();
 }
 
 Lawn::Board::~Board()
@@ -182,6 +183,15 @@ void Lawn::Board::SpawnParticlesAt(sgf::Emitter* emitter, int number, int x, int
 {
 	mParticleManager.MoveTo(x, y, z);
 	mParticleManager.EmittParticles(emitter, number);
+}
+
+Lawn::LawnMover* Lawn::Board::SpawnLawnMoverAt(int gridX, int gridY, LawnMoverType carType)
+{
+	LawnMover* result = new LawnMover();
+	result->Init(carType);
+	result->MoveTo(GridXtoPointX(gridX) - 80, GridYtoPointY(gridY) + 20);
+	mLawnMoverVector.push_back(result);
+	return result;
 }
 
 void Lawn::Board::ZombieWin(Zombie* target)
@@ -376,6 +386,15 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 	}
 }
 
+void Lawn::Board::InitLawnMover()
+{
+	SpawnLawnMoverAt(0,0,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,1,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,2,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,3,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,4,LAWN_MOVER_NORMAL);
+}
+
 void Lawn::Board::Update()
 {
 	if (mBlackScreenCounter > mTickDelta)
@@ -423,6 +442,21 @@ void Lawn::Board::Update()
 
 		mZombieVector[i]->mTickDelta = mTickDelta;
 		mZombieVector[i]->Update();
+	}
+
+	length = mLawnMoverVector.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		if (!mLawnMoverVector[i]->mAvailable) {
+			delete mLawnMoverVector[i];
+			mLawnMoverVector.erase(mLawnMoverVector.begin() + i);
+			i--;
+			length--;
+			continue;
+		}
+
+		mLawnMoverVector[i]->mTickDelta = mTickDelta;
+		mLawnMoverVector[i]->Update();
 	}
 
 	length = mProjectileVector.size();
@@ -489,6 +523,13 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 	for (auto& x : mParticleManager.mParticles)
 	{
 		g->ModelMoveTo(boardPos.first, boardPos.second);
+		g->MoveTo(0, 0);
+		x->Draw(g);
+	}
+
+	for (auto& x : mLawnMoverVector)
+	{
+		g->ModelMoveTo(boardPos.first + x->mBox.mX, boardPos.second + x->mBox.mY);
 		g->MoveTo(0, 0);
 		x->Draw(g);
 	}
