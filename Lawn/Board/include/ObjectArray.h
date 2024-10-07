@@ -11,6 +11,7 @@ namespace Lawn {
 	class Plant;
 	class Zombie;
 	class Projectile;
+	class LawnMover;
 
 	typedef std::vector<Plant*> PlantVector;
 	typedef std::vector<Zombie*> ZombieVector;

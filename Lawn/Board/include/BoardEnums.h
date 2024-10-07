@@ -159,6 +159,10 @@ namespace Lawn {
        ZOMBIE_DAMAGE_NORMAL,
     };
 
+    enum LawnMoverType {
+        LAWN_MOVER_NORMAL,
+    };
+
     struct PlantDefinition {
         SeedType mSeedType;
         sgf::String mReanimationName;

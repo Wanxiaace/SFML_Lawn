@@ -5,11 +5,9 @@
 
 #include "GameObject.h"
 #include "Animator.h"
+#include "Zombie.h"
 
 namespace Lawn {
-	enum LawnMoverType {
-		LAWN_MOVER_NORMAL,
-	};
 	class LawnMover :public GameObject 
 	{
 	public:
@@ -24,6 +22,7 @@ namespace Lawn {
 		~LawnMover();
 
 		void Init(LawnMoverType type);
+		Zombie* TryToFindZombie();
 
 	public:
 		virtual void Update() override;
