@@ -388,11 +388,11 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 
 void Lawn::Board::InitLawnMover()
 {
-	SpawnLawnMoverAt(6,0,LAWN_MOVER_NORMAL);
-	SpawnLawnMoverAt(6,1,LAWN_MOVER_NORMAL);
-	SpawnLawnMoverAt(6,2,LAWN_MOVER_NORMAL);
-	SpawnLawnMoverAt(6,3,LAWN_MOVER_NORMAL);
-	SpawnLawnMoverAt(6,4,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,0,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,1,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,2,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,3,LAWN_MOVER_NORMAL);
+	SpawnLawnMoverAt(0,4,LAWN_MOVER_NORMAL);
 }
 
 void Lawn::Board::Update()
