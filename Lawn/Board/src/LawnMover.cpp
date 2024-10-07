@@ -49,9 +49,13 @@ void Lawn::LawnMover::Update()
 		mLawnMoverAnim->Update();
 		mBox.mX += 250.0f * mTickDelta / 1000.0f;
 
-		Zombie* zom = TryToFindZombie();
-		if (zom) {
-			zom->TakeDamage(ZOMBIE_DAMAGE_NORMAL,10000000);
+		for (auto& x : gLawnApp->mBoard->mZombieVector)
+		{
+			if (!x->mIsLive || !x->mHasHead || !x->mAvailable)
+				continue;
+			if (mBox.IsOverlap(x->GetHitBox())) {
+				x->TakeDamage(ZOMBIE_DAMAGE_NORMAL,10000000);
+			}
 		}
 
 		if (mBox.mX > LAWN_GAME_WINDOW_WIDTH)
