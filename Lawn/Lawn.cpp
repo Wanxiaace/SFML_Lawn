@@ -1,5 +1,6 @@
 ﻿#include "include/LawnApp.h"
 #include "include/Constant.h"
+#include "LogoScreen.h"
 
 #undef main
 
@@ -16,9 +17,26 @@ int main(int argc,char** argv) {
 
 	gLawnApp->LoadGraphics();
 	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
-	
+	sgf::LogoScreen* logoScreen = new sgf::LogoScreen(gLawnApp);
 
-	gLawnApp->EnterLoadingPage();
+	gUpdateThread = new std::thread(Lawn::GameUpdateThread, gLawnApp);
+
+	logoScreen->SetNextScreenFunc([]() {
+		gLawnApp->EnterLoadingPage();
+
+		new std::thread([]() {
+			gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
+			gLawnApp->KillLoadingPage();
+			gLawnApp->EnterGameSelector();
+			});
+		});
+
+	auto logo = new sgf::SimpleImage();
+	logo->LoadFromFile("data/sgf.png");
+
+	logoScreen->AppendLogoImage(logo,0.2f);
+
+	gLawnApp->mWidgetManager->AddWidget(logoScreen);
 
 	gLawnApp->LawnStart();
 }

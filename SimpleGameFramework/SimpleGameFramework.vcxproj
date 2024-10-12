@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml\pugixml.cpp" />
+    <ClCompile Include="src\LogoScreen.cpp" />
     <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="PopCom\zlib\adler32.c" />
     <ClCompile Include="PopCom\zlib\compress.c" />
@@ -188,6 +189,7 @@
     <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Graphics.h" />
     <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="include\LogoScreen.h" />
     <ClInclude Include="include\MusicSystem.h" />
     <ClInclude Include="include\Particle.h" />
     <ClInclude Include="include\PlayerInfo.h" />

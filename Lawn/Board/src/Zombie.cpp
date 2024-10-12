@@ -151,9 +151,9 @@ void Lawn::Zombie::TakeDamage(ZombieDamageType damageType, int damage)
 	}
 	}
 
-	CheckIsDie();
 	CheckIsHelmDie();
 	CheckIsShieldDie();
+	CheckIsDie();
 }
 
 void Lawn::Zombie::CheckIsDie()

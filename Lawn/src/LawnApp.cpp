@@ -40,9 +40,6 @@ void Lawn::LawnApp::LawnStart()
     mLastSecondBuffer = sgf::TryGetTicks();
     mFramePerSecondBuffer = 0;
 
-    gUpdateThread = new std::thread(GameUpdateThread, this);
-
-
     while (mIsOpen)
     {
 
@@ -150,7 +147,7 @@ void Lawn::LawnApp::MakeNewBoard()
     {
         for (size_t j = 4; j < 8; j++)
         {
-            for (size_t k = 0; k < 200; k++)
+            for (size_t k = 0; k < 20; k++)
             {
                 switch (sgf::Rand(0, 4)) {
                 case 0:
@@ -228,10 +225,6 @@ void Lawn::GameUpdateThread(LawnApp* app)
 {
     m_updateTickBuffer = sgf::TryGetTicks();
     app->Update();
-    app->LoadResources((app->mResourceManager.mBasePath + "ResourceList.xml").c_str());
-    app->KillLoadingPage();
-    app->EnterGameSelector();
-   
 
     while (true)
     {

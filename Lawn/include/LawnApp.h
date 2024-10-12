@@ -59,7 +59,7 @@ namespace Lawn {
 		virtual void Draw() override;
 	};
 
-	static void GameUpdateThread(LawnApp* app);
+	void GameUpdateThread(LawnApp* app);
 }
 
 extern Lawn::LawnApp* gLawnApp;//È«¾ÖApp

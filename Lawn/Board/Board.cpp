@@ -33,8 +33,6 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 	AppendChild(mDefeatReturnToMenuButton);
 	AttachToListener(this);
 
-
-	AutoSpawnZombieWaves();
 	mCurrentWaveIndex = 0;
 	mNextWaveCounts = 1000;
 	mStartSpawningZombie = true;
@@ -225,13 +223,16 @@ static float GetZombeiSleepTimeCurve(float x, float waveMax) {
 };
 
 //TODO 完成读取文件
-void Lawn::Board::AutoSpawnZombieWaves()
+void Lawn::Board::AutoSpawnZombieWaves(int waveMax)
 {
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < waveMax; i++)
 	{
-		int num = GetZombieWaveCurve(i,10);
+		
+		int num = GetZombieWaveCurve(i, waveMax);
+		if (!((i + 1) % BOARD_WAVE_EACH_HUGE_EAVE))
+			num *= mLevel.mHugeWaveScale;
 		ZombieWave zombieWave;
-		zombieWave.mSleepTime = GetZombeiSleepTimeCurve(i, 10) * 1000;
+		zombieWave.mSleepTime = GetZombeiSleepTimeCurve(i, waveMax) * 1000;
 
 		for (size_t j = 0; j < num; j++)
 		{
@@ -300,14 +301,16 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 {
 	mLevel.mLevelName = json["LevelName"];
 	mLevel.mWavesNum = json["WavesNumber"];
+	mLevel.mHugeWaveScale = json["HugeWaveScale"];
 	nlohmann::json autoLoadArray = json["AutoLoadZombie"];
 	nlohmann::json zombieArray = json["ZombieList"];
 	for (auto& x : autoLoadArray)
 	{
 		ZombieType type = gZombieStringMap[x];
+		mLevel.mZombieTypes.push_back(type);
 	}
 
-	AutoSpawnZombieWaves();
+	AutoSpawnZombieWaves(mLevel.mWavesNum);
 
 	for (auto& x : zombieArray)
 	{

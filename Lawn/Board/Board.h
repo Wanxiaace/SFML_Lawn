@@ -52,6 +52,7 @@ namespace Lawn {
 		std::vector<ZombieWave> mZombieWaves;
 		std::vector<ZombieType> mZombieTypes;
 		int mWavesNum = 0;
+		float mHugeWaveScale = 1.0f;
 	};
 
 	class Board : public sgf::Widget,sgf::WidgetListener {
@@ -122,7 +123,7 @@ namespace Lawn {
 
 		void ZombieWin(Zombie* target);
 		int GetCurrentZombieNum() const;
-		void AutoSpawnZombieWaves();
+		void AutoSpawnZombieWaves(int waveMax=10);
 		void UpdateZombieWaves();
 		
 		void LoadZombieFromJson(const nlohmann::json& json);

@@ -234,6 +234,7 @@ void sgf::Animator::Update()
 					break;
 				case PLAY_ONCE:
 					Pause();
+					mFrameIndexNow = mFrameIndexEnd;
 					break;
 				}
 			}
