@@ -117,7 +117,6 @@ void ImagePreview::SGFDraw(sgf::Graphics* g)
 		g->DrawImageScaleF(app->mCurentImagePointer,mScale,mScale);
 	}
 
-	g->Present();
 	g->ClearClipRect();
 }
 
@@ -217,7 +216,6 @@ void ReanimPreview::SGFDraw(sgf::Graphics* g)
 		app->mCurentAnimatorPointer->PresentMatrix(g,glm::scale(glm::mat4x4(1.0f),glm::vec3(mScale,mScale,1.0f)));
 	}
 
-	g->Present();
 	g->ClearClipRect();
 
 }

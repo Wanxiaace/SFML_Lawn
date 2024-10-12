@@ -44,6 +44,8 @@ namespace sgf {
 		sgf::GameApp* mGameApp = nullptr;
 		sgf::Color mCubeColor = { 255,255,255 };
 		SimpleProgram mTextureProgram;
+
+
 		glm::mat4x4 mProjectMatrix;
 
 		Point mTransformPosition = {0,0};

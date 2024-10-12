@@ -367,12 +367,12 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2, 20);
 	g->SetCubeColor({ 1,1,1,1 });
 	g->DrawImageGridAtlas(processBarImage,2,1,0,0);
-	
-	g->Present();
+
 	g->SetClipRect({ (LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2,20,processBarImage->GetWidth() * mFlagMeterIndex / float(mLevel.mZombieWaves.size()),processBarImage->GetHeight()});
+	
 	g->MoveTo(0,0);
 	g->DrawImageGridAtlas(processBarImage,2,1,1,0);
-	g->Present();
+
 	g->ClearClipRect();
 
 	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2 + processBarImage->GetWidth() * mFlagMeterIndex / float(mLevel.mZombieWaves.size()) - 5, 20);

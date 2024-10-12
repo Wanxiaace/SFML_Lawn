@@ -4,7 +4,7 @@ sgf::LogoScreen::LogoScreen(GameApp* app):
 	Widget(0x5500)
 {
 	mApp = app;
-	mShowCounterMax = 2000;
+	mShowCounterMax = 3000;
 	mShowCounter = mShowCounterMax;
 }
 

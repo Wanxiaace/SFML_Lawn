@@ -470,6 +470,7 @@ sgf::SimpleImage* sgf::Graphics::CaptureScreen(int x, int y, int width, int heig
 
 void sgf::Graphics::SetClipRect(const sgf::FloatRect& src)
 {
+	Present();
 	int w, h;
 	SDL_GetWindowSize(mGameApp->mGameWindow, &w, &h);
 	ProjectionResize(src.mWidth, src.mHeight);
@@ -478,6 +479,7 @@ void sgf::Graphics::SetClipRect(const sgf::FloatRect& src)
 
 void sgf::Graphics::ClearClipRect()
 {
+	Present();
 	int w, h;
 	SDL_GetWindowSize(mGameApp->mGameWindow,&w,&h);
 	ProjectionResize(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);

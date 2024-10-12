@@ -37,7 +37,7 @@ constexpr int DIALOG_HEADER_OFFSET = 45;
 constexpr int BOARD_SEED_BAND_SIZE_MAX = 8;
 
 constexpr float BOARD_SCALE_EACH_HUGE_WAVW = 5;
-constexpr int BOARD_WAVE_EACH_HUGE_EAVE = 2;
+constexpr int BOARD_WAVE_EACH_HUGE_EAVE = 10;
 
 #endif // !__LAWN_CONSTANT__
 
