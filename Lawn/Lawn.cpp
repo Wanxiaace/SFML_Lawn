@@ -23,12 +23,6 @@ int main(int argc,char** argv) {
 
 	logoScreen->SetNextScreenFunc([]() {
 		gLawnApp->EnterLoadingPage();
-
-		new std::thread([]() {
-			gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
-			gLawnApp->KillLoadingPage();
-			gLawnApp->EnterGameSelector();
-			});
 		});
 
 	auto logo = new sgf::SimpleImage();
@@ -37,6 +31,12 @@ int main(int argc,char** argv) {
 	logoScreen->AppendLogoImage(logo,0.2f);
 
 	gLawnApp->mWidgetManager->AddWidget(logoScreen);
+
+	new std::thread([]() {
+		gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
+		gLawnApp->KillLoadingPage();
+		gLawnApp->EnterGameSelector();
+		});
 
 	gLawnApp->LawnStart();
 }
