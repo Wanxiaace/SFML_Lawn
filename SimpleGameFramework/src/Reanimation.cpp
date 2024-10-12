@@ -16,13 +16,16 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 	mTracks = new std::vector<TrackInfo>;
 	pugi::xml_document mDoc = pugi::xml_document();
 	auto result = mDoc.load_file(filePath);
-	std::cout << result.description() << std::endl;
+	if (!result) {
+		std::cout << "Loading " << filePath << " Error with: " << std::endl;
+		std::cout << result.description() << std::endl;
+	}
 
 	for (auto& x : mDoc.children()) {
 		String TagName = x.name();
 		if (TagName == "fps") {
 			mFPS = x.text().as_int();
-			std::cout << "FPS: " << mFPS << std::endl;
+			//std::cout << "FPS: " << mFPS << std::endl;
 		}
 		else if (TagName == "track") {
 			TrackInfo aInfo = TrackInfo{ "" };

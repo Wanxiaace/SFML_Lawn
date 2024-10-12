@@ -261,9 +261,9 @@ void sgf::ResourceList::Load(const char* path)
 		for (auto& y : x.children()) {
 			ResouceInfo aInf;
 			sgf::String fPath = x.name() + sgf::String("/") + y.attribute("path").as_string();
-			std::cout << "Path: " << fPath << std::endl;
+			//std::cout << "Path: " << fPath << std::endl;
 
-			std::cout << "ID: " << y.attribute("id").as_string() << std::endl;
+			//std::cout << "ID: " << y.attribute("id").as_string() << std::endl;
 
 			aInf.path = fPath;
 			aInf.id = y.attribute("id").as_string();
