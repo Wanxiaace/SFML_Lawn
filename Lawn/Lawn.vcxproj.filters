@@ -84,6 +84,12 @@
     <ClCompile Include="Board\src\LawnMover.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Board\src\GameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Resources.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LawnApp.h">
@@ -153,6 +159,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="Board\include\LawnMover.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resources.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

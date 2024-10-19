@@ -2,8 +2,6 @@
 #include <iostream>
 #include "../../glm/ext/matrix_transform.hpp"
 
-Uint32 m_deltaTimeTick = 0;
-
 sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
 {
     mWidth = width;
@@ -21,17 +19,30 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
         windowFlags |= SDL_WindowFlags::SDL_WINDOW_RESIZABLE;
     //windowFlags |= SDL_WindowFlags::SDL_WINDOW_FULLSCREEN;
     
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+
     mGameWindow = SDL_CreateWindow(windowCaptain.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,width,height, windowFlags);
     mGLContext = SDL_GL_CreateContext(mGameWindow);
     SDL_GL_MakeCurrent(mGameWindow,mGLContext);
 
     glewInit();
+
+    int samples;
+    glGetIntegerv(GL_SAMPLES, &samples);
+    if (samples > 0) {
+        std::cout << "Multisampling is enabled with " << samples << " samples per pixel." << std::endl;
+    }
+    else {
+        std::cout << "Multisampling is not supported or not enabled." << std::endl;
+    }
    
     glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &mTextureNumberMax);
 
     glDepthMask(GL_FALSE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     //glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
     // glEnable(GL_MULTISAMPLE); //开启多重采样
@@ -50,7 +61,6 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
 
     SDL_GL_SetSwapInterval(false);//关闭自带的逆天垂直同步
     mEnabledASync = enableASync;
-    //
 
     glViewport(0,0,width,height);
 }
@@ -71,11 +81,9 @@ sgf::GameAppBase::~GameAppBase()
 
 void sgf::GameAppBase::EnterMainLoop()
 {
-    m_deltaTimeTick = SDL_GetTicks();
     mIsOpen = true;
-    mLastSecondBuffer = SDL_GetTicks();
+    mLastSecondBuffer = sgf::TryGetTicks();
     mFramePerSecondBuffer = 0;
-
 
     while (mIsOpen)
     {
@@ -89,7 +97,7 @@ void sgf::GameAppBase::EnterMainLoop()
         }
 
         Uint32 tick = sgf::TryGetTicks();
-        mDeltaTime = (tick - m_deltaTimeTick);
+        mTick.Update();
 
         if (tick - mLastSecondBuffer >= 1000) {
             mLastSecondBuffer = tick;
@@ -105,9 +113,6 @@ void sgf::GameAppBase::EnterMainLoop()
         mMessageManager.CopeAllMessage();
 
         Update();
-
-        m_deltaTimeTick = tick;
-
         static const Uint32 FPS = 1000 / 60;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {

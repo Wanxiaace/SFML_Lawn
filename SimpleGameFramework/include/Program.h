@@ -36,7 +36,6 @@ namespace sgf {
 		};
 	public:
 		unsigned int mProgram = 0;
-		unsigned int mOldProgram = 0;
 
 	public:
 		SimpleProgram();
@@ -45,8 +44,7 @@ namespace sgf {
 		void LoadFromFile(const char* vertexShader,const char* fragmentShader);
 
 		unsigned int LoadShader(const char* path, ShaderType type);
-		unsigned int Use();
-		unsigned int UnUse();
+		void Use();
 	};
 }
 

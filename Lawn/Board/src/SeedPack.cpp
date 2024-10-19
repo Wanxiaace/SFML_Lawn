@@ -134,17 +134,17 @@ void Lawn::SeedPack::OnClick()
 {
 	if (mIsChose)
 	{
-		if (mBoard->mApp->mCursor->mSeedPack == this)
+		if (gLawnApp->mCursor->mSeedPack == this)
 		{
 			mIsChose = false;
-			mBoard->mApp->mCursor->Reset();
+			gLawnApp->mCursor->Reset();
 		}
 		else
-			mBoard->mApp->mCursor->PickSeedPack(this);
+			gLawnApp->mCursor->PickSeedPack(this);
 	}
 	else
 	{
-		mBoard->mApp->mCursor->PickSeedPack(this);
+		gLawnApp->mCursor->PickSeedPack(this);
 	}
 }
 

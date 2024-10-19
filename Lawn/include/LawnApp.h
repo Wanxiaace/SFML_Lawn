@@ -25,7 +25,6 @@ namespace Lawn {
 		SettingDialog* mSettingDialog = nullptr;
 		Board* mBoard = nullptr;
 		LawnCursor* mCursor;
-
 		LawnPlayerInfo mPlayerInfo;
 
 	public:

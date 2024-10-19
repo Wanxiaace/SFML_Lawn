@@ -26,7 +26,7 @@ void Lawn::Plant::PlantInit()
 	mReanimOffsetX = def.mReanimOffsetX;
 	mReanimOffsetY = def.mReanimOffsetY;
 
-	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
+	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
 	mBodyReanim.SetFrameRangeByTrackName("anim_idle");
 	mBodyReanim.Play();
 
@@ -112,10 +112,12 @@ void Lawn::Plant::InitPlantsDefinitions()
 
 void Lawn::Plant::Update()
 {
+	GameObject::Update();
+
 	mBodyReanim.Update();
 	mHeadReanim.Update();
 	if (mProduceCountDown > 0)
-		mProduceCountDown -= mTickDelta;
+		mProduceCountDown -= mTick.GetDeltaTick();
 
 	switch (mSeedType)
 	{

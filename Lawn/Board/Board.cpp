@@ -4,22 +4,21 @@
 #include "../include/LawnApp.h"
 #include "include/Plant.h"
 
-Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
+Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 {
-	mApp = app;
-	mApp->mCursor->mIsOnBoard = true;
-	mApp->mCursor->mBoard = this;
+	gLawnApp->mCursor->mIsOnBoard = true;
+	gLawnApp->mCursor->mBoard = this;
 	mBackGroundType = BACKGROUND_FRONT_YARD_DAY;
 	UpdateBoardBackground();
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 
-	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_PAUSE,mApp);
+	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_PAUSE);
 	//std::cout << _LS("Menu") << std::endl;
 	mMenuButton->LoadLabel(_LS("Menu"));
 	mMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
 	mMenuButton->AttachToListener(this);
 
-	mDefeatReturnToMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_RETURN_TO_MENU, mApp);
+	mDefeatReturnToMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_RETURN_TO_MENU);
 	mDefeatReturnToMenuButton->LoadLabel(_LS("ReturnToMenu"));
 	mDefeatReturnToMenuButton->Resize((LAWN_GAME_WINDOW_WIDTH - 210)/2, 500, 210, 50);
 	mDefeatReturnToMenuButton->AttachToListener(this);
@@ -44,8 +43,8 @@ Lawn::Board::Board(LawnApp* app):Widget(LAWN_WIDGET_BOARD)
 
 Lawn::Board::~Board()
 {
-	mApp->mCursor->mIsOnBoard = false;
-	mApp->mCursor->Reset();
+	gLawnApp->mCursor->mIsOnBoard = false;
+	gLawnApp->mCursor->Reset();
 	Widget::~Widget();
 	mWidgetManager->RemoveWidget(mMenuButton);
 	mWidgetManager->RemoveWidget(mSeedBank);
@@ -73,14 +72,14 @@ void Lawn::Board::UpdateBoardBackground()
 	switch (mBackGroundType)
 	{
 	case Lawn::BACKGROUND_FRONT_YARD_DAY:
-		mBackGroundImageCache = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND1"];
+		mBackGroundImageCache = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND1"];
 		mGridOriPosX = 255;
 		mGridOriPosY = 85;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
 	case Lawn::BACKGROUND_FRONT_YARD_NIGHT:
-		mBackGroundImageCache = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND2"];
+		mBackGroundImageCache = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND2"];
 		mGridOriPosX = 255;
 		mGridOriPosY = 85;
 		mGridWidth = 80;
@@ -90,14 +89,14 @@ void Lawn::Board::UpdateBoardBackground()
 		break;
 	}
 	mBackgroundScaleF = float(LAWN_GAME_WINDOW_HEIGHT) / mBackGroundImageCache->mSurface->h;
-	mApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)",5000);
+	gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)",5000);
 
 }
 
 void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
 {
 	g->SetCubeColor({1,1,1,1});
-	
+
 	if(mBackGroundImageCache)
 		g->DrawImage(mBackGroundImageCache);
 }
@@ -196,7 +195,7 @@ void Lawn::Board::ZombieWin(Zombie* target)
 {
 	mWinZombie = target;
 	mWinZombie->PlayTrack("anim_eat");
-	mZombieAnimator = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_ZOMBIESWON"),gLawnApp);
+	mZombieAnimator = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_ZOMBIESWON"));
 	mZombieAnimator->SetFrameRangeByTrackName("anim_screen");
 	mZombieAnimator->Play(sgf::Animator::PlayState::PLAY_ONCE);
 	mIsZombieWin = true;
@@ -205,8 +204,8 @@ void Lawn::Board::ZombieWin(Zombie* target)
 	mSeedBank->mVisible = false;
 	mMenuButton->mVisible = false;
 	mDefeatReturnToMenuButton->mVisible = true;
-	mApp->mMusicManager.FadeOutMusic(2000);
-	mApp->mMusicManager.PlayChunk("CHUNK_LOSEMUSIC");
+	gLawnApp->mMusicManager.FadeOutMusic(2000);
+	gLawnApp->mMusicManager.PlayChunk("CHUNK_LOSEMUSIC");
 }
 
 int Lawn::Board::GetCurrentZombieNum() const
@@ -260,7 +259,7 @@ void Lawn::Board::UpdateZombieWaves()
 		return;
 
 	if (mNextWaveCounts != -1) {
-		if (mNextWaveCounts < mTickDelta)
+		if (mNextWaveCounts < mTick.GetDeltaTick())
 		{
 			if (mLevel.mZombieWaves.size() > mCurrentWaveIndex)
 			{
@@ -285,7 +284,7 @@ void Lawn::Board::UpdateZombieWaves()
 			if (GetCurrentZombieNum() == 0 && mNextWaveCounts > 300) {
 				mNextWaveCounts = 300;
 			}
-			mNextWaveCounts -= mTickDelta;
+			mNextWaveCounts -= mTick.GetDeltaTick();
 		}
 	}
 }
@@ -326,6 +325,7 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 }
 
 #include <fstream>
+#include <EffectHolder.h>
 
 
 void Lawn::Board::LoadZombieFromJsonFile(const char* path)
@@ -400,18 +400,17 @@ void Lawn::Board::InitLawnMover()
 
 void Lawn::Board::Update()
 {
-	if (mBlackScreenCounter > mTickDelta)
-		mBlackScreenCounter -= mTickDelta;
+	if (mBlackScreenCounter > mTick.GetDeltaTick())
+		mBlackScreenCounter -= mTick.GetDeltaTick();
 	else
 		mBlackScreenCounter = 0;
 
-	if (mHugeCounter > mTickDelta)
-		mHugeCounter -= mTickDelta;
+	if (mHugeCounter > mTick.GetDeltaTick())
+		mHugeCounter -= mTick.GetDeltaTick();
 	else
 		mHugeCounter = 0;
 
 	if (!mIsBoardRunning) {
-		mWinZombie->mTickDelta = mTickDelta;
 		mWinZombie->Update();
 		if(mBlackScreenCounter <= 0)
 			mZombieAnimator->Update();
@@ -428,7 +427,6 @@ void Lawn::Board::Update()
 			length--;
 			continue;
 		}
-		mPlantVector[i]->mTickDelta = mTickDelta;
 		mPlantVector[i]->Update();
 	}
 
@@ -443,7 +441,6 @@ void Lawn::Board::Update()
 			continue;
 		}
 
-		mZombieVector[i]->mTickDelta = mTickDelta;
 		mZombieVector[i]->Update();
 	}
 
@@ -458,7 +455,6 @@ void Lawn::Board::Update()
 			continue;
 		}
 
-		mLawnMoverVector[i]->mTickDelta = mTickDelta;
 		mLawnMoverVector[i]->Update();
 	}
 
@@ -472,15 +468,14 @@ void Lawn::Board::Update()
 			length--;
 			continue;
 		}
-		mProjectileVector[i]->mTickDelta = mTickDelta;
 		mProjectileVector[i]->Update();
 	}
 
 	if (mFlagMeterIndex < float(mCurrentWaveIndex))
-		mFlagMeterIndex += float(mTickDelta) / 200.0f;
+		mFlagMeterIndex += float(mTick.GetDeltaTick()) / 200.0f;
 
 
-	mParticleManager.Update(mTickDelta);
+	mParticleManager.Update(mTick.GetDeltaTick());
 	mSeedBank->Update();
 	UpdateZombieWaves();
 }
@@ -589,8 +584,8 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 
 void Lawn::Board::OnClick(int theId)
 {
-	if (theId == mId && mApp->mCursor->mState == LAWN_CURSOR_SEED) {
-		mApp->mCursor->SeedPlant();
+	if (theId == mId && gLawnApp->mCursor->mState == LAWN_CURSOR_SEED) {
+		gLawnApp->mCursor->SeedPlant();
 	}
 
 	switch (theId)

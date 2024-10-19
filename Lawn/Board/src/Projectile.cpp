@@ -94,9 +94,11 @@ Lawn::Zombie* Lawn::Projectile::TryToFindTarget()
 
 void Lawn::Projectile::Update()
 {
+	GameObject::Update();
+
 	if (!mAvailable)
 		return;
-	int tickDelta = mTickDelta;
+	int tickDelta = mTick.GetDeltaTick();
 
 	switch (mMotionType)
 	{

@@ -23,7 +23,11 @@
 #include "backends/imgui_impl_opengl3.h"
 
 #include <random>
- 
+#include <thread>
+#include <chrono>
+#include <functional>
+using namespace std::chrono;
+
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
 
@@ -186,7 +190,7 @@ namespace sgf {
         }
     }
 
-
+    /// 获得文件是否存在
     static bool IsFileExist(const sgf::String& filename) {
         FILE* file;
         fopen_s(&file, filename.c_str(), "r");
@@ -225,5 +229,11 @@ namespace sgf {
         return float(m_randomAdapter() % int(range * 1000.0f)) / 1000.0f + rangeMin;
     };
 
+    static void WaitUntil(std::function<bool()> req) {
+        while (!req())
+        {
+            std::this_thread::sleep_for(100ms);
+        }
+    };
 }
 #endif

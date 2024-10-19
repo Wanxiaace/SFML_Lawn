@@ -65,6 +65,9 @@ namespace sgf {
 		virtual void Draw() override;
 		virtual void CopeEvent(SDL_Event& theEvent) override;
 	};
+
+	extern sgf::GameApp* gGameApp;
+
 }
 
 #endif

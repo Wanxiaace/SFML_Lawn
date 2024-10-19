@@ -32,8 +32,9 @@ int main(int argc,char** argv) {
 
 	gLawnApp->mWidgetManager->AddWidget(logoScreen);
 
-	new std::thread([]() {
+	new std::thread([logoScreen]() {
 		gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
+		logoScreen->Join();
 		gLawnApp->KillLoadingPage();
 		gLawnApp->EnterGameSelector();
 		});

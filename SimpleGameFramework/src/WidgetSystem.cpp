@@ -52,7 +52,7 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 	for (auto x = mWidgets.rbegin();x < mWidgets.rend();x++)
 	{
 		if ((*x)->GetVisible()) {
-			(*x)->mTickDelta = app->mDeltaTime;
+			(*x)->mTick.Update();;
 			
 			if(!isModelUsed)
 				(*x)->Update();
@@ -108,6 +108,11 @@ void sgf::WidgetManager::Draw(Graphics* graphics)
 		x->Draw(graphics);
 	}
 	graphics->Present();
+}
+
+sgf::Widget::Widget(int id)
+{
+	mId = id; mTick.BindToCounter(&gGameApp->mTick);
 }
 
 void sgf::Widget::Resize(float x, float y, float width, float height)

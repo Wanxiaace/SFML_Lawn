@@ -4,12 +4,11 @@
 #include "../include/LawnApp.h"
 
 
-Lawn::LawnStoneButton::LawnStoneButton(int buttonId,sgf::GameApp* app) :sgf::TemplateButton(buttonId)
+Lawn::LawnStoneButton::LawnStoneButton(int buttonId) :sgf::TemplateButton(buttonId)
 {
-	mApp = app;
-	mImageLeft = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_BUTTON_LEFT"];
-	mImageMiddle = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_BUTTON_MIDDLE"];
-	mImageRight = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_BUTTON_RIGHT"];
+	mImageLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_LEFT"];
+	mImageMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_MIDDLE"];
+	mImageRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_RIGHT"];
 }
 
 Lawn::LawnStoneButton::~LawnStoneButton()
@@ -20,7 +19,7 @@ Lawn::LawnStoneButton::~LawnStoneButton()
 
 void Lawn::LawnStoneButton::LoadLabel(const sgf::String& label)
 {
-	sgf::Font* font = (sgf::Font*)mApp->mResourceManager.mResourcePool["FONT_FONT3"];
+	sgf::Font* font = (sgf::Font*)gLawnApp->mResourceManager.mResourcePool["FONT_FONT3"];
 	if (!font)
 		return;
 	mLabel = label;
@@ -94,10 +93,9 @@ void Lawn::LawnStoneButton::Update()
 }
 
 
-Lawn::TextButton::TextButton(int buttonId, int fontSize, sgf::GameApp* app) :sgf::TemplateButton(buttonId)
+Lawn::TextButton::TextButton(int buttonId, int fontSize) :sgf::TemplateButton(buttonId)
 {
 	mFontSize = fontSize;
-	mApp = app;
 }
 
 Lawn::TextButton::~TextButton()
@@ -111,7 +109,7 @@ void Lawn::TextButton::LoadLabel(const sgf::String& text, const sgf::String& key
 	mLabel = text;
 	if (mTextImage)
 		delete mTextImage;
-	sgf::Font* font = (sgf::Font*)mApp->mResourceManager.mResourcePool[key];
+	sgf::Font* font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>(key);
 	if (!font)
 		return;
 	font->SetFontSize(mFontSize);
@@ -160,22 +158,21 @@ void Lawn::TextButton::Update()
 	}
 }
 
-Lawn::LawnDialog::LawnDialog(int theId, sgf::GameApp* app) : Widget(theId)
+Lawn::LawnDialog::LawnDialog(int theId) : Widget(theId)
 {
-	mApp = app;
-	mDialogTopLeft = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPLEFT"];
-	mDialogTopMiddle = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPMIDDLE"];
-	mDialogTopRight = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPRIGHT"];
+	mDialogTopLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPLEFT"];
+	mDialogTopMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPMIDDLE"];
+	mDialogTopRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPRIGHT"];
 
-	mDialogCenterLeft = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERLEFT"];
-	mDialogCenterMiddle = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERMIDDLE"];
-	mDialogCenterRight = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERRIGHT"];
+	mDialogCenterLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERLEFT"];
+	mDialogCenterMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERMIDDLE"];
+	mDialogCenterRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERRIGHT"];
 	
-	mDialogBottomLeft = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMLEFT"];
-	mDialogBottomMiddle = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMMIDDLE"];
-	mDialogBottomRight = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMRIGHT"];
+	mDialogBottomLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMLEFT"];
+	mDialogBottomMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMMIDDLE"];
+	mDialogBottomRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMRIGHT"];
 
-	mDialogHeader = (sgf::SimpleImage*)mApp->mResourceManager.mResourcePool["IMAGE_DIALOG_HEADER"];
+	mDialogHeader = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_HEADER"];
 
 }
 
@@ -249,26 +246,24 @@ void Lawn::LawnDialog::Draw(sgf::Graphics* g)
 void Lawn::LawnDialog::Update()
 {
 	if (mIsMouseCaught) {
-		sgf::Point p = sgf::Point{ (float)mApp->mMouseX, (float)mApp->mMouseY } - mMouseOriPoint;
+		sgf::Point p = sgf::Point{ (float)gLawnApp->mMouseX, (float)gLawnApp->mMouseY } - mMouseOriPoint;
 		mRect += sgf::FloatRect{p.x, p.y, 0, 0};
-		mMouseOriPoint = sgf::Point{ (float)mApp->mMouseX, (float)mApp->mMouseY };
+		mMouseOriPoint = sgf::Point{ (float)gLawnApp->mMouseX, (float)gLawnApp->mMouseY };
 	}
 	else {
-		mMouseOriPoint = { (float)mApp->mMouseX,(float)mApp->mMouseY };
+		mMouseOriPoint = { (float)gLawnApp->mMouseX,(float)gLawnApp->mMouseY };
 	}
 }
 
-Lawn::LawnSlider::LawnSlider(int theId, sgf::GameApp* app) : sgf::Widget(theId)
+Lawn::LawnSlider::LawnSlider(int theId) : sgf::Widget(theId)
 {
 	mRangeMax = 0;
 	mRangeMin = 0;
 	mRangeDistence = 0;
 	mValue = 0;
-	mApp = app;
 
-
-	mImageSliderBar = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERSLOT"];
-	mImageSliderButton = (sgf::SimpleImage*)app->mResourceManager.mResourcePool["IMAGE_OPTIONS_SLIDERKNOB2"];
+	mImageSliderBar = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_SLIDERSLOT");
+	mImageSliderButton = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_SLIDERKNOB2");
 
 	Resize(0, 0, mImageSliderBar->GetWidth(), 25);
 
@@ -310,7 +305,7 @@ void Lawn::LawnSlider::Update()
 {
 	auto pos = GetExactPosition();
 	if (mIsMouseCaught) {
-		mValue = (static_cast<float>(mApp->mMouseX) - pos.first) / mImageSliderBar->GetWidth() * mRangeDistence + mRangeMin;
+		mValue = (static_cast<float>(gLawnApp->mMouseX) - pos.first) / mImageSliderBar->GetWidth() * mRangeDistence + mRangeMin;
 		if (mValue > mRangeMax)
 			mValue = mRangeMax;
 		if (mValue < mRangeMin)
@@ -322,10 +317,9 @@ void Lawn::LawnSlider::Update()
 	}
 }
 
-Lawn::LawnLabel::LawnLabel(sgf::GameApp* app) :sgf::Widget(20000)
+Lawn::LawnLabel::LawnLabel() :sgf::Widget(20000)
 {
-	mApp = app;
-	mFont = mApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
+	mFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
 }
 
 Lawn::LawnLabel::~LawnLabel()
@@ -359,11 +353,10 @@ void Lawn::LawnLabel::Draw(sgf::Graphics* g)
 	}
 }
 
-Lawn::LawnCheckBox::LawnCheckBox(int theId, sgf::GameApp* app) : Widget(theId)
+Lawn::LawnCheckBox::LawnCheckBox(int theId) : Widget(theId)
 {
-	mApp = app;
-	mUnCheckImage = app->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX0");
-	mCheckImage = app->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX1");
+	mUnCheckImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX0");
+	mCheckImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX1");
 	Resize(mRect.mX,mRect.mY,40,40);
 }
 
@@ -380,7 +373,7 @@ void Lawn::LawnCheckBox::SetLabel(const sgf::String& label)
 {
 	if (mLabel)
 		return;
-	mLabel = new LawnLabel(mApp);
+	mLabel = new LawnLabel();
 	mLabel->LoadLabel(label,25);
 	AppendChild(mLabel);
 	mLabel->MoveTo(50,5);
@@ -413,7 +406,7 @@ void Lawn::LawnCheckBox::Update()
 		*mTargetBool = mIsCheck;
 }
 
-Lawn::LawnImageButton::LawnImageButton(int buttonId, sgf::GameApp* app) : LawnStoneButton(buttonId,app)
+Lawn::LawnImageButton::LawnImageButton(int buttonId) : LawnStoneButton(buttonId)
 {
 
 }

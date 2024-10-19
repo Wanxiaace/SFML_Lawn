@@ -2,6 +2,7 @@
 #ifndef __SIMPLE_APP__
 #define __SIMPLE_APP__
 #include "Common.h"
+#include "TickCounter.h"
 #include "../../glm/ext/matrix_float4x4.hpp"
 #include "GameMessage.h"
 
@@ -20,7 +21,8 @@ namespace sgf {
 		int mMouseY = 0;
 		float mMouseXScale = 1.0f;
 		float mMouseYScale = 1.0f;
-		unsigned int mDeltaTime = 0;
+		TickCounter mTick;
+
 		unsigned int mDeltaFrameTime = 0;
 
 		unsigned int mLastSecondBuffer = 0;

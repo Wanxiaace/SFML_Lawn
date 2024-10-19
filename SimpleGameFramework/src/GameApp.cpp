@@ -1,8 +1,11 @@
 #include "../include/GameApp.h"
+sgf::GameApp* sgf::gGameApp = nullptr;
+
 
 sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable): GameAppBase::GameAppBase(width, height, windowCaptain, enabledASync, resiziable)
 {
 	mWidgetManager = new WidgetManager();
+	gGameApp = this;
 }
 
 sgf::GameApp::~GameApp()
@@ -162,7 +165,7 @@ void sgf::GameApp::Draw()
 	mWidgetManager->Draw(mGraphics);
 
 	if (mDisplay)
-		mDisplay(this, mDeltaTime);
+		mDisplay(this, mTick.GetDeltaTick());
 
 	DrawImgui();
 	SDL_GL_SwapWindow(mGameWindow);

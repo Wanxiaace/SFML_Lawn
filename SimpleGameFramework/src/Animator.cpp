@@ -5,9 +5,9 @@ sgf::Animator::Animator()
 	mReanim = nullptr;
 }
 
-sgf::Animator::Animator(sgf::Reanimation* reanim, sgf::GameApp* app)
+sgf::Animator::Animator(sgf::Reanimation* reanim)
 {
-	Init(reanim, app);
+	Init(reanim);
 }
 
 void sgf::Animator::Play(const PlayState& state)
@@ -16,9 +16,8 @@ void sgf::Animator::Play(const PlayState& state)
 	mIsPlaying = true;
 }
 
-void sgf::Animator::Init(Reanimation* reanim, sgf::GameApp* app)
+void sgf::Animator::Init(Reanimation* reanim)
 {
-	mApp = app;
 	mReanim = reanim;
 	mFPS = mReanim->mFPS;
 	mDeltaRate = 1000.0f / mFPS;
@@ -214,7 +213,7 @@ int sgf::Animator::GetFirstTrackExtraIndexByName(const sgf::String& trackName)
 void sgf::Animator::Update()
 {
 	if (mIsPlaying) {
-		unsigned int delta = mApp->mDeltaTime;
+		unsigned int delta = gGameApp->mTick.GetDeltaTick();
 		float num = ((float)delta) / mDeltaRate;
 
 		if (mReanimBlendCounter > 0) {
@@ -271,13 +270,13 @@ static void GetDeltaTransformEx(const sgf::TrackFrameTransform& tSrc, const sgf:
 
 void sgf::Animator::Present(Graphics* g)
 {
-	Reanimation* R = mReanim;
+	Reanimation* targetReanim = mReanim;
 	float OffsetX = 0;
 	float OffsetY = 0;
 	float fScale = 1.0f;
 
-	for (int i = 0; i < R->mTracks->size(); i++) {
-		auto& x = (R->mTracks)->at(i);
+	for (int i = 0; i < targetReanim->mTracks->size(); i++) {
+		auto& x = (targetReanim->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;
 		if (!mExtraInfos[i].mVisible)
@@ -308,7 +307,7 @@ void sgf::Animator::Present(Graphics* g)
 				{
 					if (aSource.i == "")
 						continue;
-					targetImage = (SimpleImage*)R->mResourceManager->mResourcePool[aSource.i];
+					targetImage = targetReanim->mResourceManager->GetResourceFast<SimpleImage>(aSource.i);
 				}
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
@@ -341,13 +340,13 @@ void sgf::Animator::Present(Graphics* g)
 
 void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 {
-	Reanimation* R = mReanim;
+	Reanimation* targetReanim = mReanim;
 	float OffsetX = 0;
 	float OffsetY = 0;
 	float fScale = 1.0f;
 
-	for (int i = 0; i < R->mTracks->size(); i++) {
-		auto& x = (R->mTracks)->at(i);
+	for (int i = 0; i < targetReanim->mTracks->size(); i++) {
+		auto& x = (targetReanim->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;
 		if (!mExtraInfos[i].mVisible)
@@ -378,7 +377,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 				{
 					if (aSource.i == "")
 						continue;
-					targetImage = (SimpleImage*)R->mResourceManager->mResourcePool[aSource.i];
+					targetImage = targetReanim->mResourceManager->GetResourceFast<SimpleImage>(aSource.i);
 				}
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);

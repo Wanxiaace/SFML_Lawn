@@ -2,23 +2,23 @@
 #include "../../include/Constant.h"
 #include "../../include/LawnApp.h"
 
-Lawn::PauseDialog::PauseDialog(sgf::GameApp* app) : LawnDialog(LAWN_WIDGET_PAUSE_DIALOG, app)
+Lawn::PauseDialog::PauseDialog() : LawnDialog(LAWN_WIDGET_PAUSE_DIALOG)
 {
 	mEnabledModel = true;
 	Resize(0,0,420,500);
-	MoveToCenter(mApp->mWidth, mApp->mHeight);
+	MoveToCenter(gLawnApp->mWidth, gLawnApp->mHeight);
 
-	mContinueButton = new LawnImageButton(PAUSE_DIALOG_CONTINUE,mApp);
+	mContinueButton = new LawnImageButton(PAUSE_DIALOG_CONTINUE);
 	mContinueButton->AttachToListener(this);
 	mContinueButton->LoadLabel(_LS("Continue"));
-	mContinueButton->mImageNormal = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON0");
-	mContinueButton->mImageHover = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
-	mContinueButton->mImageDown = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
+	mContinueButton->mImageNormal = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON0");
+	mContinueButton->mImageHover = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
+	mContinueButton->mImageDown = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
 	mContinueButton->Resize(25, 350, mContinueButton->mImageNormal->GetWidth(), mContinueButton->mImageNormal->GetHeight());
 	
 	AppendChild(mContinueButton);
 
-	mMenuButton = new LawnStoneButton(PAUSE_DIALOG_MENU, mApp);
+	mMenuButton = new LawnStoneButton(PAUSE_DIALOG_MENU);
 	
 	mMenuButton->AttachToListener(this);
 	mMenuButton->Resize(120, 300, 165, 50);

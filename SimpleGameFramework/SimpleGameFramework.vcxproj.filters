@@ -212,6 +212,12 @@
     <ClInclude Include="include\LogoScreen.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\EffectHolder.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TickCounter.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="PopCom\zlib\algorithm.txt" />

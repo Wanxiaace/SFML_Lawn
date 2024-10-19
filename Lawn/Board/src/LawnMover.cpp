@@ -17,7 +17,7 @@ void Lawn::LawnMover::Init(LawnMoverType type)
 	switch (mType)
 	{
 	case Lawn::LAWN_MOVER_NORMAL:
-		mLawnMoverAnim = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_LAWNMOWER"),gLawnApp);
+		mLawnMoverAnim = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_LAWNMOWER"));
 		mLawnMoverShadow = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_PLANTSHADOW");
 		break;
 	default:
@@ -47,7 +47,7 @@ void Lawn::LawnMover::Update()
 	if (mIsRunning)
 	{
 		mLawnMoverAnim->Update();
-		mBox.mX += 250.0f * mTickDelta / 1000.0f;
+		mBox.mX += 250.0f * mTick.GetDeltaTick() / 1000.0f;
 
 		for (auto& x : gLawnApp->mBoard->mZombieVector)
 		{

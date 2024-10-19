@@ -71,7 +71,8 @@ void sgf::Graphics::SetCubeMatrixIndex(float index)
 sgf::Graphics::Graphics(GameApp* gameApp)
 {
 
-	mTextureProgram.LoadFromFile((gameApp->mResourceManager.mBasePath + "shaders/TextureVertexShader.glsl").c_str(), (gameApp->mResourceManager.mBasePath + "shaders/TextureFragmentShader.glsl").c_str());
+	mTextureProgram.LoadFromFile("shaders/TextureVertexShader.glsl", "shaders/TextureFragmentShader.glsl");
+	mBlurProgram.LoadFromFile("shaders/TextureVertexShader.glsl", "shaders/TextureFragmentShaderBlur.glsl");
 	
 	glGenVertexArrays(1, &mCubeVAO);
 
@@ -121,10 +122,28 @@ void sgf::Graphics::AppendVertices(const Vertex* vertices, int vertexCount)
 
 void sgf::Graphics::ActiveTextureShader()
 {
-	if (mNowProgram == &mTextureProgram)
+	SwitchShader(&mTextureProgram);
+}
+
+void sgf::Graphics::ActiveBlurShader()
+{
+	SwitchShader(&mBlurProgram);
+}
+
+void sgf::Graphics::SwitchShader(SimpleProgram* prog)
+{
+	if (mNowProgram == prog)
 		return;
-	mNowProgram = &mTextureProgram;
-	mTextureProgram.Use();
+
+	if (mNowProgram && !CheckIsBatchEmpty())
+		Present();
+
+	mNowProgram = prog;
+	prog->Use();
+
+	glUniformMatrix4fv(glGetUniformLocation(mNowProgram->mProgram, "proj"), 1, GL_FALSE, glm::value_ptr(mProjectMatrix));
+
+	
 }
 
 void sgf::Graphics::DrawTriangleArrays()
@@ -158,26 +177,26 @@ void sgf::Graphics::FillRect(const FloatRect& src)
 
 int sgf::Graphics::TryToBindNewTexture(sgf::SimpleImage* src)
 {
-	auto itr = std::find(mTexturesBuffer.begin(), mTexturesBuffer.end(), src);
-	if (itr != mTexturesBuffer.end())
-		return itr - mTexturesBuffer.begin();
+	auto itr = std::find(mImagesBuffer.begin(), mImagesBuffer.end(), src);
+	if (itr != mImagesBuffer.end())
+		return itr - mImagesBuffer.begin() + mTexturesNumber;
 	int unitMaxCount = GetMaxTextureUnitCount();
-	GLenum textureUnit = GL_TEXTURE0 + mTexturesNumber;
-	if (mTexturesNumber < unitMaxCount) {
+	GLenum textureUnit = GL_TEXTURE0 + mImagesNumber;
+	if (mImagesNumber < unitMaxCount) {
 		unsigned int texureHandle = src->GenerateTexture();
 
 		//glBindTexture(GL_TEXTURE_2D, texureHandle);
 		glActiveTexture(textureUnit);
 		glBindTexture(GL_TEXTURE_2D, texureHandle);
 
-		GLint textureArrayIndex = glGetUniformLocation(mNowProgram->mProgram, ("textures[" + std::to_string(mTexturesNumber) + "]").c_str());
+		GLint textureArrayIndex = glGetUniformLocation(mNowProgram->mProgram, ("textures[" + std::to_string(mImagesNumber) + "]").c_str());
 
-		glUniform1i(textureArrayIndex, mTexturesNumber);
-		mTexturesBuffer.push_back(src);
+		glUniform1i(textureArrayIndex, mImagesNumber);
+		mImagesBuffer.push_back(src);
 
 	}
-	mTexturesNumber++;
-	return mTexturesNumber - 1;
+	mImagesNumber++;
+	return mImagesNumber - 1;
 }
 
 int sgf::Graphics::TryToBindNewMatrix(glm::mat4x4 src)
@@ -337,6 +356,60 @@ void sgf::Graphics::Translate(float x, float y)
 	mTransformPosition.y += y;
 }
 
+void sgf::Graphics::DrawTexture(unsigned int tex, float width, float height)
+{
+	int unitMaxCount = GetMaxTextureUnitCount();
+
+	GLenum textureUnit = GL_TEXTURE0 + mImagesNumber;
+	if (mImagesNumber < unitMaxCount) {
+		unsigned int texureHandle = tex;
+		glActiveTexture(textureUnit);
+		glBindTexture(GL_TEXTURE_2D, texureHandle);
+
+		GLint textureArrayIndex = glGetUniformLocation(mNowProgram->mProgram, ("textures[" + std::to_string(mImagesNumber) + "]").c_str());
+
+		glUniform1i(textureArrayIndex, mImagesNumber);
+	}
+
+	SetCubeTextureIndex(mImagesNumber);
+
+	mImagesNumber++;
+	mTexturesNumber++;
+
+	FillRect(width, height);
+	SetCubeTextureIndex(-1);
+}
+
+void sgf::Graphics::DrawTextureReversed(unsigned int tex, float width, float height)
+{
+	int unitMaxCount = GetMaxTextureUnitCount();
+
+	float matrixPosition = TryToBindNewMatrix(glm::translate(glm::scale(glm::mat4x4(1.0f), glm::vec3(1, -1, 1)),
+		glm::vec3(0, -height,0)));
+
+	GLenum textureUnit = GL_TEXTURE0 + mImagesNumber;
+	if (mImagesNumber < unitMaxCount) {
+		unsigned int texureHandle = tex;
+		glActiveTexture(textureUnit);
+		glBindTexture(GL_TEXTURE_2D, texureHandle);
+
+		GLint textureArrayIndex = glGetUniformLocation(mNowProgram->mProgram, ("textures[" + std::to_string(mImagesNumber) + "]").c_str());
+
+		glUniform1i(textureArrayIndex, mImagesNumber);
+	}
+
+	SetCubeTextureIndex(mImagesNumber);
+	SetCubeMatrixIndex(matrixPosition);
+
+	mImagesNumber++;
+	mTexturesNumber++;
+
+	FillRect(width, height);
+
+	SetCubeTextureIndex(-1);
+	SetCubeMatrixIndex(-1);
+}
+
 void sgf::Graphics::MoveTo(float x, float y)
 {
 	mTransformPosition.x = x;
@@ -363,11 +436,12 @@ void sgf::Graphics::Present()
 	DrawTriangleArrays();
 
 	mVerticesNumber = 0;
-	mTexturesNumber = 0;
+	mImagesNumber = 0;
 	mMatrixsNumber = 0;
+	mTexturesNumber = 0;
 
 	mVerticesBuffer.clear();
-	mTexturesBuffer.clear();
+	mImagesBuffer.clear();
 	mMatrixsBuffer.clear();
 }
 
@@ -394,8 +468,13 @@ void sgf::Graphics::CheckSubmit()
 		Present();
 	if (mMatrixsNumber >= MATRIX_BUFFER_MAX_COUNT)
 		Present();
-	if (mTexturesNumber >= GetMaxTextureUnitCount())
+	if (mImagesNumber >= GetMaxTextureUnitCount())
 		Present();
+}
+
+bool sgf::Graphics::CheckIsBatchEmpty() const
+{
+	return !(mVerticesNumber || mMatrixsNumber || mImagesNumber);
 }
 
 void sgf::Graphics::GenFrameBuffer(unsigned int* fbo, unsigned int* tex,int width, int height)
@@ -409,7 +488,7 @@ void sgf::Graphics::GenFrameBuffer(unsigned int* fbo, unsigned int* tex,int widt
 	glGenTextures(1, tex);
 	glBindTexture(GL_TEXTURE_2D, *tex);
 	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,NULL);
-
+	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, *tex, 0);
@@ -425,6 +504,16 @@ void sgf::Graphics::BindFrameBuffer(unsigned int fbo)
 void sgf::Graphics::ResetFrameBuffer()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void sgf::Graphics::ReleaseFrameBuffer(unsigned int fbo)
+{
+	glDeleteFramebuffers(1,&fbo);
+}
+
+void sgf::Graphics::ReleaseTexture(unsigned int tex)
+{
+	glDeleteTextures(1,&tex);
 }
 
 sgf::Point sgf::Graphics::GetGraphicsTransformPosition()

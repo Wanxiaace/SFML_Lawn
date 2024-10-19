@@ -3,8 +3,8 @@
 #define __SIMPLE_WIDGET_SYSTEM__
 
 #include "Common.h"
-#include "SimpleApp.h"
 #include "Graphics.h"
+#include "TickCounter.h"
 #include <vector>
 #include <unordered_map>
 
@@ -47,7 +47,7 @@ namespace sgf {
 		Widget* mParent = nullptr;
 		std::vector<Widget*> mChilds;
 		bool mVisible = true;
-		int mTickDelta = 0;
+		TickCounter mTick;
 
 		bool mIsMouseHover = false;
 		bool mIsPlayHoverSound = false;
@@ -60,7 +60,7 @@ namespace sgf {
 		int mId;
 
 	public:
-		Widget(int id) { mId = id; };
+		Widget(int id);
 		virtual ~Widget() { RemoveAllChild(); };
 
 		void AttachToListener(WidgetListener* target) { mListener = target; };

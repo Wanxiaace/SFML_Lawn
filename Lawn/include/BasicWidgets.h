@@ -4,18 +4,16 @@
 #include "Common.h"
 #include "WidgetSystem.h"
 #include "Graphics.h"
-#include "GameApp.h"
 #include "Font.h"
 
 namespace Lawn {
 	class TextButton :public sgf::TemplateButton {
 	public:
 		sgf::SimpleImage* mTextImage = nullptr;
-		sgf::GameApp* mApp = nullptr;
 		int mFontSize = 0;
 
 	public:
-		TextButton(int buttonId, int fontSize,sgf::GameApp* app);
+		TextButton(int buttonId, int fontSize);
 		~TextButton();
 
 		void LoadLabel(const sgf::String& text, const sgf::String& key = "FONT_FONT2");
@@ -33,10 +31,9 @@ namespace Lawn {
 		sgf::SimpleImage* mImageRight = nullptr;
 		sgf::SimpleImage* mImageLabel = nullptr;
 	public:
-		sgf::GameApp* mApp = nullptr;
 
 	public:
-		LawnStoneButton(int buttonId, sgf::GameApp* app);
+		LawnStoneButton(int buttonId);
 		~LawnStoneButton();
 
 		void LoadLabel(const sgf::String& label);
@@ -52,7 +49,7 @@ namespace Lawn {
 		sgf::SimpleImage* mImageHover = nullptr;
 		sgf::SimpleImage* mImageDown = nullptr;
 	public:
-		LawnImageButton(int buttonId, sgf::GameApp* app);
+		LawnImageButton(int buttonId);
 		~LawnImageButton();
 
 	public:
@@ -76,13 +73,11 @@ namespace Lawn {
 
 		sgf::SimpleImage* mDialogHeader = nullptr;
 	public:
-		sgf::GameApp* mApp = nullptr;
 		sgf::Point mMouseOriPoint = {};
-
 
 	public:
 
-		LawnDialog(int theId, sgf::GameApp* app);
+		LawnDialog(int theId);
 		~LawnDialog();
 
 		virtual void Draw(sgf::Graphics* g) override;
@@ -92,13 +87,12 @@ namespace Lawn {
 
 	class LawnLabel :public sgf::Widget {
 	public:
-		sgf::GameApp* mApp = nullptr;
 		sgf::SimpleImage* mLabelImage = nullptr;
 		sgf::Font* mFont = nullptr;
 		sgf::Color mTextColor = { 1,1,1,1 };
 
 	public:
-		LawnLabel(sgf::GameApp* app);
+		LawnLabel();
 		~LawnLabel();
 
 		void LoadLabel(const sgf::String& label, int fontSize = 30);
@@ -112,7 +106,6 @@ namespace Lawn {
 
 	class LawnSlider :public sgf::Widget {
 	public:
-		sgf::GameApp* mApp = nullptr;
 		sgf::SimpleImage* mImageSliderBar = nullptr;
 		sgf::SimpleImage* mImageSliderButton = nullptr;
 
@@ -126,7 +119,7 @@ namespace Lawn {
 
 	public:
 
-		LawnSlider(int theId, sgf::GameApp* app);
+		LawnSlider(int theId);
 		~LawnSlider();
 
 		void SetRange(float max,float min);
@@ -142,7 +135,6 @@ namespace Lawn {
 
 	class LawnCheckBox : public sgf::Widget {
 	public:
-		sgf::GameApp* mApp = nullptr;
 		bool* mTargetBool = nullptr;
 		sgf::SimpleImage* mCheckImage = nullptr;
 		sgf::SimpleImage* mUnCheckImage = nullptr;
@@ -150,7 +142,7 @@ namespace Lawn {
 		bool mIsCheck = false;
 
 	public:
-		LawnCheckBox(int theId, sgf::GameApp* app);
+		LawnCheckBox(int theId);
 		~LawnCheckBox();
 
 		void SetLabel(const sgf::String& label);

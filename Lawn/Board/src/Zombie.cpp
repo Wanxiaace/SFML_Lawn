@@ -13,7 +13,7 @@ void Lawn::Zombie::Init()
 {
 	//mTickCache = sgf::TryGetTicks();
 	auto& def = gZombiesDefinitions[mZombieType];
-	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName], gLawnApp);
+	mBodyReanim.Init((sgf::Reanimation*)gLawnApp->mResourceManager.mResourcePool[def.mReanimationName]);
 	PlayTrack("anim_walk");
 	mBodyReanim.Play();
 	mHealth = 270;
@@ -185,10 +185,10 @@ void Lawn::Zombie::CheckIsHelmDie()
 				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_cone",mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone",gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_cone", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
 		}
 		break;
 	}
@@ -201,10 +201,10 @@ void Lawn::Zombie::CheckIsHelmDie()
 				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET3"));
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET2"));
 		}
 		break;
 	}
@@ -233,10 +233,10 @@ void Lawn::Zombie::CheckIsShieldDie()
 			mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", false);
 		}
 		else if (mShieldHealth / mShieldHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR3"));
 		}
 		else if (mShieldHealth / mShieldHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", mBoard->mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR2"));
 		}
 		break;
 	}
@@ -320,7 +320,7 @@ void Lawn::Zombie::UpdateEating(Plant* target)
 
 		mBodyReanim.mSpeed = 2.5f;
 	}
-	target->TakeDamage(100.0f * float(mTickDelta) / 1000.0f);
+	target->TakeDamage(100.0f * float(mTick.GetDeltaTick()) / 1000.0f);
 	if (mEatingChunkCounter < 0) {
 		mEatingChunkCounter = 800;
 		if (sgf::Rand(0, 2)) {
@@ -331,7 +331,7 @@ void Lawn::Zombie::UpdateEating(Plant* target)
 		}
 	}
 	else {
-		mEatingChunkCounter -= mTickDelta;
+		mEatingChunkCounter -= mTick.GetDeltaTick();
 	}
 }
 
@@ -362,26 +362,27 @@ void Lawn::Zombie::Update()
 	/*unsigned int tickNow = sgf::TryGetTicks();
 	mTickDelta = tickNow - mTickCache;
 	mTickCache = tickNow;*/
+	GameObject::Update();
 
 	mBodyReanim.Update();
 	if (mBodyReanim.GetTrackVisible("_ground")) {
 		float speedX = mBodyReanim.GetTrackVelocity("_ground");
-		mBox.mX -= speedX * 0.5f * float(mTickDelta) / mBodyReanim.mDeltaRate * mBodyReanim.mSpeed;
+		mBox.mX -= speedX * 0.5f * float(mTick.GetDeltaTick()) / mBodyReanim.mDeltaRate * mBodyReanim.mSpeed;
 	}
 
-	if (mFlashCounter > mTickDelta) {
-		mFlashCounter -= mTickDelta;
+	if (mFlashCounter > mTick.GetDeltaTick()) {
+		mFlashCounter -= mTick.GetDeltaTick();
 	}
 	else {
 		mFlashCounter = 0;
 	}
 
-	if (mScreenDoorShakeCounter > mTickDelta) {
+	if (mScreenDoorShakeCounter > mTick.GetDeltaTick()) {
 		mBodyReanim.TrackAttachOffset(mScreenDoorLayerIndex,
 			mScreenDoorShakeCounter / 100.0f, mScreenDoorShakeCounter / 100.0f);
 		mBodyReanim.TrackAttachFlashSpot(mScreenDoorLayerIndex,
 			mScreenDoorShakeCounter / 300.0f);
-		mScreenDoorShakeCounter -= mTickDelta;
+		mScreenDoorShakeCounter -= mTick.GetDeltaTick();
 	}
 	else {
 		if (mScreenDoorShakeCounter > 0)

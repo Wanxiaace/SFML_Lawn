@@ -4,14 +4,11 @@
 #include "Common.h"
 #include "WidgetSystem.h"
 #include "Graphics.h"
-#include "GameApp.h"
 
 namespace Lawn {
 	class LoadingPage :public sgf::Widget, sgf::WidgetListener {
 	public:
-		sgf::GameApp* mApp = nullptr;
-	public:
-		LoadingPage(int id,sgf::GameApp* app);
+		LoadingPage(int id);
 		~LoadingPage();
 
 		virtual void OnClick(int theId) override;

@@ -13,13 +13,12 @@ namespace Lawn {
 		bool mPlayingEntryAnimation = false;
 		unsigned int mAnimeTicker = 0;
 		unsigned int mTickerCache = 0;
-		sgf::GameApp* mApp = nullptr;
 		TextButton* mStartButton = nullptr;
 		TextButton* mConfigButton = nullptr;
 		TextButton* mExitButton = nullptr;
 
 	public:
-		GameSelector(int theId, sgf::GameApp* app,bool useEntryAnimation = false);
+		GameSelector(int theId,bool useEntryAnimation = false);
 		~GameSelector();
 
 	public:

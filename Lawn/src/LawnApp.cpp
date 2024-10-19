@@ -11,8 +11,6 @@ Lawn::LawnApp* gLawnApp = nullptr;
 std::thread* gUpdateThread = nullptr;
 std::mutex gLoopMutex;
 
-static unsigned int m_deltaTimeTick;
-
 Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync, bool resiziable) : GameApp(width, height, windowCaptain, enabledASync, resiziable)
 {
     Plant::InitPlantsDefinitions();
@@ -22,7 +20,6 @@ Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, 
     sgf::SRand(time(nullptr));
 
     mCursor = new LawnCursor();
-    mCursor->AttachApp(this);
 }
 
 Lawn::LawnApp::~LawnApp()
@@ -35,7 +32,6 @@ Lawn::LawnApp::~LawnApp()
 
 void Lawn::LawnApp::LawnStart()
 {
-    m_deltaTimeTick = sgf::TryGetTicks();
     mIsOpen = true;
     mLastSecondBuffer = sgf::TryGetTicks();
     mFramePerSecondBuffer = 0;
@@ -53,7 +49,6 @@ void Lawn::LawnApp::LawnStart()
         }
 
         Uint32 tick = sgf::TryGetTicks();
-        mDeltaFrameTime = (tick - m_deltaTimeTick);
 
         if (tick - mLastSecondBuffer >= 1000) {
             mLastSecondBuffer = tick;
@@ -76,8 +71,6 @@ void Lawn::LawnApp::LawnStart()
 
         gLoopMutex.unlock();
 
-        m_deltaTimeTick = tick;
-
         static const Uint32 FPS = 1000 / 100;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {
@@ -92,7 +85,7 @@ void Lawn::LawnApp::LawnStart()
 void Lawn::LawnApp::EnterLoadingPage()
 {
 	if (!mLoadingPage) {
-		mLoadingPage = new LoadingPage(LAWN_WIDGET_LOADING_PAGE_ID,this);
+		mLoadingPage = new LoadingPage(LAWN_WIDGET_LOADING_PAGE_ID);
 		SafeAppendWidget(mLoadingPage);
 	}
 }
@@ -108,7 +101,7 @@ void Lawn::LawnApp::KillLoadingPage()
 void Lawn::LawnApp::ShowSettingDialog()
 {
     if (!mSettingDialog) {
-        mSettingDialog = new SettingDialog(this);
+        mSettingDialog = new SettingDialog();
         SafeAppendWidget(mSettingDialog);
         mMusicManager.PlayChunk("CHUNK_TAP2");
     }
@@ -117,7 +110,7 @@ void Lawn::LawnApp::ShowSettingDialog()
 void Lawn::LawnApp::EnterGameSelector()
 {
     if (!mGameSelector) {
-        mGameSelector = new GameSelector(LAWN_WIDGET_GAME_SELECTOR_ID,this, true);
+        mGameSelector = new GameSelector(LAWN_WIDGET_GAME_SELECTOR_ID, true);
         SafeAppendWidget(mGameSelector);
         mMusicManager.PlayMusic("MUSIC_LAWNBGM(8)");
     }
@@ -141,7 +134,7 @@ void Lawn::LawnApp::EnterGameBoard()
 
 void Lawn::LawnApp::MakeNewBoard()
 {
-    mBoard = new Board(this);
+    mBoard = new Board();
     mBoard->SpawnPlantAt(0,0,SEED_PEASHOOTER);
     for (size_t i = 0; i < 5; i++)
     {
@@ -175,7 +168,7 @@ void Lawn::LawnApp::KillBoard()
 void Lawn::LawnApp::GamePause()
 {
     if (!mPauseDialog) {
-        mPauseDialog = new PauseDialog(this);
+        mPauseDialog = new PauseDialog();
         SafeAppendWidget(mPauseDialog);
     }
 }
@@ -220,17 +213,14 @@ void Lawn::LawnApp::Draw()
     SDL_GL_SwapWindow(mGameWindow);
 }
 
-static unsigned int m_updateTickBuffer;
 void Lawn::GameUpdateThread(LawnApp* app)
 {
-    m_updateTickBuffer = sgf::TryGetTicks();
+    app->mTick.Update();
     app->Update();
 
     while (true)
     {
-        unsigned int nowTick = sgf::TryGetTicks();
-        app->mDeltaTime = nowTick - m_updateTickBuffer;
-        m_updateTickBuffer = nowTick;
+        app->mTick.Update();
 
         gLoopMutex.lock();
         app->Update();

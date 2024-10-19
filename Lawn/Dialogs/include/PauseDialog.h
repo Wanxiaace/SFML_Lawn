@@ -19,7 +19,7 @@ namespace Lawn {
 		LawnStoneButton* mMenuButton = nullptr;
 
 	public:
-		PauseDialog(sgf::GameApp* app);
+		PauseDialog();
 		~PauseDialog();
 
 	public:

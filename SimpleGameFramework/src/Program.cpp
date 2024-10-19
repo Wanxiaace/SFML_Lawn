@@ -5,9 +5,7 @@
 
 sgf::SimpleProgram::SimpleProgram()
 {
-	int oldProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &oldProgram);
-	mOldProgram = oldProgram;
+
 }
 
 sgf::SimpleProgram::~SimpleProgram()
@@ -78,18 +76,10 @@ unsigned int sgf::SimpleProgram::LoadShader(const char* path,ShaderType type)
 	return shaderUnit;
 }
 
-unsigned int sgf::SimpleProgram::Use()
+void sgf::SimpleProgram::Use()
 {
 	glUseProgram(mProgram);
-	return mOldProgram;
 }
-
-unsigned int sgf::SimpleProgram::UnUse()
-{
-	glUseProgram(mOldProgram);
-	return 0;
-}
-
 
 sgf::VertexArrayObject::VertexArrayObject()
 {

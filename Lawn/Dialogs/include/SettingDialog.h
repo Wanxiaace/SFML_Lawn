@@ -31,7 +31,7 @@ namespace Lawn {
 		sgf::SimpleImage* mBackImage = nullptr;
 
 	public:
-		SettingDialog(sgf::GameApp* app);
+		SettingDialog();
 		~SettingDialog();
 
 

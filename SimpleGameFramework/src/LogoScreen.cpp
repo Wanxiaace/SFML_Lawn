@@ -1,10 +1,14 @@
 #include "../include/LogoScreen.h"
+#include <thread>
+#include <chrono>
+
+using namespace std::chrono;
 
 sgf::LogoScreen::LogoScreen(GameApp* app):
 	Widget(0x5500)
 {
 	mApp = app;
-	mShowCounterMax = 3000;
+	mShowCounterMax = 2500;
 	mShowCounter = mShowCounterMax;
 }
 
@@ -21,18 +25,10 @@ void sgf::LogoScreen::AppendLogoImage(SimpleImage* logo,float scale)
 
 void sgf::LogoScreen::Update()
 {
-	/*static unsigned int tickBuffer = sgf::TryGetTicks();
-	unsigned int tick = sgf::TryGetTicks();
+	mScaleF += 0.05f * float(mTick.GetDeltaTick()) / mShowCounterMax;
 
-	mTickDelta = tick - tickBuffer;
-	tickBuffer = tick;
-	*/
-	mScaleF += 0.05f * float(mTickDelta) / mShowCounterMax;
-
-	
-
-	if (mShowCounter > mTickDelta)
-		mShowCounter -= mTickDelta;
+	if (mShowCounter > mTick.GetDeltaTick())
+		mShowCounter -= mTick.GetDeltaTick();
 	else
 	{
 		if (!mIsEnterNextScreen)
@@ -56,4 +52,13 @@ void sgf::LogoScreen::Draw(Graphics* g)
 		g->DrawImageScaleF(mLogoImage, mScaleF, mScaleF);
 	}
 	
+}
+
+void sgf::LogoScreen::Join()
+{
+	WaitUntil(
+		[this]()->bool {
+			return mIsEnterNextScreen;
+		}
+	);
 }

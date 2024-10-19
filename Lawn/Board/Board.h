@@ -6,7 +6,6 @@
 #include "Graphics.h"
 #include "SimpleImage.h"
 #include "WidgetSystem.h"
-#include "GameApp.h"
 #include "../include/BasicWidgets.h"
 #include "include/ObjectArray.h"
 #include "Particle.h"
@@ -16,7 +15,7 @@
 
 namespace Lawn {
 	class SeedBank;
-	class LawnApp;
+
 
 	enum BackGroundType {
 		BACKGROUND_FRONT_YARD_DAY,
@@ -71,7 +70,6 @@ namespace Lawn {
 		LawnMoverVector mLawnMoverVector;
 		LevelInfo mLevel;
 
-		Lawn::LawnApp* mApp;
 		float mBackgroundScaleF;
 		float mHugeWaveScaleF = BOARD_SCALE_EACH_HUGE_WAVW;//大波僵尸时出怪数扩大的因数
 
@@ -103,7 +101,7 @@ namespace Lawn {
 		unsigned int mZombieRandomSeed = 0;//随机数种子
 
 	public:
-		Board(LawnApp* app);
+		Board();
 		~Board();
 
 		void UpdateBoardBackground();

@@ -38,8 +38,8 @@ void Lawn::ToolTip::InitCurrentLoc()
 void Lawn::ToolTip::Update()
 {
 	if (mCostLifeTime && mLifeTime > 0)
-		if(mLifeTime > mTickDelta)
-			mLifeTime -= mTickDelta;
+		if(mLifeTime > mTick.GetDeltaTick())
+			mLifeTime -= mTick.GetDeltaTick();
 		else
 			mLifeTime = 0;
 }

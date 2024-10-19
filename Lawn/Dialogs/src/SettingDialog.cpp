@@ -3,32 +3,32 @@
 #include "../../include/LawnApp.h"
 #include "../include/Font.h"
 
-Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_SETTING,app)
+Lawn::SettingDialog::SettingDialog() : LawnDialog(LAWN_DIALOG_SETTING)
 {
 	mEnabledModel = true;
-	mUseFullScreen = app->mUseFullScreen;
+	mUseFullScreen = gLawnApp->mUseFullScreen;
 
-	mOKButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_OK,mApp);
+	mOKButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_OK);
 	mOKButton->Resize(130,430,170,50);
 	mOKButton->AttachToListener(this);
 	mOKButton->LoadLabel(_LS("OK"));
 	AppendChild(mOKButton);
 
-	mVolumeSlider = new LawnSlider(SLIDER_VOLUME, mApp);
+	mVolumeSlider = new LawnSlider(SLIDER_VOLUME);
 	mVolumeSlider->MoveTo(100, 165);
 	mVolumeSlider->AttachToListener(this);
 	mVolumeSlider->SetRange(100,0);
 	mVolumeSlider->BindToFloat(&gLawnApp->mMusicVolume);
 	AppendChild(mVolumeSlider);
 
-	mSoundVolumeSlider = new LawnSlider(SLIDER_SOUND_VOLUME, mApp);
+	mSoundVolumeSlider = new LawnSlider(SLIDER_SOUND_VOLUME);
 	mSoundVolumeSlider->MoveTo(100, 235);
 	mSoundVolumeSlider->AttachToListener(this);
 	mSoundVolumeSlider->SetRange(100, 0);
 	mSoundVolumeSlider->BindToFloat(&gLawnApp->mSoundVolume);
 	AppendChild(mSoundVolumeSlider);
 
-	mFullScreenCheckBox = new LawnCheckBox(CHECKBOX_FULLSCREEN, mApp);
+	mFullScreenCheckBox = new LawnCheckBox(CHECKBOX_FULLSCREEN);
 	mFullScreenCheckBox->MoveTo(100, 260);
 	mFullScreenCheckBox->AttachToListener(this);
 	mFullScreenCheckBox->BindToBool(&mUseFullScreen);
@@ -36,16 +36,16 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 	mFullScreenCheckBox->mIsCheck = mUseFullScreen;
 	AppendChild(mFullScreenCheckBox);
 
-	auto font = mApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
-	mBackImage = mApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_MENUBACK");
+	auto font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
+	mBackImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_MENUBACK");
 
-	mMusicVolumeLabel = new LawnLabel(mApp);
+	mMusicVolumeLabel = new LawnLabel();
 	mMusicVolumeLabel->MoveTo(100, 125);
 	mMusicVolumeLabel->LoadLabel(_LS("MusicVolume"),25);
 	mMusicVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
 	AppendChild(mMusicVolumeLabel);
 
-	mSoundVolumeLabel = new LawnLabel(mApp);
+	mSoundVolumeLabel = new LawnLabel();
 	mSoundVolumeLabel->MoveTo(100, 195);
 	mSoundVolumeLabel->LoadLabel(_LS("SoundVolume"), 25);
 	mSoundVolumeLabel->SetColor({ 1.0f,0.73f,0.38f,1 });
@@ -53,7 +53,7 @@ Lawn::SettingDialog::SettingDialog(sgf::GameApp* app) : LawnDialog(LAWN_DIALOG_S
 
 
 	Resize(0,0,425,500);
-	MoveToCenter(mApp->mWidth, mApp->mHeight);
+	MoveToCenter(gLawnApp->mWidth, gLawnApp->mHeight);
 }
 
 Lawn::SettingDialog::~SettingDialog()
@@ -108,10 +108,10 @@ void Lawn::SettingDialog::OnClick(int buttonId)
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_BUTTONCLICK");
 		mFullScreenCheckBox->UpdateState();
 		if (mUseFullScreen)
-			mApp->UseFullScreen();
+			gLawnApp->UseFullScreen();
 		else
-			mApp->ExitFullScreen();
-		mApp->mUseFullScreen = mFullScreenCheckBox->mIsCheck;
+			gLawnApp->ExitFullScreen();
+		gLawnApp->mUseFullScreen = mFullScreenCheckBox->mIsCheck;
 		break;
 	default:
 		break;

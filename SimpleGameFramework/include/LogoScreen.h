@@ -21,6 +21,7 @@ namespace sgf {
 
 		void SetNextScreenFunc(std::function<void()> func) { mNextFunc = func; };
 		void AppendLogoImage(SimpleImage* logo, float scale=1.0f);
+		void Join();
 
 	public:
 		virtual void Update() override;

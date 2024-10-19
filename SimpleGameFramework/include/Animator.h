@@ -31,7 +31,6 @@ namespace sgf {
 
 	public:
 		Reanimation* mReanim;
-		GameApp* mApp;
 		float mFPS = 0;
 		float mFrameIndexNow =0;
 		float mFrameIndexBegin = 0;
@@ -56,11 +55,11 @@ namespace sgf {
 
 	public:
 		Animator();
-		Animator(Reanimation* reanim, sgf::GameApp* app);
+		Animator(Reanimation* reanim);
 		~Animator() {};
 
 		void Play(const PlayState& state = PLAY_REPEAT);
-		void Init(Reanimation* reanim, sgf::GameApp* app);
+		void Init(Reanimation* reanim);
 		void Pause();
 
 		std::pair<int, int> GetTrackRange(const sgf::String& trackName);

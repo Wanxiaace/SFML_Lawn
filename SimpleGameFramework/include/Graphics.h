@@ -44,6 +44,7 @@ namespace sgf {
 		sgf::GameApp* mGameApp = nullptr;
 		sgf::Color mCubeColor = { 255,255,255 };
 		SimpleProgram mTextureProgram;
+		SimpleProgram mBlurProgram;
 
 
 		glm::mat4x4 mProjectMatrix;
@@ -53,12 +54,14 @@ namespace sgf {
 		SimpleProgram* mNowProgram = nullptr;
 
 		std::vector<Vertex> mVerticesBuffer;
-		std::vector<SimpleImage*> mTexturesBuffer;
+		std::vector<SimpleImage*> mImagesBuffer;
 		std::vector<glm::mat4x4> mMatrixsBuffer;
 
 		int mVerticesNumber = 0;
-		int mTexturesNumber = 0;
+		int mImagesNumber = 0;
 		int mMatrixsNumber = 0;
+		int mTexturesNumber = 0;
+
 
 	public:
 		Graphics(GameApp* gameApp);
@@ -81,6 +84,13 @@ namespace sgf {
 
 		/// @brief 启用纹理着色器
 		void ActiveTextureShader();
+
+		// Filter
+		/// @brief 启用BoxBlur着色器
+		void ActiveBlurShader();
+
+		/// @brief 切换着色器
+		void SwitchShader(SimpleProgram* prog);
 
 		/// @brief 填充矩形
 		/// @param width 宽度
@@ -165,6 +175,10 @@ namespace sgf {
 		/// @param y
 		void Translate(float x, float y);
 
+		void DrawTexture(unsigned int tex, float width, float height);
+
+		void DrawTextureReversed(unsigned int tex, float width, float height);
+
 		/// @brief 移动gra临时原点到某处
 		/// @param x
 		/// @param y
@@ -192,6 +206,9 @@ namespace sgf {
 		/// @brief 检查缓冲区是否达到上限，如果是就调用Present
 		void CheckSubmit();
 
+		/// @brief 检查缓冲区是否有元素
+		bool CheckIsBatchEmpty() const;
+
 		/// @brief 创建一个Color帧缓冲并绑定到上去
 		/// @param fbo 创建的帧缓冲储存地址
 		/// @param tex 创建的帧缓冲纹理储存地址
@@ -206,6 +223,10 @@ namespace sgf {
 
 		/// @brief 切换为屏幕默认的帧缓冲对象
 		void ResetFrameBuffer();
+
+		void ReleaseFrameBuffer(unsigned int fbo);
+
+		void ReleaseTexture(unsigned int tex);
 
 		/// @brief 获得Gra的实际坐标（原点坐标+临时原点坐标）
 		/// @return x和y组成的pair

@@ -183,6 +183,7 @@
     <ClInclude Include="include\CursorObject.h" />
     <ClInclude Include="include\Dictionary.h" />
     <ClInclude Include="include\Animator.h" />
+    <ClInclude Include="include\EffectHolder.h" />
     <ClInclude Include="include\Font.h" />
     <ClInclude Include="include\GameApp.h" />
     <ClInclude Include="include\GameMessage.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\SimpleApp.h" />
     <ClInclude Include="include\SimpleImage.h" />
+    <ClInclude Include="include\TickCounter.h" />
     <ClInclude Include="include\WidgetSystem.h" />
     <ClInclude Include="PopCom\CompiledReader.h" />
     <ClInclude Include="PopCom\zlib\deflate.h" />
