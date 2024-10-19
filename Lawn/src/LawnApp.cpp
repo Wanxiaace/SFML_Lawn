@@ -32,6 +32,9 @@ Lawn::LawnApp::~LawnApp()
 
 void Lawn::LawnApp::LawnStart()
 {
+    Log() << "Game Running" << std::endl;
+    Log() << "--------------------------" << std::endl;
+
     mIsOpen = true;
     mLastSecondBuffer = sgf::TryGetTicks();
     mFramePerSecondBuffer = 0;

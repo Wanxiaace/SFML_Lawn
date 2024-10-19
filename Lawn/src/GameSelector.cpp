@@ -69,7 +69,7 @@ void Lawn::GameSelector::Draw(sgf::Graphics* g)
 		g->SetCubeColor({ 1.0f,1.0f,1.0f,float(mAnimeTicker) / 3000.0f });
 		g->FillRect({ 0,LAWN_GAME_WINDOW_HEIGHT-30,LAWN_GAME_WINDOW_WIDTH,30 });
 
-		sgf::SimpleImage* background = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_TITLESCREEN2");
+		sgf::SimpleImage* background = RES_IMAGE::IMAGE_TITLESCREEN2;
 		if (background) {
 			g->MoveTo(0,0);
 			g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f - float(mAnimeTicker) / 3000.0f });
@@ -77,7 +77,7 @@ void Lawn::GameSelector::Draw(sgf::Graphics* g)
 		}
 	}
 	else {
-		sgf::SimpleImage* background = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_TITLESCREEN2");
+		sgf::SimpleImage* background = RES_IMAGE::IMAGE_TITLESCREEN2;
 		if (background) {
 			g->MoveTo(0, 0);
 			g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f });

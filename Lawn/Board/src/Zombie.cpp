@@ -6,7 +6,7 @@ std::unordered_map<Lawn::ZombieType, Lawn::ZombieDefinition> Lawn::gZombiesDefin
 
 Lawn::Zombie::Zombie()
 {
-	mShadowImage = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_PLANTSHADOW"];
+	mShadowImage = RES_IMAGE::IMAGE_PLANTSHADOW;
 }
 
 void Lawn::Zombie::Init()
@@ -185,10 +185,10 @@ void Lawn::Zombie::CheckIsHelmDie()
 				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_cone",gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone",RES_IMAGE::IMAGE_REANIM_ZOMBIE_CONE3);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_cone", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_CONE2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_cone", RES_IMAGE::IMAGE_REANIM_ZOMBIE_CONE2);
 		}
 		break;
 	}
@@ -201,10 +201,10 @@ void Lawn::Zombie::CheckIsHelmDie()
 				dropPoint.x + mBox.mX + mReanimOffsetX, dropPoint.y + mBox.mY + mReanimOffsetY + 70, -80);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", RES_IMAGE::IMAGE_REANIM_ZOMBIE_BUCKET3);
 		}
 		else if (mHelmHealth / mHelmHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_BUCKET2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_bucket", RES_IMAGE::IMAGE_REANIM_ZOMBIE_BUCKET2);
 		}
 		break;
 	}
@@ -233,10 +233,10 @@ void Lawn::Zombie::CheckIsShieldDie()
 			mBodyReanim.SetTrackVisibleByTrackName("Zombie_innerarm_screendoor_hand", false);
 		}
 		else if (mShieldHealth / mShieldHealthMax < 0.3f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR3"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", RES_IMAGE::IMAGE_REANIM_ZOMBIE_SCREENDOOR3);
 		}
 		else if (mShieldHealth / mShieldHealthMax < 0.7f) {
-			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_REANIM_ZOMBIE_SCREENDOOR2"));
+			mBodyReanim.TrackAttachImageByTrackName("anim_screendoor", RES_IMAGE::IMAGE_REANIM_ZOMBIE_SCREENDOOR2);
 		}
 		break;
 	}

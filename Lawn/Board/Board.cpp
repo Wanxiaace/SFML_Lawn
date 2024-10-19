@@ -72,14 +72,14 @@ void Lawn::Board::UpdateBoardBackground()
 	switch (mBackGroundType)
 	{
 	case Lawn::BACKGROUND_FRONT_YARD_DAY:
-		mBackGroundImageCache = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND1"];
+		mBackGroundImageCache = RES_IMAGE::IMAGE_BACKGROUND1;
 		mGridOriPosX = 255;
 		mGridOriPosY = 85;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
 	case Lawn::BACKGROUND_FRONT_YARD_NIGHT:
-		mBackGroundImageCache = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BACKGROUND2"];
+		mBackGroundImageCache = RES_IMAGE::IMAGE_BACKGROUND2;
 		mGridOriPosX = 255;
 		mGridOriPosY = 85;
 		mGridWidth = 80;
@@ -195,7 +195,7 @@ void Lawn::Board::ZombieWin(Zombie* target)
 {
 	mWinZombie = target;
 	mWinZombie->PlayTrack("anim_eat");
-	mZombieAnimator = new sgf::Animator(gLawnApp->mResourceManager.GetResourceFast<sgf::Reanimation>("RAXML_ZOMBIESWON"));
+	mZombieAnimator = new sgf::Animator(RES_RAXML::RAXML_ZOMBIESWON);
 	mZombieAnimator->SetFrameRangeByTrackName("anim_screen");
 	mZombieAnimator->Play(sgf::Animator::PlayState::PLAY_ONCE);
 	mIsZombieWin = true;
@@ -224,7 +224,7 @@ static float GetZombeiSleepTimeCurve(float x, float waveMax) {
 //TODO 完成读取文件
 void Lawn::Board::AutoSpawnZombieWaves(int waveMax)
 {
-	for (size_t i = 0; i < waveMax; i++)
+	for (int i = 0; i < waveMax; i++)
 	{
 		
 		int num = GetZombieWaveCurve(i, waveMax);
@@ -233,7 +233,7 @@ void Lawn::Board::AutoSpawnZombieWaves(int waveMax)
 		ZombieWave zombieWave;
 		zombieWave.mSleepTime = GetZombeiSleepTimeCurve(i, waveMax) * 1000;
 
-		for (size_t j = 0; j < num; j++)
+		for (int j = 0; j < num; j++)
 		{
 			ZombieType zomType = ZOMBIE_NORMAL;
 
@@ -326,6 +326,7 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 
 #include <fstream>
 #include <EffectHolder.h>
+#include "../include/Resources.h"
 
 
 void Lawn::Board::LoadZombieFromJsonFile(const char* path)
@@ -348,7 +349,7 @@ void Lawn::Board::LoadZombieFromJsonFile(const char* path)
 void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 {
 	if (!mLevelNameImage) {
-		sgf::Font* levelFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT3");
+		sgf::Font* levelFont = RES_FONT::FONT_FONT3;
 		levelFont->SetFontSize(30);
 		mLevelNameImage = levelFont->GenTextImage(mLevel.mLevelName);
 	}
@@ -361,8 +362,8 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 	g->SetCubeColor({ 0.96,0.97,0.73,1 });
 	g->DrawImage(mLevelNameImage);
 
-	sgf::SimpleImage* processBarImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_FLAGMETER");
-	sgf::SimpleImage* processBarPartsImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_FLAGMETERPARTS");
+	sgf::SimpleImage* processBarImage = RES_IMAGE::IMAGE_FLAGMETER;
+	sgf::SimpleImage* processBarPartsImage = RES_IMAGE::IMAGE_FLAGMETERPARTS;
 
 	g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2, 20);
 	g->SetCubeColor({ 1,1,1,1 });
@@ -557,7 +558,7 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 	
 	if (mHugeCounter > 0) {
 		if (!mHugeTitleImage) {
-			sgf::Font* levelFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_BASEFONT");
+			sgf::Font* levelFont = RES_FONT::FONT_BASEFONT;
 			levelFont->SetFontSize(50);
 			mHugeTitleImage = levelFont->GenTextImage(_LS("HugeWave"));
 		}

@@ -12,7 +12,7 @@ void Lawn::DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF)
 		SeedPackBackground bkg = GetSeedPackBackground(type);
 		DrawSeedBackgound(bkg, g, scaleF);
 		g->Translate(-2 * scaleF, -2 * scaleF);
-		g->DrawImageGridAtlasScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_PACKET_PLANTS_PLUS"), 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
+		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_PACKET_PLANTS_PLUS, 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
 	}
 	
 	
@@ -24,10 +24,10 @@ void Lawn::DrawSeedBackgound(SeedPackBackground type, sgf::Graphics* g, float sc
 	switch (type)
 	{
 	case Lawn::SEEDPACK_NORMAL:
-		g->DrawImageGridAtlasScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDPACKETS"), 1, 5, 0, 2,scaleF,scaleF);
+		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_SEEDPACKETS, 1, 5, 0, 2,scaleF,scaleF);
 		break;
 	case SEEDPACK_NONE:
-		g->DrawImageGridAtlasScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDPACKETS"), 1, 5, 0, 1, scaleF, scaleF);
+		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_SEEDPACKETS, 1, 5, 0, 1, scaleF, scaleF);
 		break;
 	default:
 		break;
@@ -69,7 +69,7 @@ void Lawn::SeedPack::Init(SeedType type,Board* board)
 	}
 	else {
 		PlantDefinition& def = gPlantsDefinitions[mSeedType];
-		sgf::Font* font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT3");
+		sgf::Font* font = RES_FONT::FONT_FONT3;
 		mCost = def.mCost;
 		mTextImage = font->GenTextImage(std::to_string(mCost));
 	}
@@ -103,7 +103,7 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 	if (mIsMouseHover) {
 		g->MoveTo(mRect.mX, mRect.mY);
 		g->Translate(-3 * mScaleF, -3 * mScaleF);
-		g->DrawImageScaleF(gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_SEEDCHOOSE"), 0.4f, 0.4f);
+		g->DrawImageScaleF(RES_IMAGE::IMAGE_SEEDCHOOSE, 0.4f, 0.4f);
 	}
 
 }

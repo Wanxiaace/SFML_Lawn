@@ -1,4 +1,5 @@
 #include "../include/MusicSystem.h"
+#include "../include/GameApp.h"
 
 sgf::MusicManager::MusicManager()
 {
@@ -81,7 +82,8 @@ void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 		mChunkMap[key] = chunk;
 	}
 	else {
-		std::cout << "Failed to load Chunk At: " << path << std::endl;
+		gGameApp->Log() << "Failed to load Chunk At: " << path << std::endl;
+		//std::cout << "Failed to load Chunk At: " << path << std::endl;
 	}
 }
 
@@ -92,7 +94,7 @@ void sgf::MusicManager::LoadMusicFormFile(const char* path, const String& key)
 		mMusicMap[key] = chunk;
 	}
 	else {
-		std::cout << "Failed to load Music At: " << path << std::endl;
+		gGameApp->Log() << "Failed to load Music At: " << path << std::endl;
 	}
 }
 

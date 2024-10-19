@@ -369,7 +369,7 @@ sgf::ParticleManager::~ParticleManager()
 
 void sgf::ParticleManager::Update()
 {
-	int length = mParticles.size();
+	size_t length = mParticles.size();
 	for (size_t i = 0; i < length; i++)
 	{
 		if (!mParticles[i]->mVisible) {
@@ -405,7 +405,7 @@ sgf::Particle* sgf::ParticleManager::EmittParticle(Emitter* srcEmitter)
 
 void sgf::ParticleManager::EmittParticles(Emitter* srcEmitter, int number)
 {
-	for (size_t i = 0; i < number; i++)
+	for (int i = 0; i < number; i++)
 	{
 		EmittParticle(srcEmitter);
 	}

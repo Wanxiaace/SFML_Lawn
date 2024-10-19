@@ -91,7 +91,7 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 	int OffsetY = 0;
 	float fScale = 1.0f;
 
-	for (int i = 0; i < R->mTracks->size(); i++) {
+	for (size_t i = 0; i < R->mTracks->size(); i++) {
 		auto& x = (R->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;

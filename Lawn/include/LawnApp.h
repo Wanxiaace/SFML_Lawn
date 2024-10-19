@@ -68,5 +68,4 @@ extern std::mutex gLoopMutex;//È«¾ÖMutex
 #define DO_IN_GRAPHICS_BEGIN gLawnApp->DoInGraphicsThread(new std::function<void()>([]()->void{
 #define DO_IN_GRAPHICS_END }));
 
-
 #endif

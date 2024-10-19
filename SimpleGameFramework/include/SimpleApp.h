@@ -40,6 +40,7 @@ namespace sgf {
 		glm::mat4x4 mViewMatrix;
 		glm::mat4x4 mViewMatrixBuf;
 		bool mEnabledASync = false;
+		std::ostream* mLog = nullptr;
 
 	public:
 		GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);
@@ -48,6 +49,9 @@ namespace sgf {
 		void EnterMainLoop();
 		void SetDisplayFunction(void (*display)(GameAppBase*, int));
 		void SetCallBackFunction(void (*callback)(GameAppBase*, SDL_Event&));
+		void SetOutStream(std::ostream& src) { mLog = &src; };
+		std::ostream& Log() { return *mLog; };
+
 		virtual void CopeEvent(SDL_Event& theEvent);
 
 		virtual void Update();

@@ -33,6 +33,8 @@ sgf::Graphics* sgf::GameApp::LoadGraphics()
 	return mGraphics;
 }
 
+
+
 void sgf::GameApp::SafeDeleteWidget(Widget* target)
 {
 	mMessageManager.SendGameMessage({ sgf::GameMessage::MessageType::MSG_TYPE_DELETE_WIDGET,mWidgetManager,target});

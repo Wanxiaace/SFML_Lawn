@@ -6,7 +6,7 @@ std::unordered_map<Lawn::ProjectileType, Lawn::ProjectileDefinition> Lawn::gProj
 
 Lawn::Projectile::Projectile()
 {
-	mShadowImage = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_PLANTSHADOW"];
+	mShadowImage = RES_IMAGE::IMAGE_PLANTSHADOW;
 }
 
 Lawn::Projectile::~Projectile()
@@ -39,8 +39,8 @@ void Lawn::Projectile::DoEffect(Zombie* zom)
 	{
 	case Lawn::PROJECTILE_PEA: 
 	{
-		mBoard->SpawnParticlesAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEAPARTICLETHROW"], 10,mBox.mX + 10, mBox.mY+80, -80);
-		mBoard->SpawnParticleAt((sgf::Emitter*)gLawnApp->mResourceManager.mResourcePool["PAXML_PEASPLATS"], mBox.mX + 10, mBox.mY + 80, -80);
+		mBoard->SpawnParticlesAt(RES_PAXML::PAXML_PEAPARTICLETHROW, 10,mBox.mX + 10, mBox.mY+80, -80);
+		mBoard->SpawnParticleAt(RES_PAXML::PAXML_PEASPLATS, mBox.mX + 10, mBox.mY + 80, -80);
 		if(zom->mHelmType == HELMTYPE_PAIL || zom->mShieldType == SHIELDTYPE_DOOR)
 			if(sgf::Rand(0,2))
 				gLawnApp->mMusicManager.PlayChunk("CHUNK_SHIELDHIT");

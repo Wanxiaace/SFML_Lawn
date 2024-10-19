@@ -9,6 +9,7 @@
 #include "ResourceManager.h"
 #include "Dictionary.h"
 #include "CursorObject.h"
+#include <iostream>
 
 namespace sgf {
 	class Graphics;
@@ -58,7 +59,6 @@ namespace sgf {
 		void UpdateSoundVolume();
 		Graphics* LoadGraphics();
 
-
 	public:
 		virtual void DrawImgui();
 		virtual void Update() override;
@@ -69,5 +69,6 @@ namespace sgf {
 	extern sgf::GameApp* gGameApp;
 
 }
+
 
 #endif

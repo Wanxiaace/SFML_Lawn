@@ -25,7 +25,7 @@ void Lawn::ToolTip::LoadLabel(const sgf::String& label)
 	if (mLabelImage)
 		delete mLabelImage;
 
-	auto font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT3");
+	auto font = RES_FONT::FONT_FONT3;
 	font->SetFontSize(30);
 	mLabelImage = font->GenTextImage(label);
 }

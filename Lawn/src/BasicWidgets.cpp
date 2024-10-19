@@ -2,13 +2,14 @@
 #include <Font.h>
 #include "../include/Constant.h"
 #include "../include/LawnApp.h"
+#include "../include/Resources.h"
 
 
 Lawn::LawnStoneButton::LawnStoneButton(int buttonId) :sgf::TemplateButton(buttonId)
 {
-	mImageLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_LEFT"];
-	mImageMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_MIDDLE"];
-	mImageRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_BUTTON_RIGHT"];
+	mImageLeft = RES_IMAGE::IMAGE_BUTTON_LEFT;
+	mImageMiddle = RES_IMAGE::IMAGE_BUTTON_MIDDLE;
+	mImageRight = RES_IMAGE::IMAGE_BUTTON_RIGHT;
 }
 
 Lawn::LawnStoneButton::~LawnStoneButton()
@@ -19,7 +20,7 @@ Lawn::LawnStoneButton::~LawnStoneButton()
 
 void Lawn::LawnStoneButton::LoadLabel(const sgf::String& label)
 {
-	sgf::Font* font = (sgf::Font*)gLawnApp->mResourceManager.mResourcePool["FONT_FONT3"];
+	sgf::Font* font = RES_FONT::FONT_FONT3;
 	if (!font)
 		return;
 	mLabel = label;
@@ -104,12 +105,11 @@ Lawn::TextButton::~TextButton()
 		delete mTextImage;
 }
 
-void Lawn::TextButton::LoadLabel(const sgf::String& text, const sgf::String& key)
+void Lawn::TextButton::LoadLabel(const sgf::String& text,sgf::Font* font)
 {
 	mLabel = text;
 	if (mTextImage)
 		delete mTextImage;
-	sgf::Font* font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>(key);
 	if (!font)
 		return;
 	font->SetFontSize(mFontSize);
@@ -160,19 +160,19 @@ void Lawn::TextButton::Update()
 
 Lawn::LawnDialog::LawnDialog(int theId) : Widget(theId)
 {
-	mDialogTopLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPLEFT"];
-	mDialogTopMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPMIDDLE"];
-	mDialogTopRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_TOPRIGHT"];
+	mDialogTopLeft = RES_IMAGE::IMAGE_DIALOG_TOPLEFT;
+	mDialogTopMiddle = RES_IMAGE::IMAGE_DIALOG_TOPMIDDLE;
+	mDialogTopRight = RES_IMAGE::IMAGE_DIALOG_TOPRIGHT;
 
-	mDialogCenterLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERLEFT"];
-	mDialogCenterMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERMIDDLE"];
-	mDialogCenterRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_CENTERRIGHT"];
+	mDialogCenterLeft = RES_IMAGE::IMAGE_DIALOG_CENTERLEFT;
+	mDialogCenterMiddle = RES_IMAGE::IMAGE_DIALOG_CENTERMIDDLE;
+	mDialogCenterRight = RES_IMAGE::IMAGE_DIALOG_CENTERRIGHT;
 	
-	mDialogBottomLeft = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMLEFT"];
-	mDialogBottomMiddle = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMMIDDLE"];
-	mDialogBottomRight = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_BOTTOMRIGHT"];
+	mDialogBottomLeft = RES_IMAGE::IMAGE_DIALOG_BOTTOMLEFT;
+	mDialogBottomMiddle = RES_IMAGE::IMAGE_DIALOG_BOTTOMMIDDLE;
+	mDialogBottomRight = RES_IMAGE::IMAGE_DIALOG_BOTTOMRIGHT;
 
-	mDialogHeader = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_DIALOG_HEADER"];
+	mDialogHeader = RES_IMAGE::IMAGE_DIALOG_HEADER;
 
 }
 
@@ -262,8 +262,8 @@ Lawn::LawnSlider::LawnSlider(int theId) : sgf::Widget(theId)
 	mRangeDistence = 0;
 	mValue = 0;
 
-	mImageSliderBar = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_SLIDERSLOT");
-	mImageSliderButton = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_SLIDERKNOB2");
+	mImageSliderBar = RES_IMAGE::IMAGE_OPTIONS_SLIDERSLOT;
+	mImageSliderButton = RES_IMAGE::IMAGE_OPTIONS_SLIDERKNOB2;
 
 	Resize(0, 0, mImageSliderBar->GetWidth(), 25);
 
@@ -319,7 +319,7 @@ void Lawn::LawnSlider::Update()
 
 Lawn::LawnLabel::LawnLabel() :sgf::Widget(20000)
 {
-	mFont = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
+	mFont = RES_FONT::FONT_FONT2;
 }
 
 Lawn::LawnLabel::~LawnLabel()
@@ -355,8 +355,8 @@ void Lawn::LawnLabel::Draw(sgf::Graphics* g)
 
 Lawn::LawnCheckBox::LawnCheckBox(int theId) : Widget(theId)
 {
-	mUnCheckImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX0");
-	mCheckImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_CHECKBOX1");
+	mUnCheckImage = RES_IMAGE::IMAGE_OPTIONS_CHECKBOX0;
+	mCheckImage = RES_IMAGE::IMAGE_OPTIONS_CHECKBOX1;
 	Resize(mRect.mX,mRect.mY,40,40);
 }
 

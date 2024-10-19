@@ -4,6 +4,7 @@
 
 sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
 {
+    mLog = &std::cout;
     mWidth = width;
     mHeight = height;
     mViewMatrix = glm::mat4x4(1.0f);
@@ -47,7 +48,7 @@ sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCa
 
     // glEnable(GL_MULTISAMPLE); //开启多重采样
 
-    std::cout << "Texture Number Max: " << mTextureNumberMax << std::endl;
+    Log() << "Texture Number Max: " << mTextureNumberMax << std::endl;
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

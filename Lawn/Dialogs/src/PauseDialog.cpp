@@ -11,9 +11,9 @@ Lawn::PauseDialog::PauseDialog() : LawnDialog(LAWN_WIDGET_PAUSE_DIALOG)
 	mContinueButton = new LawnImageButton(PAUSE_DIALOG_CONTINUE);
 	mContinueButton->AttachToListener(this);
 	mContinueButton->LoadLabel(_LS("Continue"));
-	mContinueButton->mImageNormal = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON0");
-	mContinueButton->mImageHover = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
-	mContinueButton->mImageDown = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
+	mContinueButton->mImageNormal = RES_IMAGE::IMAGE_OPTIONS_BACKTOGAMEBUTTON0;
+	mContinueButton->mImageHover = RES_IMAGE::IMAGE_OPTIONS_BACKTOGAMEBUTTON2;
+	mContinueButton->mImageDown = RES_IMAGE::IMAGE_OPTIONS_BACKTOGAMEBUTTON2;
 	mContinueButton->Resize(25, 350, mContinueButton->mImageNormal->GetWidth(), mContinueButton->mImageNormal->GetHeight());
 	
 	AppendChild(mContinueButton);

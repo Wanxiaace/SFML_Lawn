@@ -161,7 +161,7 @@ void sgf::ResourceManager::LoadParticleImages()
 	{
 		Emitter* emitter = (Emitter*)x;
 		int length = emitter->mImageNumber;
-		for (size_t i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
 		{
 			emitter->AttachImage(GetResource<SimpleImage>(emitter->mImageIDs[i]));
 		}

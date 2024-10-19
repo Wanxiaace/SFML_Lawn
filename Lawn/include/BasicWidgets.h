@@ -5,6 +5,7 @@
 #include "WidgetSystem.h"
 #include "Graphics.h"
 #include "Font.h"
+#include "Resources.h"
 
 namespace Lawn {
 	class TextButton :public sgf::TemplateButton {
@@ -16,7 +17,7 @@ namespace Lawn {
 		TextButton(int buttonId, int fontSize);
 		~TextButton();
 
-		void LoadLabel(const sgf::String& text, const sgf::String& key = "FONT_FONT2");
+		void LoadLabel(const sgf::String& text, sgf::Font* font = RES_FONT::FONT_FONT2);
 		void MoveTo(float x,float y);
 		
 	public:

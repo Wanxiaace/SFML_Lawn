@@ -2,6 +2,7 @@
 #include "../../Lawn/include/Constant.h"
 #include "../../include/LawnApp.h"
 #include "../include/Font.h"
+#include "../../include/Resources.h"
 
 Lawn::SettingDialog::SettingDialog() : LawnDialog(LAWN_DIALOG_SETTING)
 {
@@ -36,8 +37,8 @@ Lawn::SettingDialog::SettingDialog() : LawnDialog(LAWN_DIALOG_SETTING)
 	mFullScreenCheckBox->mIsCheck = mUseFullScreen;
 	AppendChild(mFullScreenCheckBox);
 
-	auto font = gLawnApp->mResourceManager.GetResourceFast<sgf::Font>("FONT_FONT2");
-	mBackImage = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>("IMAGE_OPTIONS_MENUBACK");
+	auto font = RES_FONT::FONT_FONT2;
+	mBackImage = RES_IMAGE::IMAGE_OPTIONS_MENUBACK;
 
 	mMusicVolumeLabel = new LawnLabel();
 	mMusicVolumeLabel->MoveTo(100, 125);

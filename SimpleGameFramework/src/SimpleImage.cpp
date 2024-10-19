@@ -1,5 +1,6 @@
 #include "../include/SimpleImage.h"
 #include <iostream>
+#include "../include/GameApp.h"
 
 
 sgf::SimpleImage::SimpleImage()
@@ -55,7 +56,7 @@ SDL_Surface* sgf::SimpleImage::LoadFromFile(const char* path)
 {
 	SDL_Surface* bufferSuface = IMG_Load(path);
 	if (!bufferSuface) {
-		printf("Failed to load Image at: %s", path);
+		gGameApp->Log() << "Failed to load Image At: " << path << std::endl;
 		return nullptr;
 	}
 

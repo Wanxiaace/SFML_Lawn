@@ -48,7 +48,7 @@ std::pair<int, int> sgf::Animator::GetTrackRange(const sgf::String& trackName)
 
 	int rStart = -1;
 	int rEnd = -1;
-	for (int i = 0; i < aTrack->mFrames.size(); i++) {
+	for (size_t i = 0; i < aTrack->mFrames.size(); i++) {
 		TrackFrameTransform& x = aTrack->mFrames[i];
 		if (rStart == -1) {
 			if (x.f == 0)
@@ -275,7 +275,7 @@ void sgf::Animator::Present(Graphics* g)
 	float OffsetY = 0;
 	float fScale = 1.0f;
 
-	for (int i = 0; i < targetReanim->mTracks->size(); i++) {
+	for (size_t i = 0; i < targetReanim->mTracks->size(); i++) {
 		auto& x = (targetReanim->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;

@@ -1,6 +1,11 @@
-﻿#include "include/LawnApp.h"
+﻿#include <iostream>
+#include <fstream>
+
+#include "include/LawnApp.h"
+#include "include/Resources.h"
 #include "include/Constant.h"
 #include "LogoScreen.h"
+
 
 #undef main
 
@@ -34,6 +39,7 @@ int main(int argc,char** argv) {
 
 	new std::thread([logoScreen]() {
 		gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
+		LoadAllResourcesLink();
 		logoScreen->Join();
 		gLawnApp->KillLoadingPage();
 		gLawnApp->EnterGameSelector();

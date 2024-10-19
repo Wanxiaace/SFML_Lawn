@@ -6,7 +6,7 @@ std::unordered_map<Lawn::SeedType, Lawn::PlantDefinition> Lawn::gPlantsDefinitio
 
 Lawn::Plant::Plant()
 {
-	mShadowImage = (sgf::SimpleImage*)gLawnApp->mResourceManager.mResourcePool["IMAGE_PLANTSHADOW"];
+	mShadowImage = RES_IMAGE::IMAGE_PLANTSHADOW;
 }
 
 Lawn::Plant::~Plant()
