@@ -35,7 +35,8 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	mCurrentWaveIndex = 0;
 	mNextWaveCounts = 1000;
 	mStartSpawningZombie = true;
-
+	//TryShowCutSceneBegin();
+	
 
 	LoadZombieFromJsonFile("level0.json");
 	InitLawnMover();
@@ -91,6 +92,17 @@ void Lawn::Board::UpdateBoardBackground()
 	mBackgroundScaleF = float(LAWN_GAME_WINDOW_HEIGHT) / mBackGroundImageCache->mSurface->h;
 	gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)",5000);
 
+}
+
+void Lawn::Board::TryShowCutSceneBegin()
+{
+	mCutSenceHolder.mTick.BindToCounter(&mTick);
+	mCutSenceHolder.SetSpeed(-200);
+	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250);
+	mCutSenceHolder.SetNextFunction([this]() {
+		mCutSenceHolder.SetSpeed(200);
+		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250);
+		});
 }
 
 void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
@@ -296,17 +308,31 @@ std::unordered_map<sgf::String, Lawn::ZombieType> gZombieStringMap = {
 	{"ZOMBIE_DOOR",Lawn::ZOMBIE_DOOR},
 };
 
+std::unordered_map<sgf::String, Lawn::SeedType> gPlantStringMap = {
+	{"SEED_PEASHOOTER",Lawn::SEED_PEASHOOTER},
+	{"SEED_SUNFLOWER",Lawn::SEED_SUNFLOWER},
+};
+
 void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 {
 	mLevel.mLevelName = json["LevelName"];
 	mLevel.mWavesNum = json["WavesNumber"];
 	mLevel.mHugeWaveScale = json["HugeWaveScale"];
-	nlohmann::json autoLoadArray = json["AutoLoadZombie"];
+	mStartSpawningZombie = !json["AllowSeedChoose"];
+
+	nlohmann::json autoLoadZombieArray = json["AutoLoadZombie"];
+	nlohmann::json autoLoadCardArray = json["AutoLoadCard"];
+
 	nlohmann::json zombieArray = json["ZombieList"];
-	for (auto& x : autoLoadArray)
+	for (auto& x : autoLoadZombieArray)
 	{
 		ZombieType type = gZombieStringMap[x];
 		mLevel.mZombieTypes.push_back(type);
+	}
+	for (auto& x : autoLoadCardArray)
+	{
+		SeedType type = gPlantStringMap[x];
+		mSeedBank->AppendSeedPack(type);
 	}
 
 	AutoSpawnZombieWaves(mLevel.mWavesNum);
@@ -401,6 +427,7 @@ void Lawn::Board::InitLawnMover()
 
 void Lawn::Board::Update()
 {
+	mCutSenceHolder.Update();
 	if (mBlackScreenCounter > mTick.GetDeltaTick())
 		mBlackScreenCounter -= mTick.GetDeltaTick();
 	else

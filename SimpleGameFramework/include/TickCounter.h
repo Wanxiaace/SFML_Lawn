@@ -10,6 +10,7 @@ namespace sgf {
 	protected:
 		unsigned int mTickCache = 0;
 		unsigned int mTickDelta = 0;
+
 	public:
 		TickCounter* mBind = nullptr;
 

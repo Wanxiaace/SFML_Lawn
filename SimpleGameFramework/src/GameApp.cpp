@@ -49,20 +49,32 @@ void sgf::GameApp::DrawImgui()
 {
 	if (!mShowDebugWindow)
 		return;
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::Begin("Analyse Window");
-	ImGui::Text("FPS: %d", mFPS);
-	ImGui::Text("MouseX: %d", mMouseX);
-	ImGui::Text("MouseY: %d", mMouseY);
-	ImGui::Checkbox("Allow Moving", &mDragAllowed);
-	ImGui::Checkbox("Show Widget Box", &gShowWidgetHitBoxAllowed);
-	ImGui::Checkbox("Rotate", &mRotateAllowed);
-	ImGui::SliderFloat("Moving Speed", &mMovingSpeed, 1.0f, 5.0f);
-	ImGui::SliderFloat("Render Scale", &mRenderScale, 0.5f, 10.0f);
-	ImGui::End();
+	if (ImGui::BeginMainMenuBar()) {
+		if (ImGui::BeginMenu("Debug Tools")) {
+			if(ImGui::Checkbox("Analyze Window", &mShowAnalyzeWindow));
+			ImGui::EndMenu();
+		}
+		ImGui::Text("FPS: %d",mFPS);
+		ImGui::EndMainMenuBar();
+	}
+
+	if (mShowAnalyzeWindow) {
+		ImGui::Begin("Analyse Window");
+		ImGui::Text("FPS: %d", mFPS);
+		ImGui::Text("MouseX: %d", mMouseX);
+		ImGui::Text("MouseY: %d", mMouseY);
+		ImGui::Checkbox("Allow Moving", &mDragAllowed);
+		ImGui::Checkbox("Show Widget Box", &gShowWidgetHitBoxAllowed);
+		ImGui::Checkbox("Rotate", &mRotateAllowed);
+		ImGui::SliderFloat("Moving Speed", &mMovingSpeed, 1.0f, 5.0f);
+		ImGui::SliderFloat("Render Scale", &mRenderScale, 0.5f, 10.0f);
+		ImGui::End();
+	}
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

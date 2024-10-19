@@ -101,6 +101,7 @@ void Lawn::LawnApp::KillLoadingPage()
 	}
 }
 
+
 void Lawn::LawnApp::ShowSettingDialog()
 {
     if (!mSettingDialog) {
@@ -138,7 +139,7 @@ void Lawn::LawnApp::EnterGameBoard()
 void Lawn::LawnApp::MakeNewBoard()
 {
     mBoard = new Board();
-    mBoard->SpawnPlantAt(0,0,SEED_PEASHOOTER);
+    /*
     for (size_t i = 0; i < 5; i++)
     {
         for (size_t j = 4; j < 8; j++)
@@ -157,8 +158,9 @@ void Lawn::LawnApp::MakeNewBoard()
                 }
             }
         }
-        //mBoard->SpawnZombieAt(8, i, ZOMBIE_DOOR); break;
-    }
+    }*/
+
+
 }
 
 void Lawn::LawnApp::KillBoard()

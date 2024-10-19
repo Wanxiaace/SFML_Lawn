@@ -99,7 +99,6 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 		g->DrawImageScaleF(mTextImage, mScaleF * 0.7, mScaleF * 0.7);
 	}
 
-
 	if (mIsMouseHover) {
 		g->MoveTo(mRect.mX, mRect.mY);
 		g->Translate(-3 * mScaleF, -3 * mScaleF);
@@ -152,10 +151,6 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 {
 	mBoard = board;
 	Resize(0, 60, 100, 500);
-
-	//≤‚ ‘”√¥˙¬Î
-	AppendSeedPack(SEED_PEASHOOTER);
-
 }
 
 Lawn::SeedBank::~SeedBank()

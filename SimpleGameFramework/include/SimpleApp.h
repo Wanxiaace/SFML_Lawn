@@ -17,6 +17,7 @@ namespace sgf {
 		int mHeight = 0;
 		bool mIsOpen = false;
 		bool mShowDebugWindow = false;
+		bool mShowAnalyzeWindow = false;
 		int mMouseX = 0;
 		int mMouseY = 0;
 		float mMouseXScale = 1.0f;

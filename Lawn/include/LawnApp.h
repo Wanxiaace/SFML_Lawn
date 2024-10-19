@@ -34,7 +34,6 @@ namespace Lawn {
 		void LawnStart();
 		void EnterLoadingPage();
 		void KillLoadingPage();
-
 		void ShowSettingDialog();
 
 		void EnterGameSelector();

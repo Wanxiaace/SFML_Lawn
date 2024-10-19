@@ -37,6 +37,9 @@ void Lawn::Plant::PlantInit()
 		mBodyReanim.SetFrameRangeByTrackName("anim_head_idle");
 		mBodyReanim.mSpeed = 1.5f;
 		break;
+	case Lawn::SEED_SUNFLOWER:
+		mBodyReanim.mSpeed = 1.5f;
+		break;
 	default:
 		break;
 	}
@@ -108,6 +111,7 @@ void Lawn::Plant::PlayTrack(const sgf::String& trackName,int blendTime)
 void Lawn::Plant::InitPlantsDefinitions()
 {
 	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20,-20,0 };
+	gPlantsDefinitions[SEED_SUNFLOWER] = PlantDefinition{ SEED_SUNFLOWER ,"RAXML_SUNFLOWER","SunFlower","a useless plant",50,20,-20,0 };
 }
 
 void Lawn::Plant::Update()

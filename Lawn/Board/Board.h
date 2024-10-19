@@ -12,6 +12,8 @@
 #include "include/SeedPack.h"
 #include "../Lawn/include/Constant.h"
 #include "json.hpp"
+#include "EffectHolder.h"
+
 
 namespace Lawn {
 	class SeedBank;
@@ -100,11 +102,14 @@ namespace Lawn {
 		unsigned int mPlantRandomSeed = 0;//随机数种子
 		unsigned int mZombieRandomSeed = 0;//随机数种子
 
+		sgf::EffectHolderFloat mCutSenceHolder;
+
 	public:
 		Board();
 		~Board();
 
 		void UpdateBoardBackground();
+		void TryShowCutSceneBegin();
 		void DrawBackDrop(sgf::Graphics* g) const;
 		int PointXtoGridX(int pointX) const;
 		int PointYtoGridY(int pointY) const;
