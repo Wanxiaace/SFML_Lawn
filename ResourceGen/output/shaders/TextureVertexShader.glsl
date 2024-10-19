@@ -15,11 +15,11 @@ uniform mat4 posMatrix[200];
 
 void main()
 {
+	
 	if(aMatrixIndex == -1)
 		gl_Position = proj*view*vec4(aPos, 1.0);
 	else
 		gl_Position = proj*view*posMatrix[int(aMatrixIndex)]*vec4(aPos, 1.0);
-
 
 	textureCoord = aTexPos;
 	texIndex = aTexIndex;

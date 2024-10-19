@@ -18,56 +18,6 @@ namespace Lawn {
     {
         STATE_NOTREADY = 0,
         STATE_READY = 1,
-        STATE_DOINGSPECIAL = 2,
-        STATE_SQUASH_LOOK = 3,
-        STATE_SQUASH_PRE_LAUNCH = 4,
-        STATE_SQUASH_RISING = 5,
-        STATE_SQUASH_FALLING = 6,
-        STATE_SQUASH_DONE_FALLING = 7,
-        STATE_GRAVEBUSTER_LANDING = 8,
-        STATE_GRAVEBUSTER_EATING = 9,
-        STATE_CHOMPER_BITING = 10,
-        STATE_CHOMPER_BITING_GOT_ONE = 11,
-        STATE_CHOMPER_BITING_MISSED = 12,
-        STATE_CHOMPER_DIGESTING = 13,
-        STATE_CHOMPER_SWALLOWING = 14,
-        STATE_POTATO_RISING = 15,
-        STATE_POTATO_ARMED = 16,
-        STATE_POTATO_MASHED = 17,
-        STATE_SPIKEWEED_ATTACKING = 18,
-        STATE_SPIKEWEED_ATTACKING_2 = 19,
-        STATE_SCAREDYSHROOM_LOWERING = 20,
-        STATE_SCAREDYSHROOM_SCARED = 21,
-        STATE_SCAREDYSHROOM_RAISING = 22,
-        STATE_SUNSHROOM_SMALL = 23,
-        STATE_SUNSHROOM_GROWING = 24,
-        STATE_SUNSHROOM_BIG = 25,
-        STATE_MAGNETSHROOM_SUCKING = 26,
-        STATE_MAGNETSHROOM_CHARGING = 27,
-        STATE_BOWLING_UP = 28,
-        STATE_BOWLING_DOWN = 29,
-        STATE_CACTUS_LOW = 30,
-        STATE_CACTUS_RISING = 31,
-        STATE_CACTUS_HIGH = 32,
-        STATE_CACTUS_LOWERING = 33,
-        STATE_DUPLICATOR_REFRESHING = 34,
-        STATE_DUPLICATOR_READY = 35,
-        STATE_DUPLICATOR_PLANTING = 36,
-        STATE_TANGLEKELP_GRABBING = 37,
-        STATE_COBCANNON_ARMING = 38,
-        STATE_COBCANNON_LOADING = 39,
-        STATE_COBCANNON_READY = 40,
-        STATE_COBCANNON_FIRING = 41,
-        STATE_KERNELPULT_BUTTER = 42,
-        STATE_UMBRELLA_TRIGGERED = 43,
-        STATE_UMBRELLA_REFLECTING = 44,
-        STATE_IMITATER_MORPHING = 45,
-        STATE_ZEN_GARDEN_WATERED = 46,
-        STATE_ZEN_GARDEN_NEEDY = 47,
-        STATE_ZEN_GARDEN_HAPPY = 48,
-        STATE_MARIGOLD_ENDING = 49,
-        STATE_FLOWERPOT_INVULNERABLE = 50,
-        STATE_LILYPAD_INVULNERABLE = 51
     };
 
 	class Plant : public GameObject {
@@ -84,11 +34,20 @@ namespace Lawn {
         sgf::Animator mHeadReanim;
         glm::mat4x4 mHeadReanimMatrix;
 
-		int mProduceCountDown = 0;
+        union {
+            int mFireCountDown = 0;
+            int mProduceCountDown;
+        };
+
 		float mHealth = 0;
 		int mDamage = 0;
         bool mCanShoot = true;
-        bool mIsFire = false;
+        union
+        {
+            bool mIsFire = false;
+            bool mIsProduce;
+        };
+
         bool mAvailable = true;
         float mReanimOffsetX;
         float mReanimOffsetY;
@@ -99,6 +58,7 @@ namespace Lawn {
 
 		void PlantInit();
 		void Fire();
+		void Product();
         void AttachToBoard(Board* board) { mBoard = board; };
         bool IsOnBoard() const;
         Zombie* TryToFindTarget();

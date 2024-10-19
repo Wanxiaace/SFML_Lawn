@@ -163,6 +163,10 @@ namespace Lawn {
         LAWN_MOVER_NORMAL,
     };
 
+    enum SceneObjectType {
+        SCENE_OBJECT_SUN,
+    };
+
     struct PlantDefinition {
         SeedType mSeedType;
         sgf::String mReanimationName;

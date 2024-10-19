@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board\Board.cpp" />
+    <ClCompile Include="Board\src\SceneObejct.cpp" />
     <ClCompile Include="Board\src\GameObject.cpp" />
     <ClCompile Include="Board\src\LawnMover.cpp" />
     <ClCompile Include="Board\src\SeedPack.cpp" />

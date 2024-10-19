@@ -20,6 +20,7 @@ void Lawn::Plant::PlantInit()
 	mBox.mWidth = 40;
 	mBox.mHeight = 80;
 	mBox.mX += 20;
+	
 
 	auto& def = gPlantsDefinitions[mSeedType];
 
@@ -39,6 +40,7 @@ void Lawn::Plant::PlantInit()
 		break;
 	case Lawn::SEED_SUNFLOWER:
 		mBodyReanim.mSpeed = 1.5f;
+		mProduceCountDown = 2000;
 		break;
 	default:
 		break;
@@ -55,6 +57,17 @@ void Lawn::Plant::Fire()
 		gLawnApp->mMusicManager.PlayChunk("CHUNK_THROW2");
 		mProduceCountDown = 1000;
 		//std::cout << "shit" << std::endl;
+		break;
+	}
+}
+
+void Lawn::Plant::Product()
+{
+	switch (mSeedType)
+	{
+	case Lawn::SEED_SUNFLOWER:
+		mBoard->SpawnSceneObjectAt(mBox.mX+20,mBox.mY,SCENE_OBJECT_SUN);
+		mProduceCountDown = 5000;
 		break;
 	}
 }
@@ -120,8 +133,8 @@ void Lawn::Plant::Update()
 
 	mBodyReanim.Update();
 	mHeadReanim.Update();
-	if (mProduceCountDown > 0)
-		mProduceCountDown -= mTick.GetDeltaTick();
+	if (mFireCountDown > 0)
+		mFireCountDown -= mTick.GetDeltaTick();
 
 	switch (mSeedType)
 	{
@@ -130,8 +143,8 @@ void Lawn::Plant::Update()
 		if (mCanShoot && IsOnBoard()) {
 			mTargetZombie = TryToFindTarget();
 			if (mTargetZombie) {
-				if (mState == STATE_NOTREADY && int(mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexNow - 1) == 0) {
-					PlayTrack("anim_shooting");
+				if (mState == STATE_NOTREADY) {
+					PlayTrack("anim_shooting",200);
 					mState = STATE_READY;
 				}
 			}
@@ -144,8 +157,38 @@ void Lawn::Plant::Update()
 
 			if (mState == STATE_READY) {
 				if (abs((mBodyReanim.mFrameIndexNow - mBodyReanim.mFrameIndexBegin) / (mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexBegin) - 0.7f) <= 0.1f) {//65
-					if (!mIsFire) {
+					if (!mIsProduce) {
 						Fire();
+						mIsProduce = true;
+					}
+				}
+				else {
+					mIsProduce = false;
+				}
+			}
+		}
+		break;
+	}
+	case Lawn::SEED_SUNFLOWER:
+	{
+		if (mCanShoot && IsOnBoard()) {
+			if (mProduceCountDown <= 0) {
+				if (mState == STATE_NOTREADY) {
+					PlayTrack("anim_producing", 200);
+					mState = STATE_READY;
+				}
+			}
+			else {
+				if (mState == STATE_READY) {
+					PlayTrack("anim_idle", 200);
+					mState = STATE_NOTREADY;
+				}
+			}
+
+			if (mState == STATE_READY) {
+				if (abs((mBodyReanim.mFrameIndexNow - mBodyReanim.mFrameIndexBegin) / (mBodyReanim.mFrameIndexEnd - mBodyReanim.mFrameIndexBegin) - 0.7f) <= 0.1f) {//65
+					if (!mIsFire) {
+						Product();
 						mIsFire = true;
 					}
 				}

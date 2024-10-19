@@ -29,7 +29,7 @@ void TreeBar::SelectRes(int index)
 		auto reanim = app->mResourceManager.GetResourceFast<sgf::Reanimation>(app->mResourceList->mResouces[index].id);
 		if (app->mCurentAnimatorPointer)
 			delete app->mCurentAnimatorPointer;
-		app->mCurentAnimatorPointer = new sgf::Animator(reanim,gApp);
+		app->mCurentAnimatorPointer = new sgf::Animator(reanim);
 		app->mCurentAnimatorPointer->SetFrameRangeByTrackName("anim_idle");
 		app->mCurentAnimatorPointer->Play();
 	}

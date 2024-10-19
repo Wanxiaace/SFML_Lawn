@@ -70,6 +70,7 @@ namespace Lawn {
 		ZombieVector mZombieVector;
 		ProjectileVector mProjectileVector;
 		LawnMoverVector mLawnMoverVector;
+		SceneObejctVector mSceneObjectVector;
 		LevelInfo mLevel;
 
 		float mBackgroundScaleF;
@@ -119,6 +120,7 @@ namespace Lawn {
 
 		Plant* SpawnPlantAt(int gridX,int gridY, SeedType seedType);
 		Zombie* SpawnZombieAt(int gridX,int gridY, ZombieType zomType);
+		SceneObejct* SpawnSceneObjectAt(int x,int y, SceneObjectType objType);
 		Projectile* SpawnProjectileAt(int x,int y, ProjectileType projectileType);
 		sgf::Particle* SpawnParticleAt(sgf::Emitter* emitter,int x,int y,int z);
 		void SpawnParticlesAt(sgf::Emitter* emitter,int number,int x,int y,int z);

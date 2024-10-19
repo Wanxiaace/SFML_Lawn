@@ -90,6 +90,9 @@
     <ClCompile Include="src\Resources.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Board\src\SceneObejct.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LawnApp.h">

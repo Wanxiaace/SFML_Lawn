@@ -169,6 +169,17 @@ Lawn::Zombie* Lawn::Board::SpawnZombieAt(int gridX, int gridY, ZombieType zomTyp
 	return zombie;
 }
 
+Lawn::SceneObejct * Lawn::Board::SpawnSceneObjectAt(int x, int y, SceneObjectType objType)
+{
+	Lawn::SceneObejct* obj = new Lawn::SceneObejct();
+	obj->mType = objType;
+	obj->mBoard = this;
+	obj->MoveTo(x,y);
+	obj->Init();
+	mSceneObjectVector.push_back(obj);
+	return nullptr;
+}
+
 Lawn::Projectile* Lawn::Board::SpawnProjectileAt(int x, int y, ProjectileType projectileType)
 {
 	Lawn::Projectile* projectile = new Lawn::Projectile();
@@ -458,6 +469,19 @@ void Lawn::Board::Update()
 		mPlantVector[i]->Update();
 	}
 
+	length = mSceneObjectVector.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		if (!mSceneObjectVector[i]->mAvailable) {
+			delete mSceneObjectVector[i];
+			mSceneObjectVector.erase(mSceneObjectVector.begin() + i);
+			i--;
+			length--;
+			continue;
+		}
+		mSceneObjectVector[i]->Update();
+	}
+
 	length = mZombieVector.size();
 	for (size_t i = 0; i < length; i++)
 	{
@@ -529,6 +553,13 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 	{
 		g->ModelMoveTo(boardPos.first + x->mBox.mX, boardPos.second + x->mBox.mY);
 		g->MoveTo(0,0);
+		x->Draw(g);
+	}
+
+	for (auto& x : mSceneObjectVector)
+	{
+		g->ModelMoveTo(boardPos.first + x->mBox.mX, boardPos.second + x->mBox.mY);
+		g->MoveTo(0, 0);
 		x->Draw(g);
 	}
 

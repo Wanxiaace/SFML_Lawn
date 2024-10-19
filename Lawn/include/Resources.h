@@ -60,6 +60,7 @@ namespace RES_IMAGE {
 namespace RES_RAXML {
 	extern Reanimation* RAXML_ZOMBIESWON;
 	extern Reanimation* RAXML_LAWNMOWER;
+	extern Reanimation* RAXML_SUN;
 };
 
 namespace RES_PAXML {
