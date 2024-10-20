@@ -6,18 +6,35 @@
 #include <functional>
 
 namespace sgf {
+
+	static double EaseInOutCurve(double t, double min, double max, double duration) {
+		t /= (duration / 2.0);
+		if (t < 1.0) {
+			return (max - min) / 2.0 * t * t * t + min;
+		}
+		t -= 2.0;
+		return (max - min) / 2.0 * (t * t * t + 2.0) + min;
+	}
+	enum CurveType {
+		CURVE_LINER,
+		CURVE_EASE_IN_OUT,
+	};
+
 	template<typename T>
 	class EffectHolder {
 	public:
 		float mEffectCounter = 0;
 		float mEffectCounterMax = 0;
 		TickCounter mTick;
+		CurveType mType = CURVE_LINER;
 		std::function<void()> mNextFunc;
 		T* mSpot = nullptr;
 		T mRangeMax;
 		T mRangeMin;
 		T mSpeed;
 		T mProcess;
+		T mValue;
+		T mBaseValue;
 		bool mIsRunning = false;
 		bool mIsBindNextFunc = false;
 
@@ -25,13 +42,15 @@ namespace sgf {
 		EffectHolder() {};
 		~EffectHolder() {};
 
-		void BindSpot(T* spot, T max, T min) { 
+		void BindSpot(T* spot, T max, T min,CurveType type = CURVE_LINER) {
+			mType = type;
 			mSpot = spot; mRangeMax = max; mRangeMin = min;
 			if(mSpeed > 0)
-				mProcess = mRangeMin;
+				mBaseValue = mRangeMin;
 			else 
-				mProcess = mRangeMax;
-
+				mBaseValue = mRangeMax;
+			mValue = mBaseValue;
+			mProcess = 0;
 			Start();
 		};
 		void SetSpeed(T speed) { mSpeed = speed; };
@@ -41,11 +60,30 @@ namespace sgf {
 			mTick.Update();
 			if (!mIsRunning)
 				return;
-			T tar = mProcess + (T)mTick.GetDeltaTick() / 1000.0f * mSpeed;
+
+			T tar = mProcess + (T)mTick.GetDeltaTick() / 1000.0 * mSpeed;
+
+			switch (mType)
+			{
+			case sgf::CURVE_LINER:
+				mValue = mProcess + mBaseValue;//Япад
+				break;
+			case sgf::CURVE_EASE_IN_OUT:
+			{
+				if (mSpeed >= 0)
+					mValue = EaseInOutCurve(mProcess, mRangeMin, mRangeMax, 1000);
+				else
+					mValue = EaseInOutCurve(mProcess, mRangeMax, mRangeMin, -1000);
+				break;
+			}
+			}
+
 
 			if (mSpeed >= 0) {
-				if (tar > mRangeMax) {
-					mProcess = mRangeMax;
+				
+				if (mValue > mRangeMax) {
+					mProcess = 0;
+					mValue = mRangeMax;
 					mIsRunning = false;
 					if (mIsBindNextFunc)
 					{
@@ -59,8 +97,9 @@ namespace sgf {
 				}
 			}
 			else {
-				if (tar < mRangeMin) {
-					mProcess = mRangeMin;
+				if (mValue < mRangeMin) {
+					mProcess = 0;
+					mValue = mRangeMin;
 					mIsRunning = false;
 					if (mIsBindNextFunc)
 					{
@@ -72,12 +111,11 @@ namespace sgf {
 					mProcess = tar;
 				}
 			}
-
 			if (mSpot)
-				*mSpot = mProcess;
+				*mSpot = mValue;
 		};
 
-		void Start() { mIsRunning = true; };
+		void Start() { mIsRunning = true;};
 		void SetNextFunction(std::function<void()> func) { mNextFunc = func; mIsBindNextFunc = true; };
 	};
 

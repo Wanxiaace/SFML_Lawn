@@ -34,9 +34,7 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 
 	mCurrentWaveIndex = 0;
 	mNextWaveCounts = 1000;
-	mStartSpawningZombie = true;
-	//TryShowCutSceneBegin();
-	
+	//mStartSpawningZombie = false;
 
 	LoadZombieFromJsonFile("level0.json");
 	InitLawnMover();
@@ -96,12 +94,16 @@ void Lawn::Board::UpdateBoardBackground()
 
 void Lawn::Board::TryShowCutSceneBegin()
 {
+	//mSeedBank->mVisible = false;
 	mCutSenceHolder.mTick.BindToCounter(&mTick);
-	mCutSenceHolder.SetSpeed(-200);
-	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250);
+	mCutSenceHolder.SetSpeed(-300);
+	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250,CURVE_EASE_IN_OUT);
 	mCutSenceHolder.SetNextFunction([this]() {
-		mCutSenceHolder.SetSpeed(200);
-		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250);
+		mCutSenceHolder.SetSpeed(300);
+		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
+		mCutSenceHolder.SetNextFunction([this]() {
+			mStartSpawningZombie = true;
+			});
 		});
 }
 
@@ -329,7 +331,7 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 	mLevel.mLevelName = json["LevelName"];
 	mLevel.mWavesNum = json["WavesNumber"];
 	mLevel.mHugeWaveScale = json["HugeWaveScale"];
-	mStartSpawningZombie = !json["AllowSeedChoose"];
+	mStartSpawningZombie = !(bool(json["AllowSeedChoose"]) || bool(json["AllowCutScene"]));
 
 	nlohmann::json autoLoadZombieArray = json["AutoLoadZombie"];
 	nlohmann::json autoLoadCardArray = json["AutoLoadCard"];
@@ -358,7 +360,8 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 		//std::cout << x["Type"] << " " << row << " " << column << std::endl;
 	}
 
-	
+	if(!mStartSpawningZombie)
+		TryShowCutSceneBegin();
 }
 
 #include <fstream>
