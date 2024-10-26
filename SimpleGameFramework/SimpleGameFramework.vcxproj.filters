@@ -1,232 +1,258 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="res">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="PopCom">
+      <UniqueIdentifier>{f35d8842-1923-4d30-b3d6-ca15e546a269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PopCom\include">
+      <UniqueIdentifier>{b60dae58-a902-4a87-9f75-d8fff61d40de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PopCom\src">
+      <UniqueIdentifier>{32fa51ce-0b8f-431b-9e42-ac704a7a0f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pugixml">
+      <UniqueIdentifier>{4a1df964-716e-4410-a534-d56d45d68072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pugixml\include">
+      <UniqueIdentifier>{2d93c0f0-ae1c-4fec-b110-4a95b2c95999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pugixml\src">
+      <UniqueIdentifier>{a3971127-a447-4f90-a594-17a9cd265571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SimpleGameFramework">
+      <UniqueIdentifier>{98013055-5fb8-4fb0-a5aa-c4c427b100a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{5019fd4d-7e2a-49e0-8644-19ad918de228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib\include">
+      <UniqueIdentifier>{22079d73-9b01-474a-a994-7a877529fc64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib\src">
+      <UniqueIdentifier>{0030d25c-b46f-4798-88f5-0e16de70dd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SimpleGameFramework\src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SimpleGameFramework\include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{a169d554-f484-4e6e-9eb2-0dc6d4b80bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb\include">
+      <UniqueIdentifier>{8f55dfcc-db0a-42dd-82a1-d48da325dbba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SimpleApp.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="SimpleApp.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\SimpleImage.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="SimpleImage.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ResourceManager.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Program.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Program.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\WidgetSystem.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="WidgetSystem.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameApp.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameMessage.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="GameMessage.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Reanimation.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Reanimation.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\pugixml\pugixml.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Animator.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Animator.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Dictionary.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Dictionary.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Font.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Font.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="MusicSystem.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\MusicSystem.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Particle.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Particle.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="CursorObject.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\CursorObject.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="PlayerInfo.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayerInfo.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\CompiledReader.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\adler32.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\compress.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\crc32.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\deflate.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\gzio.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\infblock.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\infcodes.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inffast.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inflate.c">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inftrees.c">
-      <Filter>src</Filter>
+    <ClCompile Include="LogoScreen.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
     </ClCompile>
     <ClCompile Include="PopCom\zlib\infutil.c">
-      <Filter>src</Filter>
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\gzio.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\infblock.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\infcodes.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inffast.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inflate.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\inftrees.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\adler32.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\compress.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\crc32.c">
+      <Filter>zlib\src</Filter>
+    </ClCompile>
+    <ClCompile Include="PopCom\zlib\deflate.c">
+      <Filter>zlib\src</Filter>
     </ClCompile>
     <ClCompile Include="PopCom\zlib\trees.c">
-      <Filter>src</Filter>
+      <Filter>zlib\src</Filter>
     </ClCompile>
     <ClCompile Include="PopCom\zlib\uncompr.c">
-      <Filter>src</Filter>
+      <Filter>zlib\src</Filter>
     </ClCompile>
     <ClCompile Include="PopCom\zlib\zutil.c">
-      <Filter>src</Filter>
+      <Filter>zlib\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LogoScreen.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="PopCom\CompiledReader.cpp">
+      <Filter>PopCom\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\pugixml\pugixml.cpp">
+      <Filter>pugixml\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\SimpleApp.h">
-      <Filter>include</Filter>
+    <ClInclude Include="SimpleApp.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Graphics.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Graphics.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Common.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Common.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\stb\stb_image.h">
-      <Filter>include</Filter>
+    <ClInclude Include="SimpleImage.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\SimpleImage.h">
-      <Filter>include</Filter>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\ResourceManager.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Program.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Program.h">
-      <Filter>include</Filter>
+    <ClInclude Include="GameMessage.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameMessage.h">
-      <Filter>include</Filter>
+    <ClInclude Include="WidgetSystem.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\WidgetSystem.h">
-      <Filter>include</Filter>
+    <ClInclude Include="GameApp.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameApp.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Reanimation.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Reanimation.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Animator.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Animator.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Dictionary.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Dictionary.h">
-      <Filter>include</Filter>
+    <ClInclude Include="json.hpp">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\json.hpp">
-      <Filter>include</Filter>
+    <ClInclude Include="Particle.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Particle.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Font.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Font.h">
-      <Filter>include</Filter>
+    <ClInclude Include="MusicSystem.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\MusicSystem.h">
-      <Filter>include</Filter>
+    <ClInclude Include="CursorObject.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\CursorObject.h">
-      <Filter>include</Filter>
+    <ClInclude Include="PlayerInfo.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\PlayerInfo.h">
-      <Filter>include</Filter>
+    <ClInclude Include="LogoScreen.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="PopCom\CompiledReader.h">
-      <Filter>include</Filter>
+    <ClInclude Include="EffectHolder.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
-    <ClInclude Include="PopCom\zlib\deflate.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infblock.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infcodes.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inffast.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inffixed.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inftrees.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infutil.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\trees.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\zconf.h">
-      <Filter>include</Filter>
+    <ClInclude Include="TickCounter.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
     <ClInclude Include="PopCom\zlib\zlib.h">
-      <Filter>include</Filter>
+      <Filter>zlib\include</Filter>
     </ClInclude>
     <ClInclude Include="PopCom\zlib\zutil.h">
-      <Filter>include</Filter>
+      <Filter>zlib\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\LogoScreen.h">
-      <Filter>include</Filter>
+    <ClInclude Include="PopCom\zlib\deflate.h">
+      <Filter>zlib\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\EffectHolder.h">
-      <Filter>include</Filter>
+    <ClInclude Include="PopCom\zlib\infblock.h">
+      <Filter>zlib\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\TickCounter.h">
-      <Filter>include</Filter>
+    <ClInclude Include="PopCom\zlib\infcodes.h">
+      <Filter>zlib\include</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="PopCom\zlib\algorithm.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PopCom\zlib\ChangeLog" />
-    <None Include="PopCom\zlib\configure" />
-    <None Include="PopCom\zlib\descrip.mms" />
-    <None Include="PopCom\zlib\faq" />
-    <None Include="PopCom\zlib\index" />
+    <ClInclude Include="PopCom\zlib\inffast.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\inffixed.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\inftrees.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\infutil.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\trees.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\zlib\zconf.h">
+      <Filter>zlib\include</Filter>
+    </ClInclude>
+    <ClInclude Include="PopCom\CompiledReader.h">
+      <Filter>PopCom\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\stb\stb_image.h">
+      <Filter>stb\include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

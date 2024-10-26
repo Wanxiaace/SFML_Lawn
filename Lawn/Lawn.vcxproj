@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SimpleGameFramework/;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
@@ -98,7 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SimpleGameFramework/include;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../SimpleGameFramework/;../Imgui/;../glew/include;../stb;../SDL/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
@@ -143,58 +143,57 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board\Board.cpp" />
-    <ClCompile Include="Board\src\SceneObejct.cpp" />
-    <ClCompile Include="Board\src\GameObject.cpp" />
-    <ClCompile Include="Board\src\LawnMover.cpp" />
-    <ClCompile Include="Board\src\SeedPack.cpp" />
-    <ClCompile Include="Board\src\Projectile.cpp" />
-    <ClCompile Include="Board\src\Zombie.cpp" />
-    <ClCompile Include="Board\src\BoardAnimator.cpp" />
-    <ClCompile Include="Board\src\Plant.cpp" />
-    <ClCompile Include="Dialogs\src\PauseDialog.cpp" />
-    <ClCompile Include="Dialogs\src\SettingDialog.cpp" />
-    <ClCompile Include="src\Resources.cpp" />
-    <ClCompile Include="src\LawnTip.cpp" />
-    <ClCompile Include="src\LawnCursor.cpp" />
-    <ClCompile Include="src\LawnPlayerInfo.cpp" />
-    <ClCompile Include="src\BasicWidgets.cpp" />
-    <ClCompile Include="src\GameSelector.cpp" />
-    <ClCompile Include="src\LoadingPage.cpp" />
-    <ClCompile Include="src\LawnApp.cpp" />
+    <ClCompile Include="Board\SceneObejct.cpp" />
+    <ClCompile Include="Board\GameObject.cpp" />
+    <ClCompile Include="Board\LawnMover.cpp" />
+    <ClCompile Include="Board\SeedPack.cpp" />
+    <ClCompile Include="Board\Projectile.cpp" />
+    <ClCompile Include="Board\Zombie.cpp" />
+    <ClCompile Include="Board\BoardAnimator.cpp" />
+    <ClCompile Include="Board\Plant.cpp" />
+    <ClCompile Include="Dialogs\PauseDialog.cpp" />
+    <ClCompile Include="Dialogs\SettingDialog.cpp" />
+    <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="LawnTip.cpp" />
+    <ClCompile Include="LawnCursor.cpp" />
+    <ClCompile Include="LawnPlayerInfo.cpp" />
+    <ClCompile Include="BasicWidgets.cpp" />
+    <ClCompile Include="GameSelector.cpp" />
+    <ClCompile Include="LoadingPage.cpp" />
+    <ClCompile Include="LawnApp.cpp" />
     <ClCompile Include="Lawn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board\Board.h" />
-    <ClInclude Include="Board\include\BoardAnimator.h" />
-    <ClInclude Include="Board\include\BoardEnums.h" />
-    <ClInclude Include="Board\include\Coin.h" />
-    <ClInclude Include="Board\include\LawnMover.h" />
-    <ClInclude Include="Board\include\ObjectArray.h" />
-    <ClInclude Include="Board\include\Plant.h" />
-    <ClInclude Include="Board\include\Projectile.h" />
-    <ClInclude Include="Board\include\SceneObejct.h" />
-    <ClInclude Include="Board\include\SeedPack.h" />
-    <ClInclude Include="Board\include\Zombie.h" />
-    <ClInclude Include="Dialogs\include\PauseDialog.h" />
-    <ClInclude Include="Dialogs\include\SettingDialog.h" />
-    <ClInclude Include="Board\include\GameObject.h" />
-    <ClInclude Include="include\BasicWidgets.h" />
-    <ClInclude Include="include\Constant.h" />
-    <ClInclude Include="include\GameSelector.h" />
-    <ClInclude Include="include\LawnApp.h" />
-    <ClInclude Include="include\LawnCursor.h" />
-    <ClInclude Include="include\LawnPlayerInfo.h" />
-    <ClInclude Include="include\LawnTip.h" />
-    <ClInclude Include="include\LoadingPage.h" />
-    <ClInclude Include="include\Resources.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="Board\BoardAnimator.h" />
+    <ClInclude Include="Board\BoardEnums.h" />
+    <ClInclude Include="Board\Coin.h" />
+    <ClInclude Include="Board\LawnMover.h" />
+    <ClInclude Include="Board\ObjectArray.h" />
+    <ClInclude Include="Board\Plant.h" />
+    <ClInclude Include="Board\Projectile.h" />
+    <ClInclude Include="Board\SceneObejct.h" />
+    <ClInclude Include="Board\SeedPack.h" />
+    <ClInclude Include="Board\Zombie.h" />
+    <ClInclude Include="Dialogs\PauseDialog.h" />
+    <ClInclude Include="Dialogs\SettingDialog.h" />
+    <ClInclude Include="Board\GameObject.h" />
+    <ClInclude Include="BasicWidgets.h" />
+    <ClInclude Include="Constant.h" />
+    <ClInclude Include="GameSelector.h" />
+    <ClInclude Include="LawnApp.h" />
+    <ClInclude Include="LawnCursor.h" />
+    <ClInclude Include="LawnPlayerInfo.h" />
+    <ClInclude Include="LawnTip.h" />
+    <ClInclude Include="LoadingPage.h" />
+    <ClInclude Include="Resources.h" />
+    <ClInclude Include="res\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Lawn.rc" />
+    <ResourceCompile Include="res\Lawn.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\main_ico.ico" />
-    <Image Include="main_ico.ico" />
+    <Image Include="res\main_ico.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

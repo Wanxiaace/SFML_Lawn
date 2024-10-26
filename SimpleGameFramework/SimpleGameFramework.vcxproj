@@ -145,7 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\pugixml\pugixml.cpp" />
-    <ClCompile Include="src\LogoScreen.cpp" />
+    <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="PopCom\zlib\adler32.c" />
     <ClCompile Include="PopCom\zlib\compress.c" />
@@ -161,46 +161,46 @@
     <ClCompile Include="PopCom\zlib\trees.c" />
     <ClCompile Include="PopCom\zlib\uncompr.c" />
     <ClCompile Include="PopCom\zlib\zutil.c" />
-    <ClCompile Include="src\PlayerInfo.cpp" />
-    <ClCompile Include="src\CursorObject.cpp" />
-    <ClCompile Include="src\Particle.cpp" />
-    <ClCompile Include="src\MusicSystem.cpp" />
-    <ClCompile Include="src\Font.cpp" />
-    <ClCompile Include="src\Dictionary.cpp" />
-    <ClCompile Include="src\Animator.cpp" />
-    <ClCompile Include="src\Reanimation.cpp" />
-    <ClCompile Include="src\GameMessage.cpp" />
-    <ClCompile Include="src\GameApp.cpp" />
-    <ClCompile Include="src\WidgetSystem.cpp" />
-    <ClCompile Include="src\Program.cpp" />
-    <ClCompile Include="src\ResourceManager.cpp" />
-    <ClCompile Include="src\SimpleImage.cpp" />
-    <ClCompile Include="src\Graphics.cpp" />
-    <ClCompile Include="src\SimpleApp.cpp" />
+    <ClCompile Include="PlayerInfo.cpp" />
+    <ClCompile Include="CursorObject.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="MusicSystem.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Reanimation.cpp" />
+    <ClCompile Include="GameMessage.cpp" />
+    <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="WidgetSystem.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="SimpleImage.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="SimpleApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb\stb_image.h" />
-    <ClInclude Include="include\CursorObject.h" />
-    <ClInclude Include="include\Dictionary.h" />
-    <ClInclude Include="include\Animator.h" />
-    <ClInclude Include="include\EffectHolder.h" />
-    <ClInclude Include="include\Font.h" />
-    <ClInclude Include="include\GameApp.h" />
-    <ClInclude Include="include\GameMessage.h" />
-    <ClInclude Include="include\Common.h" />
-    <ClInclude Include="include\Graphics.h" />
-    <ClInclude Include="include\json.hpp" />
-    <ClInclude Include="include\LogoScreen.h" />
-    <ClInclude Include="include\MusicSystem.h" />
-    <ClInclude Include="include\Particle.h" />
-    <ClInclude Include="include\PlayerInfo.h" />
-    <ClInclude Include="include\Program.h" />
-    <ClInclude Include="include\Reanimation.h" />
-    <ClInclude Include="include\ResourceManager.h" />
-    <ClInclude Include="include\SimpleApp.h" />
-    <ClInclude Include="include\SimpleImage.h" />
-    <ClInclude Include="include\TickCounter.h" />
-    <ClInclude Include="include\WidgetSystem.h" />
+    <ClInclude Include="CursorObject.h" />
+    <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="EffectHolder.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="GameApp.h" />
+    <ClInclude Include="GameMessage.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="LogoScreen.h" />
+    <ClInclude Include="MusicSystem.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="PlayerInfo.h" />
+    <ClInclude Include="Program.h" />
+    <ClInclude Include="Reanimation.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SimpleApp.h" />
+    <ClInclude Include="SimpleImage.h" />
+    <ClInclude Include="TickCounter.h" />
+    <ClInclude Include="WidgetSystem.h" />
     <ClInclude Include="PopCom\CompiledReader.h" />
     <ClInclude Include="PopCom\zlib\deflate.h" />
     <ClInclude Include="PopCom\zlib\infblock.h" />
@@ -213,16 +213,6 @@
     <ClInclude Include="PopCom\zlib\zconf.h" />
     <ClInclude Include="PopCom\zlib\zlib.h" />
     <ClInclude Include="PopCom\zlib\zutil.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="PopCom\zlib\algorithm.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="PopCom\zlib\ChangeLog" />
-    <None Include="PopCom\zlib\configure" />
-    <None Include="PopCom\zlib\descrip.mms" />
-    <None Include="PopCom\zlib\faq" />
-    <None Include="PopCom\zlib\index" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

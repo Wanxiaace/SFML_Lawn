@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __LAWN_BOARD__
 #define __LAWN_BOARD__
 
@@ -6,11 +5,11 @@
 #include "Graphics.h"
 #include "SimpleImage.h"
 #include "WidgetSystem.h"
-#include "../include/BasicWidgets.h"
-#include "include/ObjectArray.h"
+#include "../BasicWidgets.h"
+#include "ObjectArray.h"
 #include "Particle.h"
-#include "include/SeedPack.h"
-#include "../Lawn/include/Constant.h"
+#include "SeedPack.h"
+#include "../Constant.h"
 #include "json.hpp"
 #include "EffectHolder.h"
 

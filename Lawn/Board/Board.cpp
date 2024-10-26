@@ -1,8 +1,8 @@
 #include "Board.h"
-#include "../include/LawnCursor.h"
-#include "../include/Constant.h"
-#include "../include/LawnApp.h"
-#include "include/Plant.h"
+#include "../LawnCursor.h"
+#include "../Constant.h"
+#include "../LawnApp.h"
+#include "Plant.h"
 
 Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 {
@@ -366,7 +366,7 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 
 #include <fstream>
 #include <EffectHolder.h>
-#include "../include/Resources.h"
+#include "../Resources.h"
 
 
 void Lawn::Board::LoadZombieFromJsonFile(const char* path)

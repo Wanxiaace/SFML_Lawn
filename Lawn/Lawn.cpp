@@ -1,9 +1,9 @@
 ﻿#include <iostream>
 #include <fstream>
 
-#include "include/LawnApp.h"
-#include "include/Resources.h"
-#include "include/Constant.h"
+#include "LawnApp.h"
+#include "Resources.h"
+#include "Constant.h"
 #include "LogoScreen.h"
 
 

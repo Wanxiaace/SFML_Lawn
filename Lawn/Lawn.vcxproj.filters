@@ -1,26 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="res">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Dialog">
-      <UniqueIdentifier>{73dde442-5d39-4c1d-af3d-8b4a1992b7e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Dialog\include">
-      <UniqueIdentifier>{d638d426-6077-418a-8eea-ea2d21fabcb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Dialog\src">
-      <UniqueIdentifier>{3d172f81-5b13-491f-b7cd-79caf210f85e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Board">
       <UniqueIdentifier>{779fac0c-3e3f-48da-b031-b415efef4914}</UniqueIdentifier>
@@ -31,153 +14,170 @@
     <Filter Include="Board\src">
       <UniqueIdentifier>{45935214-f808-4cb4-9898-7093e92a01be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{73dde442-5d39-4c1d-af3d-8b4a1992b7e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs\include">
+      <UniqueIdentifier>{d638d426-6077-418a-8eea-ea2d21fabcb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs\src">
+      <UniqueIdentifier>{3d172f81-5b13-491f-b7cd-79caf210f85e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lawn">
+      <UniqueIdentifier>{8b5a80c5-7ba3-44e5-93c2-b0b468de5e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lawn\src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Lawn\include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lawn.cpp">
-      <Filter>src</Filter>
+      <Filter>Lawn\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LawnApp.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="LawnApp.cpp">
+      <Filter>Lawn\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LoadingPage.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="LoadingPage.cpp">
+      <Filter>Lawn\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameSelector.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="GameSelector.cpp">
+      <Filter>Lawn\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\BasicWidgets.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Dialogs\SettingDialog.cpp">
+      <Filter>Dialogs\src</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogs\src\SettingDialog.cpp">
-      <Filter>Dialog\src</Filter>
+    <ClCompile Include="LawnPlayerInfo.cpp">
+      <Filter>Lawn\src</Filter>
+    </ClCompile>
+    <ClCompile Include="LawnCursor.cpp">
+      <Filter>Lawn\src</Filter>
+    </ClCompile>
+    <ClCompile Include="LawnTip.cpp">
+      <Filter>Lawn\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\LawnMover.cpp">
+      <Filter>Lawn\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Lawn\src</Filter>
     </ClCompile>
     <ClCompile Include="Board\Board.cpp">
-      <Filter>Board</Filter>
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="Board\src\Plant.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Dialogs\PauseDialog.cpp">
+      <Filter>Dialogs\src</Filter>
     </ClCompile>
-    <ClCompile Include="Board\src\BoardAnimator.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\Projectile.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="Board\src\Zombie.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\Plant.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="Board\src\Projectile.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\Zombie.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="Board\src\SeedPack.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\SeedPack.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LawnPlayerInfo.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\SceneObejct.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LawnCursor.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\GameObject.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogs\src\PauseDialog.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="Board\BoardAnimator.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\LawnTip.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Board\src\LawnMover.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Board\src\GameObject.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Resources.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Board\src\SceneObejct.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="BasicWidgets.cpp">
+      <Filter>Board\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\LawnApp.h">
-      <Filter>include</Filter>
+    <ClInclude Include="LawnApp.h">
+      <Filter>Lawn\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Constant.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Constant.h">
+      <Filter>Lawn\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\LoadingPage.h">
-      <Filter>include</Filter>
+    <ClInclude Include="LoadingPage.h">
+      <Filter>Lawn\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameSelector.h">
-      <Filter>include</Filter>
+    <ClInclude Include="GameSelector.h">
+      <Filter>Lawn\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\BasicWidgets.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Dialogs\SettingDialog.h">
+      <Filter>Dialogs\include</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogs\include\SettingDialog.h">
-      <Filter>Dialog\include</Filter>
+    <ClInclude Include="Board\GameObject.h">
+      <Filter>Board\include</Filter>
     </ClInclude>
-    <ClInclude Include="Board\include\GameObject.h">
+    <ClInclude Include="Board\Projectile.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="LawnPlayerInfo.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="LawnCursor.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="LawnTip.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\LawnMover.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Lawn\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Zombie.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\SeedPack.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\SceneObejct.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Plant.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\BoardEnums.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\BoardAnimator.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicWidgets.h">
       <Filter>Board\include</Filter>
     </ClInclude>
     <ClInclude Include="Board\Board.h">
-      <Filter>Board</Filter>
+      <Filter>Board\include</Filter>
     </ClInclude>
-    <ClInclude Include="Board\include\Plant.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Dialogs\PauseDialog.h">
+      <Filter>Dialogs\include</Filter>
     </ClInclude>
-    <ClInclude Include="Board\include\Zombie.h">
-      <Filter>include</Filter>
+    <ClInclude Include="res\resource.h">
+      <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="Board\include\Projectile.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Board\Coin.h">
+      <Filter>Board\include</Filter>
     </ClInclude>
-    <ClInclude Include="Board\include\Coin.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\SceneObejct.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\BoardEnums.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\BoardAnimator.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\ObjectArray.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\SeedPack.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LawnPlayerInfo.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LawnCursor.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialogs\include\PauseDialog.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LawnTip.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Board\include\LawnMover.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Resources.h">
-      <Filter>include</Filter>
+    <ClInclude Include="Board\ObjectArray.h">
+      <Filter>Board\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Lawn.rc">
+    <ResourceCompile Include="res\Lawn.rc">
       <Filter>res</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\main_ico.ico">
-      <Filter>res</Filter>
-    </Image>
-    <Image Include="main_ico.ico">
+    <Image Include="res\main_ico.ico">
       <Filter>res</Filter>
     </Image>
   </ItemGroup>
