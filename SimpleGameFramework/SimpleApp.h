@@ -3,14 +3,15 @@
 #define __SIMPLE_APP__
 #include "Common.h"
 #include "TickCounter.h"
-#include "../../glm/ext/matrix_float4x4.hpp"
+#include "../glm/ext/matrix_float4x4.hpp"
 #include "GameMessage.h"
 
 namespace sgf {
+
 	class GameAppBase {
 	public:
-		void (*mDisplay)(GameAppBase*,int) = nullptr;
-		void (*mCallback)(GameAppBase*, SDL_Event&) = nullptr;
+		std::function<void(GameAppBase*, int)> mDisplay;
+		std::function<void(GameAppBase*, SDL_Event&)> mCallback;
 
 	public:
 		int mWidth = 0;
@@ -48,9 +49,8 @@ namespace sgf {
 		~GameAppBase();
 
 		void EnterMainLoop();
-		void SetDisplayFunction(void (*display)(GameAppBase*, int));
-		void SetCallBackFunction(void (*callback)(GameAppBase*, SDL_Event&));
-		void SetOutStream(std::ostream& src) { mLog = &src; };
+		void SetDisplayFunction(std::function<void(GameAppBase*, int)>& display);
+		void SetCallBackFunction(std::function<void(GameAppBase*, SDL_Event&)>& callback);
 		std::ostream& Log() { return *mLog; };
 
 		virtual void CopeEvent(SDL_Event& theEvent);

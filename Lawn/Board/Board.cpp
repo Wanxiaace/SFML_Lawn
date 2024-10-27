@@ -623,7 +623,7 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 			levelFont->SetFontSize(50);
 			mHugeTitleImage = levelFont->GenTextImage(_LS("HugeWave"));
 		}
-
+		
 		float scaleF = 0;
 		if (mHugeCounter >= 2800)
 			scaleF = (mHugeCounter - 2800) / 200.0f + 1.0f;
@@ -657,9 +657,6 @@ void Lawn::Board::OnClick(int theId)
 		gLawnApp->EnterGameSelector();
 		break;
 	case LAWN_WIDGET_BUTTON_PAUSE:
-		//gLawnApp->KillBoard();
-		//gLawnApp->EnterGameSelector();
-
 		gLawnApp->GamePause();
 		break;
 	case LAWN_SEED_BANK:

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleGameFramework", "SimpleGameFramework\SimpleGameFramework.vcxproj", "{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imgui", "Imgui\Imgui.vcxproj", "{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lawn", "Lawn\Lawn.vcxproj", "{02CA5641-5D51-4380-B2DD-75AB43465271}"
 	ProjectSection(ProjectDependencies) = postProject
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0} = {95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}
@@ -21,8 +19,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourceGen", "ResourceGen\
 	ProjectSection(ProjectDependencies) = postProject
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0} = {95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImguiDocking", "ImguiDocking\ImguiDocking.vcxproj", "{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,14 +36,6 @@ Global
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}.Release|x64.Build.0 = Release|x64
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}.Release|x86.ActiveCfg = Release|Win32
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}.Release|x86.Build.0 = Release|Win32
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Debug|x64.ActiveCfg = Debug|x64
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Debug|x64.Build.0 = Debug|x64
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Debug|x86.ActiveCfg = Debug|Win32
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Debug|x86.Build.0 = Debug|Win32
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Release|x64.ActiveCfg = Release|x64
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Release|x64.Build.0 = Release|x64
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Release|x86.ActiveCfg = Release|Win32
-		{9CE3D6B5-068A-4A55-AE93-81FAFB3F4534}.Release|x86.Build.0 = Release|Win32
 		{02CA5641-5D51-4380-B2DD-75AB43465271}.Debug|x64.ActiveCfg = Debug|x64
 		{02CA5641-5D51-4380-B2DD-75AB43465271}.Debug|x64.Build.0 = Debug|x64
 		{02CA5641-5D51-4380-B2DD-75AB43465271}.Debug|x86.ActiveCfg = Debug|Win32
@@ -72,14 +60,6 @@ Global
 		{1C22050A-533B-4173-B543-A6549126A576}.Release|x64.Build.0 = Release|x64
 		{1C22050A-533B-4173-B543-A6549126A576}.Release|x86.ActiveCfg = Release|Win32
 		{1C22050A-533B-4173-B543-A6549126A576}.Release|x86.Build.0 = Release|Win32
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Debug|x64.ActiveCfg = Debug|x64
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Debug|x64.Build.0 = Debug|x64
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Debug|x86.ActiveCfg = Debug|Win32
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Debug|x86.Build.0 = Debug|Win32
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Release|x64.ActiveCfg = Release|x64
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Release|x64.Build.0 = Release|x64
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Release|x86.ActiveCfg = Release|Win32
-		{DEBB2EE2-905D-41C9-86FF-9F1B5D56113A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

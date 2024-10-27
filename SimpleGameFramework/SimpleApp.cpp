@@ -125,12 +125,12 @@ void sgf::GameAppBase::EnterMainLoop()
     }
 }
 
-void sgf::GameAppBase::SetDisplayFunction(void(*display)(GameAppBase*, int))
+void sgf::GameAppBase::SetDisplayFunction(std::function<void(GameAppBase*, int)>& display)
 {
     mDisplay = display;
 }
 
-void sgf::GameAppBase::SetCallBackFunction(void(*callback)(GameAppBase*, SDL_Event&))
+void sgf::GameAppBase::SetCallBackFunction(std::function<void(GameAppBase*, SDL_Event&)>& callback)
 {
     mCallback = callback;
 }

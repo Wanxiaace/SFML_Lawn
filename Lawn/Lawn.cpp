@@ -10,6 +10,9 @@
 #undef main
 
 int main(int argc,char** argv) {
+	std::ofstream out("log.txt");
+	sgf::SetStdOutStream(out);
+
 	gLawnApp = new Lawn::LawnApp(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT, LAWN_GAME_WINDOW_CAPTAIN, true, true);
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
 		gLawnApp->mShowDebugWindow = true;
@@ -19,7 +22,6 @@ int main(int argc,char** argv) {
 	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
 	gLawnApp->SetWindowIcon("data/WindowIcon.png");
 	gLawnApp->WindowsEnhance();
-
 	gLawnApp->LoadGraphics();
 	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
 	sgf::LogoScreen* logoScreen = new sgf::LogoScreen(gLawnApp);
@@ -46,4 +48,6 @@ int main(int argc,char** argv) {
 		});
 
 	gLawnApp->LawnStart();
+
+	out.close();
 }

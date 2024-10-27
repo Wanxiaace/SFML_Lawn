@@ -35,10 +35,6 @@ namespace sgf {
 		float mFrameIndexEnd = 0;
 		float mSpeed = 1.0f;
 		float mDeltaRate = 0.0f;
-
-
-		//unsigned int mTickBuffer = 0;
-
 		//过渡动画倒计时
 		float mReanimBlendCounter = -1.0f;
 		float mReanimBlendCounterMax = 100.0f;
@@ -92,7 +88,6 @@ namespace sgf {
 		void PresentMatrix(Graphics* g, const glm::mat4x4& mat);
 		sgf::Point GetTrackPos(const sgf::String& trackname);
 		float GetTrackRotate(const sgf::String& trackname);
-
 	};
 
 }

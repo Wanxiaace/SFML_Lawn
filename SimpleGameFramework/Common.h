@@ -74,6 +74,12 @@ static void CheckGLError(const char* file, int line)
 #include "SDL_mixer.h"
 
 namespace sgf {
+    static void SetStdOutStream(std::ostream& src)
+    {
+        std::cout.rdbuf(src.rdbuf());
+        std::cerr.rdbuf(src.rdbuf());
+    };
+
 	template<typename T>
 	class Rect {
 	public:

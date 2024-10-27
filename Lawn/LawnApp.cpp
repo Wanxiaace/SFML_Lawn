@@ -139,28 +139,6 @@ void Lawn::LawnApp::EnterGameBoard()
 void Lawn::LawnApp::MakeNewBoard()
 {
     mBoard = new Board();
-    /*
-    for (size_t i = 0; i < 5; i++)
-    {
-        for (size_t j = 4; j < 8; j++)
-        {
-            for (size_t k = 0; k < 20; k++)
-            {
-                switch (sgf::Rand(0, 4)) {
-                case 0:
-                    mBoard->SpawnZombieAt(j, i, ZOMBIE_NORMAL); break;
-                case 1:
-                    mBoard->SpawnZombieAt(j, i, ZOMBIE_TRAFFIC_CONE); break;
-                case 2:
-                    mBoard->SpawnZombieAt(j, i, ZOMBIE_PAIL); break;
-                case 3:
-                    mBoard->SpawnZombieAt(j, i, ZOMBIE_DOOR); break;
-                }
-            }
-        }
-    }*/
-
-
 }
 
 void Lawn::LawnApp::KillBoard()
@@ -170,6 +148,7 @@ void Lawn::LawnApp::KillBoard()
         mBoard = nullptr;
     }
 }
+
 void Lawn::LawnApp::GamePause()
 {
     if (!mPauseDialog) {
@@ -191,6 +170,7 @@ void Lawn::LawnApp::KillGamePause()
 void Lawn::LawnApp::WindowsEnhance()
 {
 #ifdef _WIN32
+
 #endif
 }
 
