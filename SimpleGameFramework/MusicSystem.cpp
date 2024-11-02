@@ -83,6 +83,7 @@ void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 	}
 	else {
 		gGameApp->Log() << "Failed to load Chunk At: " << path << std::endl;
+		gGameApp->Log() << Mix_GetError() << std::endl;
 		//std::cout << "Failed to load Chunk At: " << path << std::endl;
 	}
 }
@@ -95,6 +96,7 @@ void sgf::MusicManager::LoadMusicFormFile(const char* path, const String& key)
 	}
 	else {
 		gGameApp->Log() << "Failed to load Music At: " << path << std::endl;
+		gGameApp->Log() << Mix_GetError() << std::endl;
 	}
 }
 
