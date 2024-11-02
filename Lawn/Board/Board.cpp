@@ -367,22 +367,11 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 #include <fstream>
 #include <EffectHolder.h>
 #include "../Resources.h"
-
+#include "GamePacker/GamePacker.h"
 
 void Lawn::Board::LoadZombieFromJsonFile(const char* path)
 {
-	std::ifstream file;
-	file.open(path);
-	file.seekg(0,std::ios_base::end);
-	int size = file.tellg();
-	file.seekg(0, std::ios_base::beg);
-	char* jsonStr = new char[size+1];
-	memset(jsonStr,0, size + 1);
-	file.read(jsonStr, size);
-	file.close();
-
-	nlohmann::json result = nlohmann::json::parse(jsonStr);
-
+	nlohmann::json result = TryToLoadJsonFile(path);
 	LoadZombieFromJson(result);
 }
 

@@ -13,8 +13,14 @@ sgf::FileReadStream::~FileReadStream()
 void sgf::FileReadStream::OpenFile(const sgf::String& path, const sgf::String& mode)
 {
 	mIStream = SDL_RWFromFile(path.c_str(), mode.c_str());
-	mIsFile = true;
-	mIsOpen = true;
+	if (mIStream)
+	{
+		mIsFile = true;
+		mIsOpen = true;
+	}
+	else {
+		SHOW_ERROR_ABORT_EXIT(("Failed To Load File At: " + path + " in Mode:" + mode).c_str());
+	}
 }
 
 void sgf::FileReadStream::OpenMemory(void* pbuffer, int size)

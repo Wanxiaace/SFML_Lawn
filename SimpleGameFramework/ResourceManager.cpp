@@ -27,13 +27,11 @@ void sgf::ResourceManager::LoadImageWithID(const sgf::String& path, sgf::String 
 	mResLoadMutex.unlock();
 }
 
+#include "GamePacker/GamePacker.h"
 
 void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::String& folder, sgf::String id_info)
 {
-	Dictionary dict;
-	dict.LoadFromFile(aPath.c_str());
-
-	nlohmann::json& json = dict.mJson;
+	nlohmann::json json = TryToLoadJsonFile(aPath);
 
 	nlohmann::json& frameArray = json.at("frames");
 	sgf::String texPath = json.at("meta").at("image");
@@ -241,28 +239,28 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 		loadingThreads[i]->join();
 		delete loadingThreads[i];
 	}
-	//LoadFromResouceListFunc(this, src, mus, 0, len);
 	LoadParticleImages();
 	mIsLoaded = true;
 }
 
-
+#include "GamePacker/GamePacker.h"
 
 void sgf::ResourceList::Load(const char* path)
 {
 	mPath = sgf::String(path);
-	pugi::xml_document doc;
-	doc.load_file(path);
+	pugi::xml_parse_result err;
+	pugi::xml_document* doc = TryToLoadXMLFile(path,&err);
 
-	for (auto& x : *doc.children().begin()) {
-		//std::cout << x.name() << std::endl;
+	if (!err) {
+		gGameApp->Log() << "Faild to load ResourceList: " 
+			<< path << std::endl;
+		return;
+	}
+
+	for (auto& x : *doc->children().begin()) {
 		for (auto& y : x.children()) {
 			ResouceInfo aInf;
 			sgf::String fPath = x.name() + sgf::String("/") + y.attribute("path").as_string();
-			//std::cout << "Path: " << fPath << std::endl;
-
-			//std::cout << "ID: " << y.attribute("id").as_string() << std::endl;
-
 			aInf.path = fPath;
 			aInf.id = y.attribute("id").as_string();
 			aInf.folder = x.attribute("folder").as_string();

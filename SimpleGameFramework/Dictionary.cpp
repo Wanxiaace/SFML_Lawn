@@ -1,4 +1,5 @@
 #include "Dictionary.h"
+#include "GamePacker/GamePacker.h"
 #include <fstream>
 
 sgf::Dictionary::Dictionary()
@@ -12,23 +13,7 @@ sgf::Dictionary::~Dictionary()
 
 void sgf::Dictionary::LoadFromFile(const char* path)
 {
-	std::ifstream json;
-	int jsonSize;
-	json.open(path, std::ios::binary);
-	json.seekg(0,std::ios::end);
-	jsonSize = json.tellg();
-	json.seekg(0, std::ios::beg);
-
-	char* jsonData = new char[jsonSize+1];
-	memset(jsonData,0, jsonSize + 1);
-	json.read(jsonData, jsonSize);
-
-	
-	json.close();
-
-	Parse(jsonData);
-
-	delete[] jsonData;
+	mJson = TryToLoadJsonFile(path);
 }
 
 sgf::String sgf::Dictionary::Dump() const

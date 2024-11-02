@@ -57,6 +57,7 @@ SDL_Surface* sgf::SimpleImage::LoadFromFile(const char* path)
 	SDL_Surface* bufferSuface = IMG_Load(path);
 	if (!bufferSuface) {
 		gGameApp->Log() << "Failed to load Image At: " << path << std::endl;
+		SHOW_ERROR_ABORT_EXIT(("Failed to load Image At: " + sgf::String(path)).c_str());
 		return nullptr;
 	}
 

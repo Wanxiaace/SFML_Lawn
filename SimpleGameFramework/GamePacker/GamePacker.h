@@ -1,6 +1,9 @@
 #ifndef __SGF_GAME_PACKER__
 #define __SGF_GAME_PACKER__
 
+#include <pugixml.hpp>
+#include <nlohmann/json.hpp>
+
 #include "../Common.h"
 #include "../FileStream.h"
 #include <iostream>
@@ -51,6 +54,8 @@ namespace sgf {
 
 	void TryToLoadPak(const sgf::String& path);
 	FileReadStream* TryToLoadFile(const sgf::String& path);
+	pugi::xml_document* TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error);
+	nlohmann::json TryToLoadJsonFile(const sgf::String& path);
 
 }
 

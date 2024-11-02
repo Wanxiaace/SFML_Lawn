@@ -1,5 +1,7 @@
 #include "GamePacker.h"
 
+std::vector<sgf::GamePacker> sgf::gPaks;
+
 sgf::GamePacker::GamePacker()
 {
 	UpdateFileInfo();
@@ -154,5 +156,26 @@ sgf::FileReadStream* sgf::TryToLoadFile(const sgf::String& path)
 
 	FileReadStream* result = new FileReadStream();
 	result->OpenFile(path.c_str());
+
 	return result;
+}
+
+pugi::xml_document* sgf::TryToLoadXMLFile(const sgf::String& path,pugi::xml_parse_result* error)
+{
+	sgf::FileReadStream* file = TryToLoadFile(path);
+	pugi::xml_document* result = new pugi::xml_document();
+	if(error)
+		*error = result->load(file->ReadString(file->GetSize()).c_str());
+	else
+		result->load(file->ReadString(file->GetSize()).c_str());
+	file->Close();
+	return result;
+}
+
+nlohmann::json sgf::TryToLoadJsonFile(const sgf::String& path)
+{
+	sgf::FileReadStream* file = TryToLoadFile(path);
+	nlohmann::json json = nlohmann::json::parse(file->ReadString(file->GetSize()));
+	file->Close();
+	return json;
 }
