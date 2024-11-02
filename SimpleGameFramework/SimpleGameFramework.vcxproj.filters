@@ -17,15 +17,6 @@
     <Filter Include="SimpleGameFramework">
       <UniqueIdentifier>{98013055-5fb8-4fb0-a5aa-c4c427b100a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="zlib">
-      <UniqueIdentifier>{5019fd4d-7e2a-49e0-8644-19ad918de228}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="zlib\include">
-      <UniqueIdentifier>{22079d73-9b01-474a-a994-7a877529fc64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="zlib\src">
-      <UniqueIdentifier>{0030d25c-b46f-4798-88f5-0e16de70dd62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SimpleGameFramework\src">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -33,12 +24,6 @@
     <Filter Include="SimpleGameFramework\include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="stb">
-      <UniqueIdentifier>{a169d554-f484-4e6e-9eb2-0dc6d4b80bcd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="stb\include">
-      <UniqueIdentifier>{8f55dfcc-db0a-42dd-82a1-d48da325dbba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,48 +77,6 @@
     </ClCompile>
     <ClCompile Include="LogoScreen.cpp">
       <Filter>SimpleGameFramework\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\infutil.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\gzio.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\infblock.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\infcodes.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inffast.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inflate.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\inftrees.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\adler32.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\compress.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\crc32.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\deflate.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\trees.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\uncompr.c">
-      <Filter>zlib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="PopCom\zlib\zutil.c">
-      <Filter>zlib\src</Filter>
     </ClCompile>
     <ClCompile Include="PopCom\CompiledReader.cpp">
       <Filter>PopCom\src</Filter>
@@ -199,39 +142,6 @@
     </ClInclude>
     <ClInclude Include="TickCounter.h">
       <Filter>SimpleGameFramework\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\zlib.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\zutil.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\deflate.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infblock.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infcodes.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inffast.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inffixed.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\inftrees.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\infutil.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\trees.h">
-      <Filter>zlib\include</Filter>
-    </ClInclude>
-    <ClInclude Include="PopCom\zlib\zconf.h">
-      <Filter>zlib\include</Filter>
     </ClInclude>
     <ClInclude Include="PopCom\CompiledReader.h">
       <Filter>PopCom\include</Filter>

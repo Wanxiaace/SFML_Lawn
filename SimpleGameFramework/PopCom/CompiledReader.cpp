@@ -1,9 +1,6 @@
 #include "CompiledReader.h"
-#include "zlib/zlib.h"
 #include <iostream>
 #include <fstream>
-
-
 
 PopCom::Data PopCom::UncompressCompiledFromFile(const char* path)
 {

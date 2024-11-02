@@ -6,6 +6,7 @@
 #define __POP_COM_USE_CONSOLE_LOG__
 
 #include <iostream>
+#include <zlib.h>
 
 namespace PopCom {
 	struct DataHeader
