@@ -14,15 +14,6 @@
     <Filter Include="PopCom\src">
       <UniqueIdentifier>{32fa51ce-0b8f-431b-9e42-ac704a7a0f82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="pugixml">
-      <UniqueIdentifier>{4a1df964-716e-4410-a534-d56d45d68072}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="pugixml\include">
-      <UniqueIdentifier>{2d93c0f0-ae1c-4fec-b110-4a95b2c95999}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="pugixml\src">
-      <UniqueIdentifier>{a3971127-a447-4f90-a594-17a9cd265571}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SimpleGameFramework">
       <UniqueIdentifier>{98013055-5fb8-4fb0-a5aa-c4c427b100a5}</UniqueIdentifier>
     </Filter>
@@ -147,9 +138,6 @@
     <ClCompile Include="PopCom\CompiledReader.cpp">
       <Filter>PopCom\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\pugixml\pugixml.cpp">
-      <Filter>pugixml\src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimpleApp.h">
@@ -186,9 +174,6 @@
       <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
     <ClInclude Include="Dictionary.h">
-      <Filter>SimpleGameFramework\include</Filter>
-    </ClInclude>
-    <ClInclude Include="json.hpp">
       <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
@@ -250,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="PopCom\CompiledReader.h">
       <Filter>PopCom\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\stb\stb_image.h">
-      <Filter>stb\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -144,7 +144,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\pugixml\pugixml.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="PopCom\zlib\adler32.c" />
@@ -179,7 +178,6 @@
     <ClCompile Include="SimpleApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\stb\stb_image.h" />
     <ClInclude Include="CursorObject.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Animator.h" />
@@ -189,7 +187,6 @@
     <ClInclude Include="GameMessage.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="json.hpp" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="MusicSystem.h" />
     <ClInclude Include="Particle.h" />

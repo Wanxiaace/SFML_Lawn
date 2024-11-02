@@ -3,7 +3,6 @@
 #define __SIMPLE_APP__
 #include "Common.h"
 #include "TickCounter.h"
-#include "../glm/ext/matrix_float4x4.hpp"
 #include "GameMessage.h"
 
 namespace sgf {

@@ -1,6 +1,5 @@
 #include "SimpleApp.h"
 #include <iostream>
-#include "../../glm/ext/matrix_transform.hpp"
 
 sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
 {

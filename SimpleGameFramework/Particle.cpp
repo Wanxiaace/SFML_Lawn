@@ -1,5 +1,4 @@
 #include "Particle.h"
-#include "../pugixml/pugixml.hpp"
 #include <map>
 
 sgf::Particle* sgf::Emitter::Emitt()

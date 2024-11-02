@@ -14,13 +14,21 @@
 #include <Windows.h>
 #endif // _WIN32
 
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 #include <iostream>
 
-#include "imgui.h"
-#include "backends/imgui_impl_sdl2.h"
-#include "backends/imgui_impl_opengl3.h"
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl2.h>
+
+#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <pugixml.hpp>
+#include <nlohmann/json.hpp>
 
 #include <random>
 #include <thread>
@@ -68,10 +76,10 @@ static void CheckGLError(const char* file, int line)
 };
 #define  GL_CALL(x) do{x;CheckGLError(__FILE__,__LINE__);}while(0) 
 
-#include "SDL.h"
-#include "SDL_Image.h"
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 
 namespace sgf {
     static void SetStdOutStream(std::ostream& src)

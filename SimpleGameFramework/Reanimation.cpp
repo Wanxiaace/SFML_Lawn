@@ -1,5 +1,4 @@
 #include "Reanimation.h"
-#include "../pugixml/pugixml.hpp"
 
 sgf::Reanimation::Reanimation()
 {

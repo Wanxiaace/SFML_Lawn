@@ -3,7 +3,7 @@
 #define __SIMPLE_PLAYERINFO__
 
 #include "Common.h"
-#include "json.hpp"
+
 
 namespace sgf {
 	class PlayerInfo {

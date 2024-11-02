@@ -2,7 +2,6 @@
 #ifndef __SIMPLE_DICT__
 #define __SIMPLE_DICT__
 
-#include "json.hpp"
 #include "Common.h"
 
 namespace sgf {

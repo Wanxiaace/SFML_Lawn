@@ -1,6 +1,5 @@
 #include "ResourceManager.h"
 #include "SimpleImage.h"
-#include "../pugixml/pugixml.hpp"
 #include "Reanimation.h"
 #include "Font.h"
 #include "Particle.h"
@@ -28,7 +27,6 @@ void sgf::ResourceManager::LoadImageWithID(const sgf::String& path, sgf::String 
 	mResLoadMutex.unlock();
 }
 
-#include "json.hpp"
 
 void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::String& folder, sgf::String id_info)
 {
