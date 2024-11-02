@@ -144,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileStream.cpp" />
+    <ClCompile Include="GamePacker\GamePacker.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
@@ -168,10 +170,12 @@
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="EffectHolder.h" />
+    <ClInclude Include="FileStream.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameMessage.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="GamePacker\GamePacker.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="MusicSystem.h" />

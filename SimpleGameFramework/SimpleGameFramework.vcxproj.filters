@@ -25,6 +25,15 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="GamePacker">
+      <UniqueIdentifier>{30877a26-2642-41dc-b36a-7808a9089c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GamePacker\include">
+      <UniqueIdentifier>{6b242851-fcec-4aed-a429-b8abf787b8bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GamePacker\src">
+      <UniqueIdentifier>{6ef7c44b-bae8-4c64-b533-f091082f39e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleApp.cpp">
@@ -80,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="PopCom\CompiledReader.cpp">
       <Filter>PopCom\src</Filter>
+    </ClCompile>
+    <ClCompile Include="FileStream.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePacker\GamePacker.cpp">
+      <Filter>GamePacker\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="PopCom\CompiledReader.h">
       <Filter>PopCom\include</Filter>
+    </ClInclude>
+    <ClInclude Include="FileStream.h">
+      <Filter>SimpleGameFramework\include</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePacker\GamePacker.h">
+      <Filter>GamePacker\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
