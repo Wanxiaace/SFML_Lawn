@@ -81,6 +81,12 @@ void sgf::GamePacker::WriteToFile(const sgf::String& path)
 
 sgf::FileReadStream* sgf::GamePacker::TryToLoadFilePointer(const sgf::String& path)
 {
+	if (!mIsReadingMode)
+	{
+		SHOW_ERROR_ABORT_EXIT("You can only load file in reading mode");
+		return nullptr;
+	}
+
 	for (auto& x : mFiles)
 	{
 		if (x.mPath == path) {

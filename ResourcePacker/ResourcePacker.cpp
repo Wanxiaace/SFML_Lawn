@@ -13,6 +13,18 @@ using namespace sgf;
 
 int main(int argc,char** argv)
 {
+#ifndef _DEBUG
+    if (argc < 3)
+    {
+        std::cout << "Packer [ResourceList Dir] [BasePath]" << std::endl;
+        return EXIT_FAILURE;
+    }
+    else {
+        gListDir = argv[2];
+        gPathBase = argv[3];
+    }
+#endif // !__DEBUG
+
     ResourceList list;
     GamePacker pak;
     list.Load((std::string(gListDir) + "ResourceList.xml").c_str());
@@ -35,12 +47,3 @@ int main(int argc,char** argv)
 
     return EXIT_SUCCESS;
 }
-
-//int main(int argc, char** argv) {
-//    sgf::TryToLoadPak("assets/en2pak/en2pak.pkg");
-//    auto file = sgf::TryToLoadFile("assets/en2pak/raxml/PeaShooter.reanim");
-//
-//    std::cout << file->ReadString(file->GetSize()) << std::endl;
-//
-//    return EXIT_SUCCESS;
-//}
