@@ -249,7 +249,7 @@ void sgf::ResourceList::Load(const char* path)
 {
 	mPath = sgf::String(path);
 	pugi::xml_parse_result err;
-	pugi::xml_document* doc = TryToLoadXMLFile(path,&err);
+	pugi::xml_document doc = TryToLoadXMLFile(path,&err);
 
 	if (!err) {
 		gGameApp->Log() << "Faild to load ResourceList: " 
@@ -257,7 +257,7 @@ void sgf::ResourceList::Load(const char* path)
 		return;
 	}
 
-	for (auto& x : *doc->children().begin()) {
+	for (auto& x : *doc.children().begin()) {
 		for (auto& y : x.children()) {
 			ResouceInfo aInf;
 			sgf::String fPath = x.name() + sgf::String("/") + y.attribute("path").as_string();

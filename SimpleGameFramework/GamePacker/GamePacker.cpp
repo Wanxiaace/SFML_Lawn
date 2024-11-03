@@ -33,11 +33,24 @@ void sgf::GamePacker::ReadFromFile(const sgf::String& path)
 
 }
 
+void sgf::GamePacker::ReadFromFileIfExist(const sgf::String& path)
+{
+	SDL_RWops* rwops = SDL_RWFromFile(path.c_str(),"r");
+	if (rwops)
+	{
+		SDL_RWclose(rwops);
+		ReadFromFile(path);
+	}
+}
+
 
 void sgf::GamePacker::WriteToFile(const sgf::String& path)
 {
 	if (mIsReadingMode)
+	{
+		SHOW_ERROR_ABORT_EXIT("Dont write pak in reading mode");
 		return;
+	}
 	FileReadStream outFile;
 	outFile.OpenFile(path.c_str(), "wb");
 	outFile.Write(this, offsetof(GamePacker, mFiles));
@@ -66,7 +79,7 @@ void sgf::GamePacker::WriteToFile(const sgf::String& path)
 	outFile.Close();
 }
 
-sgf::FileReadStream* sgf::GamePacker::TryToLoadFile(const sgf::String& path)
+sgf::FileReadStream* sgf::GamePacker::TryToLoadFilePointer(const sgf::String& path)
 {
 	for (auto& x : mFiles)
 	{
@@ -110,7 +123,10 @@ void sgf::GamePacker::UpdateAllFilePointer()
 void sgf::GamePacker::AppendNewFile(const sgf::String& path, void* pfile, int size)
 {
 	if (mIsReadingMode)
+	{
+		SHOW_ERROR_ABORT_EXIT("Dont write pak in reading mode");
 		return;
+	}
 	PakInFile file;
 	file.mPath = path;
 	file.mData = pfile;
@@ -139,17 +155,18 @@ void sgf::GamePacker::UpdateFileInfo()
 
 void sgf::TryToLoadPak(const sgf::String& path)
 {
-	GamePacker pkg;
-	pkg.TryToLoadFile(path);
-	gPaks.push_back(std::move(pkg));
+	gPaks.push_back(GamePacker());
+	GamePacker& pkg = gPaks.back();
+	pkg.ReadFromFileIfExist(path);
+	
 }
 
-sgf::FileReadStream* sgf::TryToLoadFile(const sgf::String& path)
+sgf::FileReadStream* sgf::TryToLoadFilePointer(const sgf::String& path)
 {
 	sgf::FileReadStream* file = nullptr;
 	for (auto& x : gPaks)
 	{
-		file = x.TryToLoadFile(path);
+		file = x.TryToLoadFilePointer(path);
 		if (file)
 			return file;
 	}
@@ -160,22 +177,37 @@ sgf::FileReadStream* sgf::TryToLoadFile(const sgf::String& path)
 	return result;
 }
 
-pugi::xml_document* sgf::TryToLoadXMLFile(const sgf::String& path,pugi::xml_parse_result* error)
+
+pugi::xml_document* sgf::TryToLoadXMLFilePointer(const sgf::String& path,pugi::xml_parse_result* error)
 {
-	sgf::FileReadStream* file = TryToLoadFile(path);
+	sgf::FileReadStream* file = TryToLoadFilePointer(path);
 	pugi::xml_document* result = new pugi::xml_document();
 	if(error)
 		*error = result->load(file->ReadString(file->GetSize()).c_str());
 	else
 		result->load(file->ReadString(file->GetSize()).c_str());
-	file->Close();
+	delete file;
+
+	return result;
+}
+
+pugi::xml_document sgf::TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error)
+{
+	sgf::FileReadStream* file = TryToLoadFilePointer(path);
+	pugi::xml_document result;
+	if (error)
+		*error = result.load(file->ReadString(file->GetSize()).c_str());
+	else
+		result.load(file->ReadString(file->GetSize()).c_str());
+	delete file;
+
 	return result;
 }
 
 nlohmann::json sgf::TryToLoadJsonFile(const sgf::String& path)
 {
-	sgf::FileReadStream* file = TryToLoadFile(path);
+	sgf::FileReadStream* file = TryToLoadFilePointer(path);
 	nlohmann::json json = nlohmann::json::parse(file->ReadString(file->GetSize()));
-	file->Close();
+	delete file;
 	return json;
 }

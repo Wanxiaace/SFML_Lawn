@@ -88,14 +88,14 @@ std::map<sgf::String, sgf::EmitterMotionType> gEmitterMotionTypeMap = {
 void sgf::Emitter::LoadFromFile(const char* paxmlPath)
 {
 	pugi::xml_parse_result result;
-	pugi::xml_document* doc = TryToLoadXMLFile(paxmlPath,&result);
+	pugi::xml_document doc = TryToLoadXMLFile(paxmlPath,&result);
 
 	if (!result) {
 		std::cout << "Loading " << paxmlPath << " Error with: " << std::endl;
 		std::cout << result.description() << std::endl;
 	}
 
-	const auto& particle = doc->root().child("Particle");
+	const auto& particle = doc.root().child("Particle");
 	int imageIndex = 0;
 	for (const auto & x : particle)
 	{

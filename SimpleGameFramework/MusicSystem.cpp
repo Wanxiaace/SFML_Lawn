@@ -75,9 +75,13 @@ void sgf::MusicManager::MixPlayMusic(Mix_Music* music)
 	Mix_PlayMusic(music, -1);
 }
 
+#include "GamePacker/GamePacker.h"
+
 void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 {
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	FileReadStream* chunkFile = TryToLoadFilePointer(path);
+	Mix_Chunk* chunk = Mix_LoadWAV_RW(chunkFile->mIStream,1);
+	
 	if (chunk) {
 		mChunkMap[key] = chunk;
 	}
@@ -87,11 +91,15 @@ void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 		SHOW_ERROR_ABORT_EXIT((sgf::String("Failed to load Chunk At: ") + path).c_str());
 		//std::cout << "Failed to load Chunk At: " << path << std::endl;
 	}
+
+	//delete chunkFile;
 }
 
 void sgf::MusicManager::LoadMusicFormFile(const char* path, const String& key)
 {
-	Mix_Music* chunk = Mix_LoadMUS(path);
+	FileReadStream* chunkFile = TryToLoadFilePointer(path);
+	Mix_Music* chunk = Mix_LoadMUS_RW(chunkFile->mIStream, 1);
+	
 	if (chunk) {
 		mMusicMap[key] = chunk;
 	}
@@ -100,6 +108,8 @@ void sgf::MusicManager::LoadMusicFormFile(const char* path, const String& key)
 		gGameApp->Log() << Mix_GetError() << std::endl;
 		SHOW_ERROR_ABORT_EXIT((sgf::String("Failed to load Music At: ") + path).c_str());
 	}
+
+	//delete chunkFile;
 }
 
 Mix_Chunk* sgf::MusicManager::TryGetChunkByKey(const String& key)

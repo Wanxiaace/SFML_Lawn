@@ -32,7 +32,8 @@ namespace sgf {
 
 		void BindIStream(SDL_RWops* stream) { mIStream = stream; };
 
-		void OpenFile(const sgf::String& path, const sgf::String& mode = "rb");
+		void OpenFile(const sgf::String& path, const sgf::String& mode = "rb", bool throwError = true);
+		void OpenFileIfExist(const sgf::String& path, const sgf::String& mode = "rb");
 		void OpenMemory(void* pbuffer,int size);
 
 		void Seek(CursorStyle style, int cur) const;

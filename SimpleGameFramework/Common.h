@@ -39,7 +39,7 @@ using namespace std::chrono;
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
 
-const int LOADING_THREAD_NUM_MAX = 5;
+const int LOADING_THREAD_NUM_MAX = 0;
 
 
 static void CheckGLError(const char* file, int line)

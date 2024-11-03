@@ -10,7 +10,7 @@ sgf::FileReadStream::~FileReadStream()
 	Close();
 }
 
-void sgf::FileReadStream::OpenFile(const sgf::String& path, const sgf::String& mode)
+void sgf::FileReadStream::OpenFile(const sgf::String& path, const sgf::String& mode,bool throwError)
 {
 	mIStream = SDL_RWFromFile(path.c_str(), mode.c_str());
 	if (mIStream)
@@ -18,9 +18,14 @@ void sgf::FileReadStream::OpenFile(const sgf::String& path, const sgf::String& m
 		mIsFile = true;
 		mIsOpen = true;
 	}
-	else {
+	else if(throwError) {
 		SHOW_ERROR_ABORT_EXIT(("Failed To Load File At: " + path + " in Mode:" + mode).c_str());
 	}
+}
+
+void sgf::FileReadStream::OpenFileIfExist(const sgf::String& path, const sgf::String& mode)
+{
+	OpenFile(path, mode, false);
 }
 
 void sgf::FileReadStream::OpenMemory(void* pbuffer, int size)
@@ -88,6 +93,6 @@ sgf::String sgf::FileReadStream::ReadString(int size)
 	Read(buf,size);
 	std::string result = buf;
 	delete[] buf;
-	return std::move(result);
+	return result;
 }
 

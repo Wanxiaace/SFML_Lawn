@@ -12,9 +12,12 @@ sgf::Font::~Font()
 		TTF_CloseFont(mFont);
 }
 
+#include "GamePacker/GamePacker.h"
+
 void sgf::Font::LoadFromFile(const char* path)
 {
-	mFont = TTF_OpenFont(path,30);
+	FileReadStream* file = TryToLoadFilePointer(path);
+	mFont = TTF_OpenFontRW(file->mIStream,1,30);
 }
 
 void sgf::Font::SetFontSize(int fontSize)
@@ -27,7 +30,7 @@ sgf::SimpleImage* sgf::Font::GenTextImage(const String& text) const
 {
 	if (mFont) {
 		SDL_Surface* textSurface = TTF_RenderUTF8_Blended(mFont, text.c_str(), {255,255,255});
-		SimpleImage* img = new (SimpleImage);
+		SimpleImage* img = new SimpleImage();
 		img->LoadFromSurface(textSurface);
 		return img;
 	}

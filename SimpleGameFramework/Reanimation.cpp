@@ -18,14 +18,14 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 
 	pugi::xml_parse_result result;
 
-	pugi::xml_document* doc = TryToLoadXMLFile(filePath, &result);
+	pugi::xml_document doc = TryToLoadXMLFile(filePath, &result);
 	
 	if (!result) {
 		std::cout << "Loading " << filePath << " Error with: " << std::endl;
 		std::cout << result.description() << std::endl;
 	}
 
-	for (auto& x : doc->children()) {
+	for (auto& x : doc.children()) {
 		String TagName = x.name();
 		if (TagName == "fps") {
 			mFPS = x.text().as_int();

@@ -16,6 +16,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourceGen", "ResourceGen\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourcePacker", "ResourcePacker\ResourcePacker.vcxproj", "{5AAAE2EB-C886-48B0-9B8B-C68E1472932F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0} = {95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -37,9 +37,9 @@ namespace sgf {
 		void UpdateFileInfo();
 
 		void ReadFromFile(const sgf::String& path);
+		void ReadFromFileIfExist(const sgf::String& path);
 		void WriteToFile(const sgf::String& path);
-		FileReadStream* TryToLoadFile(const sgf::String& path);
-
+		FileReadStream* TryToLoadFilePointer(const sgf::String& path);
 		void AppendNewFile(const sgf::String& path, void* pfile, int size);
 
 
@@ -53,8 +53,9 @@ namespace sgf {
 	extern std::vector<GamePacker> gPaks;
 
 	void TryToLoadPak(const sgf::String& path);
-	FileReadStream* TryToLoadFile(const sgf::String& path);
-	pugi::xml_document* TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error);
+	FileReadStream* TryToLoadFilePointer(const sgf::String& path);
+	pugi::xml_document* TryToLoadXMLFilePointer(const sgf::String& path, pugi::xml_parse_result* error);
+	pugi::xml_document TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error);
 	nlohmann::json TryToLoadJsonFile(const sgf::String& path);
 
 }
