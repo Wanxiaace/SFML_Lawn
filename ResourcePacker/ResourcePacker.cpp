@@ -20,8 +20,8 @@ int main(int argc,char** argv)
         return EXIT_FAILURE;
     }
     else {
-        gListDir = argv[2];
-        gPathBase = argv[3];
+        gListDir = argv[1];
+        gPathBase = argv[2];
     }
 #endif // !__DEBUG
 
