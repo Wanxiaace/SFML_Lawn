@@ -12,11 +12,6 @@ sgf::LogoScreen::LogoScreen(GameApp* app):
 	mShowCounter = mShowCounterMax;
 }
 
-sgf::LogoScreen::~LogoScreen()
-{
-
-}
-
 void sgf::LogoScreen::AppendLogoImage(SimpleImage* logo,float scale)
 {
 	mScaleF = scale;

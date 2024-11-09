@@ -4,8 +4,13 @@
 #include "Common.h"
 #include "TickCounter.h"
 #include "GameMessage.h"
+#include <mutex>
+#include <thread>
+
 
 namespace sgf {
+	extern std::mutex gLoopMutex;
+	extern std::thread* gUpdateThread;
 
 	class GameAppBase {
 	public:
@@ -18,6 +23,7 @@ namespace sgf {
 		bool mIsOpen = false;
 		bool mShowDebugWindow = false;
 		bool mShowAnalyzeWindow = false;
+		bool mMultiThreadUpdate = false;
 		int mMouseX = 0;
 		int mMouseY = 0;
 		float mMouseXScale = 1.0f;
@@ -47,12 +53,16 @@ namespace sgf {
 		GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);
 		~GameAppBase();
 
-		void EnterMainLoop();
+		
 		void SetDisplayFunction(std::function<void(GameAppBase*, int)>& display);
 		void SetCallBackFunction(std::function<void(GameAppBase*, SDL_Event&)>& callback);
+		void EnableMultThreadUpdate(std::function<void()> updatethread);
+		
 		std::ostream& Log() { return *mLog; };
 
+	public:
 		virtual void CopeEvent(SDL_Event& theEvent);
+		virtual void EnterMainLoop();
 
 		virtual void Update();
 		virtual void Draw();

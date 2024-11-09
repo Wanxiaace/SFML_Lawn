@@ -1,5 +1,9 @@
 #include "SimpleApp.h"
 #include <iostream>
+#include <mutex>
+
+std::mutex sgf::gLoopMutex;
+std::thread* sgf::gUpdateThread;
 
 sgf::GameAppBase::GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enableASync, bool resiziable)
 {
@@ -85,6 +89,10 @@ void sgf::GameAppBase::EnterMainLoop()
     mLastSecondBuffer = sgf::TryGetTicks();
     mFramePerSecondBuffer = 0;
 
+    Log() << "Application Running" << std::endl;
+    Log() << "--------------------------" << std::endl;
+
+
     while (mIsOpen)
     {
         
@@ -112,7 +120,9 @@ void sgf::GameAppBase::EnterMainLoop()
         Draw();
         mMessageManager.CopeAllMessage();
 
-        Update();
+        if(!mMultiThreadUpdate)
+            Update();
+
         static const Uint32 FPS = 1000 / 60;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {
@@ -132,6 +142,11 @@ void sgf::GameAppBase::SetDisplayFunction(std::function<void(GameAppBase*, int)>
 void sgf::GameAppBase::SetCallBackFunction(std::function<void(GameAppBase*, SDL_Event&)>& callback)
 {
     mCallback = callback;
+}
+
+void sgf::GameAppBase::EnableMultThreadUpdate(std::function<void()> updatethread)
+{
+    gUpdateThread = new std::thread(updatethread);
 }
 
 void sgf::GameAppBase::CopeEvent(SDL_Event& theEvent)

@@ -8,6 +8,7 @@
 #include "../FileStream.h"
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 namespace sgf {
 	struct PakInFile {
@@ -26,9 +27,9 @@ namespace sgf {
 		int mPackageSize = 0;//
 		int mOriginalFileTotalNumber;//总文件个数
 		int mOriginalFileTotalSize;//总文件大小
-		std::vector<PakInFile> mFiles;
+		std::unordered_map<sgf::String, PakInFile> mFiles;
 		bool mIsReadingMode = false;
-		FileReadStream* mFileStream = nullptr;
+		FileStream* mFileStream = nullptr;
 
 	public:
 		GamePacker();
@@ -39,7 +40,7 @@ namespace sgf {
 		void ReadFromFile(const sgf::String& path);
 		void ReadFromFileIfExist(const sgf::String& path);
 		void WriteToFile(const sgf::String& path);
-		FileReadStream* TryToLoadFilePointer(const sgf::String& path);
+		FileStream* TryToLoadFilePointer(const sgf::String& path);
 		void AppendNewFile(const sgf::String& path, void* pfile, int size);
 
 
@@ -52,11 +53,14 @@ namespace sgf {
 
 	extern std::vector<GamePacker> gPaks;
 
-	void TryToLoadPak(const sgf::String& path);
-	FileReadStream* TryToLoadFilePointer(const sgf::String& path);
-	pugi::xml_document* TryToLoadXMLFilePointer(const sgf::String& path, pugi::xml_parse_result* error);
-	pugi::xml_document TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error);
-	nlohmann::json TryToLoadJsonFile(const sgf::String& path);
+	namespace FileManager {
+		void TryToLoadPak(const sgf::String& path);
+		FileStream* TryToLoadFilePointer(const sgf::String& path);
+		pugi::xml_document* TryToLoadXMLFilePointer(const sgf::String& path, pugi::xml_parse_result* error);
+		pugi::xml_document TryToLoadXMLFile(const sgf::String& path, pugi::xml_parse_result* error);
+		nlohmann::json TryToLoadJsonFile(const sgf::String& path);
+		bool IsRealFileExist(const sgf::String& path);
+	}
 
 }
 

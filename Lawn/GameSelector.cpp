@@ -39,13 +39,6 @@ Lawn::GameSelector::GameSelector(int theId,bool useEntryAnimation) : Widget(theI
 Lawn::GameSelector::~GameSelector()
 {
 	Widget::~Widget();
-	mWidgetManager->RemoveWidget(mStartButton);
-	mWidgetManager->RemoveWidget(mConfigButton);
-	mWidgetManager->RemoveWidget(mExitButton);
-
-	delete mStartButton;
-	delete mConfigButton;
-	delete mExitButton;
 }
 
 void Lawn::GameSelector::Update()

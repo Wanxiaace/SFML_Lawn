@@ -363,10 +363,10 @@ Lawn::LawnCheckBox::LawnCheckBox(int theId) : Widget(theId)
 Lawn::LawnCheckBox::~LawnCheckBox()
 {
 	Widget::~Widget();
-	if(mWidgetManager)
+	/*if(mWidgetManager)
 		mWidgetManager->RemoveWidget(mLabel);
 	if (mLabel)
-		delete mLabel;
+		delete mLabel;*/
 }
 
 void Lawn::LawnCheckBox::SetLabel(const sgf::String& label)

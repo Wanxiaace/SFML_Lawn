@@ -8,8 +8,6 @@
 #include <ctime>
 
 Lawn::LawnApp* gLawnApp = nullptr;
-std::thread* gUpdateThread = nullptr;
-std::mutex gLoopMutex;
 
 Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync, bool resiziable) : GameApp(width, height, windowCaptain, enabledASync, resiziable)
 {
@@ -30,60 +28,6 @@ Lawn::LawnApp::~LawnApp()
 
 }
 
-void Lawn::LawnApp::LawnStart()
-{
-    Log() << "Game Running" << std::endl;
-    Log() << "--------------------------" << std::endl;
-
-    mIsOpen = true;
-    mLastSecondBuffer = sgf::TryGetTicks();
-    mFramePerSecondBuffer = 0;
-
-    while (mIsOpen)
-    {
-
-        SDL_Event _event;
-
-        if (SDL_PollEvent(&_event)) {
-            ImGui_ImplSDL2_ProcessEvent(&_event);
-            CopeEvent(_event);
-            if (mCallback)
-                mCallback(this, _event);
-        }
-
-        Uint32 tick = sgf::TryGetTicks();
-
-        if (tick - mLastSecondBuffer >= 1000) {
-            mLastSecondBuffer = tick;
-            mFPS = mFramePerSecondBuffer;
-            mFramePerSecondBuffer = 0;
-        }
-        else {
-            mFramePerSecondBuffer++;
-        }
-
-        if (mDisplay)
-            mDisplay(this, mDeltaFrameTime);
-
-        gLoopMutex.lock();
-        //SDL_ShowCursor(SDL_DISABLE);
-        Draw();
-        
-        mMessageManager.CopeAllMessage();
-
-
-        gLoopMutex.unlock();
-
-        static const Uint32 FPS = 1000 / 100;//可替换为限制的帧速
-        static Uint32 _FPS_Timer;
-        if (mEnabledASync) {
-            if (sgf::TryGetTicks() - _FPS_Timer < FPS) {
-                SDL_Delay(FPS - sgf::TryGetTicks() + _FPS_Timer);
-            }
-            _FPS_Timer = sgf::TryGetTicks();
-        }
-    }
-}
 
 void Lawn::LawnApp::EnterLoadingPage()
 {
@@ -198,20 +142,20 @@ void Lawn::LawnApp::Draw()
     SDL_GL_SwapWindow(mGameWindow);
 }
 
-void Lawn::GameUpdateThread(LawnApp* app)
+void Lawn::GameUpdateThread()
 {
-    app->mTick.Update();
-    app->Update();
+    gLawnApp->mTick.Update();
+    gLawnApp->Update();
 
     while (true)
     {
-        app->mTick.Update();
+        gLawnApp->mTick.Update();
 
         gLoopMutex.lock();
-        app->Update();
-        app->mCursor->Update();
-        if (app->mIsMouseRightDown)
-            app->mCursor->MouseRightOn();
+        gLawnApp->Update();
+        gLawnApp->mCursor->Update();
+        if (gLawnApp->mIsMouseRightDown)
+            gLawnApp->mCursor->MouseRightOn();
         gLoopMutex.unlock();
         
         SDL_Delay(10);

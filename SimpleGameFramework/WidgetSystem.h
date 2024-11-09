@@ -61,7 +61,7 @@ namespace sgf {
 
 	public:
 		Widget(int id);
-		virtual ~Widget() { RemoveAllChild(); };
+		virtual ~Widget();
 
 		void AttachToListener(WidgetListener* target) { mListener = target; };
 		void Resize(float x, float y, float width, float height);
@@ -74,6 +74,8 @@ namespace sgf {
 		void AppendChild(Widget* child);
 		void RemoveChild(Widget* child);
 		void RemoveAllChild();
+
+		void UnbindFromParentDirectly();
 
 		void DumpWidgetImage(Graphics* g, const char* outPath);
 

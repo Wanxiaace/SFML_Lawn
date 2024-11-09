@@ -17,7 +17,6 @@ namespace sgf {
 
 	public:
 		LogoScreen(GameApp* app);
-		~LogoScreen();
 
 		void SetNextScreenFunc(std::function<void()> func) { mNextFunc = func; };
 		void AppendLogoImage(SimpleImage* logo, float scale=1.0f);

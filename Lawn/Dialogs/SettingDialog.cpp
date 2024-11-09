@@ -60,19 +60,6 @@ Lawn::SettingDialog::SettingDialog() : LawnDialog(LAWN_DIALOG_SETTING)
 Lawn::SettingDialog::~SettingDialog()
 {
 	Widget::~Widget();
-	mWidgetManager->RemoveWidget(mOKButton);
-	mWidgetManager->RemoveWidget(mVolumeSlider);
-	mWidgetManager->RemoveWidget(mMusicVolumeLabel);
-	mWidgetManager->RemoveWidget(mFullScreenCheckBox);
-	mWidgetManager->RemoveWidget(mSoundVolumeLabel);
-	mWidgetManager->RemoveWidget(mSoundVolumeSlider);
-
-	delete mMusicVolumeLabel;
-	delete mOKButton;
-	delete mVolumeSlider;
-	delete mFullScreenCheckBox;
-	delete mSoundVolumeLabel;
-	delete mSoundVolumeSlider;
 }
 
 

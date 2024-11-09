@@ -13,7 +13,7 @@ sgf::Dictionary::~Dictionary()
 
 void sgf::Dictionary::LoadFromFile(const char* path)
 {
-	mJson = TryToLoadJsonFile(path);
+	mJson = FileManager::TryToLoadJsonFile(path);
 }
 
 sgf::String sgf::Dictionary::Dump() const

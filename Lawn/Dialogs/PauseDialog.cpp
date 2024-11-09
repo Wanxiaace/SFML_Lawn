@@ -29,11 +29,7 @@ Lawn::PauseDialog::PauseDialog() : LawnDialog(LAWN_WIDGET_PAUSE_DIALOG)
 
 Lawn::PauseDialog::~PauseDialog()
 {
-	mWidgetManager->RemoveWidget(mContinueButton);
-	mWidgetManager->RemoveWidget(mMenuButton);
-
-	delete mContinueButton;
-	delete mMenuButton;
+	Widget::~Widget();
 }
 
 void Lawn::PauseDialog::Draw(sgf::Graphics* g)

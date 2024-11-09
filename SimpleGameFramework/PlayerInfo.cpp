@@ -1,5 +1,6 @@
 #include "PlayerInfo.h"
 #include <fstream>
+#include "GamePacker/GamePacker.h"
 
 sgf::PlayerInfo::PlayerInfo()
 {
@@ -13,7 +14,7 @@ sgf::PlayerInfo::~PlayerInfo()
 
 void sgf::PlayerInfo::TryLoadFromFile(const sgf::String& path)
 {
-	if (!IsFileExist(path))
+	if (!FileManager::IsRealFileExist(path))
 	{
 		CreateDefaultPlayerInfo(path);
 		SaveAs(path);

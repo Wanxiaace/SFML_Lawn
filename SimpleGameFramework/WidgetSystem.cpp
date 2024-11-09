@@ -115,6 +115,15 @@ sgf::Widget::Widget(int id)
 	mId = id; mTick.BindToCounter(&gGameApp->mTick);
 }
 
+sgf::Widget::~Widget()
+{
+	if (mParent)
+	{
+		SHOW_ERROR_ABORT_EXIT("Remove Widget from its Parent before deleting");
+	}
+	RemoveAllChild();
+}
+
 void sgf::Widget::Resize(float x, float y, float width, float height)
 {
 	mRect = { x,y,width,height };
@@ -164,7 +173,19 @@ void sgf::Widget::RemoveChild(Widget* child)
 
 void sgf::Widget::RemoveAllChild()
 {
+	for (auto& x : mChilds)
+	{
+		x->UnbindFromParentDirectly();
+		mWidgetManager->RemoveWidget(x);
+		delete x;
+	}
+
 	mChilds.clear();
+}
+
+void sgf::Widget::UnbindFromParentDirectly()
+{
+	mParent = nullptr;
 }
 
 void sgf::Widget::DumpWidgetImage(Graphics* g,const char* outPath)

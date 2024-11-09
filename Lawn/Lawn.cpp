@@ -17,7 +17,7 @@ int main(int argc,char** argv) {
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
 		gLawnApp->mShowDebugWindow = true;
 
-	sgf::TryToLoadPak("assets/en2pak/en2pak.pkg");
+	sgf::FileManager::TryToLoadPak("assets/en2pak/en2pak.pkg");
 
 	gLawnApp->mResourceManager.AttachBasePath("assets/en2pak/");
 	gLawnApp->LoadDict("LawnStrings.json");
@@ -26,9 +26,10 @@ int main(int argc,char** argv) {
 	gLawnApp->WindowsEnhance();
 	gLawnApp->LoadGraphics();
 	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
-	sgf::LogoScreen* logoScreen = new sgf::LogoScreen(gLawnApp);
 
-	gUpdateThread = new std::thread(Lawn::GameUpdateThread, gLawnApp);
+	gLawnApp->EnableMultThreadUpdate(Lawn::GameUpdateThread);
+
+	sgf::LogoScreen* logoScreen = new sgf::LogoScreen(gLawnApp);
 
 	logoScreen->SetNextScreenFunc([]() {
 		gLawnApp->EnterLoadingPage();
@@ -49,7 +50,7 @@ int main(int argc,char** argv) {
 		gLawnApp->EnterGameSelector();
 		});
 
-	gLawnApp->LawnStart();
+	gLawnApp->EnterMainLoop();
 
 	out.close();
 }

@@ -18,7 +18,7 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 
 	pugi::xml_parse_result result;
 
-	pugi::xml_document doc = TryToLoadXMLFile(filePath, &result);
+	pugi::xml_document doc = FileManager::TryToLoadXMLFile(filePath, &result);
 	
 	if (!result) {
 		std::cout << "Loading " << filePath << " Error with: " << std::endl;

@@ -79,7 +79,7 @@ void sgf::MusicManager::MixPlayMusic(Mix_Music* music)
 
 void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 {
-	FileReadStream* chunkFile = TryToLoadFilePointer(path);
+	FileStream* chunkFile = FileManager::TryToLoadFilePointer(path);
 	Mix_Chunk* chunk = Mix_LoadWAV_RW(chunkFile->mIStream,1);
 	
 	if (chunk) {
@@ -97,7 +97,7 @@ void sgf::MusicManager::LoadChunkFormFile(const char* path,const String& key)
 
 void sgf::MusicManager::LoadMusicFormFile(const char* path, const String& key)
 {
-	FileReadStream* chunkFile = TryToLoadFilePointer(path);
+	FileStream* chunkFile = FileManager::TryToLoadFilePointer(path);
 	Mix_Music* chunk = Mix_LoadMUS_RW(chunkFile->mIStream, 1);
 	
 	if (chunk) {

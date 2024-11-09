@@ -31,15 +31,15 @@ void sgf::ResourceManager::LoadImageWithID(const sgf::String& path, sgf::String 
 
 void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::String& folder, sgf::String id_info)
 {
-	nlohmann::json json = TryToLoadJsonFile(aPath);
+	nlohmann::json json = FileManager::TryToLoadJsonFile(aPath);
 
 	nlohmann::json& frameArray = json.at("frames");
 	sgf::String texPath = json.at("meta").at("image");
 
-	LoadImageWithID(folder + "/" + texPath, id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+	LoadImageWithID(folder + "/" + texPath, id_info + SString::StringtoUpper(SString::StringRemoveFileExtension(texPath)));
 	
 	mResLoadMutex.lock();
-	SimpleImage* tex = GetResourceFast<SimpleImage>(id_info + StringtoUpper(StringRemoveFileExtension(texPath)));
+	SimpleImage* tex = GetResourceFast<SimpleImage>(id_info + SString::StringtoUpper(SString::StringRemoveFileExtension(texPath)));
 	mResLoadMutex.unlock();
 
 	for (auto& x : frameArray)
@@ -47,7 +47,7 @@ void sgf::ResourceManager::LoadImageAtlas(const sgf::String& aPath, const sgf::S
 		SimpleImage* atlasUnit = new SimpleImage();
 		atlasUnit->mSurface = tex->mSurface;
 
-		sgf::String rid = id_info + StringtoUpper(StringRemoveFileExtension(x.at("filename")));
+		sgf::String rid = id_info + SString::StringtoUpper(SString::StringRemoveFileExtension(x.at("filename")));
 		atlasUnit->mIsLoadedTexture = true;
 		atlasUnit->mIsAtlasUnit = true;
 		atlasUnit->mAtlasSrc = tex;
@@ -180,7 +180,7 @@ static void LoadFromResouceListFunc(sgf::ResourceManager* tar,sgf::ResourceList*
 
 		if (x.folder.size() >= 5 && x.folder.substr(x.folder.size() - 5) == "atlas" && x.path.substr(x.path.size() - 4) == "json") {
 			//std::cout << "Atlas" << std::endl;
-			tar->LoadImageAtlas((tar->mBasePath + x.path), (tar->mBasePath + x.folder), sgf::StringtoUpper(x.folder.substr(0, x.folder.size() - 5)));
+			tar->LoadImageAtlas((tar->mBasePath + x.path), (tar->mBasePath + x.folder), sgf::SString::StringtoUpper(x.folder.substr(0, x.folder.size() - 5)));
 		}
 
 		if (x.folder == "image" || x.folder == "image_reanim" || x.folder == "particle") {
@@ -220,25 +220,31 @@ void sgf::ResourceManager::LoadFromResouceList(ResourceList* src,MusicManager* m
 	mProcess = 0.0f;
 	float delta = 100.0f / src->mResouces.size();
 	mTotalFile = src->mResouces.size();
-	mNowFile = 0;
 
-	int len = src->mResouces.size();
-	
-	int stride = len / (LOADING_THREAD_NUM_MAX+1);
+	if (mTotalFile <= LOADING_THREAD_NUM_MAX + 50) {
+		LoadFromResouceListFunc(this, src, mus, 0, mTotalFile);
+	}
+	else {
+		mNowFile = 0;
+		int len = src->mResouces.size();
 
-	std::vector<std::thread*> loadingThreads;
-	for (size_t i = 0; i < LOADING_THREAD_NUM_MAX; i++)
-	{
-		loadingThreads.push_back(new std::thread(LoadFromResouceListFunc, this, src, mus, i * stride, i * stride + stride));
+		int stride = len / (LOADING_THREAD_NUM_MAX + 1);
+
+		std::vector<std::thread*> loadingThreads;
+		for (size_t i = 0; i < LOADING_THREAD_NUM_MAX; i++)
+		{
+			loadingThreads.push_back(new std::thread(LoadFromResouceListFunc, this, src, mus, i * stride, i * stride + stride));
+		}
+
+		LoadFromResouceListFunc(this, src, mus, LOADING_THREAD_NUM_MAX * stride, len);
+
+		for (size_t i = 0; i < LOADING_THREAD_NUM_MAX; i++)
+		{
+			loadingThreads[i]->join();
+			delete loadingThreads[i];
+		}
 	}
 
-	LoadFromResouceListFunc(this,src,mus, LOADING_THREAD_NUM_MAX * stride,len);
-
-	for (size_t i = 0; i < LOADING_THREAD_NUM_MAX; i++)
-	{
-		loadingThreads[i]->join();
-		delete loadingThreads[i];
-	}
 	LoadParticleImages();
 	mIsLoaded = true;
 }
@@ -249,7 +255,7 @@ void sgf::ResourceList::Load(const char* path)
 {
 	mPath = sgf::String(path);
 	pugi::xml_parse_result err;
-	pugi::xml_document doc = TryToLoadXMLFile(path,&err);
+	pugi::xml_document doc = FileManager::TryToLoadXMLFile(path,&err);
 
 	if (!err) {
 		gGameApp->Log() << "Faild to load ResourceList: " 

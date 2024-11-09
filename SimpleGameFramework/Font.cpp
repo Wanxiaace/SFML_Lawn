@@ -16,7 +16,7 @@ sgf::Font::~Font()
 
 void sgf::Font::LoadFromFile(const char* path)
 {
-	FileReadStream* file = TryToLoadFilePointer(path);
+	FileStream* file = FileManager::TryToLoadFilePointer(path);
 	mFont = TTF_OpenFontRW(file->mIStream,1,30);
 }
 

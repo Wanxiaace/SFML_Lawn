@@ -13,7 +13,7 @@
 #define CHECK_LOADED_X(x) if (!mIStream) return x;
 
 namespace sgf {
-	class FileReadStream {
+	class FileStream {
 	public:
 		enum CursorStyle {
 			CURSOR_SET,
@@ -24,11 +24,12 @@ namespace sgf {
 	public:
 		bool mIsFile = false;
 		bool mIsOpen = false;
+		bool mIsReadingMode = false;
 		SDL_RWops* mIStream = nullptr;
 
 	public:
-		FileReadStream();
-		~FileReadStream();
+		FileStream();
+		~FileStream();
 
 		void BindIStream(SDL_RWops* stream) { mIStream = stream; };
 

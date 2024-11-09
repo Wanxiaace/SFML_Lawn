@@ -96,6 +96,9 @@
     <ClCompile Include="GamePacker\GamePacker.cpp">
       <Filter>GamePacker\src</Filter>
     </ClCompile>
+    <ClCompile Include="SString.cpp">
+      <Filter>SimpleGameFramework\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimpleApp.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="GamePacker\GamePacker.h">
       <Filter>GamePacker\include</Filter>
+    </ClInclude>
+    <ClInclude Include="SString.h">
+      <Filter>SimpleGameFramework\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

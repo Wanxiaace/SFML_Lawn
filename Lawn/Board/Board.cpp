@@ -371,7 +371,7 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 
 void Lawn::Board::LoadZombieFromJsonFile(const char* path)
 {
-	nlohmann::json result = TryToLoadJsonFile(path);
+	nlohmann::json result = FileManager::TryToLoadJsonFile(path);
 	LoadZombieFromJson(result);
 }
 

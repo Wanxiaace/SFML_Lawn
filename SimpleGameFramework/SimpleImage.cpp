@@ -56,7 +56,7 @@ void sgf::SimpleImage::ReleaseTexture()
 
 SDL_Surface* sgf::SimpleImage::LoadFromFile(const char* path)
 {
-	FileReadStream* surfaceFile = TryToLoadFilePointer(path);
+	FileStream* surfaceFile = FileManager::TryToLoadFilePointer(path);
 	SDL_Surface* bufferSuface = 
 		IMG_Load_RW(surfaceFile->mIStream,0);
 	

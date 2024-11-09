@@ -39,7 +39,7 @@ using namespace std::chrono;
 const int VERTEX_BUFFER_MAX_COUNT = 1200;
 const int MATRIX_BUFFER_MAX_COUNT = 200;
 
-const int LOADING_THREAD_NUM_MAX = 0;
+const int LOADING_THREAD_NUM_MAX = 10;
 
 
 static void CheckGLError(const char* file, int line)
@@ -88,6 +88,8 @@ static void CheckGLError(const char* file, int line)
 #define SHOW_ERROR_ABORT_EXIT(x) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr); exit(EXIT_FAILURE);
 #endif
 
+#include "SString.h"
+
 namespace sgf {
     static void SetStdOutStream(std::ostream& src)
     {
@@ -132,7 +134,7 @@ namespace sgf {
 
 	typedef Rect<int> IntRect;
 	typedef Rect<float> FloatRect;
-	typedef std::string String;
+
     struct Color {
         float r, g, b, a;
     };
@@ -160,67 +162,6 @@ namespace sgf {
         };
     };
 
-    //请只使用英文字符串调用该函数
-    static sgf::String StringtoUpper(const sgf::String& src) {
-        std::string result;
-        for (char c : src) {
-            result += std::toupper(c);
-        }
-        return result;
-    }
-
-    static sgf::String StringReplace(const sgf::String& resource_str, const sgf::String& sub_str, const sgf::String& new_str)
-    {
-        sgf::String dst_str = resource_str;
-        sgf::String::size_type pos = 0;
-        while ((pos = dst_str.find(sub_str)) != std::string::npos) 
-        {
-            dst_str.replace(pos, sub_str.length(), new_str);
-        }
-        return dst_str;
-    }
-    static sgf::String StringRemoveFileExtension(const sgf::String& filename) {
-        size_t dotPos = filename.find_last_of(".");
-        if (dotPos != sgf::String::npos && dotPos > 0) {
-            return filename.substr(0, dotPos);
-        }
-        else {
-            return filename;
-        }
-    }
-
-    /// @brief 获得相对路径
-    static sgf::String StringGetCurrentPath(const sgf::String& filename) {
-        size_t dotPos = filename.find_last_of("/");
-        if (dotPos != sgf::String::npos && dotPos > 0) {
-            return filename.substr(0, dotPos);
-        }
-        else {
-            return filename;
-        }
-    }
-
-    /// @brief 获得相对路径并去除后缀
-    static sgf::String StringGetCurrentPathWithoutExtension(const sgf::String& filename) {
-        size_t dotPos = filename.find_last_of("/");
-        if (dotPos != sgf::String::npos && dotPos > 0) {
-            return StringRemoveFileExtension(filename.substr( dotPos + 1));
-        }
-        else {
-            return filename;
-        }
-    }
-
-    /// 获得文件是否存在
-    static bool IsFileExist(const sgf::String& filename) {
-        FILE* file;
-        fopen_s(&file, filename.c_str(), "r");
-        if (file) {
-            fclose(file);
-            return true;
-        }
-        return 0;
-    }
 
     static unsigned int TryGetTicks() {
         //可调多倍速
