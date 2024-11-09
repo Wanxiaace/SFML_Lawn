@@ -105,7 +105,9 @@ void sgf::GameAppBase::EnterMainLoop()
         }
 
         Uint32 tick = sgf::TryGetTicks();
-        mTick.Update();
+
+        if(!mMultiThreadUpdate)
+            mTick.Update();
 
         if (tick - mLastSecondBuffer >= 1000) {
             mLastSecondBuffer = tick;
@@ -116,14 +118,17 @@ void sgf::GameAppBase::EnterMainLoop()
             mFramePerSecondBuffer++;
         }
 
-        
+        gLoopMutex.lock();
+
         Draw();
         mMessageManager.CopeAllMessage();
+
+        gLoopMutex.unlock();
 
         if(!mMultiThreadUpdate)
             Update();
 
-        static const Uint32 FPS = 1000 / 60;//可替换为限制的帧速
+        static const Uint32 FPS = 1000 / 100;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {
             if (sgf::TryGetTicks() - _FPS_Timer < FPS) {
@@ -146,6 +151,7 @@ void sgf::GameAppBase::SetCallBackFunction(std::function<void(GameAppBase*, SDL_
 
 void sgf::GameAppBase::EnableMultThreadUpdate(std::function<void()> updatethread)
 {
+    mMultiThreadUpdate = true;
     gUpdateThread = new std::thread(updatethread);
 }
 

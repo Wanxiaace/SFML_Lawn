@@ -1,9 +1,13 @@
 #include "GameMessage.h"
 #include "WidgetSystem.h"
 
+std::mutex gMessageMutex;
+
 void sgf::GameMessageManager::SendGameMessage(GameMessage src)
 {
+	gMessageMutex.lock();
 	mMessages.push_back(src);
+	gMessageMutex.unlock();
 }
 
 void sgf::GameMessageManager::CopeAllMessage()

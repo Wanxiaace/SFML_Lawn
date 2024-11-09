@@ -10,7 +10,7 @@ Lawn::LoadingPage::LoadingPage(int id) :Widget(id)
 
 Lawn::LoadingPage::~LoadingPage()
 {
-
+	Widget::~Widget();
 }
 
 void Lawn::LoadingPage::OnClick(int theId)

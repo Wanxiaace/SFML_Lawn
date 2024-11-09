@@ -45,6 +45,7 @@ Lawn::Board::~Board()
 	gLawnApp->mCursor->mIsOnBoard = false;
 	gLawnApp->mCursor->Reset();
 	Widget::~Widget();
+	/*
 	mWidgetManager->RemoveWidget(mMenuButton);
 	mWidgetManager->RemoveWidget(mSeedBank);
 	mWidgetManager->RemoveWidget(mDefeatReturnToMenuButton);
@@ -52,7 +53,7 @@ Lawn::Board::~Board()
 	delete mSeedBank;
 	delete mDefeatReturnToMenuButton;
 	if (mZombieAnimator)
-		delete mZombieAnimator;
+		delete mZombieAnimator;*/
 
 	for (auto& x : mPlantVector)
 	{
@@ -62,8 +63,6 @@ Lawn::Board::~Board()
 	{
 		delete x;
 	}
-
-	
 }
 
 void Lawn::Board::UpdateBoardBackground()

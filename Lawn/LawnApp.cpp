@@ -144,18 +144,20 @@ void Lawn::LawnApp::Draw()
 
 void Lawn::GameUpdateThread()
 {
-    gLawnApp->mTick.Update();
-    gLawnApp->Update();
+    //gLawnApp->mTick.Update();
+    //gLawnApp->Update();
 
     while (true)
     {
-        gLawnApp->mTick.Update();
-
         gLoopMutex.lock();
+
+        gLawnApp->mTick.Update();
         gLawnApp->Update();
         gLawnApp->mCursor->Update();
+
         if (gLawnApp->mIsMouseRightDown)
             gLawnApp->mCursor->MouseRightOn();
+
         gLoopMutex.unlock();
         
         SDL_Delay(10);

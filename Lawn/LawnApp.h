@@ -62,6 +62,7 @@ namespace Lawn {
 extern Lawn::LawnApp* gLawnApp;//È«¾ÖApp
 
 #define DO_IN_GRAPHICS_BEGIN gLawnApp->DoInGraphicsThread(new std::function<void()>([]()->void{
+#define DO_IN_GRAPHICS_BEGIN_CATCH(x) gLawnApp->DoInGraphicsThread(new std::function<void()>([x]()->void{
 #define DO_IN_GRAPHICS_END }));
 
 #endif

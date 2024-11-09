@@ -178,7 +178,7 @@ Lawn::LawnDialog::LawnDialog(int theId) : Widget(theId)
 
 Lawn::LawnDialog::~LawnDialog()
 {
-
+	Widget::~Widget();
 }
 
 void Lawn::LawnDialog::Draw(sgf::Graphics* g)
@@ -324,6 +324,7 @@ Lawn::LawnLabel::LawnLabel() :sgf::Widget(20000)
 
 Lawn::LawnLabel::~LawnLabel()
 {
+	Widget::~Widget();
 	if (mLabelImage)
 		delete mLabelImage;
 }

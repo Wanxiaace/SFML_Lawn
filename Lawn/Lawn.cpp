@@ -10,8 +10,11 @@
 #undef main
 
 int main(int argc,char** argv) {
+
 	std::ofstream out("log.txt");
-	//sgf::SetStdOutStream(out);
+#ifndef _DEBUG
+	sgf::SetStdOutStream(out);
+#endif
 
 	gLawnApp = new Lawn::LawnApp(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT, LAWN_GAME_WINDOW_CAPTAIN, true, true);
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
