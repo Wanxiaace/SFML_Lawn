@@ -239,7 +239,7 @@ sgf::TemplateButton::TemplateButton(int buttonId) : Widget(buttonId)
 
 sgf::TemplateButton::~TemplateButton()
 {
-	Widget::~Widget();
+
 }
 
 void sgf::TemplateButton::Draw(Graphics* graphics)

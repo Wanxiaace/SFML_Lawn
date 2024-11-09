@@ -38,7 +38,7 @@ Lawn::GameSelector::GameSelector(int theId,bool useEntryAnimation) : Widget(theI
 
 Lawn::GameSelector::~GameSelector()
 {
-	Widget::~Widget();
+
 }
 
 void Lawn::GameSelector::Update()

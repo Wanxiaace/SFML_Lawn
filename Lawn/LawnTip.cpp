@@ -8,7 +8,7 @@ Lawn::ToolTip::ToolTip(int id) : Widget(id)
 
 Lawn::ToolTip::~ToolTip()
 {
-	Widget::~Widget();
+
 	if (mLabelImage)
 		delete mLabelImage;
 }

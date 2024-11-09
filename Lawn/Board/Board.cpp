@@ -44,7 +44,6 @@ Lawn::Board::~Board()
 {
 	gLawnApp->mCursor->mIsOnBoard = false;
 	gLawnApp->mCursor->Reset();
-	Widget::~Widget();
 	/*
 	mWidgetManager->RemoveWidget(mMenuButton);
 	mWidgetManager->RemoveWidget(mSeedBank);

@@ -155,7 +155,7 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 
 Lawn::SeedBank::~SeedBank()
 {
-	Widget::~Widget();
+
 }
 
 void Lawn::SeedBank::AppendSeedPack(SeedType type)

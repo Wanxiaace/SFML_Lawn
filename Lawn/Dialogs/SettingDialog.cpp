@@ -59,7 +59,7 @@ Lawn::SettingDialog::SettingDialog() : LawnDialog(LAWN_DIALOG_SETTING)
 
 Lawn::SettingDialog::~SettingDialog()
 {
-	Widget::~Widget();
+
 }
 
 

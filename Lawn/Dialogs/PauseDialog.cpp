@@ -29,7 +29,7 @@ Lawn::PauseDialog::PauseDialog() : LawnDialog(LAWN_WIDGET_PAUSE_DIALOG)
 
 Lawn::PauseDialog::~PauseDialog()
 {
-	Widget::~Widget();
+
 }
 
 void Lawn::PauseDialog::Draw(sgf::Graphics* g)
