@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /Libs
 /ResourceGen/output_d
 /ResourceGen/output
+/vcpkg_installed
