@@ -25,7 +25,6 @@ int main(int argc,char** argv) {
 	gLawnApp->mResourceManager.AttachBasePath("assets/en2pak/");
 	gLawnApp->LoadDict("LawnStrings.json");
 	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
-	//gLawnApp->SetWindowIcon("data/WindowIcon.png");
 	gLawnApp->WindowsEnhance();
 	gLawnApp->LoadGraphics();
 	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
@@ -38,22 +37,23 @@ int main(int argc,char** argv) {
 		gLawnApp->EnterLoadingPage();
 		});
 
-	auto logo = new sgf::SimpleImage();
+	sgf::SimpleImage* logo = new sgf::SimpleImage();
 	logo->LoadFromFile("data/sgf.png");
 
 	logoScreen->AppendLogoImage(logo,0.2f);
 
-	gLawnApp->mWidgetManager->AddWidget(logoScreen);
+	gLawnApp->SafeAppendWidget(logoScreen);
+	//gLawnApp->mWidgetManager->AddWidget
 
-	new std::thread([logoScreen]() {
+	new std::thread([]() {
 		gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
-		LoadAllResourcesLink();
-		logoScreen->Join();
-		gLawnApp->KillLoadingPage();
-		gLawnApp->EnterGameSelector();
+		LoadAllResourcesLink();		
 		});
 
 	gLawnApp->EnterMainLoop();
 
+	gLawnApp->LockUpdate();
+
+	delete gLawnApp;
 	out.close();
 }

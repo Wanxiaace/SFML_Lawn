@@ -22,10 +22,8 @@ Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, 
 
 Lawn::LawnApp::~LawnApp()
 {
-	GameApp::~GameApp();
 	if (mLoadingPage)
 		KillLoadingPage();
-
 }
 
 

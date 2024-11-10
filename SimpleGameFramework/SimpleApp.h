@@ -51,7 +51,7 @@ namespace sgf {
 
 	public:
 		GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);
-		~GameAppBase();
+		virtual ~GameAppBase();
 
 		
 		void SetDisplayFunction(std::function<void(GameAppBase*, int)>& display);

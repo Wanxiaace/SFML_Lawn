@@ -27,3 +27,11 @@ void Lawn::LoadingPage::Draw(sgf::Graphics* g)
 	g->SetCubeColor({ 1.0f,1.0f,1.0f,1.0f });
 	g->FillRect({ 0.0f,LAWN_GAME_WINDOW_HEIGHT - 30,gLawnApp->mResourceManager.mProcess * LAWN_GAME_WINDOW_WIDTH / 100.0f,30.0f });
 }
+
+void Lawn::LoadingPage::Update()
+{
+	if (gLawnApp->mResourceManager.mIsLoaded) {
+		gLawnApp->KillLoadingPage();
+		gLawnApp->EnterGameSelector();
+	}
+}

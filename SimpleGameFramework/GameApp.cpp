@@ -13,7 +13,7 @@ sgf::GameApp::~GameApp()
 	delete mGraphics;
 	delete mWidgetManager;
 
-	GameAppBase::~GameAppBase();
+	//GameAppBase::~GameAppBase();
 }
 
 void sgf::GameApp::UpdateMusicVolume()
@@ -37,6 +37,7 @@ sgf::Graphics* sgf::GameApp::LoadGraphics()
 
 void sgf::GameApp::SafeDeleteWidget(Widget* target)
 {
+	target->mVisible = false;
 	mMessageManager.SendGameMessage({ sgf::GameMessage::MessageType::MSG_TYPE_DELETE_WIDGET,mWidgetManager,target});
 }
 
@@ -145,6 +146,15 @@ void sgf::GameApp::DoInGraphicsThread(std::function<void()>* func)
 	mMessageManager.SendGameMessage(dolaterMessage);
 }
 
+void sgf::GameApp::LockUpdate()
+{
+	gLoopMutex.lock();
+}
+
+void sgf::GameApp::UnLockUpdate()
+{
+	gLoopMutex.unlock();
+}
 
 void sgf::GameApp::Update()
 {

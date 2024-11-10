@@ -13,6 +13,7 @@ namespace Lawn {
 
 		virtual void OnClick(int theId) override;
 		virtual void Draw(sgf::Graphics* g) override;
+		virtual void Update() override;
 	};
 }
 
