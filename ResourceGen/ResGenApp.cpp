@@ -1,5 +1,5 @@
 #include "ResGenApp.h"
-#include "../nfd/include/nfd.h"
+#include "nfd.h"
 
 ResGenApp* gApp;
 
@@ -44,8 +44,9 @@ void ResGenApp::RenderMenuBar()
 		if (ImGui::BeginMenu(_LS_C("FILE"))) {
 			if (ImGui::MenuItem(_LS_C("OPEN"), "Ctrl+O")) {
 				char* xmlPath = nullptr;
-				
-				nfdresult_t result = NFD_OpenDialog("xml", nullptr, &xmlPath);
+				nfdu8filteritem_t item = {"ResourceList","xml"};
+				nfdresult_t result = NFD_OpenDialog(&xmlPath,&item, 1, nullptr);
+				//NFD_OpenDialog("xml", nullptr, &xmlPath);
 				
 				if(!xmlPath)
 					std::cout << "Faild to open" << std::endl;
@@ -59,7 +60,7 @@ void ResGenApp::RenderMenuBar()
 					
 					sgf::String xmlDirPath = xmlPathStr;
 #ifdef _WIN32
-					xmlDirPath = sgf::StringReplace(xmlDirPath, "\\", "/");
+					xmlDirPath = sgf::SString::StringReplace(xmlDirPath, "\\", "/");
 #endif				
 					xmlDirPath = xmlDirPath.substr(0, xmlDirPath.rfind("/")) + "/";
 

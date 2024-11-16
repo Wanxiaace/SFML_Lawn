@@ -10,22 +10,14 @@
 #undef main
 
 int main(int argc,char** argv) {
-	std::ofstream out("log.txt");
-#ifndef _DEBUG
-	sgf::SetStdOutStream(out);
-#endif
-
 	gLawnApp = new Lawn::LawnApp(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT, LAWN_GAME_WINDOW_CAPTAIN, true, true);
+	
+#ifdef _DEBUG
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
 		gLawnApp->mShowDebugWindow = true;
+#endif // _DEBUG
 
-	sgf::FileManager::TryToLoadPak("assets/en2pak/en2pak.pkg");
-	gLawnApp->mResourceManager.AttachBasePath("assets/en2pak/");
-	
-	gLawnApp->LoadDict("LawnStrings.json");
-	gLawnApp->SetWindowCaptain(_LS("GameTitle"));
-	gLawnApp->WindowsEnhance();
-	gLawnApp->LoadGraphics();
+	gLawnApp->InitByManifest("AppManifest.xml");
 	gLawnApp->LoadPlayerInfo("archive/player1.sgfbin");
 	gLawnApp->EnableMultThreadUpdate(Lawn::GameUpdateThread);
 
@@ -37,7 +29,6 @@ int main(int argc,char** argv) {
 
 	sgf::SimpleImage* logo = new sgf::SimpleImage();
 	logo->LoadFromFile("data/sgf.png");
-
 	logoScreen->AppendLogoImage(logo,0.2f);
 
 	gLawnApp->SafeAppendWidget(logoScreen);
@@ -50,5 +41,4 @@ int main(int argc,char** argv) {
 	gLawnApp->EnterMainLoop();
 	gLawnApp->LockUpdate();
 	delete gLawnApp;
-	out.close();
 }

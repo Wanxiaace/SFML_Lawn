@@ -21,10 +21,12 @@
       "name": "imgui",
       "features": [
         "opengl3-binding",
-        "sdl2-binding"
+        "sdl2-binding",
+        "docking-experimental"
       ]
     },
     "pugixml",
-    "nlohmann-json"
+    "nlohmann-json",
+    "nativefiledialog-extended"
   ]
 }

@@ -48,6 +48,9 @@ namespace Lawn {
 		//基于Windows平台的程序优化
 		void WindowsEnhance();
 
+		void InitEnv();
+		void InitByManifest(const sgf::String& path);
+
 		void LoadPlayerInfo(const sgf::String& path);
 		
 

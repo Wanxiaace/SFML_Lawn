@@ -19,8 +19,8 @@ void TreeBar::SelectRes(int index)
 		&& app->mResourceList->mResouces[index].
 		folder.substr(app->mResourceList->mResouces[index].folder.size() - 5) == "atlas") {
 		app->mIsAtlas = true;
-		sgf::String currentId = sgf::StringtoUpper(app->mResourceList->mResouces[index].folder).substr(0, app->mResourceList->mResouces[index].folder.length() - 5) +
-			sgf::StringGetCurrentPathWithoutExtension(sgf::StringtoUpper(app->mResourceList->mResouces[index].path));
+		sgf::String currentId = sgf::SString::StringtoUpper(app->mResourceList->mResouces[index].folder).substr(0, app->mResourceList->mResouces[index].folder.length() - 5) +
+			sgf::SString::StringGetCurrentPathWithoutExtension(sgf::SString::StringtoUpper(app->mResourceList->mResouces[index].path));
 
 		app->mCurentImagePointer = app->mCurentImagePointer = 
 			app->mResourceManager.GetResourceFast<sgf::SimpleImage>(currentId);
@@ -77,7 +77,7 @@ void TreeBar::Draw()
 				if(headerStr != "")
 					DoAllFunc(SelectRes);
 				strBuf = x.folder;
-				headerStr = _LS_C(sgf::StringtoUpper(x.folder));
+				headerStr = _LS_C(sgf::SString::StringtoUpper(x.folder));
 			}
 			AppendSelectable(std::to_string(i + 1) + ". " + x.id);
 			i++;

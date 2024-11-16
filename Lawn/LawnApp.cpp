@@ -116,6 +116,57 @@ void Lawn::LawnApp::WindowsEnhance()
 #endif
 }
 
+#include "GamePacker/GamePacker.h"
+
+void Lawn::LawnApp::InitEnv()
+{
+    gLawnApp->WindowsEnhance();
+    gLawnApp->LoadGraphics();
+}
+
+std::ofstream gDirayOut;
+
+void Lawn::LawnApp::InitByManifest(const sgf::String& path)
+{
+    pugi::xml_parse_result result;
+    auto xml = FileManager::TryToLoadXMLFile(path,&result);
+    if (!result) {
+        gGameApp->Log() << "Failed to load manifest at: " << path
+            << " with: " << result.description() << std::endl;
+        SHOW_ERROR_ABORT_EXIT(("Failed to load manifest at: " + path
+            + " with: " + result.description()).c_str());
+    }
+
+    for (auto& x : xml.first_child().children())
+    {
+        //std::cout << x.name() << std::endl;
+        const sgf::String str = x.name();
+        if (str == "ResourceBasePath") {
+            mResourceManager.AttachBasePath(x.text().as_string());
+        }
+        if (str == "AppDiary") {
+#ifndef _DEBUG
+            gDirayOut = std::ofstream(x.text().as_string());
+            sgf::SetStdOutStream(gDirayOut);
+#endif
+        }
+        if (str == "Dictionay") {
+            LoadDict(x.text().as_string());
+        }
+
+        if (str == "GameTitle") {
+            SetWindowCaptain(x.text().as_string());
+        }
+
+        if (str == "PackPath") {
+            sgf::FileManager::TryToLoadPak(mResourceManager.mBasePath + x.text().as_string());
+        }
+
+    }
+
+    InitEnv();
+}
+
 void Lawn::LawnApp::LoadPlayerInfo(const sgf::String& path)
 {
     mPlayerInfo.TryLoadFromFile(path);
