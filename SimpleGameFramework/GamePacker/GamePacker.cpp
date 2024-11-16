@@ -1,7 +1,7 @@
 #include "GamePacker.h"
 #include "../GameApp.h"
 
-std::vector<sgf::GamePacker> sgf::gPaks;
+std::vector<sgf::GamePacker*> sgf::gPaks;
 
 sgf::GamePacker::GamePacker()
 {
@@ -20,7 +20,9 @@ void sgf::GamePacker::ReadFromFile(const sgf::String& path)
 	mFileStream = new FileStream();
 	mFileStream->OpenFile(path.c_str());
 	mFileStream->Seek(FileStream::CURSOR_SET,0);
-	mFileStream->Read(this, offsetof(GamePacker, mFiles));
+
+	mFileStream->Read(
+		this, offsetof(GamePacker, mFiles));
 	
 	for (size_t i = 0; i < mOriginalFileTotalNumber; i++)
 	{
@@ -34,14 +36,16 @@ void sgf::GamePacker::ReadFromFile(const sgf::String& path)
 
 }
 
-void sgf::GamePacker::ReadFromFileIfExist(const sgf::String& path)
+bool sgf::GamePacker::ReadFromFileIfExist(const sgf::String& path)
 {
 	SDL_RWops* rwops = SDL_RWFromFile(path.c_str(),"r");
 	if (rwops)
 	{
 		SDL_RWclose(rwops);
 		ReadFromFile(path);
+		return true;
 	}
+	return false;
 }
 
 
@@ -165,10 +169,13 @@ void sgf::GamePacker::UpdateFileInfo()
 
 void sgf::FileManager::TryToLoadPak(const sgf::String& path)
 {
-	gPaks.push_back(GamePacker());
-	GamePacker& pkg = gPaks.back();
-	pkg.ReadFromFileIfExist(path);
-
+	GamePacker* pkg = new GamePacker();
+	if (pkg->ReadFromFileIfExist(path))
+		gPaks.push_back(pkg);
+	else {
+		delete pkg;
+		gGameApp->Log() << "Faild to load package at: " << path << std::endl;
+	}
 }
 
 //线程安全修复
@@ -181,7 +188,7 @@ sgf::FileStream* sgf::FileManager::TryToLoadFilePointer(const sgf::String& path)
 	sgf::FileStream* file = nullptr;
 	for (auto& x : gPaks)
 	{
-		file = x.TryToLoadFilePointer(path);
+		file = x->TryToLoadFilePointer(path);
 		if (file)
 		{
 			gLoadingMutex.unlock();
@@ -201,9 +208,9 @@ pugi::xml_document* sgf::FileManager::TryToLoadXMLFilePointer(const sgf::String&
 	sgf::FileStream* file = TryToLoadFilePointer(path);
 	pugi::xml_document* result = new pugi::xml_document();
 	if (error)
-		*error = result->load(file->ReadString(file->GetSize()).c_str());
+		*error = result->load_string(file->ReadString(file->GetSize()).c_str());
 	else
-		result->load(file->ReadString(file->GetSize()).c_str());
+		result->load_string(file->ReadString(file->GetSize()).c_str());
 	delete file;
 
 	return result;
@@ -214,9 +221,9 @@ pugi::xml_document sgf::FileManager::TryToLoadXMLFile(const sgf::String& path, p
 	sgf::FileStream* file = TryToLoadFilePointer(path);
 	pugi::xml_document result;
 	if (error)
-		*error = result.load(file->ReadString(file->GetSize()).c_str());
+		*error = result.load_string(file->ReadString(file->GetSize()).c_str());
 	else
-		result.load(file->ReadString(file->GetSize()).c_str());
+		result.load_string(file->ReadString(file->GetSize()).c_str());
 	delete file;
 
 	return result;

@@ -10,6 +10,7 @@
 #include <vector>
 #include <unordered_map>
 
+#pragma pack(4)
 namespace sgf {
 	struct PakInFile {
 		sgf::String mPath = "";
@@ -27,6 +28,7 @@ namespace sgf {
 		int mPackageSize = 0;//
 		int mOriginalFileTotalNumber;//总文件个数
 		int mOriginalFileTotalSize;//总文件大小
+
 		std::unordered_map<sgf::String, PakInFile> mFiles;
 		bool mIsReadingMode = false;
 		FileStream* mFileStream = nullptr;
@@ -34,11 +36,11 @@ namespace sgf {
 	public:
 		GamePacker();
 		~GamePacker();
-		
+
 		void UpdateFileInfo();
 
 		void ReadFromFile(const sgf::String& path);
-		void ReadFromFileIfExist(const sgf::String& path);
+		bool ReadFromFileIfExist(const sgf::String& path);
 		void WriteToFile(const sgf::String& path);
 		FileStream* TryToLoadFilePointer(const sgf::String& path);
 		void AppendNewFile(const sgf::String& path, void* pfile, int size);
@@ -51,7 +53,7 @@ namespace sgf {
 		void UpdateAllFilePointer();
 	};
 
-	extern std::vector<GamePacker> gPaks;
+	extern std::vector<GamePacker*> gPaks;
 
 	namespace FileManager {
 		void TryToLoadPak(const sgf::String& path);
