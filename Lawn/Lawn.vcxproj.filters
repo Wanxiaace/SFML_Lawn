@@ -96,6 +96,9 @@
     <ClCompile Include="BasicWidgets.cpp">
       <Filter>Board\src</Filter>
     </ClCompile>
+    <ClCompile Include="SeedChooseScreen.cpp">
+      <Filter>Lawn\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LawnApp.h">
@@ -168,6 +171,9 @@
       <Filter>Board\include</Filter>
     </ClInclude>
     <ClInclude Include="Board\ObjectArray.h">
+      <Filter>Board\include</Filter>
+    </ClInclude>
+    <ClInclude Include="SeedChooseScreen.h">
       <Filter>Board\include</Filter>
     </ClInclude>
   </ItemGroup>

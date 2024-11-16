@@ -92,16 +92,16 @@ void Lawn::Board::UpdateBoardBackground()
 
 void Lawn::Board::TryShowCutSceneBegin()
 {
-	//mSeedBank->mVisible = false;
+	mSeedBank->mVisible = false;
 	mCutSenceHolder.mTick.BindToCounter(&mTick);
 	mCutSenceHolder.SetSpeed(-300);
 	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250,CURVE_EASE_IN_OUT);
 	mCutSenceHolder.SetNextFunction([this]() {
-		mCutSenceHolder.SetSpeed(300);
+		/*mCutSenceHolder.SetSpeed(300);
 		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
 		mCutSenceHolder.SetNextFunction([this]() {
 			mStartSpawningZombie = true;
-			});
+			});*/
 		});
 }
 

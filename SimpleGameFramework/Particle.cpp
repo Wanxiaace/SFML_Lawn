@@ -55,7 +55,7 @@ sgf::Particle* sgf::Emitter::Emitt()
 	{
 		particle->mMotionType = PARTICLE_MOTION_THROW;
 		particle->Init();
-		particle->mHasShadowed = true;
+		particle->mHasShadowed = mUseShadowed;
 		particle->mCostingLifeTime = false;
 		particle->mMoving = true;
 		float angle = RandF(mAngleMin, mAngleMax);
@@ -168,7 +168,6 @@ void sgf::Emitter::LoadFromFile(const char* paxmlPath)
 		{
 			mEnergyLossRate = x.text().as_float();
 		}
-		//printf("%s\n",x.name());
 	}
 }
 
@@ -185,26 +184,18 @@ void sgf::Emitter::InitDefault()
 
 sgf::Particle::Particle()
 {
-	mX = 0; mY = 0; mZ = 0;
-	mEnergyLossRate = 0;
-	mMotionType = PARTICLE_MOTION_NORMAL;
-	mImageType = PARTICLE_IMAGE_NONE;
-	mImages = nullptr;
-	mGravity = 0;
-	mHasShadowed = false;
-	mLifeTimeMax = 0;
-	mLifeTime = 0;
-	mSpeedX = 0; mSpeedY = 0; mSpeedZ = 0;
-	mCostingLifeTime = true;
-	mMoving = true;
-	mVisible = true;
-	mTickCache = 0;
+}
+
+sgf::Particle::~Particle()
+{
+
 }
 
 void sgf::Particle::Init()
 {
 	mTickCache = TryGetTicks();
 	mLifeTime = mLifeTimeMax;
+
 	switch (mMotionType)
 	{
 	case sgf::PARTICLE_MOTION_NORMAL:
@@ -230,9 +221,6 @@ void sgf::Particle::Update()
 {
 	if (!mVisible)
 		return;
-	/*unsigned int tickNow = TryGetTicks();
-	float mTickDelta = float(tickNow - mTickCache);
-	mTickCache = tickNow;*/
 
 	mScaleF += mTransScaleF * mTickDelta / 1000.0f;
 
@@ -321,10 +309,6 @@ void sgf::Particle::TryToRenderImage(Graphics* g) const
 		break;
 	}
 	case sgf::PARTICLE_IMAGE_SINGLE:
-		/*g->SetCubeColor({ 1,0,0,0.5f });
-		g->MoveTo(mX + mImageOffsetX, mY + mZ + mImageOffsetY);
-		g->FillRect(mImages[0]->GetWidth(), mImages[0]->GetHeight());*/
-
 		g->SetCubeColor({ 1,1,1,1 });
 		g->MoveTo(mX + mImageOffsetX, mY + mZ + mImageOffsetY);
 		g->DrawImageMatrix(mImages[0],
@@ -332,14 +316,12 @@ void sgf::Particle::TryToRenderImage(Graphics* g) const
 				glm::scale(glm::mat4x4(1.0f),glm::vec3(mScaleF, mScaleF,1.0f)), 
 				mAngle, glm::vec3(0.0f, 0.0f, 1.0f)), mImages[0]->GetWidth() / 2.0f, mImages[0]->GetHeight() / 2.0f
 		);
-		
 		break;
 
 	case sgf::PARTICLE_IMAGE_GROUP_ANIMARION:
 		g->SetCubeColor({ 1,1,1,1 });
 		g->MoveTo(mX + mImageOffsetX * mScaleF, mY + mZ + mImageOffsetY * mScaleF);
 		g->DrawImageScaleF(mImages[mLifeTimeMax - mLifeTime], mScaleF, mScaleF);
-
 		break;
 	default:
 		break;

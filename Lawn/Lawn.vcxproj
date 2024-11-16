@@ -181,6 +181,7 @@
     <ClCompile Include="LoadingPage.cpp" />
     <ClCompile Include="LawnApp.cpp" />
     <ClCompile Include="Lawn.cpp" />
+    <ClCompile Include="SeedChooseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board\Board.h" />
@@ -207,6 +208,7 @@
     <ClInclude Include="LoadingPage.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="SeedChooseScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Lawn.rc" />

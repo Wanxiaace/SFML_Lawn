@@ -11,6 +11,7 @@ constexpr int LAWN_WIDGET_LOADING_PAGE_ID = 0;
 constexpr int LAWN_WIDGET_GAME_SELECTOR_ID = 1;
 constexpr int LAWN_WIDGET_BOARD = 2;
 constexpr int LAWN_WIDGET_PAUSE_DIALOG = 3;
+constexpr int LAWN_WIDGET_SEED_CHOOSE_SCREEN = 4;
 
 constexpr int LAWN_WIDGET_START_BUTTON = 50;
 constexpr int LAWN_WIDGET_CONFIG_BUTTON = 51;

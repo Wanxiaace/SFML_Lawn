@@ -24,10 +24,8 @@ namespace sgf {
 		EMITTER_NORMAL,//直接不动
 		EMITTER_THROW,//抛物线投掷
 		EMITTER_THROW_FAST,//直接减少lifetime的快速投掷
-		
 		//EMITTER_BOMB,//四散爆开（不规则）
 		//EMITTER_BOMB_PHYSIC,//四散爆开（不规则），物理掉落
-
 	};
 	class Graphics;
 
@@ -43,13 +41,13 @@ namespace sgf {
 		unsigned int mEachFrameStride = 100;
 
 		bool mCostingLifeTime = true;
-		bool mMoving = false;
-		bool mVisible = false;
+		bool mMoving = true;
+		bool mVisible = true;
 
 		unsigned int mTickCache = 0;
 		SimpleImage** mImages = nullptr;
-		ParticleMotionType mMotionType;
-		ParticleImageType mImageType;
+		ParticleMotionType mMotionType = PARTICLE_MOTION_NORMAL;
+		ParticleImageType mImageType = PARTICLE_IMAGE_NONE;
 		int mImageNumber = 1;
 		float mSpeedX = 0;
 		float mSpeedY = 0;
@@ -69,7 +67,7 @@ namespace sgf {
 
 	public:
 		Particle();
-		~Particle() {};
+		~Particle();
 
 		void Init();
 

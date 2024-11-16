@@ -7,7 +7,8 @@
 
 namespace sgf {
 
-	static double EaseInOutCurve(double t, double min, double max, double duration) {
+	template<typename T>
+	static T EaseInOutCurve(T t, T min, T max, T duration) {
 		t /= (duration / 2.0);
 		if (t < 1.0) {
 			return (max - min) / 2.0 * t * t * t + min;
@@ -15,6 +16,7 @@ namespace sgf {
 		t -= 2.0;
 		return (max - min) / 2.0 * (t * t * t + 2.0) + min;
 	}
+
 	enum CurveType {
 		CURVE_LINER,
 		CURVE_EASE_IN_OUT,
@@ -71,9 +73,9 @@ namespace sgf {
 			case sgf::CURVE_EASE_IN_OUT:
 			{
 				if (mSpeed >= 0)
-					mValue = EaseInOutCurve(mProcess, mRangeMin, mRangeMax, 1000);
+					mValue = EaseInOutCurve<T>(mProcess, mRangeMin, mRangeMax, 1000);
 				else
-					mValue = EaseInOutCurve(mProcess, mRangeMax, mRangeMin, -1000);
+					mValue = EaseInOutCurve<T>(mProcess, mRangeMax, mRangeMin, -1000);
 				break;
 			}
 			}
@@ -90,7 +92,6 @@ namespace sgf {
 						mIsBindNextFunc = false;
 						mNextFunc();
 					}
-						
 				}
 				else {
 					mProcess = tar;
