@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <fstream>
-
 #include "LawnApp.h"
 #include "Resources.h"
 #include "Constant.h"
@@ -41,4 +40,6 @@ int main(int argc,char** argv) {
 	gLawnApp->EnterMainLoop();
 	gLawnApp->LockUpdate();
 	delete gLawnApp;
+
+	return EXIT_SUCCESS;
 }

@@ -149,7 +149,7 @@ Lawn::Plant * Lawn::Board::SpawnPlantAt(int gridX, int gridY,SeedType seedType)
 	plant->mSeedType = seedType;
 	plant->mBoard = this;
 	plant->MoveTo(GridXtoPointX(gridX),GridYtoPointY(gridY));
-	plant->PlantInit();
+	plant->Init();
 	
 	mPlantVector.push_back(plant);
 

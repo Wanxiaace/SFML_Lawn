@@ -210,10 +210,6 @@ void sgf::Particle::Init()
 	case sgf::PARTICLE_MOTION_NORMAL:
 		break;
 	case sgf::PARTICLE_MOTION_THROW:
-		//mGravity = 0.1f;
-		//mLifeTimeMax = 3000;
-		//mEnergyLossRate = 0.3f;
-		//mRotateSpeed = 0.05f;
 		break;
 	default:
 		break;
@@ -223,7 +219,6 @@ void sgf::Particle::Init()
 	{
 	case PARTICLE_IMAGE_GROUP_RANDOM:
 		mImages = &mImages[Rand(0, mImageNumber)];
-		//mImageType = PARTICLE_IMAGE_SINGLE;
 		break;
 	default:
 		break;

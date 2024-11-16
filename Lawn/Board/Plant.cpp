@@ -13,7 +13,7 @@ Lawn::Plant::~Plant()
 {
 }
 
-void Lawn::Plant::PlantInit()
+void Lawn::Plant::Init()
 {
 	mHealth = 300;
 	mDamage = 20;

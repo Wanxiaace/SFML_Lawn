@@ -56,7 +56,7 @@ namespace Lawn {
         Plant();
         ~Plant();
 
-		void PlantInit();
+		void Init();
 		void Fire();
 		void Product();
         void AttachToBoard(Board* board) { mBoard = board; };
