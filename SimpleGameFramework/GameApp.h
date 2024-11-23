@@ -60,6 +60,7 @@ namespace sgf {
 		void UpdateMusicVolume();
 		void UpdateSoundVolume();
 		Graphics* LoadGraphics();
+		float GetMouseWheelY();
 
 	public:
 		virtual void DrawImgui();

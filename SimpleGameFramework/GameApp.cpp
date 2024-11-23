@@ -33,6 +33,11 @@ sgf::Graphics* sgf::GameApp::LoadGraphics()
 	return mGraphics;
 }
 
+float sgf::GameApp::GetMouseWheelY()
+{
+	return mMouseWheelY;
+}
+
 
 
 void sgf::GameApp::SafeDeleteWidget(Widget* target)
@@ -57,7 +62,7 @@ void sgf::GameApp::DrawImgui()
 
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("Debug Tools")) {
-			if(ImGui::Checkbox("Analyze Window", &mShowAnalyzeWindow));
+			ImGui::Checkbox("Analyze Window", &mShowAnalyzeWindow);
 			ImGui::EndMenu();
 		}
 		ImGui::Text("FPS: %d",mFPS);
@@ -161,6 +166,8 @@ void sgf::GameApp::Update()
 	GameAppBase::Update();
 	mWidgetManager->Update(this);
 
+	if (mMouseWheelY != 0)
+		mMouseWheelY = 0;
 
 	if (mDragAllowed) {
 		const unsigned char* keyStates = SDL_GetKeyboardState(NULL);
@@ -202,5 +209,10 @@ void sgf::GameApp::CopeEvent(SDL_Event& theEvent)
 	switch (theEvent.type) {
 	case SDL_EventType::SDL_WINDOWEVENT:
 		break;
+	case SDL_EventType::SDL_MOUSEWHEEL: {
+		mMouseWheelY = theEvent.wheel.preciseY;
+		//std::cout << mMouseWheelY << std::endl;
+		break;
+	}
 	}
 }

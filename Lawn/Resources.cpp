@@ -52,6 +52,7 @@ SimpleImage* RES_IMAGE::IMAGE_DIALOG_BOTTOMLEFT = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_DIALOG_BOTTOMMIDDLE = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_DIALOG_BOTTOMRIGHT = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_DIALOG_HEADER = nullptr;
+SimpleImage* RES_IMAGE::IMAGE_SEEDCHOOSER_BACKGROUND = nullptr;
 
 
 void LoadAllResourcesLink()
@@ -89,6 +90,7 @@ void LoadAllResourcesLink()
 	IMAGE_OPTIONS_BACKTOGAMEBUTTON0 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON0");
 	IMAGE_OPTIONS_BACKTOGAMEBUTTON2 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_OPTIONS_BACKTOGAMEBUTTON2");
 	IMAGE_OPTIONS_MENUBACK = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_OPTIONS_MENUBACK");
+	IMAGE_SEEDCHOOSER_BACKGROUND = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_SEEDCHOOSER_BACKGROUND");
 
 	IMAGE_BACKGROUND1 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BACKGROUND1");
 	IMAGE_BACKGROUND2 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BACKGROUND2");

@@ -89,6 +89,7 @@
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <StructMemberAlignment>Default</StructMemberAlignment>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,6 +113,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>MaxSpeed</Optimization>
       <StructMemberAlignment>Default</StructMemberAlignment>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,6 +133,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../SimpleGameFramework/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +152,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../SimpleGameFramework/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <StructMemberAlignment>Default</StructMemberAlignment>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -181,7 +185,7 @@
     <ClCompile Include="LoadingPage.cpp" />
     <ClCompile Include="LawnApp.cpp" />
     <ClCompile Include="Lawn.cpp" />
-    <ClCompile Include="SeedChooseScreen.cpp" />
+    <ClCompile Include="Board\SeedChooseScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board\Board.h" />
@@ -208,7 +212,7 @@
     <ClInclude Include="LoadingPage.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="res\resource.h" />
-    <ClInclude Include="SeedChooseScreen.h" />
+    <ClInclude Include="Board\SeedChooseScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\Lawn.rc" />

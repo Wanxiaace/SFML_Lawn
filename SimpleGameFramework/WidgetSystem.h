@@ -69,6 +69,7 @@ namespace sgf {
 
 		void MoveToCenter(int screenWidth, int screenHeight);
 		void MoveTo(int x, int y) { mRect.mX = x; mRect.mY = y; };
+		void Translate(int x, int y);
 		bool GetVisible();
 
 		void AppendChild(Widget* child);

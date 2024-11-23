@@ -80,7 +80,7 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 {
 	if (mIsChose)
 	{
-		g->SetCubeColor({ 0.7, 0.7, 0.7, 1 });
+		g->SetCubeColor({ 0.7f, 0.7f, 0.7f, 1.0f });
 		DrawSeedPack(mSeedType, g, mScaleF);
 	}
 	else

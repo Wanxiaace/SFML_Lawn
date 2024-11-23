@@ -13,7 +13,6 @@ sgf::FileStream::~FileStream()
 void sgf::FileStream::OpenFile(const sgf::String& path, const sgf::String& mode,bool throwError)
 {
 	mIStream = SDL_RWFromFile(path.c_str(), mode.c_str());
-	
 
 	if (mIStream)
 	{

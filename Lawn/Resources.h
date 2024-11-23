@@ -55,6 +55,7 @@ namespace RES_IMAGE {
 	extern SimpleImage* IMAGE_DIALOG_BOTTOMMIDDLE;
 	extern SimpleImage* IMAGE_DIALOG_BOTTOMRIGHT;
 	extern SimpleImage* IMAGE_DIALOG_HEADER;
+	extern SimpleImage* IMAGE_SEEDCHOOSER_BACKGROUND;
 };
 
 namespace RES_RAXML {

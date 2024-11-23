@@ -104,7 +104,7 @@ namespace sgf {
 		float mGravity = 0.1f;
 		float mImageScaleRangeF = 0;
 		float mRotateSpeed = 0;
-		float mEnergyLossRate = 0.3;
+		float mEnergyLossRate = 0.3f;
 		bool mUseFade = true;
 		bool mUseShadowed = false;
 

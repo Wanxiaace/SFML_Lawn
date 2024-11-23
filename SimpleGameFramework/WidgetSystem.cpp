@@ -52,7 +52,7 @@ void sgf::WidgetManager::Update(GameAppBase* app)
 	for (auto x = mWidgets.rbegin();x < mWidgets.rend();x++)
 	{
 		if ((*x)->GetVisible()) {
-			(*x)->mTick.Update();;
+			(*x)->mTick.Update();
 			
 			if(!isModelUsed)
 				(*x)->Update();
@@ -138,6 +138,12 @@ void sgf::Widget::MoveToCenter(int screenWidth, int screenHeight)
 {
 	mRect.mX = (screenWidth - mRect.mWidth) / 2;
 	mRect.mY = (screenHeight - mRect.mHeight) / 2;
+}
+
+void sgf::Widget::Translate(int x, int y)
+{
+	mRect.mX += x;
+	mRect.mY += y;
 }
 
 bool sgf::Widget::GetVisible()

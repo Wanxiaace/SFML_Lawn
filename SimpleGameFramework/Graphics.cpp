@@ -105,7 +105,7 @@ void sgf::Graphics::SetCubeColor(const sgf::Color& srcColor)
 
 void sgf::Graphics::AppendVertices(const Vertex* vertices, int vertexCount)
 {
-	for (size_t i = 0; i < vertexCount; i++)
+	for (int i = 0; i < vertexCount; i++)
 	{
 		mVerticesBuffer.push_back(vertices[i]);
 		

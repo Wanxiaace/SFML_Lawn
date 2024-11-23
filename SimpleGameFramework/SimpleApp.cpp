@@ -136,6 +136,8 @@ void sgf::GameAppBase::EnterMainLoop()
             }
             _FPS_Timer = sgf::TryGetTicks();
         }
+
+
     }
 }
 

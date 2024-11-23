@@ -179,16 +179,16 @@ namespace Lawn {
     };
 
     struct ZombieDefinition {
-        ZombieType mZombieType;
+        ZombieType mZombieType = ZOMBIE_INVALID;
         sgf::String mReanimationName;
         sgf::String mZombieName;
         sgf::String mZombieDescription;
-        float mSpeedMin;
-        float mSpeedMax;
-        int mPickWeight;
-        int mReanimOffsetX;
-        int mReanimOffsetY;
-        int mMinimumWave;//最低可出场波数
+        float mSpeedMin = 0;
+        float mSpeedMax = 0;
+        int mPickWeight = 1;
+        int mReanimOffsetX = 0;
+        int mReanimOffsetY = 0;
+        int mMinimumWave = 0;//最低可出场波数
     };
 
     enum SeedPackBackground {

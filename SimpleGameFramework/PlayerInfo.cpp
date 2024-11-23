@@ -68,7 +68,7 @@ void sgf::PlayerInfo::SaveAs(const sgf::String& dstPath)
 
 void sgf::PlayerInfo::Encode(unsigned char* src, int size)
 {
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		src[i] ^= 0xF7;
 	}
@@ -76,7 +76,7 @@ void sgf::PlayerInfo::Encode(unsigned char* src, int size)
 
 void sgf::PlayerInfo::Decode(unsigned char* src, int size)
 {
-	for (size_t i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		src[i] ^= 0xF7;
 	}

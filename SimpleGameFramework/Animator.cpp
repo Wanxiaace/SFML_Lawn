@@ -345,7 +345,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 	float OffsetY = 0;
 	float fScale = 1.0f;
 
-	for (int i = 0; i < targetReanim->mTracks->size(); i++) {
+	for (size_t i = 0; i < targetReanim->mTracks->size(); i++) {
 		auto& x = (targetReanim->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;

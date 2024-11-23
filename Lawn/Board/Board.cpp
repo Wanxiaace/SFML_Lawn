@@ -44,15 +44,8 @@ Lawn::Board::~Board()
 {
 	gLawnApp->mCursor->mIsOnBoard = false;
 	gLawnApp->mCursor->Reset();
-	/*
-	mWidgetManager->RemoveWidget(mMenuButton);
-	mWidgetManager->RemoveWidget(mSeedBank);
-	mWidgetManager->RemoveWidget(mDefeatReturnToMenuButton);
-	delete mMenuButton;
-	delete mSeedBank;
-	delete mDefeatReturnToMenuButton;
-	if (mZombieAnimator)
-		delete mZombieAnimator;*/
+	if (mSeedChooseScreen)
+		gLawnApp->SafeDeleteWidget(mSeedChooseScreen);
 
 	for (auto& x : mPlantVector)
 	{
@@ -97,6 +90,7 @@ void Lawn::Board::TryShowCutSceneBegin()
 	mCutSenceHolder.SetSpeed(-300);
 	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250,CURVE_EASE_IN_OUT);
 	mCutSenceHolder.SetNextFunction([this]() {
+		ShowSeedChooseScreen();
 		/*mCutSenceHolder.SetSpeed(300);
 		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
 		mCutSenceHolder.SetNextFunction([this]() {
@@ -284,7 +278,7 @@ void Lawn::Board::UpdateZombieWaves()
 	if (mNextWaveCounts != -1) {
 		if (mNextWaveCounts < mTick.GetDeltaTick())
 		{
-			if (mLevel.mZombieWaves.size() > mCurrentWaveIndex)
+			if (int(mLevel.mZombieWaves.size()) > mCurrentWaveIndex)
 			{
 				ZombieWave& currentZombieWave = mLevel.mZombieWaves[mCurrentWaveIndex];
 				mNextWaveCounts = currentZombieWave.mSleepTime;
@@ -294,7 +288,7 @@ void Lawn::Board::UpdateZombieWaves()
 					gLawnApp->mMusicManager.PlayChunk("CHUNK_HUGEWAVE");
 					mHugeCounter = 3000;
 				}
-				for (size_t i = 0; i < currentZombieWave.mZombieNum; i++)
+				for (int i = 0; i < currentZombieWave.mZombieNum; i++)
 				{
 					SpawnZombieAt(currentZombieWave.mZombies[i].mTargetColumn,
 						currentZombieWave.mZombies[i].mTargetRow, currentZombieWave.mZombies[i].mZombieType);
@@ -386,7 +380,7 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 	g->DrawImage(mLevelNameImage);
 
 	g->Translate(-2, -2);
-	g->SetCubeColor({ 0.96,0.97,0.73,1 });
+	g->SetCubeColor({ 0.96f,0.97f,0.73f,1.0f });
 	g->DrawImage(mLevelNameImage);
 
 	sgf::SimpleImage* processBarImage = RES_IMAGE::IMAGE_FLAGMETER;
@@ -408,7 +402,7 @@ void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
 
 	int hugeWaveNum = mLevel.mZombieWaves.size() / BOARD_WAVE_EACH_HUGE_EAVE;
 	float distanceEachFlag = processBarImage->GetWidth() * BOARD_WAVE_EACH_HUGE_EAVE / float(mLevel.mZombieWaves.size());
-	for (size_t i = 1; i <= hugeWaveNum; i++)
+	for (int i = 1; i <= hugeWaveNum; i++)
 	{
 		g->MoveTo((LAWN_GAME_WINDOW_WIDTH - processBarImage->GetWidth()) / 2 + i * distanceEachFlag - 25, 20);
 		if (mCurrentWaveIndex >= i * BOARD_WAVE_EACH_HUGE_EAVE)
@@ -424,6 +418,15 @@ void Lawn::Board::InitLawnMover()
 	SpawnLawnMoverAt(0,2,LAWN_MOVER_NORMAL);
 	SpawnLawnMoverAt(0,3,LAWN_MOVER_NORMAL);
 	SpawnLawnMoverAt(0,4,LAWN_MOVER_NORMAL);
+}
+
+void Lawn::Board::ShowSeedChooseScreen()
+{
+	if (!mSeedChooseScreen) {
+		mSeedChooseScreen = new SeedChooseScreen();
+		gLawnApp->SafeAppendWidget(mSeedChooseScreen);
+		mSeedChooseScreen->ShowScreen();
+	}
 }
 
 void Lawn::Board::Update()
@@ -446,7 +449,7 @@ void Lawn::Board::Update()
 		return;
 	}
 		
-	int length = mPlantVector.size();
+	size_t length = mPlantVector.size();
 	for (size_t i = 0; i < length; i++)
 	{
 		if (!mPlantVector[i]->mAvailable) {

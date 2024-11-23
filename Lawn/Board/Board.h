@@ -11,6 +11,7 @@
 #include "SeedPack.h"
 #include "../Constant.h"
 #include "EffectHolder.h"
+#include "SeedChooseScreen.h"
 
 
 namespace Lawn {
@@ -61,6 +62,7 @@ namespace Lawn {
 		LawnStoneButton* mMenuButton = nullptr;
 		LawnStoneButton* mDefeatReturnToMenuButton = nullptr;
 		SeedBank* mSeedBank = nullptr;
+		SeedChooseScreen* mSeedChooseScreen = nullptr;
 
 		sgf::ParticleManager mParticleManager;
 
@@ -134,6 +136,7 @@ namespace Lawn {
 
 		void DrawLevelInfo(sgf::Graphics* g);
 		void InitLawnMover();
+		void ShowSeedChooseScreen();
 
 	public:
 		virtual void Update() override;

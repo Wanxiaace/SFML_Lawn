@@ -59,12 +59,14 @@ SDL_Surface* sgf::SimpleImage::LoadFromFile(const char* path)
 	FileStream* surfaceFile = FileManager::TryToLoadFilePointer(path);
 	SDL_Surface* bufferSuface = 
 		IMG_Load_RW(surfaceFile->mIStream,0);
-	
+
 	if (!bufferSuface) {
 		gGameApp->Log() << "Failed to load Image At: " << path << std::endl;
 		SHOW_ERROR_ABORT_EXIT(("Failed to load Image At: " + sgf::String(path)).c_str());
 		return nullptr;
 	}
+
+	delete surfaceFile;
 
 	if (bufferSuface->format->format == SDL_PIXELFORMAT_ABGR8888) {
 		mSurface = bufferSuface;
@@ -75,8 +77,6 @@ SDL_Surface* sgf::SimpleImage::LoadFromFile(const char* path)
 		SDL_FreeSurface(bufferSuface);
 		return mSurface;
 	}
-
-	delete surfaceFile;
 }
 
 void sgf::SimpleImage::LoadFromSurface(SDL_Surface* src)

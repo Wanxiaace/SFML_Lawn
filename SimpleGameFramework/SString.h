@@ -1,7 +1,8 @@
-#ifndef __SGF_STRING__
-#define __SGF_STRING__
+#ifndef __SGF_STRING_H__
+#define __SGF_STRING_H__
 
 #include <string>
+
 
 namespace sgf {
     typedef std::string String;
@@ -21,7 +22,34 @@ namespace sgf {
         String StringGetCurrentPathWithoutExtension(const String& filename);
 
         bool IsCharInString(char cha,const String& str);
-	}
+
+        template<class T>
+        String StrParse(const T& src) { return std::to_string(src); };
+
+
+        template<class T>
+        static T StrAs(const String& src) { return T(); };
+
+        template<>
+        static int StrAs(const String& src) {
+            return std::atoi(src.c_str());
+        }
+
+        template<>
+        static float StrAs(const String& src) {
+            return std::atof(src.c_str());
+        }
+
+        template<>
+        static double StrAs(const String& src) {
+            return std::atof(src.c_str());
+        }
+
+        template<>
+        static long long StrAs(const String& src) {
+            return std::atoll(src.c_str());
+        }
+    }
 }
 
-#endif // !__SGF_STRING__
+#endif // !__SGF_STRING_H__

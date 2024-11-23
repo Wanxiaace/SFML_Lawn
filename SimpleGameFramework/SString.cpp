@@ -2,7 +2,7 @@
 
 sgf::String sgf::SString::StringtoUpper(const String& src)
 {
-    std::string result;
+    String result;
     for (char c : src) {
         result += std::toupper(c);
     }

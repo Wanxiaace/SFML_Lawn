@@ -28,6 +28,7 @@ namespace sgf {
 		int mMouseY = 0;
 		float mMouseXScale = 1.0f;
 		float mMouseYScale = 1.0f;
+		float mMouseWheelY = 0.0f;
 		TickCounter mTick;
 
 		unsigned int mDeltaFrameTime = 0;

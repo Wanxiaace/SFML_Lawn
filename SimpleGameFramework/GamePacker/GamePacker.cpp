@@ -24,7 +24,7 @@ void sgf::GamePacker::ReadFromFile(const sgf::String& path)
 	mFileStream->Read(
 		this, offsetof(GamePacker, mFiles));
 	
-	for (size_t i = 0; i < mOriginalFileTotalNumber; i++)
+	for (int i = 0; i < mOriginalFileTotalNumber; i++)
 	{
 		PakInFile file;
 		int pathSize = mFileStream->ReadInt();
