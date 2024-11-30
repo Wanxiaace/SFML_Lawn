@@ -11,9 +11,10 @@ Lawn::SeedChooseScreen::SeedChooseScreen()
 	Translate(0, 40);
 	Translate(0, 800);
 
-	for (int i = SEED_PEASHOOTER; i < NUM_SEED_TYPES; i++)
+	for (int i = SEED_PEASHOOTER; i < gLawnApp->GetPlayerUsableSeedsTotalNum(); i++)
 	{
-		AddSeedView((SeedType)i,false);
+		if(gLawnApp->IsPlayerSeedUsable((SeedType)i))
+			AddSeedView((SeedType)i,false);
 	}
 }
 
@@ -27,6 +28,7 @@ void Lawn::SeedChooseScreen::ShowScreen()
 	mHolder.SetSpeed(-500.0f);
 	mHolder.BindSpot(&mRect.mY, mRect.mY, mRect.mY - 800,CURVE_EASE_IN_OUT);
 	mHolder.Start();
+	mIsOnChoosing = true;
 }
 
 void Lawn::SeedChooseScreen::AddSeedView(SeedType type, bool autoAddToManager)
@@ -56,14 +58,26 @@ void Lawn::SeedChooseScreen::Draw(sgf::Graphics* g)
 	g->SetCubeColor({ 1,1,1,1 });
 	g->DrawImage(RES_IMAGE::IMAGE_SEEDCHOOSER_BACKGROUND);
 
+	g->SetCubeColor({ 1,1,1,1 });
+
 	int ctr = 0;
+	auto widgetRect = GetExactPosition();
+
 	for (auto& x :mSeeds)
 	{
+		g->SetCubeColor({ 1,1,1,1 });
 		g->MoveTo(-100, ctr * 55 - 5);
-		DrawSeedPack(x,g,1.0f);
+		
+		FloatRect seedRect = { widgetRect.first - 100,widgetRect.second + ctr * 55 - 5,100,55 };
+
+		bool isCover = seedRect.IsPointIn(gLawnApp->mMouseX, gLawnApp->mMouseY);
+		if(isCover)
+			g->SetCubeColor({ 0.5f,0.5f,0.5f,1.0f });
+		DrawSeedPack(x.mType, g, 1.0f);
 
 		ctr++;
 	}
+
 }
 
 void Lawn::SeedChooseScreen::Update()
@@ -75,7 +89,7 @@ void Lawn::SeedChooseScreen::Update()
 
 	mSeedViewOffsetY += mSeedViewOffsetYChangeSpeed * mTick.GetDeltaTickFloat() / 4.0f;
 	
-	float edgeYTop = (-55 - (NUM_SEED_TYPES / 4 + 1) * 55 + 300);
+	float edgeYTop = (-55 - (gLawnApp->GetPlayerUsableSeedsTotalNum() / 4 + 1) * 55 + 300);
 	float edgeYBottom = -55;
 	
 	if (mSeedViewOffsetY < edgeYTop)
@@ -97,7 +111,12 @@ void Lawn::SeedChooseScreen::Update()
 	for (auto& x : mSeedViewArray)
 	{
 		x->mRect.mY = x->mOriY + mSeedViewOffsetY;
+		if (x->mRect.mY < -20 || x->mRect.mY > 470)
+			x->mVisible = false;
+		else
+			x->mVisible = true;
 	}
+
 }
 
 void Lawn::SeedChooseScreen::OnClick(int widgetId)
@@ -107,6 +126,7 @@ void Lawn::SeedChooseScreen::OnClick(int widgetId)
 		SeedView* card = dynamic_cast<SeedView*>(widgetc);
 		card->ChooseSeed();
 	}
+
 }
 
 Lawn::SeedView::SeedView(SeedType type):
@@ -136,13 +156,15 @@ void Lawn::SeedView::ChooseSeed()
 	{
 		mScreen->mSeedsNumber -= 1;
 		mScreen->mSeeds.erase(
-			std::find(mScreen->mSeeds.begin(), mScreen->mSeeds.end(), mSeedType));
+			std::find_if(mScreen->mSeeds.begin(), mScreen->mSeeds.end(), 
+				[this](const SeedPair& pair)->bool { 
+					return pair.mViewPointer == this; }));
 		mIsChosen = false;
 	}
-	else if(mScreen->mSeedsNumber <= BOARD_SEED_BAND_SIZE_MAX)
+	else if(mScreen->mSeedsNumber < BOARD_SEED_BAND_SIZE_MAX)
 	{
 		mScreen->mSeedsNumber += 1;
-		mScreen->mSeeds.push_back(mSeedType);
+		mScreen->mSeeds.push_back({ mSeedType ,this });
 		mIsChosen = true;
 	}
 
@@ -162,7 +184,9 @@ void Lawn::SeedView::Draw(sgf::Graphics* g)
 
 	if(mIsChosen)
 		g->SetCubeColor({ 0.5f,0.5f,0.5f,1.0f });
+
 	DrawSeedPack(mSeedType,g,1.0f);
+
 
 	if (mScreen)
 	{
@@ -174,3 +198,4 @@ void Lawn::SeedView::Update()
 {
 
 }
+

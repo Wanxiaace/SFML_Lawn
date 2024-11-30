@@ -4,8 +4,9 @@
 
 #include <unordered_map>
 
+
 namespace Lawn {
-    enum SeedType
+    enum SeedType : int
     {
         SEED_PEASHOOTER = 0,
         SEED_SUNFLOWER = 1,
@@ -86,8 +87,8 @@ namespace Lawn {
         SEED_ZOMBIE_POGO = 76,
         SEED_ZOMBIE_DANCER = 77,
         SEED_ZOMBIE_GARGANTUAR = 78,
-        NUM_SEEDS_IN_CHOOSER = 49,
         SEED_NONE = -1
+
     };
 
     enum ZombieType

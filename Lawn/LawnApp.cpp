@@ -172,6 +172,16 @@ void Lawn::LawnApp::LoadPlayerInfo(const sgf::String& path)
     mPlayerInfo.TryLoadFromFile(path);
 }
 
+bool Lawn::LawnApp::IsPlayerSeedUsable(SeedType type)
+{
+    return true;
+}
+
+int Lawn::LawnApp::GetPlayerUsableSeedsTotalNum()
+{
+    return NUM_SEEDS_IN_CHOOSER;
+}
+
 
 void Lawn::LawnApp::CopeEvent(SDL_Event& _event)
 {

@@ -655,4 +655,36 @@ void Lawn::Board::OnClick(int theId)
 	default:
 		break;
 	}
+
+
+	if (mSeedChooseScreen) {
+		int ctr = 0;
+		auto widgetRect = mSeedChooseScreen->GetExactPosition();
+
+		SeedView* seedPair = nullptr;
+
+		for (auto& x : mSeedChooseScreen->mSeeds)
+		{
+			FloatRect seedRect = { widgetRect.first - 100,widgetRect.second + ctr * 55 - 5,100,55 };
+			bool isCover = seedRect.IsPointIn(gLawnApp->mMouseX, gLawnApp->mMouseY);
+			if (isCover)
+			{
+				seedPair = x.mViewPointer;
+				break;
+			}
+			ctr++;
+		}
+
+		if (seedPair)
+		{
+			auto pos = std::find_if(mSeedChooseScreen->mSeeds.begin(), mSeedChooseScreen->mSeeds.end(),
+				[seedPair](const SeedPair& pair)->bool {
+					return pair.mViewPointer == seedPair; });
+			pos->mViewPointer->mIsChosen = false;
+			mSeedChooseScreen->mSeedsNumber -= 1;
+			mSeedChooseScreen->mSeeds.erase(pos);
+		}
+		
+	}
+	
 }

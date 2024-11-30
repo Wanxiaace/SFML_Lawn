@@ -52,7 +52,8 @@ namespace Lawn {
 		void InitByManifest(const sgf::String& path);
 
 		void LoadPlayerInfo(const sgf::String& path);
-		
+		bool IsPlayerSeedUsable(SeedType type);
+		int GetPlayerUsableSeedsTotalNum();
 
 	public:
 		virtual void CopeEvent(SDL_Event& _event) override;

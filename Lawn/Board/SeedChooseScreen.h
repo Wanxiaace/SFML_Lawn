@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include "BoardEnums.h"
 #include "Common.h"
+#include <vector>
 
 namespace Lawn {
 	class SeedChooseScreen;
@@ -30,17 +31,22 @@ namespace Lawn {
 		virtual void Update() override;
 	};
 
+	struct SeedPair {
+		SeedType mType = SeedType::SEED_NONE;
+		SeedView* mViewPointer = nullptr;
+	};
+
 	class SeedChooseScreen :public sgf::Widget,sgf::WidgetListener {
 	public:
 		sgf::EffectHolderFloat mHolder;
 		std::vector<SeedView*> mSeedViewArray;
-		std::vector<SeedType> mSeeds;
+		std::vector<SeedPair> mSeeds;
 
 		int mSeedViewIndexCounter = 0;
 		int mSeedsNumber = 0;
 		float mSeedViewOffsetY = 0;
 		float mSeedViewOffsetYChangeSpeed = 0;
-
+		bool mIsOnChoosing = false;
 
 	public:
 		SeedChooseScreen();
