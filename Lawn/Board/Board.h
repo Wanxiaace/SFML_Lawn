@@ -55,13 +55,13 @@ namespace Lawn {
 		float mHugeWaveScale = 1.0f;
 	};
 
-	class Board : public sgf::Widget,sgf::WidgetListener {
+	class Board : public sgf::Widget,public sgf::WidgetListener {
 	public:
 		sgf::SimpleImage* mBackGroundImageCache;
 		BackGroundType mBackGroundType;
-		LawnStoneButton* mMenuButton = nullptr;
 		LawnStoneButton* mDefeatReturnToMenuButton = nullptr;
 		SeedBank* mSeedBank = nullptr;
+		sgf::Animator* mStartReadySetPlantAnim = nullptr;
 		SeedChooseScreen* mSeedChooseScreen = nullptr;
 
 		sgf::ParticleManager mParticleManager;
@@ -103,7 +103,9 @@ namespace Lawn {
 		unsigned int mPlantRandomSeed = 0;//随机数种子
 		unsigned int mZombieRandomSeed = 0;//随机数种子
 
-		sgf::EffectHolderFloat mCutSenceHolder;
+		sgf::EffectHolderFloat mCutSenceHolder{};
+		bool mShowCutscene = false;
+		bool mChooseCard = false;
 
 	public:
 		Board();
@@ -131,12 +133,17 @@ namespace Lawn {
 		void AutoSpawnZombieWaves(int waveMax=10);
 		void UpdateZombieWaves();
 		
-		void LoadZombieFromJson(const nlohmann::json& json);
-		void LoadZombieFromJsonFile(const char* path);
+		void LoadLevelFromJson(const nlohmann::json& json);
+		void LoadLevelFromJsonFile(const char* path);
 
 		void DrawLevelInfo(sgf::Graphics* g);
 		void InitLawnMover();
 		void ShowSeedChooseScreen();
+		void EndCutsence();
+		void EndReady();
+		void FadeInBackgroundMuisc();
+		bool GetIsShowingCutscene() const;
+		bool GetWillChooseCard() const;
 
 	public:
 		virtual void Update() override;

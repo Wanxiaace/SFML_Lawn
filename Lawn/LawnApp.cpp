@@ -75,8 +75,19 @@ void Lawn::LawnApp::EnterGameBoard()
     if (!mBoard) {
         MakeNewBoard();
         SafeAppendWidget(mBoard);
+
+        if (!mBoardMenuButton)
+        {
+            mBoardMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_PAUSE);
+            mBoardMenuButton->LoadLabel(_LS("Menu"));
+            mBoardMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
+            SafeAppendWidget(mBoardMenuButton);
+            mBoardMenuButton->mVisible = true;
+            mBoardMenuButton->AttachToListener(mBoard);
+        }
     }
 }
+
 
 void Lawn::LawnApp::MakeNewBoard()
 {
@@ -87,7 +98,9 @@ void Lawn::LawnApp::KillBoard()
 {
     if (mBoard) {
         SafeDeleteWidget(mBoard);
+        SafeDeleteWidget(mBoardMenuButton);
         mBoard = nullptr;
+        mBoardMenuButton = nullptr;
     }
 }
 
@@ -179,7 +192,7 @@ bool Lawn::LawnApp::IsPlayerSeedUsable(SeedType type)
 
 int Lawn::LawnApp::GetPlayerUsableSeedsTotalNum()
 {
-    return NUM_SEEDS_IN_CHOOSER;
+    return 2;//NUM_SEEDS_IN_CHOOSER
 }
 
 

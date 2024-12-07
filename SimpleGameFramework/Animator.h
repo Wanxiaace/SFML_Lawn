@@ -52,7 +52,7 @@ namespace sgf {
 		Animator(Reanimation* reanim);
 		~Animator() {};
 
-		void Play(const PlayState& state = PLAY_REPEAT);
+		void Play(PlayState state = PLAY_REPEAT);
 		void Init(Reanimation* reanim);
 		void Pause();
 

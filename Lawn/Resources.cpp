@@ -11,6 +11,7 @@ using namespace RES_RAXML;
 Reanimation* RES_RAXML::RAXML_ZOMBIESWON = nullptr;
 Reanimation* RES_RAXML::RAXML_LAWNMOWER = nullptr;
 Reanimation* RES_RAXML::RAXML_SUN = nullptr;
+Reanimation* RES_RAXML::RAXML_STARTREADYSETPLANT = nullptr;
 
 using namespace RES_PAXML;
 Emitter* RES_PAXML::PAXML_PEAPARTICLETHROW = nullptr;
@@ -65,6 +66,7 @@ void LoadAllResourcesLink()
 	RAXML_ZOMBIESWON = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_ZOMBIESWON");
 	RAXML_LAWNMOWER = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_LAWNMOWER");
 	RAXML_SUN = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_SUN");
+	RAXML_STARTREADYSETPLANT = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_STARTREADYSETPLANT");
 
 	PAXML_PEAPARTICLETHROW = gLawnApp->mResourceManager.GetResourceFast<Emitter>("PAXML_PEAPARTICLETHROW");
 	PAXML_PEASPLATS = gLawnApp->mResourceManager.GetResourceFast<Emitter>("PAXML_PEASPLATS");

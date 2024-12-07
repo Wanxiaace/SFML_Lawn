@@ -10,7 +10,7 @@ sgf::Animator::Animator(sgf::Reanimation* reanim)
 	Init(reanim);
 }
 
-void sgf::Animator::Play(const PlayState& state)
+void sgf::Animator::Play(PlayState state)
 {
 	mPlayingState = state;
 	mIsPlaying = true;
@@ -27,6 +27,8 @@ void sgf::Animator::Init(Reanimation* reanim)
 		mTrackIndicesMap[x.mTrackName] = mExtraInfos.size();
 		mExtraInfos.push_back({});
 	}
+
+	mFrameIndexEnd = reanim->mTracks->at(0).mFrames.size() - 1;
 }
 
 void sgf::Animator::Pause()

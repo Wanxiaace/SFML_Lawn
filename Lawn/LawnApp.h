@@ -23,6 +23,7 @@ namespace Lawn {
 		GameSelector* mGameSelector = nullptr;
 		PauseDialog* mPauseDialog = nullptr;
 		SettingDialog* mSettingDialog = nullptr;
+		LawnStoneButton* mBoardMenuButton = nullptr;
 		Board* mBoard = nullptr;
 		LawnCursor* mCursor;
 		LawnPlayerInfo mPlayerInfo;

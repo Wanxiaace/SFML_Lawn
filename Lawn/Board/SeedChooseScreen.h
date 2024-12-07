@@ -2,6 +2,7 @@
 #define __LAWN_SEED_CHOOSE_SCREEN__
 
 #include "WidgetSystem.h"
+#include "../BasicWidgets.h"
 #include "EffectHolder.h"
 #include "Graphics.h"
 #include "BoardEnums.h"
@@ -41,9 +42,11 @@ namespace Lawn {
 
 	class SeedChooseScreen :public sgf::Widget,sgf::WidgetListener {
 	public:
-		sgf::EffectHolderFloat mHolder;
+		sgf::EffectHolderFloat mHolder{};
+		LawnStoneButton* mStartButton = nullptr;
 		std::vector<SeedView*> mSeedViewArray;
 		std::vector<SeedPair> mSeeds;
+
 
 		int mSeedViewIndexCounter = 0;
 		int mSeedsNumber = 0;
@@ -56,6 +59,7 @@ namespace Lawn {
 		~SeedChooseScreen();
 
 		void ShowScreen();
+		void QuitScreen();
 		void AddSeedView(SeedType type,bool autoAddToManager);
 
 	public:

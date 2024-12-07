@@ -16,6 +16,12 @@ Lawn::SeedChooseScreen::SeedChooseScreen()
 		if(gLawnApp->IsPlayerSeedUsable((SeedType)i))
 			AddSeedView((SeedType)i,false);
 	}
+
+	mStartButton = new LawnStoneButton(LAWN_WIDGET_START_GAME_BUTTON);
+	mStartButton->Resize(165, 455, 165, 50);
+	mStartButton->LoadLabel(_LS("LetsRock"));
+	mStartButton->AttachToListener(this);
+	AppendChild(mStartButton);
 }
 
 Lawn::SeedChooseScreen::~SeedChooseScreen()
@@ -28,7 +34,33 @@ void Lawn::SeedChooseScreen::ShowScreen()
 	mHolder.SetSpeed(-500.0f);
 	mHolder.BindSpot(&mRect.mY, mRect.mY, mRect.mY - 800,CURVE_EASE_IN_OUT);
 	mHolder.Start();
+	gLawnApp->mMusicManager.PlayChunk("CHUNK_ROLL_IN");
 	mIsOnChoosing = true;
+}
+
+void Lawn::SeedChooseScreen::QuitScreen()
+{
+	mIsOnChoosing = false;
+	mHolder.SetSpeed(500.0f);
+	mHolder.BindSpot(&mRect.mY, mRect.mY + 800, mRect.mY, CURVE_EASE_IN_OUT);
+	mHolder.Start();
+
+	gLawnApp->mBoard->mSeedBank->ClearSeedPack();
+	for (auto& x : mSeeds)
+	{
+		gLawnApp->mBoard->mSeedBank->AppendSeedPack(x.mType);
+	}
+	
+
+	mHolder.SetNextFunction([] {
+		gLawnApp->mBoard->mCutSenceHolder.SetSpeed(300);
+		gLawnApp->mBoard->mCutSenceHolder.BindSpot(
+			&gLawnApp->mBoard->mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
+		gLawnApp->mBoard->mSeedBank->mVisible = true;
+		gLawnApp->mBoard->mCutSenceHolder.SetNextFunction([] {
+			gLawnApp->mBoard->EndCutsence();
+			});
+		});
 }
 
 void Lawn::SeedChooseScreen::AddSeedView(SeedType type, bool autoAddToManager)
@@ -124,12 +156,21 @@ void Lawn::SeedChooseScreen::Update()
 
 void Lawn::SeedChooseScreen::OnClick(int widgetId)
 {
+	switch (widgetId)
+	{
+	case LAWN_WIDGET_START_GAME_BUTTON:
+	{
+		QuitScreen();
+		break;
+	}
+	}
+
 	if ((widgetId - 0x10000) >= 0 && (widgetId - 0x10000) < 500) {
 		auto widgetc = mWidgetManager->mWidgetMap[widgetId];
 		SeedView* card = dynamic_cast<SeedView*>(widgetc);
 		card->ChooseSeed();
 		card->Bounce();
-
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_TAP2");
 	}
 
 }
@@ -138,10 +179,6 @@ Lawn::SeedView::SeedView(SeedType type):
 	Widget(int(type + 0x10000))
 {
 	mSeedType = type;
-
-	mBounceHolder.BindSpot(&mBounceScale, 1.0f, 0.8f);
-	mBounceHolder.SetSpeed(5);
-
 }
 
 Lawn::SeedView::~SeedView()
@@ -181,6 +218,9 @@ void Lawn::SeedView::ChooseSeed()
 
 void Lawn::SeedView::Bounce()
 {
+	mBounceScale = 0.8f;
+	mBounceHolder.SetSpeed(5);
+	mBounceHolder.BindSpot(&mBounceScale, 1.0f, 0.8f);
 	mBounceHolder.Start();
 }
 

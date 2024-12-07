@@ -18,7 +18,7 @@ void Lawn::SceneObejct::Init()
 	{
 	case Lawn::SCENE_OBJECT_SUN:
 		mReanim = new Animator(RES_RAXML::RAXML_SUN);
-		mReanim->mFrameIndexEnd = RES_RAXML::RAXML_SUN->mTracks->at(0).mFrames.size();
+		//mReanim->mFrameIndexEnd = RES_RAXML::RAXML_SUN->mTracks->at(0).mFrames.size();
 		//mReanim->mSpeed = 0.7f;
 		mReanim->Play();
 		break;

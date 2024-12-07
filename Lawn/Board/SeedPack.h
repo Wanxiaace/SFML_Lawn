@@ -51,7 +51,7 @@ namespace Lawn {
 		~SeedBank();
 
 		void AppendSeedPack(SeedType type);
-		void ClearSeedPack(SeedType type);
+		void ClearSeedPack();
 		void ClickOn();
 
 		SeedPack& operator [](int index);

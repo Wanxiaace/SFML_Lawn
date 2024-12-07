@@ -12,12 +12,6 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	UpdateBoardBackground();
 	Resize(0, 0, LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT);
 
-	mMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_PAUSE);
-	//std::cout << _LS("Menu") << std::endl;
-	mMenuButton->LoadLabel(_LS("Menu"));
-	mMenuButton->Resize(LAWN_GAME_WINDOW_WIDTH - 130, 0, 120, 50);
-	mMenuButton->AttachToListener(this);
-
 	mDefeatReturnToMenuButton = new LawnStoneButton(LAWN_WIDGET_BUTTON_RETURN_TO_MENU);
 	mDefeatReturnToMenuButton->LoadLabel(_LS("ReturnToMenu"));
 	mDefeatReturnToMenuButton->Resize((LAWN_GAME_WINDOW_WIDTH - 210)/2, 500, 210, 50);
@@ -27,7 +21,6 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	mSeedBank = new SeedBank(this);
 	mSeedBank->AttachToListener(this);
 
-	AppendChild(mMenuButton);
 	AppendChild(mSeedBank);
 	AppendChild(mDefeatReturnToMenuButton);
 	AttachToListener(this);
@@ -36,7 +29,7 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	mNextWaveCounts = 1000;
 	//mStartSpawningZombie = false;
 
-	LoadZombieFromJsonFile("level0.json");
+	LoadLevelFromJsonFile("level0.json");
 	InitLawnMover();
 }
 
@@ -55,6 +48,9 @@ Lawn::Board::~Board()
 	{
 		delete x;
 	}
+
+	if (mStartReadySetPlantAnim)
+		delete mStartReadySetPlantAnim;
 }
 
 void Lawn::Board::UpdateBoardBackground()
@@ -79,8 +75,7 @@ void Lawn::Board::UpdateBoardBackground()
 		break;
 	}
 	mBackgroundScaleF = float(LAWN_GAME_WINDOW_HEIGHT) / mBackGroundImageCache->mSurface->h;
-	gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)",5000);
-
+	
 }
 
 void Lawn::Board::TryShowCutSceneBegin()
@@ -89,13 +84,18 @@ void Lawn::Board::TryShowCutSceneBegin()
 	mCutSenceHolder.mTick.BindToCounter(&mTick);
 	mCutSenceHolder.SetSpeed(-300);
 	mCutSenceHolder.BindSpot(&mRect.mX, 0,-250,CURVE_EASE_IN_OUT);
+
 	mCutSenceHolder.SetNextFunction([this]() {
-		ShowSeedChooseScreen();
-		/*mCutSenceHolder.SetSpeed(300);
-		mCutSenceHolder.BindSpot(&mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
-		mCutSenceHolder.SetNextFunction([this]() {
-			mStartSpawningZombie = true;
-			});*/
+		if(GetWillChooseCard())
+			ShowSeedChooseScreen();
+		else {
+			gLawnApp->mBoard->mSeedBank->mVisible = true;
+			mCutSenceHolder.SetSpeed(300);
+			mCutSenceHolder.BindSpot(&mRect.mX, 0, -250, CURVE_EASE_IN_OUT);
+			mCutSenceHolder.SetNextFunction([this]() {
+				EndCutsence();
+				});
+		}
 		});
 }
 
@@ -219,7 +219,6 @@ void Lawn::Board::ZombieWin(Zombie* target)
 	mBlackScreenCounter = 2000;
 	mIsBoardRunning = false;
 	mSeedBank->mVisible = false;
-	mMenuButton->mVisible = false;
 	mDefeatReturnToMenuButton->mVisible = true;
 	gLawnApp->mMusicManager.FadeOutMusic(2000);
 	gLawnApp->mMusicManager.PlayChunk("CHUNK_LOSEMUSIC");
@@ -318,12 +317,14 @@ std::unordered_map<sgf::String, Lawn::SeedType> gPlantStringMap = {
 	{"SEED_SUNFLOWER",Lawn::SEED_SUNFLOWER},
 };
 
-void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
+void Lawn::Board::LoadLevelFromJson(const nlohmann::json& json)
 {
+	mShowCutscene = (bool(json["AllowSeedChoose"]) || bool(json["AllowCutScene"]));
+	mChooseCard = bool(json["AllowSeedChoose"]);
 	mLevel.mLevelName = json["LevelName"];
 	mLevel.mWavesNum = json["WavesNumber"];
 	mLevel.mHugeWaveScale = json["HugeWaveScale"];
-	mStartSpawningZombie = !(bool(json["AllowSeedChoose"]) || bool(json["AllowCutScene"]));
+	mStartSpawningZombie = !GetIsShowingCutscene();
 
 	nlohmann::json autoLoadZombieArray = json["AutoLoadZombie"];
 	nlohmann::json autoLoadCardArray = json["AutoLoadCard"];
@@ -352,8 +353,14 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 		//std::cout << x["Type"] << " " << row << " " << column << std::endl;
 	}
 
-	if(!mStartSpawningZombie)
+	if (!mStartSpawningZombie)
+	{
+		gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(6)", 5000);
 		TryShowCutSceneBegin();
+	}
+	else {
+		gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(13)", 5000);
+	}
 }
 
 #include <fstream>
@@ -361,10 +368,11 @@ void Lawn::Board::LoadZombieFromJson(const nlohmann::json& json)
 #include "../Resources.h"
 #include "GamePacker/GamePacker.h"
 
-void Lawn::Board::LoadZombieFromJsonFile(const char* path)
+void Lawn::Board::LoadLevelFromJsonFile(const char* path)
 {
 	nlohmann::json result = FileManager::TryToLoadJsonFile(path);
-	LoadZombieFromJson(result);
+	LoadLevelFromJson(result);
+	
 }
 
 void Lawn::Board::DrawLevelInfo(sgf::Graphics* g)
@@ -429,6 +437,43 @@ void Lawn::Board::ShowSeedChooseScreen()
 	}
 }
 
+void Lawn::Board::EndCutsence()
+{
+	//mStartSpawningZombie = true;
+	mSeedBank->mVisible = true;
+	mStartReadySetPlantAnim = new sgf::Animator(RES_RAXML::RAXML_STARTREADYSETPLANT);
+	mStartReadySetPlantAnim->mSpeed = 1.0f;
+	mStartReadySetPlantAnim->Play(sgf::Animator::PlayState::PLAY_ONCE);
+	gLawnApp->mMusicManager.PlayChunk("CHUNK_READYSETPLANT");
+}
+
+void Lawn::Board::EndReady()
+{
+	mStartSpawningZombie = true;
+	gLawnApp->mMusicManager.FadeOutMusic(2000);
+	FadeInBackgroundMuisc();
+}
+
+void Lawn::Board::FadeInBackgroundMuisc()
+{
+	switch (mBackGroundType)
+	{
+	case Lawn::BACKGROUND_FRONT_YARD_DAY:
+		gLawnApp->mMusicManager.FadeInMusic("MUSIC_LAWNBGM(1)", 5000);
+		break;
+	}
+}
+
+bool Lawn::Board::GetIsShowingCutscene() const
+{
+	return mShowCutscene;
+}
+
+bool Lawn::Board::GetWillChooseCard() const
+{
+	return mChooseCard;
+}
+
 void Lawn::Board::Update()
 {
 	mCutSenceHolder.Update();
@@ -442,13 +487,22 @@ void Lawn::Board::Update()
 	else
 		mHugeCounter = 0;
 
+	if (mStartReadySetPlantAnim) {
+		mStartReadySetPlantAnim->Update();
+		if (!mStartReadySetPlantAnim->mIsPlaying) {
+			delete mStartReadySetPlantAnim;
+			mStartReadySetPlantAnim = nullptr;
+			EndReady();
+		}
+	}
+
 	if (!mIsBoardRunning) {
 		mWinZombie->Update();
 		if(mBlackScreenCounter <= 0)
 			mZombieAnimator->Update();
 		return;
 	}
-		
+
 	size_t length = mPlantVector.size();
 	for (size_t i = 0; i < length; i++)
 	{
@@ -632,6 +686,16 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 		g->SetCubeColor({ 1,0,0,1 });
 		g->DrawImageMatrix(mHugeTitleImage, bigTitleMatrix, mHugeTitleImage->GetWidth() / 2, mHugeTitleImage->GetHeight() / 2);
 	}
+
+	if (mStartReadySetPlantAnim)
+	{
+		g->ModelMoveTo(
+			(LAWN_GAME_WINDOW_WIDTH - 200.0f) / 2.0f,
+			(LAWN_GAME_WINDOW_HEIGHT - 100.0f) / 2.0f);
+		g->MoveTo(0, 0);
+		mStartReadySetPlantAnim->Present(g);
+	}
+
 }
 
 void Lawn::Board::OnClick(int theId)

@@ -62,6 +62,7 @@ namespace RES_RAXML {
 	extern Reanimation* RAXML_ZOMBIESWON;
 	extern Reanimation* RAXML_LAWNMOWER;
 	extern Reanimation* RAXML_SUN;
+	extern Reanimation* RAXML_STARTREADYSETPLANT;
 };
 
 namespace RES_PAXML {

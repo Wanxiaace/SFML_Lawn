@@ -17,6 +17,7 @@ constexpr int LAWN_WIDGET_START_BUTTON = 50;
 constexpr int LAWN_WIDGET_CONFIG_BUTTON = 51;
 constexpr int LAWN_WIDGET_EXIT_BUTTON = 52;
 constexpr int LAWN_WIDGET_STONE_TEST_BUTTON = 53;
+constexpr int LAWN_WIDGET_START_GAME_BUTTON = 54;
 
 constexpr int LAWN_WIDGET_BUTTON_OK = 500;
 constexpr int LAWN_WIDGET_BUTTON_CANCEL = 501;

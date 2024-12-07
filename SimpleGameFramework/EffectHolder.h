@@ -44,6 +44,7 @@ namespace sgf {
 		EffectHolder() {};
 		~EffectHolder() {};
 
+		/// @brief After calling SetSpeed(),Bind a var to apply
 		void BindSpot(T* spot, T max, T min,CurveType type = CURVE_LINER) {
 			mType = type;
 			mSpot = spot; mRangeMax = max; mRangeMin = min;
@@ -120,6 +121,7 @@ namespace sgf {
 	};
 
 	using EffectHolderFloat = EffectHolder<float>;
+	using EffectHolderDouble = EffectHolder<double>;
 	using EffectHolderInt = EffectHolder<int>;
 }
 

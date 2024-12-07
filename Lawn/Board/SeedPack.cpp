@@ -24,7 +24,7 @@ void Lawn::DrawSeedBackgound(SeedPackBackground type, sgf::Graphics* g, float sc
 	switch (type)
 	{
 	case Lawn::SEEDPACK_NORMAL:
-		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_SEEDPACKETS, 1, 5, 0, 2,scaleF,scaleF);
+		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_SEEDPACKETS, 1, 5, 0, 3,scaleF,scaleF);
 		break;
 	case SEEDPACK_NONE:
 		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_SEEDPACKETS, 1, 5, 0, 1, scaleF, scaleF);
@@ -169,7 +169,7 @@ void Lawn::SeedBank::AppendSeedPack(SeedType type)
 	mSeedPacks.push_back(pack);
 }
 
-void Lawn::SeedBank::ClearSeedPack(SeedType type)
+void Lawn::SeedBank::ClearSeedPack()
 {
 	mSeedPacks.clear();
 }

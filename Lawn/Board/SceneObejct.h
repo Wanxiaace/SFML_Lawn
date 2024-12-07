@@ -17,7 +17,7 @@ namespace Lawn {
 	class SceneObejct: public GameObject
 	{
 	public:
-		SceneObjectType mType;
+		SceneObjectType mType = SCENE_OBJECT_SUN;
 		bool mAvailable = true;
 		Board* mBoard = nullptr;
 		MotionType mMotionType = MOTION_NORMAL;
