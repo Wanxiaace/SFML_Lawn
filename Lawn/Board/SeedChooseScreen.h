@@ -15,7 +15,9 @@ namespace Lawn {
 	public:
 		SeedType mSeedType = SEED_NONE;
 		SeedChooseScreen* mScreen = nullptr;
+		sgf::EffectHolderFloat mBounceHolder{};
 		float mOriY = 0;
+		float mBounceScale = 1.0f;
 		bool mIsChosen = false;
 
 	public:
@@ -25,6 +27,7 @@ namespace Lawn {
 		void SetOriginY(float y);
 		void BindScreen(SeedChooseScreen* ptr);
 		void ChooseSeed();
+		void Bounce();
 
 	public:
 		virtual void Draw(sgf::Graphics* g) override;

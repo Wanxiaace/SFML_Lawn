@@ -312,7 +312,7 @@ void sgf::Animator::Present(Graphics* g)
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetY);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetY);
 				
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);
@@ -320,7 +320,7 @@ void sgf::Animator::Present(Graphics* g)
 			}
 			else{
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetY);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetY);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -329,7 +329,7 @@ void sgf::Animator::Present(Graphics* g)
 		else {
 			if (mExtraInfos[i].mAttachedReanim) {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -382,7 +382,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 				Point graPos = g->GetGraphicsTransformPosition();
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetX);
 
 				animMatrix = mat * animMatrix;
 				animMatrix = glm::translate(animMatrix, glm::vec3(0.0f, 0.0f, -1.0f));
@@ -393,7 +393,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 			}
 			else {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);
@@ -402,7 +402,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 		else {
 			if (mExtraInfos[i].mAttachedReanim) {
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
-				TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, OffsetX, OffsetX);
+				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetX);
 				if (mExtraInfos[i].mAttachedReanimMatrix)
 					animMatrix *= (*mExtraInfos[i].mAttachedReanimMatrix);
 				mExtraInfos[i].mAttachedReanim->PresentMatrix(g, animMatrix);

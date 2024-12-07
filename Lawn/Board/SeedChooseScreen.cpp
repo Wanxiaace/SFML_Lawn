@@ -115,7 +115,10 @@ void Lawn::SeedChooseScreen::Update()
 			x->mVisible = false;
 		else
 			x->mVisible = true;
+
+		x->Update();
 	}
+
 
 }
 
@@ -125,6 +128,8 @@ void Lawn::SeedChooseScreen::OnClick(int widgetId)
 		auto widgetc = mWidgetManager->mWidgetMap[widgetId];
 		SeedView* card = dynamic_cast<SeedView*>(widgetc);
 		card->ChooseSeed();
+		card->Bounce();
+
 	}
 
 }
@@ -133,6 +138,10 @@ Lawn::SeedView::SeedView(SeedType type):
 	Widget(int(type + 0x10000))
 {
 	mSeedType = type;
+
+	mBounceHolder.BindSpot(&mBounceScale, 1.0f, 0.8f);
+	mBounceHolder.SetSpeed(5);
+
 }
 
 Lawn::SeedView::~SeedView()
@@ -152,6 +161,7 @@ void Lawn::SeedView::BindScreen(SeedChooseScreen* ptr)
 
 void Lawn::SeedView::ChooseSeed()
 {
+
 	if (mIsChosen)
 	{
 		mScreen->mSeedsNumber -= 1;
@@ -167,7 +177,11 @@ void Lawn::SeedView::ChooseSeed()
 		mScreen->mSeeds.push_back({ mSeedType ,this });
 		mIsChosen = true;
 	}
+}
 
+void Lawn::SeedView::Bounce()
+{
+	mBounceHolder.Start();
 }
 
 void Lawn::SeedView::Draw(sgf::Graphics* g)
@@ -175,7 +189,10 @@ void Lawn::SeedView::Draw(sgf::Graphics* g)
 	g->ModelMoveTo(mRect.mX, mRect.mY - 35);
 	if (mScreen) {
 		std::pair<int,int> p = mScreen->GetExactPosition();
-		g->SetClipRect({ (float)p.first,(float)p.second + 35,600,422 });
+		g->SetClipRect({ (float)p.first,
+			(float)(p.second + 35.0f),
+			600.0f,
+			422.0f });
 	}
 	if(mIsMouseHover)
 		g->SetCubeColor({ 0.7f,0.7f,0.7f,1.0f });
@@ -185,7 +202,9 @@ void Lawn::SeedView::Draw(sgf::Graphics* g)
 	if(mIsChosen)
 		g->SetCubeColor({ 0.5f,0.5f,0.5f,1.0f });
 
-	DrawSeedPack(mSeedType,g,1.0f);
+	g->Translate(-100.0f * (mBounceScale - 1.0f) / 2.0f,
+		-55.0f * (mBounceScale - 1.0f) / 2.0f);
+	DrawSeedPack(mSeedType,g,1.0f * mBounceScale);
 
 
 	if (mScreen)
@@ -196,6 +215,6 @@ void Lawn::SeedView::Draw(sgf::Graphics* g)
 
 void Lawn::SeedView::Update()
 {
-
+	mBounceHolder.Update();
 }
 

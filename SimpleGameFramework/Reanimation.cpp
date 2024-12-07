@@ -103,7 +103,7 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 		if (aSource.i != "" && !aSource.f) {
 			static glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
 			Point graPos = g->GetGraphicsTransformPosition();
-			TransformToMatrixEx(aSource, &animMatrix, fScale, fScale, graPos.x, graPos.y);
+			TransformToMatrixEx(aSource, animMatrix, fScale, fScale, graPos.x, graPos.y);
 
 			SimpleImage* targetImage = (SimpleImage*)mResourceManager->mResourcePool[aSource.i];
 			if (targetImage) {
@@ -143,12 +143,27 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 }
 
 void sgf::TransformToMatrixEx(
-	sgf::TrackFrameTransform& src, glm::mat4x4* dest, float ScaleX, float ScaleY, float pX, float pY)
+	sgf::TrackFrameTransform& src, glm::mat4x4& dest, float ScaleX, float ScaleY, float pX, float pY)
 {
 	float aSkewX = (src.kx) * -0.017453292f;
 	float aSkewY = (src.ky) * -0.017453292f;
 
-	sgf::GameMat44* destg = (sgf::GameMat44*)dest;
+	/*
+	struct GameMat44 {
+        union {
+            float m[4][4];
+            struct
+            {
+                float x1, x2, x3, x4;
+                float y1, y2, y3, y4;
+                float z1, z2, z3, z4;
+                float t1, t2, t3, t4;
+            };
+        };
+    };
+	*/
+
+	sgf::GameMat44* destg = (sgf::GameMat44*)&dest;
 	destg->x1 = cos(aSkewX);
 	destg->x2 = -sin(aSkewX);
 
@@ -159,5 +174,5 @@ void sgf::TransformToMatrixEx(
 	destg->t2 = src.y * ScaleY + pY;
 	destg->t3 = 1.0f;
 
-	*dest = glm::scale(*dest, glm::vec3(src.sx * ScaleX, src.sy * ScaleY, 1.0f));
+	dest = glm::scale(dest, glm::vec3(src.sx * ScaleX, src.sy * ScaleY, 1.0f));
 }

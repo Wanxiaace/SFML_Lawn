@@ -80,7 +80,6 @@ namespace sgf {
 			}
 			}
 
-
 			if (mSpeed >= 0) {
 				
 				if (mValue > mRangeMax) {

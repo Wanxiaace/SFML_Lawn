@@ -560,11 +560,22 @@ sgf::SimpleImage* sgf::Graphics::CaptureScreen(int x, int y, int width, int heig
 void sgf::Graphics::SetClipRect(const sgf::FloatRect& src)
 {
 	Present();
-	int w, h;
+
+	int w, h;//实际宽高
 	SDL_GetWindowSize(mGameApp->mGameWindow, &w, &h);
-	ProjectionResize(src.mWidth, src.mHeight);
-	glViewport(src.mX, h - src.mY - src.mHeight, src.mWidth, src.mHeight);
+
+	ProjectionResize(src.mWidth, 
+		src.mHeight);
+
+	glViewport(src.mX / mGameApp->mMouseXScale,
+		(gGameApp->mHeight - (src.mY + src.mHeight))
+		/ mGameApp->mMouseYScale,
+		src.mWidth / mGameApp->mMouseXScale,
+		src.mHeight / mGameApp->mMouseYScale);
+
+	//FillRect({ 0,0,1000,1000 }); //Debug用
 }
+
 
 void sgf::Graphics::ClearClipRect()
 {
