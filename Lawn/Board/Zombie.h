@@ -182,6 +182,8 @@ namespace Lawn {
         Zombie();
         void Init();
         void InitNormalZombieReanim();
+        void PlayIdleTrack();
+
         //根据速度的范围得到新的速度
         void ResetZomSpeed();
         void DieNoLoot();

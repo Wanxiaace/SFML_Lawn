@@ -6,6 +6,7 @@
 #include "Board/Projectile.h"
 #include <mutex>
 #include <ctime>
+#include <chrono>
 
 Lawn::LawnApp* gLawnApp = nullptr;
 
@@ -15,7 +16,10 @@ Lawn::LawnApp::LawnApp(int width, int height, const sgf::String& windowCaptain, 
     Zombie::InitZombiesDefinitions();
     Projectile::InitProjectilesDefinitions();
 
-    sgf::SRand(time(nullptr));
+    auto src = 
+        std::chrono::duration_cast<std::chrono::seconds>
+        (std::chrono::system_clock::now().time_since_epoch());
+    sgf::SRand(src.count());
 
     mCursor = new LawnCursor();
 }

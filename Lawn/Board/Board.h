@@ -68,6 +68,7 @@ namespace Lawn {
 
 		PlantVector mPlantVector;
 		ZombieVector mZombieVector;
+		ZombieVector mViewZombieVector;
 		ProjectileVector mProjectileVector;
 		LawnMoverVector mLawnMoverVector;
 		SceneObejctVector mSceneObjectVector;
@@ -144,6 +145,7 @@ namespace Lawn {
 		void FadeInBackgroundMuisc();
 		bool GetIsShowingCutscene() const;
 		bool GetWillChooseCard() const;
+		void SpawnZombiesInView();
 
 	public:
 		virtual void Update() override;

@@ -172,7 +172,7 @@ namespace sgf {
         return SDL_GetTicks64();
     }
 
-    static std::mt19937 m_randomAdapter;
+    static std::default_random_engine m_randomAdapter;
 
     static void SRand(unsigned int seed) {
         m_randomAdapter.seed(seed);

@@ -97,6 +97,19 @@ void Lawn::Zombie::InitNormalZombieReanim()
 	}
 }
 
+void Lawn::Zombie::PlayIdleTrack()
+{
+	switch (mZombieType)
+	{
+	default:
+	{
+		PlayTrack("anim_idle");
+		mBodyReanim.mSpeed = 0.5f;
+		break;
+	}
+	}
+}
+
 void Lawn::Zombie::ResetZomSpeed()
 {
 	float speed = sgf::RandF(mSpeedMin,mSpeedMax);

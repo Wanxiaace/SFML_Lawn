@@ -30,6 +30,7 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	//mStartSpawningZombie = false;
 
 	LoadLevelFromJsonFile("level0.json");
+	SpawnZombiesInView();
 	InitLawnMover();
 }
 
@@ -452,6 +453,13 @@ void Lawn::Board::EndReady()
 	mStartSpawningZombie = true;
 	gLawnApp->mMusicManager.FadeOutMusic(2000);
 	FadeInBackgroundMuisc();
+
+	for (auto& x :mViewZombieVector)
+	{
+		delete x;
+	}
+	mViewZombieVector.clear();
+
 }
 
 void Lawn::Board::FadeInBackgroundMuisc()
@@ -472,6 +480,25 @@ bool Lawn::Board::GetIsShowingCutscene() const
 bool Lawn::Board::GetWillChooseCard() const
 {
 	return mChooseCard;
+}
+
+void Lawn::Board::SpawnZombiesInView()
+{
+	for (auto& x : mLevel.mZombieTypes)
+	{
+		int length = Rand(1,4);
+		for (size_t i = 0; i < length; i++)
+		{
+			Zombie* viewZom = new Zombie();
+			viewZom->MoveTo(RandF(1100, 1300), RandF(0, 550));
+			viewZom->mZombieType = x;
+			viewZom->mBoard = this;
+			viewZom->Init();
+			viewZom->PlayIdleTrack();
+			mViewZombieVector.push_back(viewZom);
+		}
+	}
+
 }
 
 void Lawn::Board::Update()
@@ -543,6 +570,12 @@ void Lawn::Board::Update()
 		mZombieVector[i]->Update();
 	}
 
+	length = mViewZombieVector.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		mViewZombieVector[i]->Update();
+	}
+
 	length = mLawnMoverVector.size();
 	for (size_t i = 0; i < length; i++)
 	{
@@ -611,6 +644,14 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 	}
 
 	for (auto& x : mZombieVector)
+	{
+		g->ModelMoveTo(boardPos.first + x->mBox.mX, boardPos.second + x->mBox.mY);
+		g->MoveTo(0, 0);
+		x->Draw(g);
+	}
+
+
+	for (auto& x : mViewZombieVector)
 	{
 		g->ModelMoveTo(boardPos.first + x->mBox.mX, boardPos.second + x->mBox.mY);
 		g->MoveTo(0, 0);
