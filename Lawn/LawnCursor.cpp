@@ -32,7 +32,6 @@ void Lawn::LawnCursor::Reset()
 	if (mIsOnBoard && mSeedPack)
 	{
 		mSeedPack->mIsChose = false;
-		mSeedPack->StartCD();
 	}
 	mSeedPack = nullptr;
 }
@@ -51,6 +50,12 @@ void Lawn::LawnCursor::SeedPlant()
 	gLawnApp->mMusicManager.PlayChunk("CHUNK_PLANT");
 	mBoard->SpawnPlantAt(gridX, gridY,mSeed);
 
+	if (mSeedPack)
+	{
+		mSeedPack->StartCD();
+		auto& def = gPlantsDefinitions[mSeed];
+		gLawnApp->mBoard->mSun -= def.mCost;
+	}
 	Reset();
 }
 

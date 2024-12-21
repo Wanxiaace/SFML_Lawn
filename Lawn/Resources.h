@@ -39,8 +39,9 @@ namespace RES_IMAGE {
 	extern SimpleImage* IMAGE_OPTIONS_BACKTOGAMEBUTTON0;
 	extern SimpleImage* IMAGE_OPTIONS_BACKTOGAMEBUTTON2;
 	extern SimpleImage* IMAGE_OPTIONS_MENUBACK;
+	extern SimpleImage* IMAGE_NEWSUNBANK;
 
-	extern SimpleImage* IMAGE_BACKGROUND1;
+	extern SimpleImage* IMAGE_LAWNBAK1;
 	extern SimpleImage* IMAGE_BACKGROUND2;
 	extern SimpleImage* IMAGE_BUTTON_LEFT;
 	extern SimpleImage* IMAGE_BUTTON_MIDDLE;

@@ -84,7 +84,8 @@ void Lawn::SeedPack::Init(SeedType type,Board* board)
 
 void Lawn::SeedPack::Draw(sgf::Graphics* g)
 {
-	if (mIsChose || mStartCD)
+	auto& def = gPlantsDefinitions[mSeedType];
+	if (mIsChose || mStartCD || mBoard->mSun < def.mCost)
 	{
 		g->SetCubeColor({ 0.7f, 0.7f, 0.7f, 1.0f });
 		DrawSeedPack(mSeedType, g, mScaleF);
@@ -120,7 +121,9 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 
 void Lawn::SeedPack::Update()
 {
-	if (mStartCD) {
+	auto& def = gPlantsDefinitions[mSeedType];
+
+	if (mStartCD || mBoard->mSun < def.mCost) {
 		mIsMouseHover = false;
 
 		if (mBoard->mTick.GetDeltaTick() > mCD)
@@ -185,7 +188,8 @@ Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 
 Lawn::SeedBank::~SeedBank()
 {
-
+	if (mSunCacheImage)
+		delete mSunCacheImage;
 }
 
 void Lawn::SeedBank::AppendSeedPack(SeedType type)
@@ -213,6 +217,14 @@ void Lawn::SeedBank::ClickOn()
 	}
 }
 
+void Lawn::SeedBank::SunBankBounce()
+{
+	mBounceScale = 0.6f;
+	mBounceHolder.SetSpeed(5.0f);
+
+	mBounceHolder.BindSpot(&mBounceScale,1.0f,0.6f);
+}
+
 Lawn::SeedPack& Lawn::SeedBank::operator[](int index)
 {
 	return mSeedPacks.at(index);
@@ -220,8 +232,18 @@ Lawn::SeedPack& Lawn::SeedBank::operator[](int index)
 
 void Lawn::SeedBank::Draw(sgf::Graphics* g)
 {
+	g->MoveTo(0, -50);
+	g->DrawImageScaleF(RES_IMAGE::IMAGE_NEWSUNBANK, 0.5f, 0.5f);
+
+	g->MoveTo(40, -40);
+	g->Translate(mSunCacheImage->GetWidth() * (mBounceScale - 1.0f) / -2.0f,
+		mSunCacheImage->GetHeight() * (mBounceScale - 1.0f) / -2.0f);
+	if(mSunCacheImage)
+		g->DrawImageScaleF(mSunCacheImage, mBounceScale, mBounceScale);
+
 	g->MoveTo(0,0);
 	g->SetCubeColor({1,1,1,1});
+
 	int len = mSeedPacks.size();
 
 	for (int i = 0;i< len;i++)
@@ -236,9 +258,19 @@ void Lawn::SeedBank::Draw(sgf::Graphics* g)
 
 void Lawn::SeedBank::Update()
 {
+	if (mSunCache != gLawnApp->mBoard->mSun) {
+		mSunCache = gLawnApp->mBoard->mSun;
+		if (mSunCacheImage)
+			delete mSunCacheImage;
+		RES_FONT::FONT_FONT2->SetFontSize(20);
+		mSunCacheImage = RES_FONT::FONT_FONT2->GenTextImage(SString::StrParse<int>(mSunCache));
+	}
+
 	int len = mSeedPacks.size();
 	for (int i = 0; i < len; i++)
 	{
 		mSeedPacks[i].Update();
 	}
+
+	mBounceHolder.Update();
 }

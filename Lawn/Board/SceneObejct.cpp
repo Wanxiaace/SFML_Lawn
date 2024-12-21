@@ -37,12 +37,27 @@ void Lawn::SceneObejct::Collect()
 	case Lawn::SCENE_OBJECT_SUN:
 		mTargetX = 0;
 		mTargetY = 0;
+		gLawnApp->mMusicManager.PlayChunk("CHUNK_POINTS");
+		break;
+	default:
+		break;
+	}
+	mMotionType = MOTION_MOVE_TO;
+}
+
+void Lawn::SceneObejct::DoCollected()
+{
+	switch (mType)
+	{
+	case Lawn::SCENE_OBJECT_SUN:
+		gLawnApp->mBoard->mSun += 25;
+		gLawnApp->mBoard->mSeedBank->SunBankBounce();
 		break;
 	default:
 		break;
 	}
 
-	mMotionType = MOTION_MOVE_TO;
+	mAvailable = false;
 }
 
 void Lawn::SceneObejct::Update()
@@ -82,6 +97,21 @@ void Lawn::SceneObejct::Update()
 		}
 		break;
 	}
+	case MOTION_MOVE_TO:
+	{
+		float speedX = -(mBox.mX - mTargetX);
+		float speedY = -(mBox.mY - mTargetY);
+		mBox.mX += speedX * mTick.GetDeltaTickFloat() / 1000.0f * 2;
+		mBox.mY += speedY * mTick.GetDeltaTickFloat() / 1000.0f * 2;
+
+		if (abs((mBox.mX - mTargetX)) < 100.0f) {
+			mAlpha = abs((mBox.mX - mTargetX)) / 100.0f;
+
+			if (abs((mBox.mX - mTargetX)) < 20)
+				DoCollected();
+		}
+		break;
+	}
 	}
 
 	if (mReanim)
@@ -90,8 +120,8 @@ void Lawn::SceneObejct::Update()
 
 void Lawn::SceneObejct::Draw(sgf::Graphics* g)
 {
-	g->SetCubeColor({ 1,1,1,1 });
-
+	g->SetCubeColor({ 1,1,1,mAlpha });
+	
 	switch (mType)
 	{
 	case Lawn::SCENE_OBJECT_SUN:
@@ -100,10 +130,8 @@ void Lawn::SceneObejct::Draw(sgf::Graphics* g)
 	default:
 		break;
 	}
-	if (mIsMouseHover)
-	{
-		g->SetCubeColor({ 1,0,0,1 });
-	}
-	mReanim->Present(g);
+
+	glm::mat4x4 matMatrix = glm::scale(glm::mat4x4(1.0f), { mAlpha * 0.5f + 0.5f,mAlpha * 0.5f + 0.5f,1.0f });
+	mReanim->PresentMatrix(g, matMatrix);
 
 }

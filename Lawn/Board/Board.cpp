@@ -28,6 +28,7 @@ Lawn::Board::Board():Widget(LAWN_WIDGET_BOARD)
 	mCurrentWaveIndex = 0;
 	mNextWaveCounts = 1000;
 	//mStartSpawningZombie = false;
+	mSun = 100;
 
 	LoadLevelFromJsonFile("level0.json");
 	SpawnZombiesInView();
@@ -59,7 +60,7 @@ void Lawn::Board::UpdateBoardBackground()
 	switch (mBackGroundType)
 	{
 	case Lawn::BACKGROUND_FRONT_YARD_DAY:
-		mBackGroundImageCache = RES_IMAGE::IMAGE_BACKGROUND1;
+		mBackGroundImageCache = RES_IMAGE::IMAGE_LAWNBAK1;
 		mGridOriPosX = 255;
 		mGridOriPosY = 85;
 		mGridWidth = 80;
@@ -103,9 +104,9 @@ void Lawn::Board::TryShowCutSceneBegin()
 void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
 {
 	g->SetCubeColor({1,1,1,1});
-
+	g->Translate(-265,-110);
 	if(mBackGroundImageCache)
-		g->DrawImage(mBackGroundImageCache);
+		g->DrawImageScaleF(mBackGroundImageCache, 0.83f, 0.83f);
 }
 
 int Lawn::Board::PointXtoGridX(int pointX) const

@@ -88,6 +88,7 @@ namespace Lawn {
 		sgf::SimpleImage* mLevelNameImage = nullptr;
 		sgf::SimpleImage* mHugeTitleImage = nullptr;
 		bool mIsZombieWin = false;
+		int mSun = 0;
 
 		//¿ªÊ¼³ö¹Ö
 		bool mStartSpawningZombie = false;

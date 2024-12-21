@@ -38,7 +38,8 @@ SimpleImage* RES_IMAGE::IMAGE_REANIM_ZOMBIE_SCREENDOOR2 = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_OPTIONS_BACKTOGAMEBUTTON0 = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_OPTIONS_BACKTOGAMEBUTTON2 = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_OPTIONS_MENUBACK = nullptr;
-SimpleImage* RES_IMAGE::IMAGE_BACKGROUND1 = nullptr;
+SimpleImage* RES_IMAGE::IMAGE_LAWNBAK1 = nullptr;
+SimpleImage* RES_IMAGE::IMAGE_NEWSUNBANK = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_BACKGROUND2 = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_BUTTON_LEFT = nullptr;
 SimpleImage* RES_IMAGE::IMAGE_BUTTON_MIDDLE = nullptr;
@@ -94,7 +95,8 @@ void LoadAllResourcesLink()
 	IMAGE_OPTIONS_MENUBACK = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_OPTIONS_MENUBACK");
 	IMAGE_SEEDCHOOSER_BACKGROUND = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_SEEDCHOOSER_BACKGROUND");
 
-	IMAGE_BACKGROUND1 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BACKGROUND1");
+	IMAGE_NEWSUNBANK = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_NEWSUNBANK");
+	IMAGE_LAWNBAK1 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_LAWNBAK1");
 	IMAGE_BACKGROUND2 = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BACKGROUND2");
 	IMAGE_BUTTON_LEFT = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BUTTON_LEFT");
 	IMAGE_BUTTON_MIDDLE = gLawnApp->mResourceManager.GetResourceFast<SimpleImage>("IMAGE_BUTTON_MIDDLE");

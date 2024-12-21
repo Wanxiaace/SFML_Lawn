@@ -25,6 +25,7 @@ namespace Lawn {
 		Animator* mReanim = nullptr;
 		bool mIsMouseHover = false;
 		bool mIsCollect = false;
+		float mAlpha = 1.0f;
 		float mVelZ = 0;
 		float mOriY = 0;
 		float mTargetX = 0;
@@ -37,6 +38,7 @@ namespace Lawn {
 
 		void Init();
 		void Collect();
+		void DoCollected();
 
 	public:
 		virtual void Update() override;

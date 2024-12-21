@@ -7,6 +7,7 @@
 #include "BoardEnums.h"
 #include "WidgetSystem.h"
 #include <vector>
+#include "EffectHolder.h"
 
 namespace Lawn {
 	class Board;
@@ -50,6 +51,10 @@ namespace Lawn {
 	public:
 		Board* mBoard = nullptr;
 		std::vector<SeedPack> mSeedPacks;
+		sgf::SimpleImage* mSunCacheImage = nullptr;
+		int mSunCache = -1;
+		float mBounceScale = 1;
+		sgf::EffectHolderFloat mBounceHolder;
 
 	public:
 		SeedBank(Board* board);
@@ -58,6 +63,7 @@ namespace Lawn {
 		void AppendSeedPack(SeedType type);
 		void ClearSeedPack();
 		void ClickOn();
+		void SunBankBounce();
 
 		SeedPack& operator [](int index);
 
