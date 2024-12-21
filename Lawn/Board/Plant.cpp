@@ -66,7 +66,10 @@ void Lawn::Plant::Product()
 	switch (mSeedType)
 	{
 	case Lawn::SEED_SUNFLOWER:
-		mBoard->SpawnSceneObjectAt(mBox.mX+20,mBox.mY,SCENE_OBJECT_SUN);
+		auto sun = mBoard->SpawnSceneObjectAt(mBox.mX+20,mBox.mY,SCENE_OBJECT_SUN);
+		sun->mMotionType = MOTION_FALL;
+		sun->mVelZ = -100.0f;
+		sun->mOriY += 100.0f;
 		mProduceCountDown = 5000;
 		break;
 	}
@@ -123,8 +126,8 @@ void Lawn::Plant::PlayTrack(const sgf::String& trackName,int blendTime)
 
 void Lawn::Plant::InitPlantsDefinitions()
 {
-	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20,-20,0 };
-	gPlantsDefinitions[SEED_SUNFLOWER] = PlantDefinition{ SEED_SUNFLOWER ,"RAXML_SUNFLOWER","SunFlower","a useless plant",50,20,-20,0 };
+	gPlantsDefinitions[SEED_PEASHOOTER] = PlantDefinition{ SEED_PEASHOOTER ,"RAXML_PEASHOOTERSINGLE","PeaShooter","a useless plant",100,20,-20,0,7000 };
+	gPlantsDefinitions[SEED_SUNFLOWER] = PlantDefinition{ SEED_SUNFLOWER ,"RAXML_SUNFLOWER","SunFlower","a useless plant",50,20,-20,0,5000 };
 }
 
 void Lawn::Plant::Update()

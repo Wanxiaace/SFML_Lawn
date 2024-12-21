@@ -18,6 +18,11 @@ void Lawn::DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF)
 	
 }
 
+void Lawn::DrawSeedPackWithCost(SeedType type, sgf::Graphics* g, float scaleF)
+{
+	DrawSeedPack(type,g,scaleF);
+}
+
 
 void Lawn::DrawSeedBackgound(SeedPackBackground type, sgf::Graphics* g, float scaleF)
 {
@@ -69,6 +74,7 @@ void Lawn::SeedPack::Init(SeedType type,Board* board)
 	}
 	else {
 		PlantDefinition& def = gPlantsDefinitions[mSeedType];
+		mCDMax = def.mCD;
 		sgf::Font* font = RES_FONT::FONT_FONT3;
 		mCost = def.mCost;
 		mTextImage = font->GenTextImage(std::to_string(mCost));
@@ -78,7 +84,7 @@ void Lawn::SeedPack::Init(SeedType type,Board* board)
 
 void Lawn::SeedPack::Draw(sgf::Graphics* g)
 {
-	if (mIsChose)
+	if (mIsChose || mStartCD)
 	{
 		g->SetCubeColor({ 0.7f, 0.7f, 0.7f, 1.0f });
 		DrawSeedPack(mSeedType, g, mScaleF);
@@ -105,10 +111,28 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 		g->DrawImageScaleF(RES_IMAGE::IMAGE_SEEDCHOOSE, 0.4f, 0.4f);
 	}
 
+	if (mStartCD) {
+		g->MoveTo(mRect.mX, mRect.mY);
+		g->SetCubeColor({0.0f,0.0f,0.0f,0.7f });
+		g->FillRect(93.0f,55.0f * float(mCD) / mCDMax );
+	}
 }
 
 void Lawn::SeedPack::Update()
 {
+	if (mStartCD) {
+		mIsMouseHover = false;
+
+		if (mBoard->mTick.GetDeltaTick() > mCD)
+		{
+			mCD = 0;
+			mStartCD = false;
+		}
+		else
+			mCD -= mBoard->mTick.GetDeltaTick();
+
+		return;
+	}
 	if (!mParent) {
 		if (mRect.IsPointIn(gLawnApp->mMouseX, gLawnApp->mMouseY)) {
 			mIsMouseHover = true;
@@ -127,6 +151,12 @@ void Lawn::SeedPack::Update()
 		}
 	}
 
+}
+
+void Lawn::SeedPack::StartCD()
+{
+	mCD = mCDMax;
+	mStartCD = true;
 }
 
 void Lawn::SeedPack::OnClick()
@@ -150,7 +180,7 @@ void Lawn::SeedPack::OnClick()
 Lawn::SeedBank::SeedBank(Board* board) : sgf::Widget(LAWN_SEED_BANK)
 {
 	mBoard = board;
-	Resize(0, 60, 100, 500);
+	Resize(0, 80, 100, 500);
 }
 
 Lawn::SeedBank::~SeedBank()
@@ -201,12 +231,6 @@ void Lawn::SeedBank::Draw(sgf::Graphics* g)
 	}
 	g->SetCubeColor({ 1,1,1,1 });
 
-	for (size_t i = len; i < BOARD_SEED_BAND_SIZE_MAX; i++)
-	{
-		
-		g->MoveTo(0, 60*i);
-		DrawSeedBackgound(SEEDPACK_NONE, g, 0.4f);
-	}
 
 }
 

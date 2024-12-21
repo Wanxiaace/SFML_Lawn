@@ -88,7 +88,7 @@ namespace sgf {
 		/// @brief 切换着色器
 		void SwitchShader(SimpleProgram* prog);
 
-		/// @brief 填充矩形
+		/// @brief 填充矩形,调用后会调用Graphics::Move()
 		/// @param width 宽度
 		/// @param height 高度
 		void FillRect(int width, int height);

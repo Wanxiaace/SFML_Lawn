@@ -30,7 +30,10 @@ void Lawn::LawnCursor::Reset()
 	mState = LAWN_CURSOR_NONE;
 
 	if (mIsOnBoard && mSeedPack)
+	{
 		mSeedPack->mIsChose = false;
+		mSeedPack->StartCD();
+	}
 	mSeedPack = nullptr;
 }
 

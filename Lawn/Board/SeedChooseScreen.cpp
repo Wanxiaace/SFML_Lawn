@@ -110,6 +110,13 @@ void Lawn::SeedChooseScreen::Draw(sgf::Graphics* g)
 		ctr++;
 	}
 
+	for (int i = ctr; i < BOARD_SEED_BAND_SIZE_MAX; i++)
+	{
+		g->SetCubeColor({ 1,1,1,0.6f });
+		g->MoveTo(-100, i * 55 - 5);
+		DrawSeedPack(SEED_NONE, g, 1.0f);
+	}
+
 }
 
 void Lawn::SeedChooseScreen::Update()
@@ -220,7 +227,7 @@ void Lawn::SeedView::Bounce()
 {
 	mBounceScale = 0.8f;
 	mBounceHolder.SetSpeed(5);
-	mBounceHolder.BindSpot(&mBounceScale, 1.0f, 0.8f);
+	mBounceHolder.BindSpot(&mBounceScale, 1.0f, 0.5f);
 	mBounceHolder.Start();
 }
 

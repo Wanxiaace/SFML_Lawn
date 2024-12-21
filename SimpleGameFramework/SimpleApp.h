@@ -49,6 +49,7 @@ namespace sgf {
 		glm::mat4x4 mViewMatrixBuf;
 		bool mEnabledASync = false;
 		std::ostream* mLog = nullptr;
+		int mFPSMax = 100;
 
 	public:
 		GameAppBase(int width, int height, const sgf::String& windowCaptain,bool enabledASync=true, bool resiziable = false);

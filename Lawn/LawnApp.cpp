@@ -179,6 +179,15 @@ void Lawn::LawnApp::InitByManifest(const sgf::String& path)
             sgf::FileManager::TryToLoadPak(mResourceManager.mBasePath + x.text().as_string());
         }
 
+        if(str == "EnableVSync")
+        {
+            mEnabledASync = x.text().as_bool();
+        }
+
+        if (str == "CustomFPS")
+        {
+            mFPSMax = x.text().as_int();
+        }
     }
 
     InitEnv();
@@ -196,7 +205,7 @@ bool Lawn::LawnApp::IsPlayerSeedUsable(SeedType type)
 
 int Lawn::LawnApp::GetPlayerUsableSeedsTotalNum()
 {
-    return 2;//NUM_SEEDS_IN_CHOOSER
+    return 10;//NUM_SEEDS_IN_CHOOSER
 }
 
 

@@ -177,6 +177,7 @@ namespace Lawn {
         int mDamage;
         float mReanimOffsetX;
         float mReanimOffsetY;
+        int mCD;
     };
 
     struct ZombieDefinition {

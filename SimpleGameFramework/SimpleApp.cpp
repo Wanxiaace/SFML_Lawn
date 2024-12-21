@@ -128,7 +128,7 @@ void sgf::GameAppBase::EnterMainLoop()
         if(!mMultiThreadUpdate)
             Update();
 
-        static const Uint32 FPS = 1000 / 100;//可替换为限制的帧速
+        static const Uint32 FPS = 1000 / mFPSMax;//可替换为限制的帧速
         static Uint32 _FPS_Timer;
         if (mEnabledASync) {
             if (sgf::TryGetTicks() - _FPS_Timer < FPS) {

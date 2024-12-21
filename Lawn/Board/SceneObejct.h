@@ -12,6 +12,7 @@ namespace Lawn {
 	enum MotionType {
 		MOTION_NORMAL,
 		MOTION_FALL,
+		MOTION_MOVE_TO,
 	};
 
 	class SceneObejct: public GameObject
@@ -22,12 +23,20 @@ namespace Lawn {
 		Board* mBoard = nullptr;
 		MotionType mMotionType = MOTION_NORMAL;
 		Animator* mReanim = nullptr;
+		bool mIsMouseHover = false;
+		bool mIsCollect = false;
+		float mVelZ = 0;
+		float mOriY = 0;
+		float mTargetX = 0;
+		float mTargetY = 0;
+
 
 	public:
 		SceneObejct();
 		~SceneObejct();
 
 		void Init();
+		void Collect();
 
 	public:
 		virtual void Update() override;

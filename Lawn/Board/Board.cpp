@@ -172,7 +172,7 @@ Lawn::SceneObejct * Lawn::Board::SpawnSceneObjectAt(int x, int y, SceneObjectTyp
 	obj->MoveTo(x,y);
 	obj->Init();
 	mSceneObjectVector.push_back(obj);
-	return nullptr;
+	return obj;
 }
 
 Lawn::Projectile* Lawn::Board::SpawnProjectileAt(int x, int y, ProjectileType projectileType)
@@ -451,7 +451,7 @@ void Lawn::Board::EndCutsence()
 void Lawn::Board::EndReady()
 {
 	mStartSpawningZombie = true;
-	gLawnApp->mMusicManager.FadeOutMusic(2000);
+	//gLawnApp->mMusicManager.FadeOutMusic(2000);
 	FadeInBackgroundMuisc();
 
 	for (auto& x :mViewZombieVector)
@@ -498,6 +498,9 @@ void Lawn::Board::SpawnZombiesInView()
 			mViewZombieVector.push_back(viewZom);
 		}
 	}
+
+	std::sort(mViewZombieVector.begin(), mViewZombieVector.end(),
+		[](Zombie* zom1, Zombie* zom2) ->bool {return  !(zom1->mBox.mY > zom2->mBox.mY); });
 
 }
 
