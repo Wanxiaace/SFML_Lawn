@@ -139,6 +139,7 @@ void Lawn::SeedPack::Update()
 	if (!mParent) {
 		if (mRect.IsPointIn(gLawnApp->mMouseX, gLawnApp->mMouseY)) {
 			mIsMouseHover = true;
+			gLawnApp->ShowHandCursor();
 		}
 		else {
 			mIsMouseHover = false;
@@ -148,6 +149,7 @@ void Lawn::SeedPack::Update()
 		auto x = mParent->GetExactPosition();
 		if (mRect.IsPointIn(gLawnApp->mMouseX - x.first, gLawnApp->mMouseY - x.second)) {
 			mIsMouseHover = true;
+			gLawnApp->ShowHandCursor();
 		}
 		else {
 			mIsMouseHover = false;

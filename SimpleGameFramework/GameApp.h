@@ -56,6 +56,7 @@ namespace sgf {
 		void DoInGraphicsThread(std::function<void()>* func);
 		void LockUpdate();
 		void UnLockUpdate();
+		void ShowHandCursor();
 
 		void UpdateMusicVolume();
 		void UpdateSoundVolume();

@@ -198,5 +198,46 @@ namespace sgf {
         }
     };
 
+    enum MouseStyle {
+        MOUSE_STYLE_ARROW,
+        MOUSE_STYLE_WAIT,
+        MOUSE_STYLE_HAND,
+        MOUSE_STYLE_NONE,
+    };
+
+    static void SetMouseStyle(MouseStyle style) {
+#ifdef _WIN32
+        static HCURSOR hArrowCur = LoadCursor(NULL, IDC_ARROW);
+        static HCURSOR hWaitCur = LoadCursor(NULL, IDC_WAIT);
+        static HCURSOR hHandCur = LoadCursor(NULL, IDC_HAND);
+
+        static SDL_Cursor* hSDLArrowCur = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+        static SDL_Cursor* hSDLWaitCur = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_WAIT);
+        static SDL_Cursor* hSDLHandCur = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+
+        switch (style)
+        {
+        case sgf::MOUSE_STYLE_ARROW:
+            SDL_SetCursor(hSDLArrowCur);
+            SetCursor(hArrowCur);
+            break;
+        case sgf::MOUSE_STYLE_WAIT:
+            SDL_SetCursor(hSDLWaitCur);
+            SetCursor(hWaitCur);
+            break;
+        case sgf::MOUSE_STYLE_HAND:
+            SDL_SetCursor(hSDLHandCur);
+            SetCursor(hHandCur);
+            break;
+        case sgf::MOUSE_STYLE_NONE:
+            SDL_ShowCursor(false);
+            ShowCursor(FALSE);
+            break;
+        default:
+            break;
+        }
+#endif
+    }
+
 }
 #endif

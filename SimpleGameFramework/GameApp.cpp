@@ -161,6 +161,12 @@ void sgf::GameApp::UnLockUpdate()
 	gLoopMutex.unlock();
 }
 
+void sgf::GameApp::ShowHandCursor()
+{
+	mMouseStyleEach = MOUSE_STYLE_HAND;
+}
+
+
 void sgf::GameApp::Update()
 {
 	GameAppBase::Update();

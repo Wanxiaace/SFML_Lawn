@@ -45,6 +45,7 @@ namespace sgf {
 		SDL_Window* mGameWindow;
 		GameMessageManager mMessageManager;
 		SDL_GLContext mGLContext;
+		MouseStyle mMouseStyleEach = MOUSE_STYLE_ARROW;
 		glm::mat4x4 mViewMatrix;
 		glm::mat4x4 mViewMatrixBuf;
 		bool mEnabledASync = false;

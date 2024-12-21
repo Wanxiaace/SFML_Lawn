@@ -90,7 +90,8 @@ void Lawn::LawnStoneButton::Draw(sgf::Graphics* g)
 
 void Lawn::LawnStoneButton::Update()
 {
-
+	if (mIsMouseHover)
+		gLawnApp->ShowHandCursor();
 }
 
 
@@ -148,6 +149,7 @@ void Lawn::TextButton::Draw(sgf::Graphics* g)
 void Lawn::TextButton::Update()
 {
 	if (mIsMouseHover) {
+		gLawnApp->ShowHandCursor();
 		if (!mIsPlayHoverSound) {
 			gLawnApp->mMusicManager.PlayChunk("CHUNK_TAP2",-1);
 			mIsPlayHoverSound = true;

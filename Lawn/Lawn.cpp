@@ -10,7 +10,6 @@
 
 int main(int argc,char** argv) {
 	gLawnApp = new Lawn::LawnApp(LAWN_GAME_WINDOW_WIDTH, LAWN_GAME_WINDOW_HEIGHT, LAWN_GAME_WINDOW_CAPTAIN, true, true);
-	
 #ifdef _DEBUG
 	if (argc > 1 && std::string(argv[1]) == "-wxdebug")
 		gLawnApp->mShowDebugWindow = true;
@@ -34,7 +33,7 @@ int main(int argc,char** argv) {
 
 	new std::thread([]() {
 		gLawnApp->LoadResources((gLawnApp->mResourceManager.mBasePath + "ResourceList.xml").c_str());
-		LoadAllResourcesLink();		
+		LoadAllResourcesLink();
 		});
 
 	gLawnApp->EnterMainLoop();

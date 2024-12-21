@@ -92,10 +92,9 @@ void sgf::GameAppBase::EnterMainLoop()
     Log() << "Application Running" << std::endl;
     Log() << "--------------------------" << std::endl;
 
-
+    
     while (mIsOpen)
     {
-        
         SDL_Event _event;
         if (SDL_PollEvent(&_event)) {
             ImGui_ImplSDL2_ProcessEvent(&_event);
@@ -106,8 +105,10 @@ void sgf::GameAppBase::EnterMainLoop()
 
         Uint32 tick = sgf::TryGetTicks();
 
-        if(!mMultiThreadUpdate)
+        if (!mMultiThreadUpdate)
+        {
             mTick.Update();
+        }
 
         if (tick - mLastSecondBuffer >= 1000) {
             mLastSecondBuffer = tick;
@@ -122,11 +123,15 @@ void sgf::GameAppBase::EnterMainLoop()
 
         Draw();
         mMessageManager.CopeAllMessage();
+        
 
         gLoopMutex.unlock();
 
-        if(!mMultiThreadUpdate)
+        if (!mMultiThreadUpdate) {
+            mMouseStyleEach = MOUSE_STYLE_ARROW;
             Update();
+            sgf::SetMouseStyle(mMouseStyleEach);
+        }
 
         static const Uint32 FPS = 1000 / mFPSMax;//可替换为限制的帧速
         static Uint32 _FPS_Timer;

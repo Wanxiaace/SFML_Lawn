@@ -69,6 +69,7 @@ void Lawn::SceneObejct::Update()
 	else {
 		if (mBox.IsPointIn(gLawnApp->mMouseX, gLawnApp->mMouseY)) {
 			mIsMouseHover = true;
+			gLawnApp->ShowHandCursor();
 			if (gLawnApp->mIsMouseLeftDown)
 				Collect();
 		}

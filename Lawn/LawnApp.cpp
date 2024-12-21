@@ -235,13 +235,16 @@ void Lawn::GameUpdateThread()
     while (true)
     {
         gLoopMutex.lock();
-
+        gLawnApp->mMouseStyleEach = MOUSE_STYLE_ARROW;
+        
         gLawnApp->mTick.Update();
         gLawnApp->Update();
         gLawnApp->mCursor->Update();
 
         if (gLawnApp->mIsMouseRightDown)
             gLawnApp->mCursor->MouseRightOn();
+
+        sgf::SetMouseStyle(gLawnApp->mMouseStyleEach);
 
         gLoopMutex.unlock();
         
