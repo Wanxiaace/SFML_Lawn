@@ -66,6 +66,10 @@ namespace RES_RAXML {
 	extern Reanimation* RAXML_STARTREADYSETPLANT;
 };
 
+namespace RES_PRAXML {
+	extern Reanimation* PRAXML_PEASPLASH;
+};
+
 namespace RES_PAXML {
 	extern Emitter* PAXML_PEAPARTICLETHROW;
 	extern Emitter* PAXML_PEASPLATS;

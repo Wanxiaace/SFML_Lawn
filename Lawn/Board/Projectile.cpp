@@ -39,8 +39,16 @@ void Lawn::Projectile::DoEffect(Zombie* zom)
 	{
 	case Lawn::PROJECTILE_PEA: 
 	{
-		mBoard->SpawnParticlesAt(RES_PAXML::PAXML_PEAPARTICLETHROW, 10,mBox.mX + 10, mBox.mY+80, -80);
-		mBoard->SpawnParticleAt(RES_PAXML::PAXML_PEASPLATS, mBox.mX + 10, mBox.mY + 80, -80);
+		//mBoard->SpawnParticlesAt(RES_PAXML::PAXML_PEAPARTICLETHROW, 10,mBox.mX + 10, mBox.mY+80, -80);
+		//mBoard->SpawnParticleAt(RES_PAXML::PAXML_PEASPLATS, mBox.mX + 10, mBox.mY + 80, -80);
+		auto p = mBoard->SpawnParticleReanimAt(RES_PRAXML::PRAXML_PEASPLASH, mBox.mX -110, mBox.mY - 125,0.6f);
+		if(Rand(0,2))
+			p->mAnimator->SetFrameRangeByTrackName("anim_splash");
+		else
+			p->mAnimator->SetFrameRangeByTrackName("anim_splash2");
+
+
+
 		if(zom->mHelmType == HELMTYPE_PAIL || zom->mShieldType == SHIELDTYPE_DOOR)
 			if(sgf::Rand(0,2))
 				gLawnApp->mMusicManager.PlayChunk("CHUNK_SHIELDHIT");

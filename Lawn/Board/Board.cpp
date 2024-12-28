@@ -62,14 +62,14 @@ void Lawn::Board::UpdateBoardBackground()
 	case Lawn::BACKGROUND_FRONT_YARD_DAY:
 		mBackGroundImageCache = RES_IMAGE::IMAGE_LAWNBAK1;
 		mGridOriPosX = 255;
-		mGridOriPosY = 85;
+		mGridOriPosY = 85 + 120;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
 	case Lawn::BACKGROUND_FRONT_YARD_NIGHT:
 		mBackGroundImageCache = RES_IMAGE::IMAGE_BACKGROUND2;
 		mGridOriPosX = 255;
-		mGridOriPosY = 85;
+		mGridOriPosY = 85 + 120;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
@@ -104,7 +104,7 @@ void Lawn::Board::TryShowCutSceneBegin()
 void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
 {
 	g->SetCubeColor({1,1,1,1});
-	g->Translate(-265,-110);
+	g->Translate(-265,-110 + 120);
 	if(mBackGroundImageCache)
 		g->DrawImageScaleF(mBackGroundImageCache, 0.83f, 0.83f);
 }
@@ -201,6 +201,12 @@ void Lawn::Board::SpawnParticlesAt(sgf::Emitter* emitter, int number, int x, int
 	mParticleManager.EmittParticles(emitter, number);
 }
 
+sgf::AnimatorParticle* Lawn::Board::SpawnParticleReanimAt(sgf::Reanimation* anim, float x, float y, float scale)
+{
+	mParticleManager.MoveTo(x, y);
+	return mParticleManager.EmittReanimParticle(anim,scale);
+}
+
 Lawn::LawnMover* Lawn::Board::SpawnLawnMoverAt(int gridX, int gridY, LawnMoverType carType)
 {
 	LawnMover* result = new LawnMover();
@@ -251,6 +257,7 @@ void Lawn::Board::AutoSpawnZombieWaves(int waveMax)
 		ZombieWave zombieWave;
 		zombieWave.mSleepTime = GetZombeiSleepTimeCurve(i, waveMax) * 1000;
 
+		/*
 		for (int j = 0; j < num; j++)
 		{
 			ZombieType zomType = ZOMBIE_NORMAL;
@@ -265,8 +272,9 @@ void Lawn::Board::AutoSpawnZombieWaves(int waveMax)
 				}
 			}
 
-			zombieWave.AppendZombie(zomType,sgf::Rand(0,5), 11);
-		}
+			zombieWave.AppendZombie(zomType,sgf::Rand(0,5), 11 + 3);
+		}*/
+
 		mLevel.mZombieWaves.push_back(zombieWave);
 	}
 }
@@ -328,7 +336,7 @@ void Lawn::Board::LoadLevelFromJson(const nlohmann::json& json)
 	mLevel.mHugeWaveScale = json["HugeWaveScale"];
 	mStartSpawningZombie = !GetIsShowingCutscene();
 
-	nlohmann::json autoLoadZombieArray = json["AutoLoadZombie"];
+	nlohmann::json autoLoadZombieArray = json["ViewedZombie"];
 	nlohmann::json autoLoadCardArray = json["AutoLoadCard"];
 
 	nlohmann::json zombieArray = json["ZombieList"];
@@ -348,11 +356,21 @@ void Lawn::Board::LoadLevelFromJson(const nlohmann::json& json)
 	for (auto& x : zombieArray)
 	{
 		ZombieType type = gZombieStringMap[x["Type"]];
-		int row = x["Row"];
-		int column = x["Column"];
 		int currentWave = x["CurrentWave"];
+
+		int row, column = 0;
+
+		if (x.contains("Row"))
+			row = x["Row"];
+		else
+			row = Rand(0, 5);
+
+		if (x.contains("Column"))
+			column = x["Column"];
+		else
+			column = 14;
+
 		mLevel.mZombieWaves[currentWave - 1].AppendZombie(type, row, column);
-		//std::cout << x["Type"] << " " << row << " " << column << std::endl;
 	}
 
 	if (!mStartSpawningZombie)
@@ -491,7 +509,7 @@ void Lawn::Board::SpawnZombiesInView()
 		for (size_t i = 0; i < length; i++)
 		{
 			Zombie* viewZom = new Zombie();
-			viewZom->MoveTo(RandF(1100, 1300), RandF(0, 550));
+			viewZom->MoveTo(RandF(1100 + 200, 1300 + 200), RandF(+120, 550 + 120));
 			viewZom->mZombieType = x;
 			viewZom->mBoard = this;
 			viewZom->Init();
@@ -670,6 +688,13 @@ void Lawn::Board::Draw(sgf::Graphics* g)
 	}
 
 	for (auto& x : mParticleManager.mParticles)
+	{
+		g->ModelMoveTo(boardPos.first, boardPos.second);
+		g->MoveTo(0, 0);
+		x->Draw(g);
+	}
+
+	for (auto& x : mParticleManager.mReanimParticles)
 	{
 		g->ModelMoveTo(boardPos.first, boardPos.second);
 		g->MoveTo(0, 0);

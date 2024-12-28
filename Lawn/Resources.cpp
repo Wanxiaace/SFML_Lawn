@@ -13,6 +13,9 @@ Reanimation* RES_RAXML::RAXML_LAWNMOWER = nullptr;
 Reanimation* RES_RAXML::RAXML_SUN = nullptr;
 Reanimation* RES_RAXML::RAXML_STARTREADYSETPLANT = nullptr;
 
+using namespace RES_PRAXML;
+Reanimation* RES_PRAXML::PRAXML_PEASPLASH = nullptr;
+
 using namespace RES_PAXML;
 Emitter* RES_PAXML::PAXML_PEAPARTICLETHROW = nullptr;
 Emitter* RES_PAXML::PAXML_PEASPLATS = nullptr;
@@ -68,6 +71,8 @@ void LoadAllResourcesLink()
 	RAXML_LAWNMOWER = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_LAWNMOWER");
 	RAXML_SUN = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_SUN");
 	RAXML_STARTREADYSETPLANT = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("RAXML_STARTREADYSETPLANT");
+
+	PRAXML_PEASPLASH = gLawnApp->mResourceManager.GetResourceFast<Reanimation>("PRAXML_PEASPLASH");
 
 	PAXML_PEAPARTICLETHROW = gLawnApp->mResourceManager.GetResourceFast<Emitter>("PAXML_PEAPARTICLETHROW");
 	PAXML_PEASPLATS = gLawnApp->mResourceManager.GetResourceFast<Emitter>("PAXML_PEASPLATS");

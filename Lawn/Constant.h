@@ -4,8 +4,8 @@
 
 #define _LS(x) gLawnApp->mDictionary.GetString(x)
 
-constexpr int LAWN_GAME_WINDOW_WIDTH = 1077;
-constexpr int LAWN_GAME_WINDOW_HEIGHT = 600;
+constexpr int LAWN_GAME_WINDOW_WIDTH = 1280;
+constexpr int LAWN_GAME_WINDOW_HEIGHT = 720;
 
 constexpr int LAWN_WIDGET_LOADING_PAGE_ID = 0;
 constexpr int LAWN_WIDGET_GAME_SELECTOR_ID = 1;

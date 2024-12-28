@@ -186,7 +186,7 @@ static void LoadFromResouceListFunc(sgf::ResourceManager* tar,sgf::ResourceList*
 		if (x.folder == "image" || x.folder == "image_reanim" || x.folder == "particle") {
 			tar->LoadImageWithID((tar->mBasePath + x.path), x.id);
 		}
-		else if (x.folder == "raxml") {
+		else if (x.folder == "raxml" || x.folder == "praxml") {
 			tar->LoadReanimWithID((tar->mBasePath + x.path), x.id);
 		}
 		else if (x.folder == "reanim_compiled") {

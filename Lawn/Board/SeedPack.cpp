@@ -234,6 +234,7 @@ Lawn::SeedPack& Lawn::SeedBank::operator[](int index)
 
 void Lawn::SeedBank::Draw(sgf::Graphics* g)
 {
+	g->SetCubeColor({ 1,1,1,1 });
 	g->MoveTo(0, -50);
 	g->DrawImageScaleF(RES_IMAGE::IMAGE_NEWSUNBANK, 0.5f, 0.5f);
 

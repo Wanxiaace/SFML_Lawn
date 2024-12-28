@@ -4,6 +4,8 @@
 
 #include "SimpleImage.h"
 #include "Graphics.h"
+#include "Reanimation.h"
+#include "Animator.h"
 #include <vector>
 
 namespace sgf {
@@ -122,9 +124,29 @@ namespace sgf {
 		void LoadFromFile(const char* paxmlPath);
 	};
 
+	class AnimatorParticle {
+	public:
+		Animator* mAnimator = nullptr;
+		float mX = 0;
+		float mY = 0;
+		float mScale = 1.0f;
+		float mSpeed = 1.0f;
+
+
+	public:
+		AnimatorParticle(Reanimation* anim);
+		~AnimatorParticle();
+		void MoveTo(float x,float y);
+
+		void Update();
+		void Start(Animator::PlayState state = Animator::PlayState::PLAY_ONCE, float speed = 1.0f);
+		void Draw(Graphics* g);
+	};
+
 	class ParticleManager {
 	public:
 		std::vector<Particle*> mParticles;
+		std::vector<AnimatorParticle*> mReanimParticles;
 		int mX = 0;
 		int mY = 0;
 		int mZ = 0;
@@ -143,6 +165,7 @@ namespace sgf {
 		Particle* EmittParticle(Emitter* srcEmitter);
 		void EmittParticles(Emitter* srcEmitter, int number);
 
+		AnimatorParticle* EmittReanimParticle(Reanimation* anim, float scale);
 	};
 }
 

@@ -184,6 +184,12 @@ static std::mutex gLoadingMutex;
 
 sgf::FileStream* sgf::FileManager::TryToLoadFilePointer(const sgf::String& path)
 {
+	if (IsRealFileExist(path)) {
+		FileStream* result = new FileStream();
+		result->OpenFile(path.c_str());
+		return result;
+	}
+
 	gLoadingMutex.lock();
 	sgf::FileStream* file = nullptr;
 	for (auto& x : gPaks)
@@ -197,9 +203,7 @@ sgf::FileStream* sgf::FileManager::TryToLoadFilePointer(const sgf::String& path)
 	}
 
 	gLoadingMutex.unlock();
-	FileStream* result = new FileStream();
-	result->OpenFile(path.c_str());
-	return result;
+	return nullptr;
 }
 
 

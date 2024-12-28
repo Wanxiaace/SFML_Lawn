@@ -341,7 +341,7 @@ sgf::ParticleManager::ParticleManager()
 
 sgf::ParticleManager::~ParticleManager()
 {
-
+	//TODO สอทลืสิด
 }
 
 void sgf::ParticleManager::Update()
@@ -356,9 +356,24 @@ void sgf::ParticleManager::Update()
 		}
 	}
 
+	length = mReanimParticles.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		if (!mReanimParticles[i]->mAnimator->mIsPlaying) {
+			mReanimParticles.erase(mReanimParticles.begin() + i);
+			i--;
+			length--;
+		}
+	}
+
 	for (auto& x : mParticles)
 	{
 		x->mTickDelta = mTickDelta;
+		x->Update();
+	}
+
+	for (auto& x : mReanimParticles)
+	{
 		x->Update();
 	}
 }
@@ -368,6 +383,12 @@ void sgf::ParticleManager::Draw(sgf::Graphics* g)
 	for (auto& x :mParticles)
 	{
 		g->MoveTo(0,0);
+		x->Draw(g);
+	}
+
+	for (auto& x : mReanimParticles)
+	{
+		g->MoveTo(0, 0);
 		x->Draw(g);
 	}
 }
@@ -386,4 +407,53 @@ void sgf::ParticleManager::EmittParticles(Emitter* srcEmitter, int number)
 	{
 		EmittParticle(srcEmitter);
 	}
+}
+
+sgf::AnimatorParticle* sgf::ParticleManager::EmittReanimParticle(sgf::Reanimation* anim, float scale)
+{
+	AnimatorParticle* par = new AnimatorParticle(anim);
+	par->MoveTo(mX,mY);
+	par->Start(Animator::PLAY_ONCE);
+	par->mScale = scale;
+	mReanimParticles.push_back(par);
+	return par;
+}
+
+sgf::AnimatorParticle::AnimatorParticle(Reanimation* anim)
+{
+	mAnimator = new Animator(anim);
+}
+
+sgf::AnimatorParticle::~AnimatorParticle()
+{
+	if (mAnimator)
+		delete mAnimator;
+}
+
+void sgf::AnimatorParticle::MoveTo(float x, float y)
+{
+	mX = x;
+	mY = y;
+}
+
+void sgf::AnimatorParticle::Update()
+{
+	if(mAnimator)
+		mAnimator->Update();
+}
+
+void sgf::AnimatorParticle::Start(Animator::PlayState state, float speed)
+{
+	mAnimator->mSpeed = speed;
+	mAnimator->Play(state);
+}
+
+void sgf::AnimatorParticle::Draw(Graphics* g)
+{
+	g->MoveTo(mX,mY);
+	g->SetCubeColor({ 1,1,1,1 });
+	glm::mat4x4 scaleMat = glm::scale(glm::mat4x4(1.0f), { mScale,mScale,1.0f });
+	if (mAnimator)
+		mAnimator->PresentMatrix(g, scaleMat);
+
 }

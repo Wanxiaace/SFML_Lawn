@@ -40,7 +40,7 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 					aInfo.mTrackName = y.text().as_string();
 				}
 				else if (yTagName == "t") {
-					TrackFrameTransform aFInfo = { 0,0,0,0,1.0f,1.0f,0,0,"" };
+					TrackFrameTransform aFInfo = { 0,0,0,0,1.0f,1.0f,1.0f,0,"" };
 					if (aInfo.mFrames.size() > 0) {
 						aFInfo = aInfo.mFrames[aCounter - 1];
 					}

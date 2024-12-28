@@ -66,7 +66,7 @@ void Lawn::Plant::Product()
 	switch (mSeedType)
 	{
 	case Lawn::SEED_SUNFLOWER:
-		auto sun = mBoard->SpawnSceneObjectAt(mBox.mX+20,mBox.mY,SCENE_OBJECT_SUN);
+		auto sun = mBoard->SpawnSceneObjectAt(mBox.mX-10 + sgf::Rand(-30,30), mBox.mY, SCENE_OBJECT_SUN);
 		sun->mMotionType = MOTION_FALL;
 		sun->mVelZ = -100.0f;
 		sun->mOriY += 100.0f;

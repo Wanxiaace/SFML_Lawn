@@ -316,6 +316,9 @@ void sgf::Animator::Present(Graphics* g)
 				Point graPos = g->GetGraphicsTransformPosition();
 				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetY);
 				
+				g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,
+					g->mCubeColor.a * aSource.a });
+
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);
 				}
@@ -388,6 +391,9 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 				animMatrix = mat * animMatrix;
 				animMatrix = glm::translate(animMatrix, glm::vec3(0.0f, 0.0f, -1.0f));
+
+				g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,
+					g->mCubeColor.a * aSource.a });
 
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);
