@@ -309,7 +309,7 @@ void sgf::Animator::Present(Graphics* g)
 				{
 					if (aSource.i == "")
 						continue;
-					targetImage = targetReanim->mResourceManager->GetResourceFast<SimpleImage>(aSource.i);
+					targetImage = targetReanim->mResourceManager->GetResourceWithWarning<SimpleImage>(aSource.i);
 				}
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);
@@ -382,7 +382,7 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 				{
 					if (aSource.i == "")
 						continue;
-					targetImage = targetReanim->mResourceManager->GetResourceFast<SimpleImage>(aSource.i);
+					targetImage = targetReanim->mResourceManager->GetResourceWithWarning<SimpleImage>(aSource.i);
 				}
 
 				glm::mat4x4 animMatrix = glm::mat4x4(1.0f);

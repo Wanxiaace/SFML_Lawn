@@ -342,6 +342,15 @@ sgf::ParticleManager::ParticleManager()
 sgf::ParticleManager::~ParticleManager()
 {
 	//TODO สอทลืสิด
+	for (auto x : mReanimParticles)
+	{
+		delete x;
+	}
+
+	for (auto x : mParticles)
+	{
+		delete x;
+	}
 }
 
 void sgf::ParticleManager::Update()

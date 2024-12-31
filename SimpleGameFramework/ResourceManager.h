@@ -79,6 +79,17 @@ namespace sgf{
 		{
 			return (T*)mResourcePool[key];
 		}
+
+		template <typename T>
+		T* GetResourceWithWarning(const sgf::String& key)
+		{
+			if (mResourcePool.find(key) == mResourcePool.end())
+			{
+				SHOW_ERROR_ABORT_EXIT(("Failed to load res: " + key).c_str());
+				return nullptr;
+			}
+			return (T*)mResourcePool[key];
+		}
 	};
 }
 

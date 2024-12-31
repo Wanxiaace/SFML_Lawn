@@ -62,14 +62,14 @@ void Lawn::Board::UpdateBoardBackground()
 	case Lawn::BACKGROUND_FRONT_YARD_DAY:
 		mBackGroundImageCache = RES_IMAGE::IMAGE_LAWNBAK1;
 		mGridOriPosX = 255;
-		mGridOriPosY = 85 + 80;
+		mGridOriPosY = 85 + BOARD_BACKGROUND_OFFSET_Y;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
 	case Lawn::BACKGROUND_FRONT_YARD_NIGHT:
 		mBackGroundImageCache = RES_IMAGE::IMAGE_BACKGROUND2;
 		mGridOriPosX = 255;
-		mGridOriPosY = 85 + 80;
+		mGridOriPosY = 85 + BOARD_BACKGROUND_OFFSET_Y;
 		mGridWidth = 80;
 		mGridHeight = 95;
 		break;
@@ -104,7 +104,7 @@ void Lawn::Board::TryShowCutSceneBegin()
 void Lawn::Board::DrawBackDrop(sgf::Graphics* g) const
 {
 	g->SetCubeColor({1,1,1,1});
-	g->Translate(-265,-110 + 80);
+	g->Translate(-265,-110 + BOARD_BACKGROUND_OFFSET_Y);
 	if(mBackGroundImageCache)
 		g->DrawImageScaleF(mBackGroundImageCache, 0.83f, 0.83f);
 }
@@ -509,7 +509,7 @@ void Lawn::Board::SpawnZombiesInView()
 		for (size_t i = 0; i < length; i++)
 		{
 			Zombie* viewZom = new Zombie();
-			viewZom->MoveTo(RandF(1100 + 200, 1300 + 200), RandF(80, 550 + 80));
+			viewZom->MoveTo(RandF(1100 + 200, 1300 + 200), RandF(BOARD_BACKGROUND_OFFSET_Y, 550 + BOARD_BACKGROUND_OFFSET_Y));
 			viewZom->mZombieType = x;
 			viewZom->mBoard = this;
 			viewZom->Init();
