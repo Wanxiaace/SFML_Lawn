@@ -173,6 +173,7 @@ namespace Lawn {
         sgf::String mReanimationName;
         sgf::String mPlantName;
         sgf::String mPlantDescription;
+        sgf::String mPlantIcon;
         int mCost;
         int mDamage;
         float mReanimOffsetX;

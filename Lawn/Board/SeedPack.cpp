@@ -8,11 +8,18 @@ void Lawn::DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF)
 		DrawSeedBackgound(SEEDPACK_NONE, g, scaleF);
 	}
 	else {
-		PlantDefinition& def = gPlantsDefinitions[type];
-		SeedPackBackground bkg = GetSeedPackBackground(type);
-		DrawSeedBackgound(bkg, g, scaleF);
-		g->Translate(-2 * scaleF, -2 * scaleF);
-		g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_PACKET_PLANTS_PLUS, 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
+		try {
+			PlantDefinition& def = gPlantsDefinitions.at(type);
+			SeedPackBackground bkg = GetSeedPackBackground(type);
+			DrawSeedBackgound(bkg, g, scaleF);
+			g->Translate(15 * scaleF, 4 * scaleF);
+			sgf::SimpleImage* img = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>(def.mPlantIcon);
+			g->DrawImageScaleF(img, scaleF, scaleF);
+		}
+		catch (std::out_of_range) {
+			DrawSeedBackgound(SEEDPACK_NORMAL, g, scaleF);
+		}
+		//g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_PACKET_PLANTS_PLUS, 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
 	}
 	
 	

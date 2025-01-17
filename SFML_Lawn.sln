@@ -20,6 +20,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResourcePacker", "ResourceP
 		{95F0FD0F-3665-4B78-A996-11AB2A3A2FC0} = {95F0FD0F-3665-4B78-A996-11AB2A3A2FC0}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PamViewer", "PamViewer\PamViewer.vcxproj", "{B5B9D731-51F3-43DD-9244-837EAD908D13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -60,6 +62,14 @@ Global
 		{5AAAE2EB-C886-48B0-9B8B-C68E1472932F}.Release|x64.Build.0 = Release|x64
 		{5AAAE2EB-C886-48B0-9B8B-C68E1472932F}.Release|x86.ActiveCfg = Release|Win32
 		{5AAAE2EB-C886-48B0-9B8B-C68E1472932F}.Release|x86.Build.0 = Release|Win32
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Debug|x64.ActiveCfg = Debug|x64
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Debug|x64.Build.0 = Debug|x64
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Debug|x86.ActiveCfg = Debug|Win32
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Debug|x86.Build.0 = Debug|Win32
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Release|x64.ActiveCfg = Release|x64
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Release|x64.Build.0 = Release|x64
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Release|x86.ActiveCfg = Release|Win32
+		{B5B9D731-51F3-43DD-9244-837EAD908D13}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

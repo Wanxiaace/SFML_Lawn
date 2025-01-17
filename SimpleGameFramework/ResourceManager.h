@@ -68,6 +68,7 @@ namespace sgf{
 		{
 			if (mResourcePool.find(key) == mResourcePool.end())
 			{
+				throw std::out_of_range("cant find any key");
 				return nullptr;
 			}
 			return (T*)mResourcePool[key];

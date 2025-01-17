@@ -2,7 +2,8 @@
 sgf::GameApp* sgf::gGameApp = nullptr;
 
 
-sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable): GameAppBase::GameAppBase(width, height, windowCaptain, enabledASync, resiziable)
+sgf::GameApp::GameApp(int width, int height, const sgf::String& windowCaptain, bool enabledASync,bool resiziable):
+	GameAppBase::GameAppBase(width, height, windowCaptain, enabledASync, resiziable)
 {
 	mWidgetManager = new WidgetManager();
 	gGameApp = this;

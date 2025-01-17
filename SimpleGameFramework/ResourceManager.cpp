@@ -161,7 +161,7 @@ void sgf::ResourceManager::LoadParticleImages()
 		{
 			emitter->AttachImage(GetResource<SimpleImage>(emitter->mImageIDs[i]));
 		}
-		emitter->AttachShadowImage(GetResource<SimpleImage>("IMAGE_SHADOW"));
+		emitter->AttachShadowImage(GetResource<SimpleImage>("IMAGE_PLANTSHADOW"));
 
 	}
 }
