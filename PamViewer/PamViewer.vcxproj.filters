@@ -13,10 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="PamLib">
+      <UniqueIdentifier>{a422e752-8712-4e59-94fe-86460e3f74d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PamLib\include">
+      <UniqueIdentifier>{f75ff490-0f53-483f-83fc-ee4cfb4f459f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PamLib\src">
+      <UniqueIdentifier>{601cbddc-e463-4db7-b1b7-e365c3619228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="PopAnim.cpp">
+      <Filter>PamLib\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PopAnim.h">
+      <Filter>PamLib\include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
