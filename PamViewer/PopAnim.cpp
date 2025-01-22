@@ -119,7 +119,7 @@ static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) 
 
 		for (auto &x : result.mComponents)
 		{
-			if (x->mTransforms.size() -1 < frameCounter) {
+			if (x->mTransforms.size() - 1 < frameCounter) {
 				x->mTransforms.push_back(x->mTransforms.back());
 			}
 		}
@@ -177,7 +177,7 @@ void sgf::PopAnim::Present(sgf::Graphics* g,int index)
 	for (auto & x : mMainSprite.mComponents)
 	{
 		if (index >= x->mWorkRangeBegin && index < x->mWorkRangeEnd) {
-			x->Present(g, index);
+			x->Present(g, index - x->mWorkRangeBegin);
 		}
 	}
 }
@@ -206,7 +206,7 @@ void sgf::PamTransform2Matrix(const sgf::PamTransform& transform, glm::mat4x4& t
 
 void sgf::SpriteComponent::Present(sgf::Graphics* g,int index, const glm::mat4x4* tMatrix)
 {
-	auto& changeInfo = mTransforms[index - mWorkRangeBegin];
+	auto& changeInfo = mTransforms[index];
 	glm::mat4x4 matrix;
 	PamTransform2Matrix(changeInfo.mTransform,matrix);
 	if(tMatrix)
@@ -222,8 +222,10 @@ void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix)
 		mResSprite->mComponents[0]->Present(g,0, &matrix);
 	}
 	else {
-		glm::mat4x4 mat;
+		glm::mat4x4 mat = glm::mat4x4(1.0f);
 		PamTransform2Matrix(mResImage->mTransform,mat);
-		g->DrawImageMatrix(mResImage->mImagePtr, matrix /*glm::mat4x4(1.0f)*/);
+		mat = glm::scale(mat, glm::vec3({ 0.76f,0.76f,1.0f }));//³ýÒÔ1.3±¶Ëõ·Å
+		
+		g->DrawImageMatrix(mResImage->mImagePtr, matrix * mat);
 	}
 }
