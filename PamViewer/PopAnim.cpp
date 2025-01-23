@@ -18,9 +18,9 @@ static sgf::PamTransform LoadTransform(const nlohmann::json& js) {
 		return {
 			js[0], js[1], js[2],
 			js[3], js[4], js[5] };
-	if (js.size() > 2)
+	else if (js.size() == 3)
 		return {
-			1, 0, 0,1,js[0],js[1] };
+			cosf(js[0]), sinf(js[0]), -sinf(js[0]),cosf(js[0]),js[1],js[2]};
 	else
 		return {
 			1, 0, 0,1,js[0],js[1] };
@@ -44,33 +44,24 @@ static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) 
 
 	for (auto& x : js["frame"])
 	{
-		//sgf::FrameInfo info;
 		static sgf::RangeFlag* rangeFlag = nullptr;
 		if (!x["label"].is_null())
 		{
-			//info.mLabel = x["label"];
 			result.mFlags.push_back({});
 			rangeFlag = &result.mFlags.back();
 			rangeFlag->mLabel = x["label"];
 			rangeFlag->mIndexBegin = frameCounter;
 			rangeFlag->mIndexEnd = result.mFramesCount - 1;
 		}
-		//info.mIsStop = x["stop"];
 		if (x["stop"] && rangeFlag)
 			rangeFlag->mIndexEnd = frameCounter;
 
-		/*for (auto& y : x["command"])
-		{
-			info.mCommandsVec.push_back({ y["command"] ,y["parameter"] });
-		}*/
-		
 		for (auto& y : x["remove"])
 		{
 
 			int index = y["index"];
 			auto& com = result.mComponentsMap[index];
 			com->mWorkRangeEnd = frameCounter;
-			//info.mRemovesVec.push_back(index);
 		}
 
 		for (auto& y : x["append"])
@@ -101,17 +92,8 @@ static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) 
 			}
 		}
 
-
-
 		for (auto& y : x["change"])
 		{
-			/*sgf::ChangeInfo change;
-			change.mIndex = y["index"];
-			change.mTransform = LoadTransform(y["transform"]);
-			change.mColor = LoadColor(y["color"]);
-			change.mAnim_frame_num = y["anim_frame_num"];
-			info.mChangesVec.push_back(change);*/
-
 			auto& frame = result.mComponentsMap[y["index"]];
 			frame->mTransforms.push_back({});
 			frame->mTransforms.back().mTransform = LoadTransform(y["transform"]);
@@ -119,12 +101,10 @@ static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) 
 
 		for (auto &x : result.mComponents)
 		{
-			if (x->mTransforms.size() - 1 < frameCounter) {
+			if (x->mTransforms.size() - 1 < frameCounter - x->mWorkRangeBegin) {
 				x->mTransforms.push_back(x->mTransforms.back());
 			}
 		}
-
-		//result.mFrames.push_back(info);
 		frameCounter++;
 	}
 
@@ -174,12 +154,7 @@ void sgf::PopAnim::LoadFile(const sgf::String& path)
 
 void sgf::PopAnim::Present(sgf::Graphics* g,int index)
 {
-	for (auto & x : mMainSprite.mComponents)
-	{
-		if (index >= x->mWorkRangeBegin && index < x->mWorkRangeEnd) {
-			x->Present(g, index - x->mWorkRangeBegin);
-		}
-	}
+	mMainSprite.Draw(g,index);
 }
 
 void sgf::PamTransform2Matrix(const sgf::PamTransform& transform, glm::mat4x4& transformMatrix)
@@ -195,13 +170,6 @@ void sgf::PamTransform2Matrix(const sgf::PamTransform& transform, glm::mat4x4& t
 	transformMatrix[3][0] = transform.mAnchorX;
 	transformMatrix[3][1] = transform.mAnchorY;
 
-	/*transformMatrix[0][0] = transform.a;
-	transformMatrix[0][1] = transform.c;
-	transformMatrix[0][3] = transform.mAnchorX;
-
-	transformMatrix[1][0] = transform.b;
-	transformMatrix[1][1] = transform.d;
-	transformMatrix[1][3] = transform.mAnchorY;*/
 }
 
 void sgf::SpriteComponent::Present(sgf::Graphics* g,int index, const glm::mat4x4* tMatrix)
@@ -210,22 +178,39 @@ void sgf::SpriteComponent::Present(sgf::Graphics* g,int index, const glm::mat4x4
 	glm::mat4x4 matrix;
 	PamTransform2Matrix(changeInfo.mTransform,matrix);
 	if(tMatrix)
-		mResources.Draw(g, matrix * (*tMatrix));
+		mResources.Draw(g, (*tMatrix) * matrix, index);
 	else
-		mResources.Draw(g, matrix);
+		mResources.Draw(g, matrix, index);
 	
 }
 
-void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix)
+void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix, int index)
 {
 	if (mIsSprite) {
-		mResSprite->mComponents[0]->Present(g,0, &matrix);
+		int childFrame = 
+			(index - mResSprite->mWorkAeraBegin) 
+			% (mResSprite->mWorkAeraEnd - mResSprite->mWorkAeraBegin);
+		mResSprite->Draw(g, childFrame, &matrix);
 	}
 	else {
 		glm::mat4x4 mat = glm::mat4x4(1.0f);
 		PamTransform2Matrix(mResImage->mTransform,mat);
-		mat = glm::scale(mat, glm::vec3({ 0.76f,0.76f,1.0f }));//除以1.3倍缩放
-		
+		float scaleX = mResImage->mWidth / mResImage->mImagePtr->GetWidth();
+		float scaleY = mResImage->mHeight / mResImage->mImagePtr->GetHeight();
+		mat = glm::scale(mat, glm::vec3({ scaleX,scaleY,1.0f}));//除以缩放
 		g->DrawImageMatrix(mResImage->mImagePtr, matrix * mat);
+	}
+}
+
+void sgf::Sprite::Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix) const
+{
+	for (auto& x : mComponents)
+	{
+		if (index >= x->mWorkRangeBegin && index <= x->mWorkRangeEnd) {
+			if(matrix)
+				x->Present(g, index - x->mWorkRangeBegin, matrix);
+			else
+				x->Present(g, index - x->mWorkRangeBegin);
+		}
 	}
 }

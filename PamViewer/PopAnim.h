@@ -62,7 +62,7 @@ namespace sgf {
 		int mIndexEnd;
 	};
 
-	struct Sprite;
+	class Sprite;
 
 	class DrawableResource {
 	public:
@@ -89,7 +89,7 @@ namespace sgf {
 		};
 
 	public:
-		void Draw(sgf::Graphics* g,const glm::mat4x4& matrix);
+		void Draw(sgf::Graphics* g,const glm::mat4x4& matrix, int index);
 		
 	};
 
@@ -104,18 +104,21 @@ namespace sgf {
 		void Present(sgf::Graphics* g, int index,const glm::mat4x4* tMatrix = nullptr);
 	};
 
-	struct Sprite {
+	class Sprite {
+	public:
 		sgf::String mName;
 		sgf::String mDescription;
 		float mFrameRate;
 		int mWorkAeraBegin;
 		int mWorkAeraEnd;
 		int mFramesCount;
-		std::vector<FrameInfo> mFrames;
 		std::vector<RangeFlag> mFlags;
 
 		std::vector<std::shared_ptr<SpriteComponent>> mComponents;
 		std::unordered_map<int, std::shared_ptr<SpriteComponent>> mComponentsMap;
+
+	public:
+		void Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix = nullptr) const;
 
 	};
 
