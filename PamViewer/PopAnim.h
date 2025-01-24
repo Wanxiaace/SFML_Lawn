@@ -1,19 +1,53 @@
 #ifndef __POPANIM_H__
+#define __POPANIM_H__
+
+#define _SGF_PAM_DEBUG
 
 #include "Common.h"
 #include "Graphics.h"
+#include "Animator.h"
 #include <iostream>
 #include <vector>
 
+
+enum FrameFlag : unsigned int 
+{
+	FRAME_FLAG_REMOVES = 0b1,
+	FRAME_FLAG_APPENDS = 0b10,
+	FRAME_FLAG_CHANGES = 0b100,
+	FRAME_FLAG_FRAME_NAME = 0b1000,
+	FRAME_FLAG_STOP = 0b10000,
+	FRAME_FLAG_COMMANDS = 0b100000,
+};
+
+enum MoveFlag : unsigned int
+{
+	MOVE_FLAG_SRCRECT = 32768,
+	MOVE_FLAG_ROTATE = 16384,
+	MOVE_FLAG_COLOR = 8192,
+	MOVE_FLAG_MATRIX = 4096,
+	MOVE_FLAG_LONG_COORDS = 2048,
+	MOVE_FLAG_ANIM_FRAME_NUM = 1024,
+};
+
 namespace sgf {
 	struct PamTransform {
-		float a;
-		float b;
-		float c;
-		float d;
-		float mAnchorX;
-		float mAnchorY;
+		union
+		{
+			struct
+			{
+				float a;
+				float b;
+				float c;
+				float d;
+				float mAnchorX;
+				float mAnchorY;
+			};
+			float m[6];
+		};
 	};
+
+	std::ostream& operator<<(std::ostream& out,const PamTransform& trans);
 
 	struct CommandInfo {
 		sgf::String mCommand;
@@ -143,8 +177,11 @@ namespace sgf {
 		PopAnim();
 		~PopAnim();
 
-		void LoadFile(const sgf::String& path);
-		void Present(sgf::Graphics* g,int index);
+		//Âýµ½·ÉÆð
+		void LoadFromJsonFile(const sgf::String& path); 
+		//Faster
+		void LoadFromPamFile(const sgf::String& path);
+		void Present(sgf::Graphics* g,int index) const;
 	};
 }
 

@@ -37,8 +37,9 @@ namespace sgf {
 		void OpenFileIfExist(const sgf::String& path, const sgf::String& mode = "rb");
 		void OpenMemory(void* pbuffer,int size);
 
-		void Seek(CursorStyle style, int cur) const;
-		void Read(void* pbuffer, int size) const;
+		void Seek(CursorStyle style, int cur);
+		void Pass(int sride = 1);
+		void Read(void* pbuffer, int size);
 		void Write(const void* src, int size);
 		void Close();
 		int Tell() const;
@@ -53,9 +54,13 @@ namespace sgf {
 			T result = *(T*)buf;
 			return result;
 		}
+		unsigned short ReadWord() { return ReadAs<unsigned short>(); };
 		unsigned int ReadDword() { return ReadAs<unsigned int>(); };
 		unsigned long long ReadQword() { return ReadAs<unsigned long long>(); };
+		short ReadShort() { return ReadAs<short>(); };
 		int ReadInt() { return ReadAs<int>(); };
+		unsigned char ReadByte() { return ReadAs<unsigned char>(); };
+		bool ReadBool() { return ReadAs<bool>(); };
 		long long ReadInt64() { return ReadAs<long long>(); };
 		sgf::String ReadString(int size);
 	};

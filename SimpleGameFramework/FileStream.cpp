@@ -35,7 +35,7 @@ void sgf::FileStream::OpenMemory(void* pbuffer, int size)
 	mIsOpen = true;
 }
 
-void sgf::FileStream::Seek(CursorStyle style, int cur) const
+void sgf::FileStream::Seek(CursorStyle style, int cur)
 {
 	CHECK_LOADED;
 
@@ -55,7 +55,12 @@ void sgf::FileStream::Seek(CursorStyle style, int cur) const
 	}
 }
 
-void sgf::FileStream::Read(void* pbuffer, int size) const
+void sgf::FileStream::Pass(int sride)
+{
+	Seek(CURSOR_CUR,sride);
+}
+
+void sgf::FileStream::Read(void* pbuffer, int size)
 {
 	CHECK_LOADED;
 	SDL_RWread(mIStream,pbuffer,size,1);

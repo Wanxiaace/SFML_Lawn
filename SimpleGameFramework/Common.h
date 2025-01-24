@@ -83,9 +83,9 @@ static void CheckGLError(const char* file, int line)
 
 #define SHOW_ERROR(x) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr);
 #ifdef _DEBUG
-#define SHOW_ERROR_ABORT_EXIT(x) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr); __debugbreak(); abort();
+#define SHOW_ERROR_ABORT_EXIT(x) { SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr); __debugbreak(); abort(); }
 #else
-#define SHOW_ERROR_ABORT_EXIT(x) SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr); exit(EXIT_FAILURE);
+#define SHOW_ERROR_ABORT_EXIT(x) { SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,"Error",x,nullptr); exit(EXIT_FAILURE); }
 #endif
 
 #include "SString.h"

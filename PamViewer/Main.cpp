@@ -6,6 +6,7 @@
 sgf::GameApp* gPamViewerApp;
 sgf::Graphics* gGraphics;
 sgf::PopAnim* gPopAnim;
+sgf::PopAnim* gPopAnim2;
 
 #undef main
 
@@ -23,14 +24,16 @@ void Display(sgf::GameAppBase* app,int ms) {
 	gGraphics->SetCubeColor({1,1,1,1});
 
 
-	gPopAnim->Present(gGraphics, counter);
+	gPopAnim2->Present(gGraphics, counter);
 	gGraphics->Present();
 }
 
 int main() {
 	gPamViewerApp = new sgf::GameApp(800,600,"PamViewer");
 	gPopAnim = new sgf::PopAnim();
-	gPopAnim->LoadFile("ZOMBIE_TUTORIAL.json");
+	gPopAnim2 = new sgf::PopAnim();
+	gPopAnim->LoadFromPamFile("ZOMBIE_TUTORIAL.PAM");
+	gPopAnim2->LoadFromJsonFile("ZOMBIE_TUTORIAL.json");
 
 	std::function<void(sgf::GameAppBase*, int)> func = Display;
 
