@@ -325,8 +325,16 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 				}
 
 				if (moveFlags & MoveFlag::MOVE_FLAG_COLOR) {
-					file->Pass(4);//暂时不处理Color
-				}
+					//file->Pass(4);//暂时不处理Color
+					changeInfo.mColor = 
+					{
+						file->ReadByte() / 255.0f,
+						file->ReadByte() / 255.0f,
+						file->ReadByte() / 255.0f,
+						file->ReadByte() / 255.0f,
+					};
+				}else if (com->mChanges.size() > 1)
+					com->mChanges.back().mColor = (com->mChanges.end() - 2)->mColor;
 
 				if (moveFlags & MoveFlag::MOVE_FLAG_ANIM_FRAME_NUM) {
 					changeInfo.mAnim_frame_num = file->ReadShort();

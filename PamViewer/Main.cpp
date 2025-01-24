@@ -26,14 +26,16 @@ void Display(sgf::GameAppBase* app,int ms) {
 	gGraphics->ModelMoveTo(0,0);
 	gGraphics->MoveTo(0,0);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < 20; j++)
 		{
-			gGraphics->MoveTo(j * 100 - 100, i * 100 - 100);
+			gGraphics->MoveTo(j * 30 - 100, i * 30 - 100);
 			gPopAnim->PresentScale(gGraphics, counter, 0.5f);
 		}
 	}
+
+	gPopAnim->PresentScale(gGraphics, counter, 1.0f);
 
 	gGraphics->Present();
 }
@@ -41,8 +43,9 @@ void Display(sgf::GameAppBase* app,int ms) {
 int main() {
 	gPamViewerApp = new sgf::GameApp(1000, 1000,"PamViewer");
 	gPopAnim = new sgf::PopAnim();
-	gPopAnim->LoadFromJsonFile("CHERRYBOMB.json");
+	//gPopAnim->LoadFromJsonFile("CHERRYBOMB.json");
 	//gPopAnim->LoadFromJsonFile("CELERYSTALKER.json");
+	gPopAnim->LoadFromPamFile("CHERRYBOMB.PAM");
 
 	std::function<void(sgf::GameAppBase*, int)> func = Display;
 
