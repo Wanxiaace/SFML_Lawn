@@ -537,10 +537,18 @@ void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix, in
 void sgf::Sprite::Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix,const sgf::Color* color) const
 {
 
-	for (auto& x : mComponents)
+	/*for (auto& x : mComponents)
 	{
 		if (index >= x->mWorkRangeBegin && index <= x->mWorkRangeEnd) {
 			x->Present(g, index - x->mWorkRangeBegin, matrix, color);
+		}
+	}*/
+
+	int size = mComponents.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (index >= mComponents[i]->mWorkRangeBegin && index <= mComponents[i]->mWorkRangeEnd) {
+			mComponents[i]->Present(g, index - mComponents[i]->mWorkRangeBegin, matrix, color);
 		}
 	}
 }
