@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /ResourceGen/output
 /vcpkg_installed
 /PamViewer/output_d
+/PamViewer/output
