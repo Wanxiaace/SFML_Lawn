@@ -103,6 +103,18 @@ void sgf::Graphics::SetCubeColor(const sgf::Color& srcColor)
 	}
 }
 
+void sgf::Graphics::MulCubeColor(const sgf::Color& srcColor)
+{
+	mCubeColor *= srcColor;
+	for (size_t i = 0; i < 6; i++)
+	{
+		mCubeVertices[i].r *= srcColor.r;
+		mCubeVertices[i].g *= srcColor.g;
+		mCubeVertices[i].b *= srcColor.b;
+		mCubeVertices[i].a *= srcColor.a;
+	}
+}
+
 void sgf::Graphics::AppendVertices(const Vertex* vertices, int vertexCount)
 {
 	for (int i = 0; i < vertexCount; i++)

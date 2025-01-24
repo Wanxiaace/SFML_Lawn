@@ -6,7 +6,6 @@
 sgf::GameApp* gPamViewerApp;
 sgf::Graphics* gGraphics;
 sgf::PopAnim* gPopAnim;
-sgf::PopAnim* gPopAnim2;
 
 #undef main
 
@@ -15,25 +14,35 @@ static float counter = 0;
 void Display(sgf::GameAppBase* app,int ms) {
 
 	counter += app->mTick.GetDeltaTickFloat() / 30.0f;
-	if (counter > 300)
+	if (counter > 100)
 		counter = 0;
-
+	
 	gGraphics->Clear();
-	gGraphics->ModelMoveTo(200,200);
+	gGraphics->SetCubeColor({ 1,1,1,1 });
+	gGraphics->ModelMoveTo(0, 0);
+	gGraphics->MoveTo(0, 0);
+	gGraphics->FillRect({ 0,0,1000,1000 });
+
+	gGraphics->ModelMoveTo(0,0);
 	gGraphics->MoveTo(0,0);
-	gGraphics->SetCubeColor({1,1,1,1});
 
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			gGraphics->MoveTo(j * 100 - 100, i * 100 - 100);
+			gPopAnim->PresentScale(gGraphics, counter, 0.5f);
+		}
+	}
 
-	gPopAnim2->Present(gGraphics, counter);
 	gGraphics->Present();
 }
 
 int main() {
-	gPamViewerApp = new sgf::GameApp(800,600,"PamViewer");
+	gPamViewerApp = new sgf::GameApp(1000, 1000,"PamViewer");
 	gPopAnim = new sgf::PopAnim();
-	gPopAnim2 = new sgf::PopAnim();
-	gPopAnim->LoadFromPamFile("ZOMBIE_TUTORIAL.PAM");
-	gPopAnim2->LoadFromJsonFile("ZOMBIE_TUTORIAL.json");
+	gPopAnim->LoadFromJsonFile("CHERRYBOMB.json");
+	//gPopAnim->LoadFromJsonFile("CELERYSTALKER.json");
 
 	std::function<void(sgf::GameAppBase*, int)> func = Display;
 

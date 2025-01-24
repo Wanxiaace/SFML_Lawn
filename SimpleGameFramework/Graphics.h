@@ -70,6 +70,10 @@ namespace sgf {
 		/// @param srcColor 目标颜色
 		void SetCubeColor(const sgf::Color& srcColor);
 
+		/// @brief 以相乘的方式混合颜色
+		/// @param srcColor 目标颜色
+		void MulCubeColor(const sgf::Color& srcColor);
+
 		/// @brief 将顶点加入缓冲区
 		/// @param vertices 目标顶点数组
 		/// @param vertexCount 目标顶点个数

@@ -32,19 +32,12 @@ enum MoveFlag : unsigned int
 
 namespace sgf {
 	struct PamTransform {
-		union
-		{
-			struct
-			{
-				float a;
-				float b;
-				float c;
-				float d;
-				float mAnchorX;
-				float mAnchorY;
-			};
-			float m[6];
-		};
+		float a = 1.0f;
+		float b = 0.0f;
+		float c = 0.0f;
+		float d = 1.0f;
+		float mAnchorX = 0.0f;
+		float mAnchorY = 0.0f;
 	};
 
 	std::ostream& operator<<(std::ostream& out,const PamTransform& trans);
@@ -76,7 +69,7 @@ namespace sgf {
 
 	struct ChangeInfo {
 		PamTransform mTransform;
-		sgf::Color mColor;
+		sgf::Color mColor = { 1,1,1,1 };
 		int mAnim_frame_num;
 	};
 
@@ -123,7 +116,7 @@ namespace sgf {
 		};
 
 	public:
-		void Draw(sgf::Graphics* g,const glm::mat4x4& matrix, int index);
+		void Draw(sgf::Graphics* g,const glm::mat4x4& matrix, int index, const sgf::Color& color);
 		
 	};
 
@@ -133,9 +126,9 @@ namespace sgf {
 		int mWorkRangeBegin;
 		int mWorkRangeEnd;
 		DrawableResource mResources;
-		std::vector<ChangeInfo> mTransforms;
+		std::vector<ChangeInfo> mChanges;
 
-		void Present(sgf::Graphics* g, int index,const glm::mat4x4* tMatrix = nullptr);
+		void Present(sgf::Graphics* g, int index,const glm::mat4x4* tMatrix = nullptr, const sgf::Color* color = nullptr);
 	};
 
 	class Sprite {
@@ -152,7 +145,7 @@ namespace sgf {
 		std::unordered_map<int, std::shared_ptr<SpriteComponent>> mComponentsMap;
 
 	public:
-		void Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix = nullptr) const;
+		void Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix = nullptr, const sgf::Color* color = nullptr) const;
 
 	};
 
@@ -182,6 +175,7 @@ namespace sgf {
 		//Faster
 		void LoadFromPamFile(const sgf::String& path);
 		void Present(sgf::Graphics* g,int index) const;
+		void PresentScale(sgf::Graphics* g,int index,float scale) const;
 	};
 }
 

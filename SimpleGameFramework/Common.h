@@ -135,8 +135,21 @@ namespace sgf {
 	typedef Rect<int> IntRect;
 	typedef Rect<float> FloatRect;
 
-    struct Color {
+    class Color {
+    public:
         float r, g, b, a;
+
+        Color& operator*=(const Color& src) {
+            r *= src.r;
+            g *= src.g;
+            b *= src.b;
+            a *= src.a;
+            return *this;
+        }
+
+        Color operator*(const Color& src) {
+            return { r * src.r, g * src.g, b * src.b, a * src.a };
+        }
     };
 
     struct Point

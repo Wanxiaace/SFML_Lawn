@@ -20,15 +20,15 @@ static sgf::PamTransform LoadTransform(const nlohmann::json& js) {
 			js[3], js[4], js[5] };
 	else if (js.size() == 3)
 		return {
-			cosf(js[0]), sinf(js[0]), -sinf(js[0]),cosf(js[0]),js[1],js[2]};
-	else
-		return {
-			1, 0, 0,1,js[0],js[1] };
+			cosf(js[0]), sinf(js[0]), -sinf(js[0]),cosf(js[0]),js[1],js[2] };
+	else if (js.size() > 0)
+		return { 1, 0, 0,1,js[0],js[1] };
+	else return {};
 }
 
 
 static sgf::Color LoadColor(const nlohmann::json& js) {
-	return {};
+	return { js[0],js[1],js[2],js[3] };
 }
 
 static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) {
@@ -98,18 +98,32 @@ static sgf::Sprite LoadSprite(const nlohmann::json& js,const sgf::PopAnim* pam) 
 		for (auto& y : x["change"])
 		{
 			auto& frame = result.mComponentsMap[y["index"]];
-			frame->mTransforms.push_back({});
-			frame->mTransforms.back().mTransform = LoadTransform(y["transform"]);
+			frame->mChanges.push_back({});
+			if (!y["transform"].is_null())
+				frame->mChanges.back().mTransform = LoadTransform(y["transform"]);
+			else if(frame->mChanges.size() > 1)
+				frame->mChanges.back().mTransform = (frame->mChanges.end() - 2)->mTransform;
+			if (!y["color"].is_null())
+				frame->mChanges.back().mColor = LoadColor(y["color"]);
+			else if(frame->mChanges.size() > 1)
+				frame->mChanges.back().mColor = (frame->mChanges.end() - 2)->mColor;
 		}
 
 		for (auto &x : result.mComponents)
 		{
-			if (frameCounter <= x->mWorkRangeEnd && x->mTransforms.size() - 1 < frameCounter - x->mWorkRangeBegin) {
-				x->mTransforms.push_back(x->mTransforms.back());
+			if (frameCounter <= x->mWorkRangeEnd && x->mChanges.size() - 1 < frameCounter - x->mWorkRangeBegin) {
+				x->mChanges.push_back(x->mChanges.back());
 			}
 		}
 		frameCounter++;
 	}
+
+	std::sort(result.mComponents.begin(), result.mComponents.end(), 
+		[](
+			const std::shared_ptr<sgf::SpriteComponent>& a, 
+			const std::shared_ptr<sgf::SpriteComponent>& b) -> bool {
+				return a->mIndex < b->mIndex;
+		});
 
 	return result;
 }
@@ -167,16 +181,20 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 
 	for (int i = 0; i < sprite.mFramesCount; i++)
 	{
-		unsigned int flags = file->ReadByte();
+		unsigned char flags = file->ReadByte();
 
 		if (flags & FrameFlag::FRAME_FLAG_REMOVES) {
-			int removeCount = file->ReadByte();
+			unsigned int removeCount = file->ReadByte();
+
 			if (removeCount == 255)
 				removeCount = file->ReadShort();
 
-			for (int j = 0; j < removeCount; j++)
+
+			for (unsigned int j = 0; j < removeCount; j++)
 			{
 				int removeId = file->ReadShort();
+				//std::cerr << "Remove: " << removeId << " " << "at frame: " << i << " " << j+1 << " of: " << removeCount << std::endl;
+
 				if (removeId >= 2047)
 				{
 					removeId = file->ReadInt();
@@ -189,10 +207,10 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 		}
 
 		if (flags & FrameFlag::FRAME_FLAG_APPENDS) {
-			int appendCount = file->ReadByte();
+			unsigned int appendCount = file->ReadByte();
 			if (appendCount == 255)
 				appendCount = file->ReadShort();
-			for (int j = 0; j < appendCount; j++)
+			for (unsigned int j = 0; j < appendCount; j++)
 			{
 				unsigned short infoMask = file->ReadWord();
 				int index = infoMask & 2047;
@@ -217,6 +235,18 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 					file->ReadShort();
 				}
 
+				if ((infoMask & 4096) != 0)
+				{
+					//name
+					file->ReadString(file->ReadShort());
+				}
+
+				if ((infoMask & 2048) != 0)
+				{
+					//TimeScale
+					file->ReadInt() / 65536.0f;
+				}
+
 				sprite.mComponents.push_back(std::make_shared<sgf::SpriteComponent>());
 				auto& com = sprite.mComponents.back();
 				sprite.mComponentsMap[index] = com;
@@ -232,18 +262,6 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 				}
 
 				//com->mResources = resource;
-
-				if ((infoMask & 4096) != 0)
-				{
-					//name
-					file->ReadString(file->ReadShort());
-				}
-
-				if ((infoMask & 2048) != 0)
-				{
-					//TimeScale
-					file->ReadInt() / 65536.0f;
-				}
 			}
 		}
 
@@ -266,8 +284,8 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 
 				if (moveFlags & MoveFlag::MOVE_FLAG_MATRIX) {
 					auto& com = sprite.mComponentsMap[index];
-					com->mTransforms.push_back({});
-					auto & trans = com->mTransforms.back().mTransform;
+					com->mChanges.push_back({});
+					auto & trans = com->mChanges.back().mTransform;
 					trans.a = file->ReadInt() / 65536.0;
 					trans.c = file->ReadInt() / 65536.0;
 					trans.b = file->ReadInt() / 65536.0;
@@ -275,22 +293,22 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 				}
 				else if (moveFlags & MoveFlag::MOVE_FLAG_ROTATE) {
 					auto& com = sprite.mComponentsMap[index];
-					com->mTransforms.push_back({});
-					auto& trans = com->mTransforms.back().mTransform;
+					com->mChanges.push_back({});
+					auto& trans = com->mChanges.back().mTransform;
 					double rotate = file->ReadShort() / 1000.0;
 					trans.a = cosf(rotate);
-					trans.c = sinf(rotate);
-					trans.b = -sinf(rotate);
+					trans.b = sinf(rotate);
+					trans.c = -sinf(rotate);
 					trans.d = cosf(rotate);
 				}
 				else {
 					auto& com = sprite.mComponentsMap[index];
-					com->mTransforms.push_back({ 1,0,0,1,0,0 });
+					com->mChanges.push_back({ 1,0,0,1,0,0 });
 				}
 
 				
 				auto& com = sprite.mComponentsMap[index];
-				auto& changeInfo = com->mTransforms.back();
+				auto& changeInfo = com->mChanges.back();
 
 				/*更长的坐标*/
 				if (moveFlags & MoveFlag::MOVE_FLAG_LONG_COORDS) {
@@ -338,22 +356,34 @@ static void LoadSpriteBinary(sgf::FileStream* file, sgf::Sprite& sprite,sgf::Pop
 		{
 			int count = file->ReadByte();
 			//暂时不处理
-			file->ReadString(file->ReadShort()); //Command
-			file->ReadString(file->ReadShort()); //Parameter
+			for (int j = 0; j < count; j++)
+			{
+				file->ReadString(file->ReadShort()); //Command
+				file->ReadString(file->ReadShort()); //Parameter
+			}
 		}
 
 		for (auto& x : sprite.mComponents)
 		{
-			if (i <= x->mWorkRangeEnd && x->mTransforms.size() - 1 < i - x->mWorkRangeBegin) {
-				x->mTransforms.push_back(x->mTransforms.back());
+			if (i <= x->mWorkRangeEnd && x->mChanges.size() - 1 < i - x->mWorkRangeBegin) {
+				x->mChanges.push_back(x->mChanges.back());
 			}
 		}
 	}
+
+	std::sort(sprite.mComponents.begin(), sprite.mComponents.end(),
+		[](
+			const std::shared_ptr<sgf::SpriteComponent>& a,
+			const std::shared_ptr<sgf::SpriteComponent>& b) -> bool {
+				return a->mIndex < b->mIndex;
+		});
 }
 
 void sgf::PopAnim::LoadFromPamFile(const sgf::String& path)
 {
 	sgf::FileStream * file = sgf::FileManager::TryToLoadFilePointer(path);
+	if (!file)
+		SHOW_ERROR_ABORT_EXIT(("Failed to load PAM in: " + path).c_str());
 	unsigned int cookie = file->ReadInt();
 	printf("Cookie: %X \n", cookie);
 
@@ -391,10 +421,6 @@ void sgf::PopAnim::LoadFromPamFile(const sgf::String& path)
 			file->ReadShort() / 20.0f,
 		};
 
-		float temp = res.mTransform.b;
-		res.mTransform.b = res.mTransform.c;
-		res.mTransform.c = temp;
-
 #ifdef _SGF_PAM_DEBUG
 		SimpleImage* img = new SimpleImage();
 		img->LoadFromFile(("res/" + res.mName + ".png").c_str());
@@ -426,6 +452,13 @@ void sgf::PopAnim::Present(sgf::Graphics* g,int index) const
 	mMainSprite.Draw(g,index);
 }
 
+void sgf::PopAnim::PresentScale(sgf::Graphics* g, int index, float scale) const
+{
+	glm::mat4x4 scaleMat = glm::mat4x4(1.0f);
+	scaleMat = glm::scale(scaleMat, glm::vec3(scale, scale, 1.0f));
+	mMainSprite.Draw(g, index, &scaleMat);
+}
+
 std::ostream& sgf::operator<<(std::ostream& out, const PamTransform& trans)
 {
 	out << trans.a << " " 
@@ -452,45 +485,54 @@ void sgf::PamTransform2Matrix(const sgf::PamTransform& transform, glm::mat4x4& t
 
 }
 
-void sgf::SpriteComponent::Present(sgf::Graphics* g,int index, const glm::mat4x4* tMatrix)
+void sgf::SpriteComponent::Present(sgf::Graphics* g,int index, const glm::mat4x4* tMatrix, const sgf::Color* color)
 {
-	auto& changeInfo = mTransforms[index];
+	auto& changeInfo = mChanges[index];
 	glm::mat4x4 matrix;
 	PamTransform2Matrix(changeInfo.mTransform,matrix);
-	if(tMatrix)
-		mResources.Draw(g, (*tMatrix) * matrix, index);
+	if (tMatrix)
+		if(color)
+			mResources.Draw(g, (*tMatrix) * matrix, index, changeInfo.mColor * (*color));
+		else
+			mResources.Draw(g, (*tMatrix) * matrix, index, changeInfo.mColor);
 	else
-		mResources.Draw(g, matrix, index);
+		if (color)
+			mResources.Draw(g, matrix, index, changeInfo.mColor * (*color));
+		else
+			mResources.Draw(g, matrix, index, changeInfo.mColor);
 	
 }
 
-void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix, int index)
+void sgf::DrawableResource::Draw(sgf::Graphics* g, const glm::mat4x4& matrix, int index, const sgf::Color& color)
 {
 	if (mIsSprite) {
-		int childFrame = 
-			(index - mResSprite->mWorkAeraBegin) 
+		int childFrame =
+			(index - mResSprite->mWorkAeraBegin)
 			% (mResSprite->mWorkAeraEnd - mResSprite->mWorkAeraBegin);
-		mResSprite->Draw(g, childFrame, &matrix);
+		mResSprite->Draw(g, childFrame, &matrix, &color);
 	}
 	else {
 		glm::mat4x4 mat = glm::mat4x4(1.0f);
-		PamTransform2Matrix(mResImage->mTransform,mat);
+		PamTransform2Matrix(mResImage->mTransform, mat);
 		float scaleX = mResImage->mWidth / mResImage->mImagePtr->GetWidth();
 		float scaleY = mResImage->mHeight / mResImage->mImagePtr->GetHeight();
-		mat = glm::scale(mat, glm::vec3({ scaleX,scaleY,1.0f}));//除以缩放
+		mat = glm::scale(mat, glm::vec3({ scaleX,scaleY,1.0f }));//除以缩放
+
+		auto colorTemp = g->mCubeColor;
+		g->MulCubeColor(color);
 		g->DrawImageMatrix(mResImage->mImagePtr, matrix * mat);
+
+		g->SetCubeColor(colorTemp);
 	}
 }
 
-void sgf::Sprite::Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix) const
+void sgf::Sprite::Draw(sgf::Graphics* g, int index, const glm::mat4x4* matrix,const sgf::Color* color) const
 {
+
 	for (auto& x : mComponents)
 	{
 		if (index >= x->mWorkRangeBegin && index <= x->mWorkRangeEnd) {
-			if(matrix)
-				x->Present(g, index - x->mWorkRangeBegin, matrix);
-			else
-				x->Present(g, index - x->mWorkRangeBegin);
+			x->Present(g, index - x->mWorkRangeBegin, matrix, color);
 		}
 	}
 }
