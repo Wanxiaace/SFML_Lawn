@@ -24,6 +24,7 @@
     <ProjectGuid>{b5b9d731-51f3-43dd-9244-837ead908d13}</ProjectGuid>
     <RootNamespace>PamViewer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PamViewer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
