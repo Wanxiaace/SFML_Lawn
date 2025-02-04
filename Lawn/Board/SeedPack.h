@@ -12,7 +12,7 @@
 namespace Lawn {
 	class Board;
 	void DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF);
-	void DrawSeedPackWithCost(SeedType type, sgf::Graphics* g, float scaleF);
+	bool DrawSeedPackWithoutCost(SeedType type, sgf::Graphics* g, float scaleF);
 	void DrawSeedBackgound(SeedPackBackground type, sgf::Graphics* g, float scaleF);
 	static SeedPackBackground GetSeedPackBackground(SeedType type);
 

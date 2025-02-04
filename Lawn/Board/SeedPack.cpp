@@ -1,33 +1,57 @@
 #include "SeedPack.h"
 #include "../Constant.h"
 
+static std::unordered_map<Lawn::SeedType, sgf::SimpleImage*> gCostMap;
+
 void Lawn::DrawSeedPack(SeedType type, sgf::Graphics* g, float scaleF)
+{
+	if (DrawSeedPackWithoutCost(type, g, scaleF)) {
+		return;
+	}
+
+	g->Translate(45 * scaleF, 30 * scaleF);
+	auto* textImage = gCostMap[type];
+
+	if (!textImage) {
+		sgf::Font* font = RES_FONT::FONT_FONT3;
+		int cost = gPlantsDefinitions[type].mCost;
+		font->SetFontSize(35);
+		textImage = font->GenTextImage(sgf::SString::StrParse(cost));
+		gCostMap[type] = textImage;
+	}
+
+	g->SetCubeColor({ 0,0,0,1 });
+	g->DrawImageScaleF(textImage, scaleF * 0.7, scaleF * 0.7);
+
+	g->Translate(-1 * scaleF, -1 * scaleF);
+	g->SetCubeColor({ 1,1,1,1 });
+	g->DrawImageScaleF(textImage, scaleF * 0.7, scaleF * 0.7);
+}
+
+
+bool Lawn::DrawSeedPackWithoutCost(SeedType type, sgf::Graphics* g, float scaleF)
 {
 	scaleF *= 0.4f;
 	if (type == SEED_NONE) {
 		DrawSeedBackgound(SEEDPACK_NONE, g, scaleF);
+		return true;
 	}
 	else {
 		try {
-			PlantDefinition& def = gPlantsDefinitions.at(type);
+			PlantDefinition& def = gPlantsDefinitions[type];
+			sgf::SimpleImage* img = gLawnApp->mResourceManager.GetResource<sgf::SimpleImage>(def.mPlantIcon);
 			SeedPackBackground bkg = GetSeedPackBackground(type);
 			DrawSeedBackgound(bkg, g, scaleF);
 			g->Translate(15 * scaleF, 4 * scaleF);
-			sgf::SimpleImage* img = gLawnApp->mResourceManager.GetResourceFast<sgf::SimpleImage>(def.mPlantIcon);
 			g->DrawImageScaleF(img, scaleF, scaleF);
+			return false;
 		}
 		catch (std::out_of_range) {
 			DrawSeedBackgound(SEEDPACK_NORMAL, g, scaleF);
+			return true;
 		}
 		//g->DrawImageGridAtlasScaleF(RES_IMAGE::IMAGE_PACKET_PLANTS_PLUS, 1, 56, 0, type, scaleF * 2.7, scaleF * 2.7);
 	}
-	
-	
-}
-
-void Lawn::DrawSeedPackWithCost(SeedType type, sgf::Graphics* g, float scaleF)
-{
-	DrawSeedPack(type,g,scaleF);
 }
 
 
@@ -103,7 +127,7 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 		DrawSeedPack(mSeedType, g, mScaleF);
 	}
 
-	g->Translate(60 * mScaleF, 35 * mScaleF);
+	/*g->Translate(60 * mScaleF, 35 * mScaleF);
 	if (mTextImage) {
 		g->SetCubeColor({0,0,0,1});
 		g->DrawImageScaleF(mTextImage, mScaleF * 0.7, mScaleF * 0.7);
@@ -111,7 +135,7 @@ void Lawn::SeedPack::Draw(sgf::Graphics* g)
 		g->Translate(-1* mScaleF,-1* mScaleF);
 		g->SetCubeColor({ 1,1,1,1 });
 		g->DrawImageScaleF(mTextImage, mScaleF * 0.7, mScaleF * 0.7);
-	}
+	}*/
 
 	if (mIsMouseHover) {
 		g->MoveTo(mRect.mX, mRect.mY);
