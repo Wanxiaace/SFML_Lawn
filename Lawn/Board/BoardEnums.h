@@ -201,7 +201,7 @@ namespace Lawn {
 
 
     struct ProjectileDefinition {
-        ProjectileType mZombieType;
+        ProjectileType mProjectileType;
         int mDamage;
         int mImageOffsetX;
         int mImageOffsetY;
