@@ -26,15 +26,6 @@ void Display(sgf::GameAppBase* app,int ms) {
 	gGraphics->ModelMoveTo(0,0);
 	gGraphics->MoveTo(0,0);
 
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			gGraphics->MoveTo(j * 100 - 100, i * 100 - 100);
-			gPopAnim->PresentScale(gGraphics, counter, 0.5f);
-		}
-	}
-
 	gPopAnim->PresentScale(gGraphics, counter, 1.0f);
 
 	gGraphics->Present();
