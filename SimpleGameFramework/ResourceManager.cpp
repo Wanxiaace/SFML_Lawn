@@ -83,8 +83,6 @@ void sgf::ResourceManager::LoadReanimWithID(const sgf::String& path, sgf::String
 void sgf::ResourceManager::LoadReanimByDefinitionWithID(const PopCom::ReanimDefinition& def, sgf::String id)
 {
 	Reanimation* reanim = new Reanimation();
-
-	reanim->mTracks = new std::vector<TrackInfo>;
 	reanim->mFPS = def.mFPS;
 
 	for (int i = 0; i < def.mTrackCount;i++) {
@@ -105,6 +103,7 @@ void sgf::ResourceManager::LoadReanimByDefinitionWithID(const PopCom::ReanimDefi
 			aFInfo.a = trans.mAlpha;
 			aFInfo.f = trans.mFrame;
 			aFInfo.i = trans.mImage;
+			reanim->mImagesSet->insert(aFInfo.i);
 			aInfo.mFrames.push_back(aFInfo);
 		}
 

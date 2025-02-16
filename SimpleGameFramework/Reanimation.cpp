@@ -2,24 +2,26 @@
 
 sgf::Reanimation::Reanimation()
 {
+	mTracks = std::make_shared<std::vector<TrackInfo>>(std::vector<TrackInfo>());
+	mImagesSet = std::make_shared<std::set<sgf::String>>(std::set<sgf::String>());
 	mResourceManager = nullptr;
 }
 
 sgf::Reanimation::~Reanimation()
 {
-	delete mTracks;
+
 }
 
 #include "GamePacker/GamePacker.h"
 
 void sgf::Reanimation::LoadFromFile(const char* filePath)
 {
-	mTracks = new std::vector<TrackInfo>;
+
 
 	pugi::xml_parse_result result;
 
 	pugi::xml_document doc = FileManager::TryToLoadXMLFile(filePath, &result);
-	
+
 	if (!result) {
 		std::cout << "Loading " << filePath << " Error with: " << std::endl;
 		std::cout << result.description() << std::endl;
@@ -65,13 +67,14 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 							aFInfo.ky = z.text().as_float();
 						}
 						if (zTagName == "a") {
-							aFInfo.a = z.text().as_int();
+							aFInfo.a = z.text().as_float();
 						}
 						if (zTagName == "f") {
 							aFInfo.f = z.text().as_int();
 						}
 						if (zTagName == "i") {
 							aFInfo.i = z.text().as_string();
+							mImagesSet->insert(aFInfo.i);
 						}
 					}
 					aInfo.mFrames.push_back(aFInfo);
@@ -88,7 +91,7 @@ void sgf::Reanimation::LoadFromFile(const char* filePath)
 
 
 
-void sgf::Reanimation::Present(Graphics* g,int frameIndex)
+void sgf::Reanimation::Present(Graphics* g, int frameIndex)
 {
 	Reanimation* R = this;
 	int OffsetX = 0;
@@ -108,7 +111,7 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 			SimpleImage* targetImage = (SimpleImage*)mResourceManager->mResourcePool[aSource.i];
 			if (targetImage) {
 				//g->DrawImageMatrixFixed(targetImage,animMatrix);
-				
+
 				float matrixPosition = g->TryToBindNewMatrix(animMatrix);
 				int tex = g->TryToBindNewTexture(targetImage);
 
@@ -135,7 +138,7 @@ void sgf::Reanimation::Present(Graphics* g,int frameIndex)
 					g->mCubeVertices[i].texIndex = -1;
 					g->mCubeVertices[i].matrixIndex = -1;
 				}
-				
+
 			}
 		}
 
@@ -148,20 +151,6 @@ void sgf::TransformToMatrixEx(
 	float aSkewX = (src.kx) * -0.017453292f;
 	float aSkewY = (src.ky) * -0.017453292f;
 
-	/*
-	struct GameMat44 {
-        union {
-            float m[4][4];
-            struct
-            {
-                float x1, x2, x3, x4;
-                float y1, y2, y3, y4;
-                float z1, z2, z3, z4;
-                float t1, t2, t3, t4;
-            };
-        };
-    };
-	*/
 
 	sgf::GameMat44* destg = (sgf::GameMat44*)&dest;
 	destg->x1 = cos(aSkewX);

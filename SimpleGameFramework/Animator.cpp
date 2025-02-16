@@ -82,6 +82,12 @@ void sgf::Animator::SetFrameRangeByTrackName(const sgf::String& trackName)
 	mFrameIndexNow = range.first;
 }
 
+void sgf::Animator::SetFrameRangeToDefault()
+{
+	mFrameIndexBegin = 0;
+	mFrameIndexEnd = mReanim->mTracks->at(0).mFrames.size() - 1;
+}
+
 void sgf::Animator::SetFrameRangeByTrackNameOnce(const sgf::String& trackName, const sgf::String& oriTrackName)
 {
 	SetFrameRangeByTrackName(trackName);
@@ -289,8 +295,9 @@ void sgf::Animator::Present(Graphics* g)
 
 		OffsetX = mExtraInfos[i].mOffsetX;
 		OffsetY = mExtraInfos[i].mOffsetY;
-		g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle });// 
-		
+		Color colorTemp = { g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle };
+		g->SetCubeColor(colorTemp);// 
+
 		if (mReanimBlendCounter > 0) {
 			//std::cout << (x.mFrames[mFrameIndexBegin].kx - x.mFrames[mFrameIndexBlendBuffer].kx) << std::endl;
 			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin],  1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource,true);
@@ -316,6 +323,9 @@ void sgf::Animator::Present(Graphics* g)
 				Point graPos = g->GetGraphicsTransformPosition();
 				TransformToMatrixEx(aSource, animMatrix, fScale, fScale, OffsetX, OffsetY);
 				
+				//归位颜色
+				g->SetCubeColor(colorTemp);
+
 				g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,
 					g->mCubeColor.a * aSource.a });
 
@@ -350,7 +360,10 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 	float OffsetY = 0;
 	float fScale = 1.0f;
 
+	Color colorTotalTemp = g->mCubeColor;
+
 	for (size_t i = 0; i < targetReanim->mTracks->size(); i++) {
+		g->SetCubeColor(colorTotalTemp);
 		auto& x = (targetReanim->mTracks)->at(i);
 		if (!x.mAvailable)
 			continue;
@@ -363,7 +376,9 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 
 		OffsetX = mExtraInfos[i].mOffsetX;
 		OffsetY = mExtraInfos[i].mOffsetY;
-		g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle });// 
+
+		Color colorTemp = { g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,g->mCubeColor.a + mExtraInfos[i].mFlashSpotSingle };
+		//g->SetCubeColor(colorTotalTemp);
 
 		if (mReanimBlendCounter > 0) {
 			GetDeltaTransformEx(x.mFrames[mFrameIndexBlendBuffer], x.mFrames[mFrameIndexBegin], 1 - mReanimBlendCounter / mReanimBlendCounterMax, aSource, true);
@@ -392,8 +407,10 @@ void sgf::Animator::PresentMatrix(Graphics* g,const glm::mat4x4& mat)
 				animMatrix = mat * animMatrix;
 				animMatrix = glm::translate(animMatrix, glm::vec3(0.0f, 0.0f, -1.0f));
 
-				g->SetCubeColor({ g->mCubeColor.r ,g->mCubeColor.g ,g->mCubeColor.b ,
-					g->mCubeColor.a * aSource.a });
+
+				//归位颜色
+				g->SetCubeColor({ colorTemp.r ,colorTemp.g ,colorTemp.b ,
+					colorTemp.a * aSource.a });
 
 				if (targetImage) {
 					g->DrawImageMatrix(targetImage, animMatrix);

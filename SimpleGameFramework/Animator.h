@@ -59,6 +59,8 @@ namespace sgf {
 		std::pair<int, int> GetTrackRange(const sgf::String& trackName);
 		void SetFrameRange(int frameBegin,int frameEnd);
 		void SetFrameRangeByTrackName(const sgf::String& trackName);
+		void SetFrameRangeToDefault();
+
 		//×Ô¶¯»Ö¸´
 		void SetFrameRangeByTrackNameOnce(const sgf::String& trackName, const sgf::String& oriTrackName);
 		void SetTrackVisibleByTrackName(const sgf::String& trackName,bool visible);

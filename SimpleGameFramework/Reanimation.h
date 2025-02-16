@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include "ResourceManager.h"
 #include <vector>
+#include <set>
 
 namespace sgf {
 	class Reanimation;
@@ -31,7 +32,8 @@ namespace sgf {
 	class Reanimation {
 	public:
 		float mFPS = 0.0f;
-		std::vector<TrackInfo>* mTracks = nullptr;
+		std::shared_ptr<std::vector<TrackInfo>> mTracks = nullptr;
+		std::shared_ptr<std::set<sgf::String>> mImagesSet = nullptr;
 		bool mIsLoaded = false;
 		sgf::ResourceManager* mResourceManager;
 

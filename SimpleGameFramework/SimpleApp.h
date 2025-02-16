@@ -18,8 +18,8 @@ namespace sgf {
 		std::function<void(GameAppBase*, SDL_Event&)> mCallback;
 
 	public:
-		int mWidth = 0;
-		int mHeight = 0;
+		int mWidth = 0;//不会随窗口缩放改变的固定值
+		int mHeight = 0;//不会随窗口缩放改变的固定值
 		bool mIsOpen = false;
 		bool mShowDebugWindow = false;
 		bool mShowAnalyzeWindow = false;
