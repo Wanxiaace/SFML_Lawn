@@ -166,7 +166,6 @@
     <ClCompile Include="FileStream.cpp" />
     <ClCompile Include="GamePacker\GamePacker.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
-    <ClCompile Include="PopCom\CompiledReader.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="CursorObject.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -209,7 +208,6 @@
     <ClInclude Include="SString.h" />
     <ClInclude Include="TickCounter.h" />
     <ClInclude Include="WidgetSystem.h" />
-    <ClInclude Include="PopCom\CompiledReader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
