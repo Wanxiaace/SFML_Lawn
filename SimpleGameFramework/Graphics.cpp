@@ -191,7 +191,7 @@ int sgf::Graphics::TryToBindNewTexture(sgf::SimpleImage* src)
 {
 	auto itr = std::find(mImagesBuffer.begin(), mImagesBuffer.end(), src);
 	if (itr != mImagesBuffer.end())
-		return itr - mImagesBuffer.begin() + mTexturesNumber;
+		return itr - mImagesBuffer.begin();//mTexturesNumber
 	int unitMaxCount = GetMaxTextureUnitCount();
 	GLenum textureUnit = GL_TEXTURE0 + mImagesNumber;
 	if (mImagesNumber < unitMaxCount) {
